@@ -1,0 +1,30 @@
+// Prisma Schema for SalesDesk Sites Blog & Knowledge Hub
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Post {
+  id              String    @id @default(cuid())
+  slug            String    @unique
+  title           String
+  metaDescription String    @db.VarChar(160)
+  content         String    @db.Text
+  featuredImage   String
+  imageAlt        String?   @default("SalesDesk Knowledge Hub")
+  author          String    @default("ทีมงาน SalesDesk AI")
+  authorRole      String    @default("Conversion Rate Specialist")
+  category        String    @default("Salepage Strategy")
+  readTime        String    @default("5 นาที")
+  published       Boolean   @default(true)
+  publishedAt     DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([published, publishedAt(sort: Desc)])
+}

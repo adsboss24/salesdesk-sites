@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { 
   Sparkles, 
   ArrowRight, 
@@ -367,6 +368,12 @@ export default function HomePage() {
             >
               แพ็กเกจราคา
             </a>
+            <Link 
+              href="/blog"
+              className="hidden sm:inline-block text-xs font-semibold text-teal-300 hover:text-white transition px-3 py-2"
+            >
+              บทความ & ความรู้
+            </Link>
             <a 
               href="#tracking"
               className="hidden lg:inline-block text-xs font-semibold text-slate-300 hover:text-white transition px-3 py-2"

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { 
   Sparkles, 
   MapPin, 
@@ -202,6 +203,8 @@ export default function PremiumFooter() {
           </div>
           
           <div className="flex flex-wrap items-center gap-4 text-[11px]">
+            <Link href="/blog" className="text-teal-400 font-bold hover:underline transition">คลังความรู้ & กลยุทธ์ SEO</Link>
+            <span>•</span>
             <a href="#privacy" className="hover:text-slate-300 transition">นโยบายความเป็นส่วนตัว (Privacy Policy)</a>
             <span>•</span>
             <a href="#terms" className="hover:text-slate-300 transition">ข้อกำหนดการให้บริการ (Terms)</a>

@@ -18,6 +18,104 @@ import {
 } from 'lucide-react';
 
 export default function HomePage() {
+  const [activeCategory, setActiveCategory] = React.useState<'all' | 'service' | 'shop' | 'property' | 'insurance' | 'course'>('all');
+
+  const projects = [
+    {
+      id: 'nattanan',
+      category: 'service',
+      tag: 'Healthcare & Senior Living',
+      badgeColor: 'border-teal-500/40 text-teal-300',
+      title: 'ณัฐนันท์ เนอสซิ่งแคร์',
+      subtitle: 'บ้านพักผู้สูงอายุ & ศูนย์ฟื้นฟูผู้ป่วยพักฟื้น',
+      desc: 'เซลเพจมาตรฐานสากล ถ่ายทอดความอบอุ่น ร่มรื่น และความน่าเชื่อถือด้วยภาพสไตล์ Cinematic สวนญี่ปุ่น พร้อมระบบเลือกแพ็กเกจ ฟอร์มนัดหมายเยี่ยมชม และปุ่มปิดการขายผ่าน LINE',
+      image: '/images/nattanan-hero.jpg',
+      url: '/nattanan-nursingcare',
+      accentColor: 'hover:border-teal-500/50',
+      btnBg: 'bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950',
+      features: [
+        'โครงสร้าง 16:9 Hero ไม่บังภาพบนมือถือ (Unobstructed View)',
+        'ระบบ Lead Capture นัดหมายเข้าชมสถานที่พร้อมบันทึกประวัติ',
+        'เชื่อมต่อ LINE OA ทักตรงหาแอดมินปิดการขายได้ทันที',
+      ],
+    },
+    {
+      id: 'fashion',
+      category: 'shop',
+      tag: 'Fashion & E-Commerce',
+      badgeColor: 'border-amber-500/40 text-amber-300',
+      title: 'DADA Lady Jeans',
+      subtitle: 'กางเกงยีนส์พรีเมียมทรงสวย เก็บทรงเป๊ะ',
+      desc: 'เซลเพจสั่งซื้อสินค้าหน้าเดียว (One-Page Shop) ตอบโจทย์แม่ค้าออนไลน์ มีตารางเทียบไซส์ เอว/สะโพก ระบบเลือกสี และฟอร์มสั่งซื้อเก็บเงินปลายทาง ไม่ต้องตอบไซส์ซ้ำๆ',
+      image: '/images/fashion-hero.jpg',
+      url: '/fashion-jeans',
+      accentColor: 'hover:border-amber-500/50',
+      btnBg: 'bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-slate-950',
+      features: [
+        'ตารางขนาดกางเกงยีนส์เทียบไซส์ S ถึง 2XL ชัดเจน',
+        'แพ็กเกจโปรโมชัน 1 ตัว, 2 ตัวสุดคุ้ม และ 3 ตัวแถมเข็มขัด',
+        'ฟอร์มสั่งซื้อด่วนแบบเก็บเงินปลายทาง (COD) ปิดการขายทันที',
+      ],
+    },
+    {
+      id: 'property',
+      category: 'property',
+      tag: 'Luxury Real Estate',
+      badgeColor: 'border-emerald-500/40 text-emerald-300',
+      title: 'The Grand Residence',
+      subtitle: 'Ultra Luxury Modern Tropical Pool Villa',
+      desc: 'เว็บไซต์สำหรับโครงการบ้านหรูและพูลวิลล่าระดับมาสเตอร์พีซ โชว์ภาพสถาปัตยกรรมสุดอลังการ รายละเอียดพื้นที่ 680 ตร.ม. พร้อมระบบลงทะเบียนจอง Private Viewing VIP',
+      image: '/images/property-hero.jpg',
+      url: '/property-luxury',
+      accentColor: 'hover:border-emerald-500/50',
+      btnBg: 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-slate-950',
+      features: [
+        'โชว์ฟังก์ชัน 5 ห้องนอน 6 ห้องน้ำ และสระว่ายน้ำส่วนตัว',
+        'ขอรับ E-Brochure และ Floor Plan รายละเอียดโครงการ',
+        'ระบบนัดหมายเข้าชมโครงการแบบไพรเวทเฉพาะบุคคล',
+      ],
+    },
+    {
+      id: 'insurance',
+      category: 'insurance',
+      tag: 'Financial & Wealth Protection',
+      badgeColor: 'border-sky-500/40 text-sky-300',
+      title: 'คุณปรียาพร (MDRT Advisor)',
+      subtitle: 'ที่ปรึกษาการเงินและวางแผนประกันชีวิตเฉพาะบุคคล',
+      desc: 'เซลเพจสร้างความน่าเชื่อถือระดับมืออาชีพสำหรับตัวแทนประกันชีวิต ชูคุณวุฒิระดับสากล MDRT ตารางเปรียบเทียบแผนประกันสุขภาพเหมาจ่าย 5-30 ล้าน และฟอร์มคำนวณเบี้ยเฉพาะบุคคล',
+      image: '/images/insurance-hero.jpg',
+      url: '/insurance-advisor',
+      accentColor: 'hover:border-sky-500/50',
+      btnBg: 'bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-600 hover:to-indigo-600 text-white',
+      features: [
+        'ชูประวัติและความเชี่ยวชาญดูแลกว่า 850 ครอบครัว',
+        'ตารางเปรียบเทียบ 3 แผนความคุ้มครองที่ตอบโจทย์',
+        'ฟอร์มขอตารางเบี้ยประกันเฉพาะบุคคล ส่งตรงเข้า LINE ทันที',
+      ],
+    },
+    {
+      id: 'course',
+      category: 'course',
+      tag: 'Online Course & Education',
+      badgeColor: 'border-purple-500/40 text-purple-300',
+      title: 'AI Business Masterclass',
+      subtitle: 'ปลดล็อกยอดขาย 10 เท่า ด้วยระบบ AI อัตโนมัติ',
+      desc: 'เซลเพจขายคอร์สเรียนออนไลน์สไตล์ High-Conversion จัดเต็มโครงสร้าง 6 โมดูล สารบัญบทเรียน รีวิวผลลัพธ์นักเรียนจริง และฟอร์มสมัครสิทธิ์ Early Bird ลด 60%',
+      image: '/images/course-hero.jpg',
+      url: '/online-course',
+      accentColor: 'hover:border-purple-500/50',
+      btnBg: 'bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white',
+      features: [
+        'โครงสร้างสารบัญ 6 โมดูล 12 ชั่วโมงเต็ม',
+        'ชูข้อเสนอพิเศษ Early Bird นับถอยหลังสิทธิ์ราคาพิเศษ',
+        'ฟอร์มลงทะเบียนสมัครเรียนพร้อมดึงเข้ากลุ่ม VIP ทันที',
+      ],
+    },
+  ];
+
+  const filteredProjects = activeCategory === 'all' 
+    ? projects 
+    : projects.filter(p => p.category === activeCategory);
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-teal-500 selection:text-white">
       {/* 1. TOP ANNOUNCEMENT BAR */}
@@ -103,142 +201,101 @@ export default function HomePage() {
       {/* 4. FEATURED PORTFOLIO SHOWCASE */}
       <section id="portfolio" className="py-16 md:py-24 bg-slate-900/60 border-y border-slate-800 relative">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
+          <div className="text-center max-w-2xl mx-auto space-y-3 mb-10">
             <span className="text-xs font-bold text-teal-400 uppercase tracking-widest bg-teal-950/80 px-3 py-1 rounded-full border border-teal-500/30">
-              Featured Flagship Projects
+              Showcase Directory
             </span>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
-              ผลงานระดับ Masterpiece ล่าสุด
+              ตัวอย่างเว็บไซต์และเซลเพจ 5 หมวดหมู่ธุรกิจ
             </h2>
             <p className="text-sm sm:text-base text-slate-400">
-              สร้างขึ้นด้วยมาตรฐาน SalesDesk Salepage Architect ปรับแต่งเฉพาะธุรกิจเพื่อผลลัพธ์การแปลงยอดขายสูงสุด
+              สร้างขึ้นด้วยมาตรฐาน SalesDesk Salepage Architect สวยหรู สไตล์ Cinematic Hero 16:9 ไม่บังภาพบนมือถือ
             </p>
           </div>
 
+          {/* Category Filter Tabs */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
+            {[
+              { key: 'all', label: 'ทั้งหมด' },
+              { key: 'service', label: '🏥 ธุรกิจบริการ' },
+              { key: 'shop', label: '🛍️ สั่งซื้อสินค้าหน้าเดียว' },
+              { key: 'property', label: '🏡 อสังหาริมทรัพย์' },
+              { key: 'insurance', label: '🛡️ ตัวแทนประกันชีวิต' },
+              { key: 'course', label: '🎓 คอร์สออนไลน์' },
+            ].map(tab => (
+              <button
+                key={tab.key}
+                onClick={() => setActiveCategory(tab.key as any)}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+                  activeCategory === tab.key
+                    ? 'bg-gradient-to-r from-teal-500 to-emerald-500 text-slate-950 shadow-lg shadow-teal-500/20'
+                    : 'bg-slate-950 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700'
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
           <div className="space-y-12">
-            {/* Project Card 1: Flower.com (Luxury Floral Boutique) */}
-            <div className="bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl hover:border-rose-500/50 transition-all duration-500 group">
-              <div className="grid grid-cols-1 lg:grid-cols-12">
-                {/* Image Preview */}
-                <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-auto overflow-hidden">
-                  <img 
-                    src="/images/flower-hero.jpg" 
-                    alt="Flower.com บูทีกดอกไม้พรีเมียมและบริการจัดส่งด่วน" 
-                    className="w-full h-full object-cover object-[78%_center] group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent lg:hidden" />
-                  <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 bg-slate-950/85 backdrop-blur-md border border-rose-500/40 text-rose-300 text-xs px-3 py-1 rounded-full font-semibold">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Luxury E-Commerce & Floral Boutique</span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between space-y-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2 text-xs font-semibold text-rose-400">
-                      <Sparkles className="w-4 h-4" />
-                      <span>บูทีกดอกไม้พรีเมียม & Same-Day Delivery 2 ชม.</span>
+            {filteredProjects.map((project) => (
+              <div 
+                key={project.id}
+                className={`bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl ${project.accentColor} transition-all duration-500 group`}
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-12">
+                  {/* Image Preview */}
+                  <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-auto overflow-hidden">
+                    <img 
+                      src={project.image} 
+                      alt={project.title} 
+                      className="w-full h-full object-cover object-[78%_center] group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent lg:hidden" />
+                    <div className={`absolute top-4 left-4 inline-flex items-center gap-1.5 bg-slate-950/85 backdrop-blur-md border ${project.badgeColor} text-xs px-3 py-1 rounded-full font-semibold`}>
+                      <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                      <span>{project.tag}</span>
                     </div>
-                    <h3 className="text-2xl sm:text-3xl font-black text-white group-hover:text-rose-300 transition">
-                      Flower.com
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-                      เซลเพจระดับ World-Class โครงสร้าง 16:9 Hero ไม่บังภาพดอกไม้และศิลปินจัดดอกไม้บนมือถือ 
-                      ผสานระบบฟิลเตอร์คอลเลกชัน ตารางราคาโปร่งใส และฟอร์มสั่งจัดดอกไม้ด่วนพร้อมปิดการขายผ่าน LINE OA
-                    </p>
-
-                    <ul className="space-y-2 pt-2 text-xs text-slate-300">
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                        <span>โครงสร้าง 16:9 Cinematic Hero โชว์ความงามของดอกไม้ 100% บนมือถือ</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                        <span>ระบบฟิลเตอร์แกลเลอรีช่อดอกไม้ & ตารางแพ็กเกจราคาโปร่งใส</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                        <span>ฟอร์มสั่งดอกไม้ด่วน ตอบกลับและสรุปแบบภายใน 10 นาที</span>
-                      </li>
-                    </ul>
                   </div>
 
-                  <div className="pt-4 border-t border-slate-800">
-                    <a 
-                      href="/flower" 
-                      target="_blank" 
-                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-bold text-sm shadow-lg shadow-rose-600/25 transition transform active:scale-95"
-                    >
-                      <span>เปิดชมหน้าเว็บตัวอย่างจริง (Flower.com)</span>
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
+                  {/* Content */}
+                  <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between space-y-6">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2 text-xs font-semibold text-teal-400">
+                        <Sparkles className="w-4 h-4" />
+                        <span>{project.subtitle}</span>
+                      </div>
+                      <h3 className="text-2xl sm:text-3xl font-black text-white group-hover:text-teal-300 transition">
+                        {project.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                        {project.desc}
+                      </p>
+
+                      <ul className="space-y-2 pt-2 text-xs text-slate-300">
+                        {project.features.map((feat, idx) => (
+                          <li key={idx} className="flex items-center gap-2">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="pt-4 border-t border-slate-800">
+                      <a 
+                        href={project.url} 
+                        target="_blank" 
+                        className={`w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl ${project.btnBg} font-bold text-sm shadow-lg transition transform active:scale-95`}
+                      >
+                        <span>เปิดชมหน้าเว็บตัวอย่างจริง ({project.title})</span>
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Project Card 2: Nattanan Nursing Care */}
-            <div className="bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl hover:border-teal-500/50 transition-all duration-500 group">
-              <div className="grid grid-cols-1 lg:grid-cols-12">
-                {/* Image Preview */}
-                <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-auto overflow-hidden">
-                  <img 
-                    src="/images/nattanan-hero.jpg" 
-                    alt="ณัฐนันท์ เนอสซิ่งแคร์" 
-                    className="w-full h-full object-cover object-[78%_center] group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent lg:hidden" />
-                  <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 bg-slate-950/85 backdrop-blur-md border border-teal-500/40 text-teal-300 text-xs px-3 py-1 rounded-full font-semibold">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Healthcare & Senior Living</span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between space-y-6">
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2 text-xs font-semibold text-teal-400">
-                      <HeartHandshake className="w-4 h-4" />
-                      <span>บ้านพักผู้สูงอายุ & ศูนย์ฟื้นฟูผู้ป่วยพักฟื้น</span>
-                    </div>
-                    <h3 className="text-2xl sm:text-3xl font-black text-white group-hover:text-teal-300 transition">
-                      ณัฐนันท์ เนอสซิ่งแคร์
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-                      เซลเพจมาตรฐานสากล ถ่ายทอดความอบอุ่น ร่มรื่น และความน่าเชื่อถือด้วยภาพสไตล์ Cinematic สวนญี่ปุ่น 
-                      พร้อมระบบเลือกแพ็กเกจ ฟอร์มนัดหมายเยี่ยมชม และปุ่มปิดการขายผ่าน LINE ครบวงจร
-                    </p>
-
-                    <ul className="space-y-2 pt-2 text-xs text-slate-300">
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                        <span>โครงสร้าง 16:9 Hero ไม่บังภาพบนมือถือ (Unobstructed View)</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                        <span>รองรับ Lead Capture นัดหมายเข้าชมสถานที่พร้อมบันทึกประวัติ</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                        <span>เชื่อมต่อ LINE OA ทักตรงหาแอดมินปิดการขายได้ทันที</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="pt-4 border-t border-slate-800">
-                    <a 
-                      href="/nattanan-nursingcare" 
-                      target="_blank" 
-                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-bold text-sm shadow-lg shadow-teal-500/25 transition transform active:scale-95"
-                    >
-                      <span>เปิดชมหน้าเว็บตัวอย่างจริง</span>
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>

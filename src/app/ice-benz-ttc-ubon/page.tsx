@@ -33,6 +33,8 @@ import {
   Loader2,
   BookOpen,
   ArrowRight,
+  Menu,
+  X,
 } from 'lucide-react';
 import StructuredData from '@/components/StructuredData';
 import { getAllBenzPosts } from '@/lib/benz-posts';
@@ -79,6 +81,7 @@ export default function IceBenzTTCUbonSalepage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [activeCarTab, setActiveCarTab] = useState<'all' | 'sedan' | 'suv' | 'amg' | 'smart'>('all');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const articles = getAllBenzPosts();
 
   // Carousel slider state for Articles Hub
@@ -313,12 +316,12 @@ export default function IceBenzTTCUbonSalepage() {
       <StructuredData data={localBusinessSchema} id="ice-luxury-auto-schema" />
       <StructuredData data={articlesItemListSchema} id="ice-benz-articles-schema" />
 
-      {/* GLOBAL HEADER */}
-      <header className="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
-          {/* International Brand Logo */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-slate-200 via-white to-slate-400 p-[1.5px] shadow-lg shadow-white/10 shrink-0">
+      {/* 1. LUXURY STICKY NAVIGATION MENU */}
+      <header className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-800 transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+          {/* Brand Logo & Certified Specialist */}
+          <Link href="/ice-benz-ttc-ubon" className="flex items-center gap-2.5 shrink-0 group">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-slate-200 via-white to-slate-400 p-[1.5px] shadow-lg shadow-white/10 shrink-0 group-hover:scale-105 transition">
               <div className="w-full h-full rounded-full bg-slate-950 flex items-center justify-center">
                 <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
               </div>
@@ -328,37 +331,123 @@ export default function IceBenzTTCUbonSalepage() {
                 <span className="text-base sm:text-lg font-black tracking-tight text-white leading-tight">
                   ICE <span className="text-amber-400">LUXURY AUTO</span>
                 </span>
-                <span className="hidden sm:inline-block bg-amber-400/20 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-400/30 whitespace-nowrap">
-                  Mercedes-Benz & AMG Specialist
+                <span className="hidden xl:inline-block bg-amber-400/20 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-400/30 whitespace-nowrap">
+                  Mercedes-Benz Specialist
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 truncate">
-                คุณไอซ์ • ที่ปรึกษาการขาย Mercedes-Benz • Mercedes-AMG • smart EV
+              <p className="text-[11px] text-slate-400 truncate hidden sm:block">
+                คุณไอซ์ • ที่ปรึกษาการขาย Mercedes-Benz, AMG & smart EV
               </p>
             </div>
-          </div>
+          </Link>
 
-          {/* Real Contact Action Buttons */}
+          {/* Desktop Navigation Links (Sticky Menu) */}
+          <nav className="hidden lg:flex items-center gap-6 text-xs sm:text-sm font-medium text-slate-300">
+            <a href="#models" className="hover:text-amber-400 transition">เลือกรุ่นรถ</a>
+            <a href="#campaigns" className="hover:text-amber-400 transition">สิทธิพิเศษ</a>
+            <a href="#articles" className="hover:text-amber-400 transition">บทความ & คู่มือ</a>
+            <a href="#reviews" className="hover:text-amber-400 transition">เสียงตอบรับลูกค้า</a>
+            <a href="#contact" className="hover:text-amber-400 transition">ข้อมูลติดต่อ</a>
+          </nav>
+
+          {/* Actions & Mobile Toggle */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Direct Call Button */}
             <a
               href={`tel:${realPhoneRaw}`}
-              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-amber-400/60 text-slate-200 text-xs sm:text-sm font-semibold transition whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-amber-400/60 text-slate-200 text-xs sm:text-sm font-semibold transition whitespace-nowrap"
             >
               <PhoneCall className="w-3.5 h-3.5 text-amber-400" />
               <span className="hidden sm:inline">โทร</span> {realPhone}
             </a>
 
+            {/* Test Drive CTA (Desktop) */}
             <a
-              href={fbMessengerUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-500/20 transition whitespace-nowrap"
+              href="#booking-form"
+              className="hidden md:inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-600 hover:to-yellow-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-amber-500/20 transition whitespace-nowrap"
             >
-              <FacebookIcon className="w-4 h-4 fill-white text-transparent" />
-              <span>ทักแชต Facebook</span>
+              <Calendar className="w-3.5 h-3.5 text-slate-950" />
+              <span>นัดหมายทดลองขับ</span>
             </a>
+
+            {/* Mobile Menu Hamburger Button */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Navigation Menu"
+              className="lg:hidden w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 text-slate-200 hover:text-amber-400 hover:border-amber-400/40 flex items-center justify-center transition"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Dropdown Menu Drawer */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-slate-950/98 border-b border-slate-800 px-5 py-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-200">
+            <nav className="flex flex-col space-y-2.5 text-sm font-medium text-slate-200 pb-3 border-b border-slate-850">
+              <a
+                href="#models"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1.5 hover:text-amber-400 transition flex items-center justify-between"
+              >
+                <span>🚘 เลือกรุ่นรถยนต์ยอดนิยม</span>
+                <ChevronRight className="w-4 h-4 text-slate-600" />
+              </a>
+              <a
+                href="#campaigns"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1.5 hover:text-amber-400 transition flex items-center justify-between"
+              >
+                <span>✨ สิทธิพิเศษ & แคมเปญ</span>
+                <ChevronRight className="w-4 h-4 text-slate-600" />
+              </a>
+              <a
+                href="#articles"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1.5 hover:text-amber-400 transition flex items-center justify-between"
+              >
+                <span>📚 บทความ & คู่มือความรู้ (SEO)</span>
+                <ChevronRight className="w-4 h-4 text-slate-600" />
+              </a>
+              <a
+                href="#reviews"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1.5 hover:text-amber-400 transition flex items-center justify-between"
+              >
+                <span>⭐ เสียงตอบรับจากลูกค้าจริง</span>
+                <ChevronRight className="w-4 h-4 text-slate-600" />
+              </a>
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-1.5 hover:text-amber-400 transition flex items-center justify-between"
+              >
+                <span>📍 ข้อมูลติดต่อ & โชว์รูม</span>
+                <ChevronRight className="w-4 h-4 text-slate-600" />
+              </a>
+            </nav>
+
+            <div className="grid grid-cols-2 gap-2 pt-1">
+              <a
+                href="#booking-form"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2.5 px-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold text-xs text-center flex items-center justify-center gap-1.5 transition"
+              >
+                <Calendar className="w-3.5 h-3.5" />
+                <span>จองทดลองขับ</span>
+              </a>
+              <a
+                href={fbMessengerUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs text-center flex items-center justify-center gap-1.5 transition"
+              >
+                <FacebookIcon className="w-3.5 h-3.5 fill-white" />
+                <span>ทักแชตเพจ</span>
+              </a>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* 2. CINEMATIC HERO SECTION (16:9 DUAL-DEVICE FRAMING - UNOBSTRUCTED MOBILE) */}
@@ -497,7 +586,7 @@ export default function IceBenzTTCUbonSalepage() {
       </section>
 
       {/* 3. 100% REAL MODELS SHOWCASE (AUTHENTIC EXACT PHOTOS) */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto">
+      <section id="models" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto scroll-mt-20">
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 text-amber-300 text-xs font-semibold mb-3 border border-amber-400/20">
             <Car className="w-3.5 h-3.5" /> Official Vehicle Lineup
@@ -771,7 +860,7 @@ export default function IceBenzTTCUbonSalepage() {
       </section>
 
       {/* 6. PROMOTION & FINANCIAL CAMPAIGNS */}
-      <section className="py-16 sm:py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 px-4 sm:px-6">
+      <section id="campaigns" className="py-16 sm:py-24 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 px-4 sm:px-6 scroll-mt-20">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 text-amber-300 text-xs font-semibold mb-3 border border-amber-400/20">
@@ -932,7 +1021,7 @@ export default function IceBenzTTCUbonSalepage() {
       </section>
 
       {/* 7. REAL CUSTOMER REVIEWS */}
-      <section className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto">
+      <section id="reviews" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto scroll-mt-20">
         <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 text-amber-300 text-xs font-semibold mb-3 border border-amber-400/20">
             <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" /> Real Customer Stories
@@ -1416,7 +1505,7 @@ export default function IceBenzTTCUbonSalepage() {
       </section>
 
       {/* 9. REAL FOOTER SECTION: 100% REAL CREDENTIALS FROM FACEBOOK PAGE */}
-      <footer className="bg-slate-950 text-slate-300 border-t border-slate-800 relative overflow-hidden">
+      <footer id="contact" className="bg-slate-950 text-slate-300 border-t border-slate-800 relative overflow-hidden scroll-mt-20">
         {/* Subtle Ambient Glow */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-[140px] pointer-events-none" />
 
@@ -1453,14 +1542,14 @@ export default function IceBenzTTCUbonSalepage() {
               </div>
             </div>
 
-            {/* Column 2: Benz SEO Articles Hub (Center Block - Replaced Image 2) */}
+            {/* Column 2: Benz SEO Articles Hub (Showing 2 Latest Articles to prevent overflow) */}
             <div className="lg:col-span-4 space-y-3">
               <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
                 <BookOpen className="w-4 h-4 text-amber-400" />
-                บทความ & สาระน่ารู้
+                บทความ & สาระน่ารู้ล่าสุด
               </h4>
               <div className="space-y-2.5 pt-1">
-                {articles.map((post) => (
+                {articles.slice(0, 2).map((post) => (
                   <Link
                     key={post.id}
                     href={`/ice-benz-ttc-ubon/blog/${post.slug}`}
@@ -1477,6 +1566,15 @@ export default function IceBenzTTCUbonSalepage() {
                     </h5>
                   </Link>
                 ))}
+              </div>
+              <div className="pt-1.5">
+                <a
+                  href="#articles"
+                  className="inline-flex items-center gap-1.5 text-xs text-amber-400 hover:text-amber-300 font-semibold transition"
+                >
+                  <span>อ่านบทความทั้งหมด ({articles.length} เรื่อง)</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
               </div>
             </div>
 

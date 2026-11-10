@@ -10,6 +10,7 @@ import {
   Clock,
   Sparkles,
   Award,
+  ChevronLeft,
   ChevronRight,
   Check,
   CheckCircle2,
@@ -80,6 +81,41 @@ export default function IceBenzTTCUbonSalepage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const articles = getAllBenzPosts();
 
+  // Carousel slider state for Articles Hub
+  const articleSliderRef = React.useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [activeArticleIndex, setActiveArticleIndex] = useState(0);
+
+  const updateScrollState = () => {
+    if (!articleSliderRef.current) return;
+    const { scrollLeft, scrollWidth, clientWidth } = articleSliderRef.current;
+    setCanScrollLeft(scrollLeft > 20);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 20);
+    const itemWidth = 380 + 24;
+    const idx = Math.round(scrollLeft / itemWidth);
+    setActiveArticleIndex(Math.min(Math.max(idx, 0), articles.length - 1));
+  };
+
+  const slideArticles = (direction: 'left' | 'right') => {
+    if (!articleSliderRef.current) return;
+    const container = articleSliderRef.current;
+    const scrollStep = container.clientWidth > 640 ? 410 : container.clientWidth * 0.88;
+    container.scrollBy({
+      left: direction === 'left' ? -scrollStep : scrollStep,
+      behavior: 'smooth',
+    });
+  };
+
+  const scrollToArticle = (index: number) => {
+    if (!articleSliderRef.current) return;
+    const container = articleSliderRef.current;
+    const card = container.children[index] as HTMLElement;
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }
+  };
+
   const toggleFaq = (idx: number) => {
     setOpenFaq(openFaq === idx ? null : idx);
   };
@@ -138,6 +174,32 @@ export default function IceBenzTTCUbonSalepage() {
     },
     description:
       'ที่ปรึกษาการขายและบริการยนตรกรรมระดับพรีเมียม Mercedes-Benz, Mercedes-AMG และ smart EV พร้อมข้อเสนอพิเศษ ส่งมอบและทดลองขับถึงที่ทั่วประเทศ',
+  };
+
+  // Structured Data Schema for Articles Carousel / ItemList (Google Discover & SERP Rich Results)
+  const articlesItemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Mercedes-Benz & AMG Knowledge Hub by Ice TTC Motor',
+    description: 'รวมบทความเจาะลึกสมรรถนะ AMG, เปรียบเทียบ E-Class vs C-Class, smart EV และคู่มือการเป็นเจ้าของรถยนต์หรู',
+    itemListElement: articles.map((article, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      item: {
+        '@type': 'BlogPosting',
+        '@id': `https://salesdesk-sites.vercel.app/ice-benz-ttc-ubon/blog/${article.slug}`,
+        headline: article.title,
+        description: article.metaDescription,
+        image: `https://salesdesk-sites.vercel.app${article.featuredImage}`,
+        author: {
+          '@type': 'Person',
+          name: article.author,
+          jobTitle: article.authorRole,
+        },
+        datePublished: article.publishedAt,
+        url: `https://salesdesk-sites.vercel.app/ice-benz-ttc-ubon/blog/${article.slug}`,
+      },
+    })),
   };
 
   // 100% REAL CAR MODELS WITH AUTHENTIC EXACT PHOTOS
@@ -249,6 +311,7 @@ export default function IceBenzTTCUbonSalepage() {
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-amber-400 selection:text-slate-950 pb-20 md:pb-0 w-full max-w-full overflow-x-hidden">
       {/* Schema Injection */}
       <StructuredData data={localBusinessSchema} id="ice-luxury-auto-schema" />
+      <StructuredData data={articlesItemListSchema} id="ice-benz-articles-schema" />
 
       {/* 1. TOP ANNOUNCEMENT & STICKY GLOBAL HEADER (NO DEMO BANNER) */}
       <div className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 text-slate-950 text-xs py-2 px-4 font-semibold text-center tracking-wide shadow-md">
@@ -1135,73 +1198,178 @@ export default function IceBenzTTCUbonSalepage() {
         </div>
       </section>
 
-      {/* 8.5. KNOWLEDGE HUB & SEO ARTICLES SECTION */}
+      {/* 8.5. KNOWLEDGE HUB & SEO ARTICLES SECTION: LUXURY CARD SLIDER */}
       <section id="articles" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto scroll-mt-20">
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 text-amber-300 text-xs font-semibold mb-3 border border-amber-400/20">
-            <BookOpen className="w-3.5 h-3.5" /> Mercedes-Benz & AMG Knowledge Hub
+        {/* Section Header with Carousel Controls */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-12">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 text-amber-300 text-xs font-semibold mb-3 border border-amber-400/20">
+              <BookOpen className="w-3.5 h-3.5 text-amber-400" /> Mercedes-Benz & AMG Knowledge Hub
+            </div>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+              <span className="block">บทความ & คู่มือความรู้ยนตรกรรมหรู</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 block mt-1">
+                เจาะลึกเทคโนโลยี ข้อแนะนำก่อนตัดสินใจ และวางแผนภาษี
+              </span>
+            </h2>
+            <p className="text-sm sm:text-base text-slate-300 mt-3 leading-relaxed">
+              รวมบทความวิเคราะห์สมรรถนะ AMG, เปรียบเทียบ E-Class vs C-Class, ยานยนต์ไฟฟ้า smart EV, แพ็กเกจ MBSP และเทคนิคประหยัดภาษี โดยคุณไอซ์
+            </p>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-normal sm:leading-[1.25]">
-            <span className="block">บทความ & คู่มือความรู้ยนตรกรรมหรู</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-200 block mt-1 pb-1">
-              เจาะลึกเทคโนโลยีและข้อแนะนำก่อนตัดสินใจ
+
+          {/* Desktop & Tablet Carousel Arrows + Counter */}
+          <div className="hidden sm:flex items-center gap-3 self-end shrink-0">
+            <span className="text-xs text-slate-400 font-mono mr-2">
+              <strong className="text-amber-400">{String(activeArticleIndex + 1).padStart(2, '0')}</strong> / {String(articles.length).padStart(2, '0')}
             </span>
-          </h2>
-          <p className="text-sm sm:text-base text-slate-300 mt-3 leading-relaxed">
-            รวมบทความวิเคราะห์สมรรถนะ AMG, เปรียบเทียบ E-Class vs C-Class และข้อมูลเจาะลึก smart EV โดยคุณไอซ์
-          </p>
+            <button
+              onClick={() => slideArticles('left')}
+              disabled={!canScrollLeft}
+              aria-label="Previous article slide"
+              className={`w-11 h-11 rounded-full border flex items-center justify-center transition backdrop-blur-md ${
+                canScrollLeft
+                  ? 'bg-slate-900 border-slate-700 text-white hover:bg-amber-400 hover:text-slate-950 hover:border-amber-400 shadow-lg cursor-pointer'
+                  : 'bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed opacity-50'
+              }`}
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => slideArticles('right')}
+              disabled={!canScrollRight}
+              aria-label="Next article slide"
+              className={`w-11 h-11 rounded-full border flex items-center justify-center transition backdrop-blur-md ${
+                canScrollRight
+                  ? 'bg-slate-900 border-slate-700 text-white hover:bg-amber-400 hover:text-slate-950 hover:border-amber-400 shadow-lg cursor-pointer'
+                  : 'bg-slate-900/40 border-slate-800 text-slate-600 cursor-not-allowed opacity-50'
+              }`}
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        {/* Card Slide Container with Smooth Touch-Snap and Mouse Drag/Wheel */}
+        <div
+          ref={articleSliderRef}
+          onScroll={updateScrollState}
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-6 pt-2 -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth focus:outline-none"
+          tabIndex={0}
+          aria-label="Mercedes-Benz Knowledge Hub Articles Carousel"
+        >
           {articles.map((article) => (
-            <div
+            <article
               key={article.id}
-              className="group bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-amber-400/50 transition duration-300 shadow-xl flex flex-col justify-between"
+              className="w-[86vw] sm:w-[380px] lg:w-[400px] shrink-0 snap-start group bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-amber-400/50 transition duration-300 shadow-xl flex flex-col justify-between"
             >
               <div>
-                <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-950">
+                {/* Cover Image with Zoom Effect */}
+                <div className="relative h-52 sm:h-56 w-full overflow-hidden bg-slate-950">
                   <Image
                     src={article.featuredImage}
                     alt={article.imageAlt}
                     fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
+                    sizes="(max-width: 640px) 86vw, (max-width: 1024px) 380px, 400px"
                     className="object-cover group-hover:scale-105 transition duration-500"
                   />
-                  <div className="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md text-amber-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-amber-400/30">
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+
+                  {/* Floating Category Pill */}
+                  <div className="absolute top-3.5 left-3.5 bg-slate-950/85 backdrop-blur-md text-amber-300 text-[11px] font-bold px-3 py-1 rounded-full border border-amber-400/30 shadow-md">
                     {article.category}
+                  </div>
+
+                  {/* Reading Time Pill */}
+                  <div className="absolute bottom-3.5 left-3.5 flex items-center gap-1.5 text-xs text-slate-300 bg-slate-950/80 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-slate-800">
+                    <Clock className="w-3.5 h-3.5 text-amber-400" />
+                    <span>{article.readTime}</span>
                   </div>
                 </div>
 
+                {/* Article Content */}
                 <div className="p-5 sm:p-6">
-                  <div className="flex items-center gap-3 text-[11px] text-slate-400 mb-2">
-                    <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-slate-500" /> {article.readTime}
-                    </span>
+                  <div className="flex items-center gap-2 text-[11px] text-slate-400 mb-2.5">
+                    <span className="text-amber-400/90 font-semibold">{article.author}</span>
                     <span>•</span>
-                    <span className="text-slate-300">{article.author}</span>
+                    <span className="text-slate-400 truncate">{article.authorRole}</span>
                   </div>
 
                   <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-amber-400 transition line-clamp-2 leading-snug">
-                    {article.title}
+                    <Link href={`/ice-benz-ttc-ubon/blog/${article.slug}`}>
+                      {article.title}
+                    </Link>
                   </h3>
 
-                  <p className="text-xs text-slate-400 mt-2 line-clamp-3 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-400 mt-2.5 line-clamp-3 leading-relaxed">
                     {article.metaDescription}
                   </p>
                 </div>
               </div>
 
+              {/* Action Link Footer */}
               <div className="p-5 sm:p-6 pt-0">
                 <Link
                   href={`/ice-benz-ttc-ubon/blog/${article.slug}`}
-                  className="w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-white text-xs font-bold text-center flex items-center justify-center gap-1.5 transition border border-slate-700 hover:border-amber-400/40"
+                  className="w-full py-2.5 px-4 rounded-xl bg-slate-800/80 group-hover:bg-amber-400 group-hover:text-slate-950 text-amber-300 text-xs sm:text-sm font-bold text-center flex items-center justify-center gap-2 transition duration-200 border border-slate-700 group-hover:border-amber-400"
                 >
                   <span>อ่านบทความฉบับเต็ม</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition transform" />
                 </Link>
               </div>
-            </div>
+            </article>
           ))}
+        </div>
+
+        {/* Carousel Indicators / Navigation Dots */}
+        <div className="flex items-center justify-between mt-6 pt-4 border-t border-slate-850">
+          {/* Slide Dots */}
+          <div className="flex items-center gap-2">
+            {articles.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => scrollToArticle(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  activeArticleIndex === i
+                    ? 'w-8 bg-amber-400 shadow-md shadow-amber-400/30'
+                    : 'w-2 bg-slate-800 hover:bg-slate-700'
+                }`}
+              />
+            ))}
+          </div>
+
+          {/* Mobile Prev / Next Controls */}
+          <div className="flex sm:hidden items-center gap-2">
+            <button
+              onClick={() => slideArticles('left')}
+              disabled={!canScrollLeft}
+              aria-label="Previous article slide"
+              className={`w-9 h-9 rounded-lg border flex items-center justify-center transition ${
+                canScrollLeft
+                  ? 'bg-slate-900 border-slate-700 text-white hover:bg-amber-400 hover:text-slate-950'
+                  : 'bg-slate-900/40 border-slate-800 text-slate-600 opacity-50'
+              }`}
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => slideArticles('right')}
+              disabled={!canScrollRight}
+              aria-label="Next article slide"
+              className={`w-9 h-9 rounded-lg border flex items-center justify-center transition ${
+                canScrollRight
+                  ? 'bg-slate-900 border-slate-700 text-white hover:bg-amber-400 hover:text-slate-950'
+                  : 'bg-slate-900/40 border-slate-800 text-slate-600 opacity-50'
+              }`}
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Quick link hint */}
+          <div className="hidden sm:block text-xs text-slate-400">
+            👉 ปัดซ้าย-ขวา เพื่ออ่านคู่มือความรู้ฉบับอื่นๆ
+          </div>
         </div>
       </section>
 

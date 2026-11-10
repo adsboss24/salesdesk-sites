@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/posts';
+import { getAllBenzPosts } from '@/lib/benz-posts';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://salesdesk-sites.vercel.app';
@@ -88,5 +89,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...showcaseRoutes, ...blogRoutes];
+  // 4. Client Blog Articles (ICE LUXURY AUTO Knowledge Hub)
+  const benzPosts = getAllBenzPosts();
+  const benzBlogRoutes: MetadataRoute.Sitemap = benzPosts.map((post) => ({
+    url: `${baseUrl}/ice-benz-ttc-ubon/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt || post.publishedAt),
+    changeFrequency: 'weekly',
+    priority: 0.85,
+  }));
+
+  return [...staticRoutes, ...showcaseRoutes, ...blogRoutes, ...benzBlogRoutes];
 }

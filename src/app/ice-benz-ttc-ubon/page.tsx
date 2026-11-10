@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   PhoneCall,
   MessageCircle,
@@ -29,8 +30,11 @@ import {
   ChevronDown,
   Mail,
   Loader2,
+  BookOpen,
+  ArrowRight,
 } from 'lucide-react';
 import StructuredData from '@/components/StructuredData';
+import { getAllBenzPosts } from '@/lib/benz-posts';
 
 function FacebookIcon({ className = 'w-4 h-4' }: { className?: string }) {
   return (
@@ -74,6 +78,7 @@ export default function IceBenzTTCUbonSalepage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [activeCarTab, setActiveCarTab] = useState<'all' | 'sedan' | 'suv' | 'amg' | 'smart'>('all');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const articles = getAllBenzPosts();
 
   const toggleFaq = (idx: number) => {
     setOpenFaq(openFaq === idx ? null : idx);
@@ -1127,6 +1132,76 @@ export default function IceBenzTTCUbonSalepage() {
               </p>
             </form>
           )}
+        </div>
+      </section>
+
+      {/* 8.5. KNOWLEDGE HUB & SEO ARTICLES SECTION */}
+      <section id="articles" className="py-16 sm:py-24 px-4 sm:px-6 max-w-7xl mx-auto scroll-mt-20">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 text-amber-300 text-xs font-semibold mb-3 border border-amber-400/20">
+            <BookOpen className="w-3.5 h-3.5" /> Mercedes-Benz & AMG Knowledge Hub
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-normal sm:leading-[1.25]">
+            <span className="block">บทความ & คู่มือความรู้ยนตรกรรมหรู</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 to-yellow-200 block mt-1 pb-1">
+              เจาะลึกเทคโนโลยีและข้อแนะนำก่อนตัดสินใจ
+            </span>
+          </h2>
+          <p className="text-sm sm:text-base text-slate-300 mt-3 leading-relaxed">
+            รวมบทความวิเคราะห์สมรรถนะ AMG, เปรียบเทียบ E-Class vs C-Class และข้อมูลเจาะลึก smart EV โดยคุณไอซ์
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+          {articles.map((article) => (
+            <div
+              key={article.id}
+              className="group bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-amber-400/50 transition duration-300 shadow-xl flex flex-col justify-between"
+            >
+              <div>
+                <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-950">
+                  <Image
+                    src={article.featuredImage}
+                    alt={article.imageAlt}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition duration-500"
+                  />
+                  <div className="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md text-amber-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-amber-400/30">
+                    {article.category}
+                  </div>
+                </div>
+
+                <div className="p-5 sm:p-6">
+                  <div className="flex items-center gap-3 text-[11px] text-slate-400 mb-2">
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3 h-3 text-slate-500" /> {article.readTime}
+                    </span>
+                    <span>•</span>
+                    <span className="text-slate-300">{article.author}</span>
+                  </div>
+
+                  <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-amber-400 transition line-clamp-2 leading-snug">
+                    {article.title}
+                  </h3>
+
+                  <p className="text-xs text-slate-400 mt-2 line-clamp-3 leading-relaxed">
+                    {article.metaDescription}
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-5 sm:p-6 pt-0">
+                <Link
+                  href={`/ice-benz-ttc-ubon/blog/${article.slug}`}
+                  className="w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-white text-xs font-bold text-center flex items-center justify-center gap-1.5 transition border border-slate-700 hover:border-amber-400/40"
+                >
+                  <span>อ่านบทความฉบับเต็ม</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

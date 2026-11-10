@@ -40,6 +40,42 @@ export default function HomePage() {
 
   const projects = [
     {
+      id: 'ambulance',
+      category: 'service',
+      tag: 'Emergency Medical & Ambulance 24H',
+      badgeColor: 'border-red-500/40 text-red-300',
+      title: 'ศูนย์บริการรถพยาบาล 24 ชั่วโมง',
+      subtitle: 'บริการรถพยาบาลเอกชน รับ-ส่ง เคลื่อนย้ายผู้ป่วยทั่วไทย',
+      desc: 'เซลเพจมาตรฐาน SalesDesk Salepage Architect สำหรับศูนย์บริการรถพยาบาลเอกชน 24 ชม. ถ่ายทอดความน่าเชื่อถือระดับ Mobile ICU ด้วยภาพ Cinematic 16:9 ไร้ข้อความบดบังบนมือถือ พร้อมระบบประเมินค่าเดินทาง ฟอร์มจองรถด่วน และปุ่มโทรสายด่วนฉุกเฉิน 24 ชม.',
+      image: '/images/ambulance/ambulance-hero.jpg',
+      url: '/ambulance-24hr',
+      accentColor: 'hover:border-red-500/50',
+      btnBg: 'bg-gradient-to-r from-red-600 via-amber-500 to-emerald-500 hover:from-red-500 hover:to-emerald-400 text-slate-950 font-bold',
+      features: [
+        'สถาปัตยกรรม Cinematic 16:9 ไร้ข้อความบดบังรถพยาบาลและทีมแพทย์บนมือถือ',
+        'ระบบประเมินค่าเดินทาง 6 รูปแบบ (กทม., ฟอกไต, ต่างจังหวัด, Air Ambulance)',
+        'ปุ่มโทรฉุกเฉินด่วน 24 ชม. และเชื่อมต่อ LINE OA ประเมินราคาใน 5 นาที',
+      ],
+    },
+    {
+      id: 'tandj',
+      category: 'shop',
+      tag: 'B2B Hospitality & Hotel Bedding',
+      badgeColor: 'border-amber-500/40 text-amber-300',
+      title: 'T&J BEDDING',
+      subtitle: 'ชุดเครื่องนอนโรงแรม รีสอร์ท ส่งตรงจากโรงงาน',
+      desc: 'เซลเพจมาตรฐาน SalesDesk Salepage Architect สำหรับโรงงานสิ่งทอและผู้นำเข้าเครื่องนอนโรงแรมกว่า 30 ปี ชูสโลแกน "งบจำกัด จัดให้ได้" พร้อมสเปกหมอนไมโครเจล ผ้าปูริ้วซาติน Topper ผ้าขนหนู และระบบขอใบเสนอราคาส่งด่วน',
+      image: '/images/tandj-hero.jpg',
+      url: '/tandj-bedding',
+      accentColor: 'hover:border-amber-500/50',
+      btnBg: 'bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 text-slate-950',
+      features: [
+        'สถาปัตยกรรม Cinematic 16:9 ไร้ข้อความบดบังภาพหมอนและเตียงบนมือถือ',
+        'ระบบขอใบเสนอราคา & สั่งตัวอย่างผ้าฟรี ภายใน 30 นาที',
+        'ตารางเปรียบเทียบ 5 หมวดสินค้า และ 3 แพ็กเกจเซ็ตเปิดโรงแรม',
+      ],
+    },
+    {
       id: 'nattanan',
       category: 'service',
       tag: 'Healthcare & Senior Living',

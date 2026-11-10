@@ -112,11 +112,7 @@ export default function PremiumFooter() {
             <ul className="space-y-2.5 text-xs text-slate-400">
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
-                <span>Next.js 16 & Edge CDN โหลดไว 0.8 วิ</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
-                <span>สถาปัตยกรรม Cinematic 16:9 ไม่บังภาพ</span>
+                <span>ด้วยเทคโนโลยี่ AI โหลดไว 0.8 วิ</span>
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />

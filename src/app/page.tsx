@@ -402,8 +402,8 @@ export default function HomePage() {
                     <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">โหลดเร็ว 0.8 วิ</h4>
-                    <p className="text-[10px] sm:text-xs text-slate-300">สถาปัตยกรรม Next.js</p>
+                    <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">ด้วยเทคโนโลยี่ AI</h4>
+                    <p className="text-[10px] sm:text-xs text-slate-300">โหลดไว 0.8 วิ</p>
                   </div>
                 </div>
               </div>
@@ -803,25 +803,35 @@ export default function HomePage() {
                 </div>
 
                 <div className="pt-4 border-t border-slate-800 space-y-3 text-xs text-slate-200">
+                  <div className="bg-teal-950/60 p-2.5 rounded-lg border border-teal-500/30 text-teal-200 font-bold text-center">
+                    แก้ไขได้จนกว่าจะพอใจ (Unlimited) ก่อนขึ้นจริง
+                  </div>
+                  <div className="bg-slate-900 p-2.5 rounded-lg border border-emerald-500/30 text-emerald-300 font-bold text-center">
+                    Full Tracking: GTM, GA4, Meta Pixel + CAPI, TikTok Pixel, LINE Tag
+                  </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-teal-400 shrink-0" />
-                    <span>สถาปัตยกรรม Cinematic Hero 16:9 ไม่บังภาพบนมือถือ</span>
+                    <span>ด้วยเทคโนโลยี่ AI โหลดไว 0.8 วิ</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-teal-400 shrink-0" />
+                    <span>Google Tag Manager & GA4 เต็มระบบ</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-teal-400 shrink-0" />
+                    <span>Meta Pixel + Conversions API (CAPI)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-teal-400 shrink-0" />
+                    <span>TikTok Pixel & LINE Tag Integration</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-teal-400 shrink-0" />
+                    <span>Custom Events ดัก Retargeting ทุกปุ่ม</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-teal-400 shrink-0" />
                     <span>โครงสร้างจิตวิทยาปิดการขายครบ 8 มิติ</span>
-                  </div>
-                  <div className="flex items-center gap-2 bg-teal-950/60 p-2 rounded-lg border border-teal-500/30">
-                    <ShieldCheck className="w-4 h-4 text-teal-300 shrink-0" />
-                    <span className="text-teal-200 font-bold">✨ แก้ไขได้จนกว่าจะพอใจ (Unlimited) ก่อนขึ้นจริง</span>
-                  </div>
-                  <div className="flex items-center gap-2 bg-slate-900 p-2 rounded-lg border border-emerald-500/30">
-                    <Target className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span className="text-emerald-300 font-bold">🎯 Full Tracking: GTM, GA4, Meta Pixel + CAPI, TikTok Pixel, LINE Tag</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-teal-400 shrink-0" />
-                    <span><strong>ติดตั้ง Custom Event Tracking ทุกปุ่ม + Retargeting Audience</strong></span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-teal-400 shrink-0" />
@@ -861,6 +871,30 @@ export default function HomePage() {
                 <div className="pt-4 border-t border-slate-800 space-y-3 text-xs text-slate-300">
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>ด้วยเทคโนโลยี่ AI โหลดไว 0.8 วิ</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Google Tag Manager & GA4 เต็มระบบ</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Meta Pixel + Conversions API (CAPI)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>TikTok Pixel & LINE Tag Integration</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Custom Events ดัก Retargeting ทุกปุ่ม</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span><strong>Server-Side Tracking ขั้นสูง + Custom CRM Webhooks</strong></span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span>ระบบค้นหา / แคตตาล็อกสินค้าหลายหมวดหมู่</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -870,10 +904,6 @@ export default function HomePage() {
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span>ระบบนามบัตรดิจิทัลสำหรับพนักงานขายทุกคน</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span><strong>Server-Side Tracking ขั้นสูง + Custom CRM Webhooks</strong></span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />

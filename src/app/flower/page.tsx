@@ -23,6 +23,7 @@ import {
   Flame,
   ArrowRight
 } from 'lucide-react';
+import PremiumFooter from '@/components/Footer';
 
 export default function FlowerSalepage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -1148,27 +1149,8 @@ export default function FlowerSalepage() {
         </div>
       </section>
 
-      {/* 10. FOOTER & SALESDESK AI BRANDING */}
-      <footer className="bg-slate-950 text-slate-400 text-xs py-10 px-4 sm:px-6 border-t border-slate-900">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-rose-600 text-white flex items-center justify-center">
-              <Heart className="w-4 h-4 fill-white" />
-            </div>
-            <span className="text-sm font-bold text-white">Flower.com — Luxury Floral Boutique</span>
-          </div>
-
-          {/* SalesDesk Master Branding Standard */}
-          <div className="text-center md:text-right">
-            <p className="text-xs text-slate-400">
-              🚀 ออกแบบและพัฒนาโดย <a href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ" target="_blank" rel="noreferrer" className="text-teal-400 font-semibold underline hover:text-teal-300">SalesDesk AI</a> (ผู้เชี่ยวชาญด้านเว็บไซต์ & AI การตลาด)
-            </p>
-            <p className="text-[11px] text-slate-500 mt-1">
-              © {new Date().getFullYear()} Flower.com. สงวนลิขสิทธิ์ทุกประการ.
-            </p>
-          </div>
-        </div>
-      </footer>
+      {/* 10. LUXURY MASTER FOOTER */}
+      <PremiumFooter />
 
       {/* 11. FIXED MOBILE ACTION BAR (Floating Sticky Conversion Bar on Mobile) */}
       <div className="fixed bottom-0 inset-x-0 z-50 lg:hidden bg-slate-950/95 backdrop-blur-md border-t border-white/10 p-3 shadow-2xl">

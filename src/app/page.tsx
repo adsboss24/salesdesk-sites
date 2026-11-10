@@ -21,8 +21,14 @@ import {
   Check,
   Award,
   Layers,
-  HeartHandshake
+  HeartHandshake,
+  Target,
+  BarChart3,
+  Flame,
+  Activity,
+  Cpu
 } from 'lucide-react';
+import PremiumFooter from '@/components/Footer';
 
 export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState<'all' | 'service' | 'shop' | 'property' | 'insurance' | 'course'>('all');
@@ -49,6 +55,24 @@ export default function HomePage() {
         'โครงสร้าง 16:9 Hero ไม่บังภาพบนมือถือ (Unobstructed View)',
         'ระบบ Lead Capture นัดหมายเข้าชมสถานที่พร้อมบันทึกประวัติ',
         'เชื่อมต่อ LINE OA ทักตรงหาแอดมินปิดการขายได้ทันที',
+      ],
+    },
+    {
+      id: 'flower',
+      category: 'shop',
+      tag: 'Luxury Floral & E-Commerce',
+      badgeColor: 'border-rose-500/40 text-rose-300',
+      title: 'Flower.com',
+      subtitle: 'บูทีกดอกไม้พรีเมียม & บริการจัดส่งด่วน 2 ชม.',
+      desc: 'เซลเพจระดับ World-Class โชว์ศิลปะการจัดดอกไม้หรูหรา 16:9 ไม่บังภาพบนมือถือ ผสานระบบฟิลเตอร์คอลเลกชัน ตารางราคาโปร่งใส และฟอร์มสั่งจัดดอกไม้ด่วนพร้อมปิดการขายผ่าน LINE OA',
+      image: '/images/flower-hero.jpg',
+      url: '/flower',
+      accentColor: 'hover:border-rose-500/50',
+      btnBg: 'bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white',
+      features: [
+        'สถาปัตยกรรม Cinematic 16:9 โชว์ผลงานดอกไม้ 100% บนมือถือ',
+        'ระบบฟิลเตอร์แกลเลอรีช่อดอกไม้ & ตารางราคาโปร่งใส 3 ระดับ',
+        'ฟอร์มสั่งจัดด่วนและระบบคำนวณราคา ตอบกลับภายใน 10 นาที',
       ],
     },
     {
@@ -174,8 +198,8 @@ export default function HomePage() {
       a: 'ได้แน่นอนครับ! เพียงคุณส่งลิงก์เพจ Facebook, ภาพถ่ายสินค้าจากมือถือ หรือบอกไอเดียธุรกิจของคุณมา ทีมงานและระบบ AI จะช่วยสร้างภาพกราฟิกความละเอียดสูงระดับ Cinematic 16:9 เขียนข้อความพาดหัวขาย และวางโครงสร้างให้เสร็จสมบูรณ์ตั้งแต่ต้นจนจบ',
     },
     {
-      q: 'สามารถติดตั้ง Tracking สำหรับยิงแอด (Meta Pixel, TikTok Pixel, Google Analytics) ได้หรือไม่?',
-      a: 'รองรับ 100% ครับ! เราติดตั้ง Meta Pixel (Facebook), TikTok Pixel, Google Analytics (GA4), และ LINE Tag ให้ครบถ้วน พร้อมตั้งค่า Event Tracking เช่น การกดปุ่มซื้อ (Purchase), การส่งฟอร์ม (Lead), และการกดปุ่ม LINE เพื่อให้แคมเปญโฆษณาของคุณเรียนรู้และปิดยอดขายได้แม่นยำที่สุด',
+      q: 'สามารถติดตั้ง Tracking สำหรับยิงแอด (Meta Pixel, TikTok Pixel, Google Analytics, LINE Tag) ได้หรือไม่?',
+      a: 'รองรับครบวงจร 100% ครับ! เราติดตั้ง Google Tag Manager (GTM), Google Analytics 4 (GA4), Meta Pixel พร้อม Conversions API (CAPI), TikTok Pixel, และ LINE Tag ให้ครบทุกแพลตฟอร์ม พร้อมตั้งค่า Custom Events เช่น ปุ่มกดแอดไลน์, ปุ่มโทรออก, ฟอร์มส่ง Lead, หยิบใส่ตะกร้า, และยอดสั่งซื้อ COD เพื่อให้ระบบ AI โฆษณานำส่งแอดได้อย่างแม่นยำ และรองรับการทำ Retargeting ตามลูกค้าเก่าได้เต็มประสิทธิภาพครับ',
     },
     {
       q: 'ใช้เวลาจัดทำกี่วันถึงจะเสร็จพร้อมใช้งาน?',
@@ -188,21 +212,26 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-teal-500 selection:text-white">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-teal-500 selection:text-white overflow-x-hidden">
+      
       {/* 1. TOP ANNOUNCEMENT BAR */}
       <div className="bg-gradient-to-r from-teal-900 via-emerald-900 to-slate-900 text-teal-100 text-xs py-2 px-4 border-b border-teal-800/40 text-center font-medium">
         <span>🚀 ขับเคลื่อนด้วย SalesDesk AI Engine • ออกแบบเซลเพจปิดการขายระดับพรีเมียม การันตีแก้ไขจนกว่าจะพอใจ • ส่งงานใน 24-48 ชม.</span>
       </div>
 
-      {/* 2. HEADER */}
-      <header className="sticky top-0 z-40 bg-slate-950/85 backdrop-blur-md border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      {/* 2. HEADER NAVIGATION */}
+      <header className="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+          
+          {/* Logo SalesDesk AI */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-teal-500/20">
-              <Sparkles className="w-5 h-5 text-slate-950" />
-            </div>
+            <img 
+              src="/images/salesdesk-logo-square.png" 
+              alt="SalesDesk AI" 
+              className="w-10 h-10 rounded-xl object-contain shadow-lg shadow-teal-500/20 bg-slate-900 border border-slate-700/60 p-1 shrink-0" 
+            />
             <div>
-              <span className="text-lg font-black tracking-tight text-white block leading-tight">
+              <span className="text-base sm:text-lg font-black tracking-tight text-white block leading-tight">
                 SalesDesk <span className="text-teal-400">Sites</span>
               </span>
               <span className="text-[10px] text-slate-400 uppercase tracking-widest block font-medium">
@@ -211,12 +240,19 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* Nav Links & CTA */}
           <div className="flex items-center gap-3">
             <a 
               href="#pricing"
-              className="hidden sm:inline-block text-xs font-semibold text-slate-300 hover:text-white transition px-3 py-2"
+              className="hidden md:inline-block text-xs font-semibold text-slate-300 hover:text-white transition px-3 py-2"
             >
               แพ็กเกจราคา
+            </a>
+            <a 
+              href="#tracking"
+              className="hidden lg:inline-block text-xs font-semibold text-slate-300 hover:text-white transition px-3 py-2"
+            >
+              ระบบ Tracking & แอด
             </a>
             <a 
               href="#faqs"
@@ -228,7 +264,7 @@ export default function HomePage() {
               href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ" 
               target="_blank" 
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-bold text-xs sm:text-sm shadow-md shadow-teal-500/20 transition active:scale-95"
+              className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-bold text-xs sm:text-sm shadow-md shadow-teal-500/20 transition active:scale-95"
             >
               <MessageCircle className="w-4 h-4" /> <span>ขอตัวอย่างฟรีใน LINE</span>
             </a>
@@ -236,61 +272,88 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* 3. HERO SHOWCASE */}
-      <section className="relative pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden">
-        {/* Background Gradients */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[350px] bg-teal-500/10 blur-[140px] pointer-events-none rounded-full" />
-        <div className="absolute top-1/3 left-1/3 w-[350px] h-[350px] bg-emerald-500/10 blur-[120px] pointer-events-none rounded-full" />
+      {/* 3. HERO SHOWCASE WITH MASTER HERO IMAGE BACKGROUND */}
+      <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden bg-slate-950">
+        
+        {/* Hero Background Image: Desktop Full-Bleed Split */}
+        <div className="hidden md:block absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+          <img
+            src="/images/hero-desktop.png"
+            alt="SalesDesk Sites Hero Background"
+            className="w-full h-full object-cover object-right opacity-40 brightness-110 contrast-105"
+          />
+          {/* Contrast Scrim Engine */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 via-45% to-slate-950/30" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-950 to-transparent" />
+        </div>
 
+        {/* Hero Background Image: Mobile Dedicated Framing */}
+        <div className="md:hidden absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+          <img
+            src="/images/hero-mobile.png"
+            alt="SalesDesk Sites Hero Background"
+            className="w-full h-full object-cover object-center opacity-30 brightness-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/95 via-slate-950/90 to-slate-950" />
+        </div>
+
+        {/* Hero Content Container */}
         <div className="max-w-5xl mx-auto px-4 text-center relative z-10 space-y-6">
-          <div className="inline-flex items-center gap-2 bg-slate-900 border border-teal-500/30 text-teal-300 px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold shadow-inner">
+          
+          {/* Luxury Architecture Badge */}
+          <div className="inline-flex items-center gap-2 bg-slate-900/90 border border-teal-500/40 text-teal-300 px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold shadow-inner backdrop-blur-md">
             <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
             <span>High-Converting Psychological Salepage Architecture</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.15]">
-            เปลี่ยนคนเห็นแอด ให้เป็นลูกค้าโอนเงินทันที <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-amber-300">
+          {/* Main Headline (Formatted with proper word wraps and highlights) */}
+          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.25] sm:leading-[1.2] max-w-4xl mx-auto drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
+            เปลี่ยนคนเห็นแอด ให้เป็นลูกค้าโอนเงิน <br className="hidden sm:inline" />
+            <span className="text-white">ทันที</span> <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-amber-300 inline-block mt-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
               ด้วยเซลเพจปิดการขายตามหลักจิตวิทยาขั้นสูง
             </span>
           </h1>
 
-          <p className="text-sm sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            หยุดเสียเงินยิงแอดเข้าแชตที่ทักแล้วเงียบหาย! ยกระดับธุรกิจด้วยเซลเพจโหลดเร็ว 0.8 วิ 
-            โครงสร้างร้อยเรียงอารมณ์เพื่อปิดการขายอัตโนมัติ 24 ชม. พร้อมการันตีแก้ไขได้จนกว่าจะพอใจ
+          {/* Subheadline */}
+          <p className="text-sm sm:text-base md:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]">
+            หยุดเสียเงินยิงแอดเข้าแชตที่ทักแล้วเงียบหาย! ยกระดับธุรกิจด้วยเซลเพจโหลดเร็ว <strong className="text-teal-300 font-bold">0.8 วิ</strong> <br className="hidden sm:inline" />
+            โครงสร้างร้อยเรียงอารมณ์เพื่อปิดการขายอัตโนมัติ <strong className="text-amber-300 font-bold">24 ชม.</strong> พร้อมการันตีแก้ไขได้จนกว่าจะพอใจ
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-3">
             <a 
               href="#pricing" 
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white font-bold text-sm sm:text-base shadow-xl shadow-teal-500/25 transition active:scale-95"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-slate-950 font-bold text-sm sm:text-base shadow-xl shadow-teal-500/25 transition active:scale-95 cursor-pointer"
             >
               <span>ดูแพ็กเกจราคาเริ่มต้น ฿2,990</span>
               <ArrowRight className="w-4 h-4" />
             </a>
             <a 
               href="#portfolio" 
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold text-sm sm:text-base border border-slate-700 transition"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 font-bold text-sm sm:text-base border border-slate-700 backdrop-blur-md transition cursor-pointer"
             >
               <span>ชมตัวอย่างจริง 5 หมวดหมู่</span>
             </a>
           </div>
 
           {/* Trust Guarantees */}
-          <div className="pt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs text-slate-400">
-            <div className="flex items-center gap-2">
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs text-slate-300 font-medium">
+            <div className="flex items-center gap-2 drop-shadow">
               <ShieldCheck className="w-4 h-4 text-teal-400" />
               <span>การันตีแก้ไขจนกว่าจะพอใจ</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 drop-shadow">
               <Zap className="w-4 h-4 text-amber-400" />
               <span>จัดทำตัวอย่างฟรีให้ชมก่อน</span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 drop-shadow">
               <Award className="w-4 h-4 text-emerald-400" />
               <span>ส่งมอบงานรวดเร็วใน 24-48 ชม.</span>
             </div>
           </div>
+
         </div>
       </section>
 
@@ -310,6 +373,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            
             {/* The Old Painful Way */}
             <div className="bg-gradient-to-b from-rose-950/30 to-slate-950 border border-rose-900/40 rounded-3xl p-6 sm:p-8 space-y-5">
               <div className="flex items-center gap-3">
@@ -373,6 +437,7 @@ export default function HomePage() {
                 </li>
               </ul>
             </div>
+
           </div>
         </div>
       </section>
@@ -405,7 +470,7 @@ export default function HomePage() {
               <button
                 key={tab.key}
                 onClick={() => setActiveCategory(tab.key as any)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
                   activeCategory === tab.key
                     ? 'bg-gradient-to-r from-teal-500 to-emerald-500 text-slate-950 shadow-lg shadow-teal-500/20'
                     : 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700'
@@ -424,7 +489,7 @@ export default function HomePage() {
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12">
                   {/* Image Preview */}
-                  <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-auto overflow-hidden">
+                  <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-auto overflow-hidden bg-slate-900">
                     <img 
                       src={project.image} 
                       alt={project.title} 
@@ -476,10 +541,88 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+
         </div>
       </section>
 
-      {/* 6. PRICING & SERVICE TERMS (แพ็กเกจราคาจับต้องได้ & เงื่อนไขชัดเจน) */}
+      {/* 6. CONVERSION TRACKING & AD TECH HIGHLIGHT SECTION (โฟกัสระบบวัดผลโฆษณา & Retargeting) */}
+      <section id="tracking" className="py-16 md:py-24 bg-gradient-to-b from-slate-900 to-slate-950 border-t border-slate-800 relative overflow-hidden">
+        {/* Ambient Lights */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none" />
+
+        <div className="max-w-6xl mx-auto px-4 relative z-10">
+          <div className="text-center max-w-3xl mx-auto space-y-3 mb-16">
+            <span className="text-xs font-bold text-teal-400 uppercase tracking-widest bg-teal-950/80 px-3.5 py-1.5 rounded-full border border-teal-500/30">
+              ⚡ Full-Stack Ad Tech & Omnichannel Tracking
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
+              ระบบวัดผลโฆษณา & Retargeting แม่นยำ 100%
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              เซลเพจของเราไม่ได้มีดีแค่ดีไซน์สวย แต่มาพร้อมกับระบบ Data & Conversion Tracking ระดับ Enterprise 
+              ดักจับทุกพฤติกรรมลูกค้า ส่งข้อมูลให้ AI โฆษณาทุกแพลตฟอร์ม เพื่อให้ยิงแอดได้แม่นยำ ค่าแอดถูกลง และปิดการขายได้สูงสุด
+            </p>
+          </div>
+
+          {/* 4 Tech Architecture Pillars */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            
+            <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 space-y-3 hover:border-teal-500/40 transition">
+              <div className="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-400 border border-teal-500/20 flex items-center justify-center">
+                <Target className="w-6 h-6" />
+              </div>
+              <h3 className="text-base font-bold text-white">GTM & GA4 เต็มระบบ</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                ติดตั้ง <strong>Google Tag Manager (GTM)</strong> ควบคุมทุกแท็กโดยไม่ต้องแก้โค้ดเว็บซ้ำ พร้อม <strong>Google Analytics 4 (GA4)</strong> วิเคราะห์ Customer Journey เชิงลึก
+              </p>
+            </div>
+
+            <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 space-y-3 hover:border-teal-500/40 transition">
+              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
+                <Cpu className="w-6 h-6" />
+              </div>
+              <h3 className="text-base font-bold text-white">Pixel ครบทุกแพลตฟอร์ม</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                ติดตั้ง <strong>Meta Pixel + CAPI</strong> (Server-side API ไม่ตกหล่นจาก iOS), <strong>TikTok Pixel</strong>, และ <strong>LINE Tag</strong> สมบูรณ์แบบทุกแคมเปญ
+              </p>
+            </div>
+
+            <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 space-y-3 hover:border-teal-500/40 transition">
+              <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center">
+                <Activity className="w-6 h-6" />
+              </div>
+              <h3 className="text-base font-bold text-white">Custom Event Tracking</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                ฝัง Event ละเอียดทุกการคลิก: <strong>คลิกแอดไลน์</strong>, <strong>กดโทร</strong>, <strong>ส่งฟอร์ม Lead</strong>, <strong>สั่งซื้อ COD</strong>, Scroll Depth 50%/100%, และการดูวิดีโอ
+              </p>
+            </div>
+
+            <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 space-y-3 hover:border-teal-500/40 transition">
+              <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center">
+                <Flame className="w-6 h-6" />
+              </div>
+              <h3 className="text-base font-bold text-white">Smart Retargeting 100%</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                ส่งข้อมูลสร้าง <strong>Custom Audience & Lookalike</strong> อัตโนมัติ ยิงแอดบรอดแคสต์ซ้ำหาคนที่เกือบซื้อ ดึงยอดขายกลับมาปิดได้ทันที ค่าแอดถูกลง 2-3 เท่า
+              </p>
+            </div>
+
+          </div>
+
+          {/* Ad Tech Integration Badges */}
+          <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 flex flex-wrap items-center justify-around gap-4 text-xs font-semibold text-slate-400">
+            <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-teal-400" /> Google Tag Manager (GTM)</span>
+            <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-teal-400" /> Google Analytics 4 (GA4)</span>
+            <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-teal-400" /> Meta Pixel & Conversions API (CAPI)</span>
+            <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-teal-400" /> TikTok Pixel & Events Builder</span>
+            <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-teal-400" /> LINE Tag & Rich Menu Tracking</span>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 7. PRICING & SERVICE TERMS (แพ็กเกจราคาจับต้องได้ & เน้น Tracking ชัดเจน) */}
       <section id="pricing" className="py-16 md:py-24 bg-slate-900/70 border-y border-slate-800 relative">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto space-y-3 mb-16">
@@ -520,6 +663,10 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span><strong>ติดตั้ง Meta Pixel หรือ LINE Tag สำหรับวัดผล</strong></span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span><strong>แก้ไขปรับแต่งงานได้ 3 ครั้งเต็ม</strong></span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -537,7 +684,7 @@ export default function HomePage() {
                 href="https://line.me/R/ti/p/@fhu6688s?text=สนใจแพ็กเกจStarterSalepageครับ" 
                 target="_blank" 
                 rel="noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm border border-slate-700 transition"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm border border-slate-700 transition active:scale-95 cursor-pointer"
               >
                 <span>เลือกแพ็กเกจ Starter</span>
                 <ArrowRight className="w-4 h-4" />
@@ -564,7 +711,7 @@ export default function HomePage() {
                 <div className="pt-4 border-t border-slate-800 space-y-3 text-xs text-slate-200">
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-teal-400 shrink-0" />
-                    <span>สถาปัตยกรรม Cinematic Hero 16:9 ไม่บังภาพ</span>
+                    <span>สถาปัตยกรรม Cinematic Hero 16:9 ไม่บังภาพบนมือถือ</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-teal-400 shrink-0" />
@@ -574,9 +721,13 @@ export default function HomePage() {
                     <ShieldCheck className="w-4 h-4 text-teal-300 shrink-0" />
                     <span className="text-teal-200 font-bold">✨ แก้ไขได้จนกว่าจะพอใจ (Unlimited) ก่อนขึ้นจริง</span>
                   </div>
+                  <div className="flex items-center gap-2 bg-slate-900 p-2 rounded-lg border border-emerald-500/30">
+                    <Target className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-emerald-300 font-bold">🎯 Full Tracking: GTM, GA4, Meta Pixel + CAPI, TikTok Pixel, LINE Tag</span>
+                  </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-teal-400 shrink-0" />
-                    <span>ติดตั้ง Pixel ครบ (Meta, TikTok, LINE Tag, GA4)</span>
+                    <span><strong>ติดตั้ง Custom Event Tracking ทุกปุ่ม + Retargeting Audience</strong></span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-teal-400 shrink-0" />
@@ -584,7 +735,7 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-teal-400 shrink-0" />
-                    <span>ส่งมอบงานรวดเร็วใน 24-48 ชม.</span>
+                    <span>ส่งมอบงานรวดเร็วใน 24-48 ชม. ฟรีโฮสติ้ง & SSL 1 ปี</span>
                   </div>
                 </div>
               </div>
@@ -593,7 +744,7 @@ export default function HomePage() {
                 href="https://line.me/R/ti/p/@fhu6688s?text=สนใจแพ็กเกจProfessionalBusinessครับ" 
                 target="_blank" 
                 rel="noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-black text-sm shadow-xl shadow-teal-500/25 transition active:scale-95"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-black text-sm shadow-xl shadow-teal-500/25 transition active:scale-95 cursor-pointer"
               >
                 <Sparkles className="w-4 h-4" />
                 <span>เลือกแพ็กเกจ Professional</span>
@@ -628,6 +779,10 @@ export default function HomePage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span><strong>Server-Side Tracking ขั้นสูง + Custom CRM Webhooks</strong></span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span><strong>แก้ไขได้ไม่จำกัด พร้อมทีมโปรแกรมเมอร์ดูแลส่วนตัว</strong></span>
                   </div>
                 </div>
@@ -637,7 +792,7 @@ export default function HomePage() {
                 href="https://line.me/R/ti/p/@fhu6688s?text=สนใจแพ็กเกจEnterpriseครับ" 
                 target="_blank" 
                 rel="noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm border border-slate-700 transition"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm border border-slate-700 transition active:scale-95 cursor-pointer"
               >
                 <span>ปรึกษาประเมินโครงการ</span>
                 <ArrowRight className="w-4 h-4" />
@@ -663,7 +818,7 @@ export default function HomePage() {
               href="https://line.me/R/ti/p/@fhu6688s?text=ต้องการให้ทีมงานจัดทำตัวอย่างหน้าเว็บร้านค้าของผมให้ชมฟรีก่อนครับ" 
               target="_blank" 
               rel="noreferrer"
-              className="px-6 py-3 rounded-xl bg-teal-400 hover:bg-teal-300 text-slate-950 font-bold text-xs sm:text-sm whitespace-nowrap shadow-md"
+              className="px-6 py-3 rounded-xl bg-teal-400 hover:bg-teal-300 text-slate-950 font-bold text-xs sm:text-sm whitespace-nowrap shadow-md cursor-pointer"
             >
               รับสิทธิ์ทำตัวอย่างฟรี
             </a>
@@ -671,7 +826,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7. CUSTOMER REVIEWS & SOCIAL PROOF (รีวิวความมั่นใจ) */}
+      {/* 8. CUSTOMER REVIEWS & SOCIAL PROOF */}
       <section className="py-16 md:py-24 bg-slate-950">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto space-y-3 mb-16">
@@ -720,7 +875,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 8. FAQS (ตอบข้อโต้แย้งในใจให้หมดสิ้น) */}
+      {/* 9. FAQS */}
       <section id="faqs" className="py-16 md:py-24 bg-slate-900/60 border-t border-slate-800">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto space-y-3 mb-14">
@@ -745,7 +900,7 @@ export default function HomePage() {
                 >
                   <button
                     onClick={() => toggleFaq(idx)}
-                    className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-white hover:text-teal-300 transition"
+                    className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-white hover:text-teal-300 transition cursor-pointer"
                   >
                     <span>{faq.q}</span>
                     <ChevronDown className={`w-5 h-5 text-teal-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
@@ -762,12 +917,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 9. FINAL CALL TO ACTION FOOTER */}
-      <footer className="py-20 bg-slate-950 border-t border-slate-800 text-center relative overflow-hidden">
+      {/* 10. FINAL CALL TO ACTION */}
+      <section className="py-20 bg-slate-950 border-t border-slate-800 text-center relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 space-y-6 relative z-10">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center mx-auto text-slate-950 font-black shadow-lg shadow-teal-500/20">
-            <Sparkles className="w-7 h-7 text-slate-950" />
-          </div>
+          <img 
+            src="/images/salesdesk-logo-square.png" 
+            alt="SalesDesk AI" 
+            className="w-14 h-14 rounded-2xl object-contain mx-auto shadow-lg shadow-teal-500/20 bg-slate-900 border border-slate-700/60 p-1.5" 
+          />
           <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
             พร้อมเปลี่ยนเงินค่าแอด ให้เป็นยอดขายเข้าบัญชีหรือยังครับ?
           </h2>
@@ -780,17 +937,18 @@ export default function HomePage() {
               href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ" 
               target="_blank" 
               rel="noreferrer"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-black text-base shadow-xl shadow-teal-500/25 transition transform active:scale-95"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-black text-base shadow-xl shadow-teal-500/25 transition transform active:scale-95 cursor-pointer"
             >
               <MessageCircle className="w-5 h-5" />
               <span>แอดไลน์ปรึกษา & ขอตัวอย่างฟรี (@fhu6688s)</span>
             </a>
           </div>
-          <p className="text-[11px] text-slate-500 pt-8">
-            © 2026 SalesDesk Sites • ออกแบบและพัฒนาโดย SalesDesk AI (ผู้เชี่ยวชาญด้านเว็บไซต์ & AI การตลาด)
-          </p>
         </div>
-      </footer>
+      </section>
+
+      {/* 11. LUXURY MASTER FOOTER */}
+      <PremiumFooter />
+
     </div>
   );
 }

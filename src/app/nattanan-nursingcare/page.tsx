@@ -21,6 +21,7 @@ import {
   Home,
   Check
 } from 'lucide-react';
+import PremiumFooter from '@/components/Footer';
 
 export default function NattananNursingCareSalepage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -793,39 +794,8 @@ export default function NattananNursingCareSalepage() {
         </div>
       </section>
 
-      {/* 9. AGENCY FOOTER & WATERMARK */}
-      <footer className="bg-slate-900 text-slate-400 py-10 px-4 text-xs">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
-          <div>
-            <p className="text-white font-bold text-sm">ณัฐนันท์ เนอสซิ่งแคร์ (Nattanan Nursing Care)</p>
-            <p className="text-slate-400 mt-1">บ้านพักผู้สูงอายุและศูนย์ฟื้นฟูผู้ป่วยพักฟื้น ดูแลด้วยหัวใจ อบอุ่นเหมือนครอบครัว 24 ชม.</p>
-          </div>
-          <div className="flex flex-col items-center md:items-end gap-1.5 text-slate-500 text-[11px]">
-            <p>© 2026 Nattanan Nursing Care. All rights reserved.</p>
-            <div className="flex flex-wrap items-center justify-center gap-1.5 bg-slate-800/80 px-3.5 py-1.5 rounded-full text-slate-300 border border-slate-700 shadow-xs">
-              <span>🚀 ออกแบบและพัฒนาโดย</span>
-              <a 
-                href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="text-amber-400 font-bold hover:text-amber-300 hover:underline"
-              >
-                SalesDesk AI
-              </a>
-              <span className="text-slate-600">•</span>
-              <a 
-                href="https://line.me/R/ti/p/@fhu6688s" 
-                target="_blank" 
-                rel="noreferrer" 
-                className="text-emerald-400 hover:text-emerald-300 font-medium hover:underline flex items-center gap-1"
-              >
-                <MessageCircle className="w-3 h-3" />
-                <span>ปรึกษาผ่าน LINE OA (@fhu6688s)</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      {/* 9. LUXURY MASTER FOOTER */}
+      <PremiumFooter />
 
       {/* 10. FIXED MOBILE BOTTOM ACTION BAR */}
       <div className="fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-t border-slate-200 p-2.5 sm:hidden shadow-lg">

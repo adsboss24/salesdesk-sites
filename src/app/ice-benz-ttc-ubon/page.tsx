@@ -210,7 +210,7 @@ export default function IceBenzTTCUbonSalepage() {
       category: 'sedan',
       tagline: 'ที่สุดแห่งยนตรกรรมซีดานผู้บริหาร ก้าวล้ำด้วย Superscreen AI อัจฉริยะ',
       price: 'เริ่มต้น 3,990,000 บาท',
-      downPayment: 'ดอกเบี้ยพิเศษ 0.99% หรือฟรี MBSP 5 ปีเต็ม',
+      downPayment: 'แคมเปญพิเศษประจำรุ่น หรือเลือกรับแพ็กเกจดูแลตัวรถ',
       image: '/images/benz/e-class-real.jpg',
       specs: [
         { label: 'คอนโซลหน้า', val: 'MBUX Superscreen เต็มบาน' },
@@ -313,20 +313,7 @@ export default function IceBenzTTCUbonSalepage() {
       <StructuredData data={localBusinessSchema} id="ice-luxury-auto-schema" />
       <StructuredData data={articlesItemListSchema} id="ice-benz-articles-schema" />
 
-      {/* 1. TOP ANNOUNCEMENT & STICKY GLOBAL HEADER (NO DEMO BANNER) */}
-      <div className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 text-slate-950 text-xs py-2 px-4 font-semibold text-center tracking-wide shadow-md">
-        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 flex-wrap">
-          <Sparkles className="w-4 h-4 text-slate-950 shrink-0" />
-          <span>แคมเปญพิเศษประจำเดือน: ดอกเบี้ย 0% หรือเลือกรับฟรี MBSP บำรุงรักษา 5 ปีเต็ม พร้อมบริการ Test Drive ถึงหน้าบ้าน</span>
-          <a
-            href="#booking-form"
-            className="underline font-bold hover:text-white transition ml-1"
-          >
-            จองสิทธิ์ด่วน &rarr;
-          </a>
-        </div>
-      </div>
-
+      {/* GLOBAL HEADER */}
       <header className="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
           {/* International Brand Logo */}
@@ -418,7 +405,7 @@ export default function IceBenzTTCUbonSalepage() {
 
             {/* Subheadline */}
             <p className="text-xs sm:text-base md:text-lg text-slate-100 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
-              สัมผัสยนตรกรรมชั้นนำระดับโลก ทั้ง The New E-Class, C-Class, GLC SUV, CLE Coupé, พันธุ์ดุ Mercedes-AMG และ smart EV พร้อมแคมเปญดอกเบี้ย 0% ฟรี MBSP 5 ปี และบริการนำรถทดลองขับ Test Drive ส่งตรงถึงหน้าบ้านท่าน
+              สัมผัสยนตรกรรมชั้นนำระดับโลก ทั้ง The New E-Class, C-Class, GLC SUV, CLE Coupé, พันธุ์ดุ Mercedes-AMG และ smart EV พร้อมข้อเสนอพิเศษเฉพาะบุคคล และบริการนำรถทดลองขับ Test Drive ส่งตรงถึงหน้าบ้านท่าน
             </p>
 
             {/* Desktop-only CTAs */}
@@ -644,7 +631,7 @@ export default function IceBenzTTCUbonSalepage() {
               {
                 icon: BadgePercent,
                 title: 'Exclusive Financial Deals',
-                desc: 'ดีลที่ดีที่สุดตามงบประมาณของคุณ ดอกเบี้ยพิเศษ 0% หรือโปรแกรมผ่อนบอลลูน mySTAR สบายกระเป๋า อนุมัติไวผ่านง่าย',
+                desc: 'ดีลที่ดีที่สุดตามงบประมาณของคุณ ข้อเสนออัตราดอกเบี้ยพิเศษ หรือโปรแกรมผ่อนบอลลูน mySTAR สบายกระเป๋า อนุมัติไวผ่านง่าย',
               },
               {
                 icon: Car,
@@ -857,15 +844,15 @@ export default function IceBenzTTCUbonSalepage() {
                 <span className="text-xs font-bold px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30">
                   Campaign Tier 2
                 </span>
-                <h3 className="text-xl font-bold text-white mt-4">0% Interest & Financial Freedom</h3>
+                <h3 className="text-xl font-bold text-white mt-4">Tailored Deals & Financial Freedom</h3>
                 <p className="text-xs text-slate-400 mt-2">
-                  ทางเลือกทางการเงินเพื่อสภาพคล่องสูงสุด ดอกเบี้ยพิเศษสุดคุ้ม
+                  ทางเลือกทางการเงินเพื่อสภาพคล่องสูงสุด แคมเปญพิเศษประจำรุ่น
                 </p>
 
                 <div className="my-6 py-4 border-y border-slate-800 space-y-3 text-xs sm:text-sm text-slate-300">
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-amber-400 shrink-0" />
-                    <span className="font-bold text-white">ดอกเบี้ยพิเศษเริ่มต้น 0% หรือเลือกผ่อนเบา</span>
+                    <span className="font-bold text-white">ดอกเบี้ยและเงื่อนไขพิเศษเฉพาะรุ่น หรือเลือกผ่อนเบา</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-amber-400 shrink-0" />

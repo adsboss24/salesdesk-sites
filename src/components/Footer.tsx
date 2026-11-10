@@ -58,7 +58,13 @@ export default function PremiumFooter() {
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-teal-400 shrink-0 mt-0.5" />
                 <span className="leading-relaxed">
-                  <strong>สำนักงานใหญ่:</strong> อาคาร SalesDesk AI Tower ชั้น 18 เลขที่ 88/1 ถนนรัชดาภิเษก แขวงดินแดง เขตดินแดง กรุงเทพมหานคร 10400
+                  <strong>สำนักงานใหญ่ (HQ):</strong> อาคาร SalesDesk AI Headquarters (สาขาหลัก) อำเภอเมืองศรีสะเกษ จังหวัดศรีสะเกษ 33000
+                </span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                <span className="leading-relaxed">
+                  <strong>Creative & AI Studio:</strong> อาคาร SalesDesk AI Tower ชั้น 18 เลขที่ 88/1 ถนนรัชดาภิเษก แขวงดินแดง เขตดินแดง กรุงเทพมหานคร 10400
                 </span>
               </div>
               <div className="flex items-center gap-2.5">
@@ -113,6 +119,10 @@ export default function PremiumFooter() {
               <span>มาตรฐานสถาปัตยกรรม & แอด</span>
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-400">
+              <li className="flex items-center gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span className="text-emerald-300 font-semibold">Technical SEO & Schema ติดหน้า 1 Google</span>
+              </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
                 <span>ด้วยเทคโนโลยี่ AI โหลดไว 0.8 วิ</span>

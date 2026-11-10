@@ -264,12 +264,27 @@ export default function HomePage() {
         priceRange: '฿2,990 - ฿9,900',
         address: {
           '@type': 'PostalAddress',
-          streetAddress: 'อาคาร SalesDesk AI Tower ชั้น 18 เลขที่ 88/1 ถนนรัชดาภิเษก',
-          addressLocality: 'แขวงดินแดง เขตดินแดง',
-          addressRegion: 'กรุงเทพมหานคร',
-          postalCode: '10400',
+          streetAddress: 'อาคาร SalesDesk AI Headquarters (สาขาหลัก)',
+          addressLocality: 'อำเภอเมืองศรีสะเกษ',
+          addressRegion: 'จังหวัดศรีสะเกษ',
+          postalCode: '33000',
           addressCountry: 'TH',
         },
+        department: [
+          {
+            '@type': 'ProfessionalService',
+            name: 'SalesDesk Sites Creative & AI Studio (สาขากรุงเทพฯ)',
+            telephone: '+66817726444',
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: 'อาคาร SalesDesk AI Tower ชั้น 18 เลขที่ 88/1 ถนนรัชดาภิเษก',
+              addressLocality: 'แขวงดินแดง เขตดินแดง',
+              addressRegion: 'กรุงเทพมหานคร',
+              postalCode: '10400',
+              addressCountry: 'TH',
+            },
+          },
+        ],
         geo: {
           '@type': 'GeoCoordinates',
           latitude: 13.765,
@@ -317,7 +332,7 @@ export default function HomePage() {
       
       {/* 1. TOP ANNOUNCEMENT BAR */}
       <div className="bg-gradient-to-r from-teal-900 via-emerald-900 to-slate-900 text-teal-100 text-xs py-2 px-4 border-b border-teal-800/40 text-center font-medium">
-        <span>🚀 ขับเคลื่อนด้วย SalesDesk AI Engine • ออกแบบเซลเพจปิดการขายระดับพรีเมียม การันตีแก้ไขจนกว่าจะพอใจ • ส่งงานใน 24-48 ชม.</span>
+        <span>🚀 ขับเคลื่อนด้วย SalesDesk AI Engine • เซลเพจปิดการขายระดับพรีเมียม โครงสร้าง SEO ดันติดหน้า 1 Google • ส่งงานใน 24-48 ชม.</span>
       </div>
 
       {/* 2. HEADER NAVIGATION */}
@@ -531,11 +546,11 @@ export default function HomePage() {
               <div className="bg-slate-950/70 border border-white/10 rounded-xl p-2.5 sm:p-4 backdrop-blur-md hover:border-teal-500/40 transition">
                 <div className="flex items-center gap-2 sm:gap-3">
                   <div className="p-1.5 sm:p-2 rounded-lg bg-amber-500/20 text-amber-300 shrink-0">
-                    <Target className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">Full Tracking</h4>
-                    <p className="text-[10px] sm:text-xs text-slate-300">GTM, GA4, Meta CAPI</p>
+                    <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">SEO & Full Tracking</h4>
+                    <p className="text-[10px] sm:text-xs text-slate-300">ติดหน้า 1 Google • GTM & CAPI</p>
                   </div>
                 </div>
               </div>
@@ -632,6 +647,10 @@ export default function HomePage() {
                 <li className="flex items-start gap-2.5">
                   <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                   <span><strong>เชื่อมต่อแชต LINE OA & แจ้งเตือนออเดอร์ทันที:</strong> ทันทีที่ลูกค้ากรอกข้อมูล ข้อมูลส่งตรงเข้ามือถือแอดมินพร้อมปิดยอด</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span><strong>หมัดเด็ด Technical SEO & Schema เต็มระบบ:</strong> สถาปัตยกรรม Next.js โหลดไว 0.8 วิ พร้อม JSON-LD Schema ดันอันดับติดหน้าแรก Google และลดค่าคลิก Google Ads สูงสุด 40%</span>
                 </li>
                 <li className="flex items-start gap-2.5">
                   <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
@@ -758,20 +777,32 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-4 relative z-10">
           <div className="text-center max-w-3xl mx-auto space-y-3 mb-16">
             <span className="text-xs font-bold text-teal-400 uppercase tracking-widest bg-teal-950/80 px-3.5 py-1.5 rounded-full border border-teal-500/30">
-              ⚡ Full-Stack Ad Tech & Omnichannel Tracking
+              ⚡ Dual-Engine Growth: Advanced Technical SEO + Full-Stack Ad Tech
             </span>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
-              ระบบวัดผลโฆษณา & Retargeting แม่นยำ 100%
+              หมัดเด็ด 2 ต่อ: ยิงแอดวันนี้ได้ยอดทันที + โครงสร้าง SEO ติดหน้า 1 Google
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              เซลเพจของเราไม่ได้มีดีแค่ดีไซน์สวย แต่มาพร้อมกับระบบ Data & Conversion Tracking ระดับ Enterprise 
-              ดักจับทุกพฤติกรรมลูกค้า ส่งข้อมูลให้ AI โฆษณาทุกแพลตฟอร์ม เพื่อให้ยิงแอดได้แม่นยำ ค่าแอดถูกลง และปิดการขายได้สูงสุด
+              เซลเพจของเราไม่ได้มีดีแค่ดีไซน์สวย แต่มาพร้อมกับสถาปัตยกรรมระดับ Masterpiece ผสาน <strong>Technical SEO & JSON-LD Schema</strong> ดันอันดับผลการค้นหาธรรมชาติ ควบคู่กับ <strong>Conversion Tracking & CAPI ครบทุกแพลตฟอร์ม</strong> เพื่อให้ยิงแอดแม่นยำ ค่าแอดถูกลง 2-3 เท่า
             </p>
           </div>
 
-          {/* 4 Tech Architecture Pillars */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          {/* 5 Tech Architecture Pillars */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             
+            <div className="bg-gradient-to-b from-emerald-950/40 to-slate-950 border-2 border-emerald-500/40 rounded-2xl p-6 space-y-3 shadow-xl shadow-emerald-500/10">
+              <div className="w-12 h-12 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center justify-center">
+                <TrendingUp className="w-6 h-6" />
+              </div>
+              <div className="inline-block bg-emerald-500/20 text-emerald-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                Knockout SEO Feature
+              </div>
+              <h3 className="text-base font-bold text-white">Technical SEO & Schema JSON-LD</h3>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                ติดตั้งโครงสร้าง <strong>ProfessionalService & FAQPage Schema</strong> ผ่าน <code>@graph</code> เต็มระบบ พร้อม Core Web Vitals 100/100 โหลดไว 0.8 วิ ดันติดหน้าแรก Google และลดค่าคลิก Google Ads ลง 20-40%
+              </p>
+            </div>
+
             <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 space-y-3 hover:border-teal-500/40 transition">
               <div className="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-400 border border-teal-500/20 flex items-center justify-center">
                 <Target className="w-6 h-6" />
@@ -783,7 +814,7 @@ export default function HomePage() {
             </div>
 
             <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 space-y-3 hover:border-teal-500/40 transition">
-              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-400 border border-teal-500/20 flex items-center justify-center">
                 <Cpu className="w-6 h-6" />
               </div>
               <h3 className="text-base font-bold text-white">Pixel ครบทุกแพลตฟอร์ม</h3>
@@ -802,20 +833,21 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 space-y-3 hover:border-teal-500/40 transition">
+            <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 space-y-3 hover:border-teal-500/40 transition md:col-span-2 lg:col-span-2">
               <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center">
                 <Flame className="w-6 h-6" />
               </div>
-              <h3 className="text-base font-bold text-white">Smart Retargeting 100%</h3>
+              <h3 className="text-base font-bold text-white">Smart Retargeting 100% & Local SEO</h3>
               <p className="text-xs text-slate-400 leading-relaxed">
-                ส่งข้อมูลสร้าง <strong>Custom Audience & Lookalike</strong> อัตโนมัติ ยิงแอดบรอดแคสต์ซ้ำหาคนที่เกือบซื้อ ดึงยอดขายกลับมาปิดได้ทันที ค่าแอดถูกลง 2-3 เท่า
+                ส่งข้อมูลสร้าง <strong>Custom Audience & Lookalike</strong> อัตโนมัติ ยิงแอดบรอดแคสต์ซ้ำหาคนที่เกือบซื้อ ดึงยอดขายกลับมาปิดได้ทันที ค่าแอดถูกลง 2-3 เท่า พร้อมรองรับ <strong>Local SEO (NAP Consistency)</strong> ดันขึ้นอันดับแผนที่ Google Maps
               </p>
             </div>
 
           </div>
 
-          {/* Ad Tech Integration Badges */}
+          {/* Ad Tech & SEO Integration Badges */}
           <div className="bg-slate-950 border border-slate-800 rounded-2xl p-5 flex flex-wrap items-center justify-around gap-4 text-xs font-semibold text-slate-400">
+            <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-emerald-400" /> Technical SEO & Schema JSON-LD</span>
             <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-teal-400" /> Google Tag Manager (GTM)</span>
             <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-teal-400" /> Google Analytics 4 (GA4)</span>
             <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-teal-400" /> Meta Pixel & Conversions API (CAPI)</span>
@@ -920,6 +952,10 @@ export default function HomePage() {
                     Full Tracking: GTM, GA4, Meta Pixel + CAPI, TikTok Pixel, LINE Tag
                   </div>
                   <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-emerald-300 font-bold">โครงสร้าง Technical SEO & Schema ติดหน้าแรก Google</span>
+                  </div>
+                  <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-teal-400 shrink-0" />
                     <span>ด้วยเทคโนโลยี่ AI โหลดไว 0.8 วิ</span>
                   </div>
@@ -979,6 +1015,10 @@ export default function HomePage() {
                 </div>
 
                 <div className="pt-4 border-t border-slate-800 space-y-3 text-xs text-slate-300">
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span className="text-emerald-300 font-bold">Full Enterprise SEO Architecture + Multi-Location Schema + Search Console</span>
+                  </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span>ด้วยเทคโนโลยี่ AI โหลดไว 0.8 วิ</span>

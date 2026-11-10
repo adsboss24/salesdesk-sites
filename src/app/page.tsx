@@ -31,8 +31,11 @@ import {
   Cpu
 } from 'lucide-react';
 import PremiumFooter from '@/components/Footer';
+import ArticleSlider from '@/components/home/ArticleSlider';
+import { getAllPosts } from '@/lib/posts';
 
 export default function HomePage() {
+  const posts = getAllPosts();
   const [activeCategory, setActiveCategory] = useState<'all' | 'service' | 'shop' | 'property' | 'insurance' | 'course'>('all');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -337,6 +340,18 @@ export default function HomePage() {
             '@type': 'Answer',
             text: faq.a,
           },
+        })),
+      },
+      {
+        '@type': 'ItemList',
+        '@id': `${siteUrl}/#articles-list`,
+        name: 'คลังความรู้ & กลยุทธ์เซลเพจปิดการขาย',
+        description: 'รวมบทความและกลยุทธ์การทำเซลเพจปิดการขาย จิตวิทยา 16:9 สถาปัตยกรรม Technical SEO ดันติดหน้า 1 Google และคู่มือติดตั้ง Meta CAPI',
+        itemListElement: posts.map((post, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          url: `${siteUrl}/blog/${post.slug}`,
+          name: post.title,
         })),
       },
     ],
@@ -1176,7 +1191,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 9. FAQS */}
+      {/* 9. ARTICLES & KNOWLEDGE HUB CARD SLIDER */}
+      <ArticleSlider posts={posts} />
+
+      {/* 10. FAQS */}
       <section id="faqs" className="py-16 md:py-24 bg-slate-900/60 border-t border-slate-800">
         <div className="max-w-4xl mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto space-y-3 mb-14">

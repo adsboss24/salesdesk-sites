@@ -272,89 +272,183 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* 3. HERO SHOWCASE WITH MASTER HERO IMAGE BACKGROUND */}
-      <section className="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden bg-slate-950">
+      {/* 3. HERO SHOWCASE: SALESDESK SALEPAGE ARCHITECT (40-50% Left Text, Zero Obstruction on Right) */}
+      <section className="relative min-h-[92vh] sm:min-h-[660px] lg:min-h-[740px] flex flex-col justify-between sm:justify-center overflow-hidden bg-slate-950 text-white">
         
-        {/* Hero Background Image: Desktop Full-Bleed Split */}
-        <div className="hidden md:block absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
+        {/* Full-Bleed 16:9 Cinematic Background Image */}
+        <div className="absolute inset-0 z-0">
           <img
             src="/images/hero-desktop.png"
             alt="SalesDesk Sites Hero Background"
-            className="w-full h-full object-cover object-right opacity-40 brightness-110 contrast-105"
+            className="w-full h-full object-cover object-[78%_center] lg:object-right brightness-105 contrast-[1.02] transition-all duration-700"
           />
-          {/* Contrast Scrim Engine */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 via-45% to-slate-950/30" />
-          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-950 to-transparent" />
-        </div>
-
-        {/* Hero Background Image: Mobile Dedicated Framing */}
-        <div className="md:hidden absolute inset-0 z-0 overflow-hidden pointer-events-none select-none">
-          <img
-            src="/images/hero-mobile.png"
-            alt="SalesDesk Sites Hero Background"
-            className="w-full h-full object-cover object-center opacity-30 brightness-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-950/95 via-slate-950/90 to-slate-950" />
+          
+          {/* Desktop Left Scrim: Darkens left 48% for 100% white text contrast, leaving right 52% completely bright */}
+          <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 via-48% to-transparent pointer-events-none" />
+          
+          {/* Mobile Multi-Layer Scrim: Top scrim for headline, crystal clear middle, bottom scrim for buttons */}
+          <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-slate-950/95 via-slate-950/50 via-25% to-transparent pointer-events-none" />
+          <div className="lg:hidden absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-slate-950 via-slate-950/90 via-50% to-transparent pointer-events-none" />
+          
+          {/* Desktop Bottom Edge Fade */}
+          <div className="hidden lg:block absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
         </div>
 
         {/* Hero Content Container */}
-        <div className="max-w-5xl mx-auto px-4 text-center relative z-10 space-y-6">
-          
-          {/* Luxury Architecture Badge */}
-          <div className="inline-flex items-center gap-2 bg-slate-900/90 border border-teal-500/40 text-teal-300 px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold shadow-inner backdrop-blur-md">
-            <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
-            <span>High-Converting Psychological Salepage Architecture</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-16 pb-4 sm:pb-8 lg:py-24 relative z-10 w-full flex-1 flex flex-col justify-between">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Left Content Column (Strictly 40-50% on Desktop, Text Left) */}
+            <div className="lg:col-span-7 xl:col-span-6 space-y-3.5 sm:space-y-6 text-center lg:text-left">
+              
+              {/* Luxury Badge */}
+              <div className="inline-flex items-center gap-2 bg-slate-950/85 border border-teal-500/40 text-teal-300 px-3.5 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold backdrop-blur-md shadow-md shadow-slate-950/50">
+                <Sparkles className="w-4 h-4 text-amber-400 animate-pulse shrink-0" />
+                <span>High-Converting Psychological Salepage Architecture</span>
+              </div>
+
+              {/* Main Headline (Multi-tier drop shadows, perfect natural wrap) */}
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-white tracking-tight leading-[1.2] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+                เปลี่ยนคนเห็นแอด <br />
+                ให้เป็นลูกค้าโอนเงินทันที <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-amber-300 inline-block mt-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                  ด้วยเซลเพจปิดการขายตามหลักจิตวิทยาขั้นสูง
+                </span>
+              </h1>
+
+              {/* Subheadline */}
+              <p className="text-xs sm:text-base md:text-lg text-slate-100 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
+                หยุดเสียเงินยิงแอดเข้าแชตที่ทักแล้วเงียบหาย! ยกระดับธุรกิจด้วยเซลเพจโหลดเร็ว <strong className="text-teal-300 font-bold">0.8 วิ</strong> โครงสร้างร้อยเรียงอารมณ์เพื่อปิดการขายอัตโนมัติ <strong className="text-amber-300 font-bold">24 ชม.</strong> พร้อมการันตีแก้ไขได้จนกว่าจะพอใจ
+              </p>
+
+              {/* Desktop-only CTAs (Rendered directly under subheadline on desktop) */}
+              <div className="hidden lg:flex flex-row items-center justify-start gap-3 pt-2">
+                <a
+                  href="#pricing"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-slate-950 font-black text-sm shadow-xl shadow-teal-500/25 transition active:scale-95 cursor-pointer"
+                >
+                  <span>ดูแพ็กเกจราคาเริ่มต้น ฿2,990</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <a
+                  href="#portfolio"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 font-bold text-sm border border-slate-700 backdrop-blur-md transition cursor-pointer"
+                >
+                  <span>ชมตัวอย่างจริง 5 หมวดหมู่</span>
+                </a>
+              </div>
+
+              {/* Micro Trust Indicators (Desktop) */}
+              <div className="hidden lg:flex items-center gap-5 text-xs text-slate-200 pt-1 font-medium">
+                <div className="flex items-center gap-1.5 drop-shadow">
+                  <ShieldCheck className="w-4 h-4 text-teal-400 shrink-0" />
+                  <span>การันตีแก้ไขจนกว่าจะพอใจ</span>
+                </div>
+                <div className="flex items-center gap-1.5 drop-shadow">
+                  <Zap className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span>จัดทำตัวอย่างฟรีให้ชมก่อน</span>
+                </div>
+                <div className="flex items-center gap-1.5 drop-shadow">
+                  <Award className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>ส่งมอบงานใน 24-48 ชม.</span>
+                </div>
+              </div>
+
+            </div>
+
+            {/* Right Column: Kept completely empty on Desktop so the characters, robot, and AI holograms shine 100% unobstructed! */}
+            <div className="hidden lg:block lg:col-span-5 xl:col-span-6" />
+
           </div>
 
-          {/* Main Headline (Formatted with proper word wraps and highlights) */}
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.25] sm:leading-[1.2] max-w-4xl mx-auto drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-            เปลี่ยนคนเห็นแอด ให้เป็นลูกค้าโอนเงิน <br className="hidden sm:inline" />
-            <span className="text-white">ทันที</span> <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-amber-300 inline-block mt-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-              ด้วยเซลเพจปิดการขายตามหลักจิตวิทยาขั้นสูง
-            </span>
-          </h1>
+          {/* Bottom Block: Mobile Action CTAs + 4 Glassmorphic Feature Badges */}
+          <div className="mt-4 sm:mt-12">
+            
+            {/* Mobile-only CTAs (Rendered at bottom of hero, keeping middle photo 100% open) */}
+            <div className="lg:hidden space-y-2 mb-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <a
+                  href="#pricing"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 text-slate-950 font-black text-sm shadow-lg shadow-teal-500/25 active:scale-95"
+                >
+                  <span>ดูแพ็กเกจราคาเริ่มต้น ฿2,990</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <a
+                  href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-900/90 text-white font-medium text-sm border border-white/20 backdrop-blur-md active:scale-95"
+                >
+                  <MessageCircle className="w-4 h-4 text-teal-400" /> ขอตัวอย่างฟรีใน LINE
+                </a>
+              </div>
 
-          {/* Subheadline */}
-          <p className="text-sm sm:text-base md:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.8)]">
-            หยุดเสียเงินยิงแอดเข้าแชตที่ทักแล้วเงียบหาย! ยกระดับธุรกิจด้วยเซลเพจโหลดเร็ว <strong className="text-teal-300 font-bold">0.8 วิ</strong> <br className="hidden sm:inline" />
-            โครงสร้างร้อยเรียงอารมณ์เพื่อปิดการขายอัตโนมัติ <strong className="text-amber-300 font-bold">24 ชม.</strong> พร้อมการันตีแก้ไขได้จนกว่าจะพอใจ
-          </p>
+              {/* Micro Trust (Mobile) */}
+              <div className="flex items-center justify-center gap-3 text-[11px] text-slate-200 pt-1 font-medium">
+                <span className="flex items-center gap-1"><Check className="w-3 h-3 text-emerald-400" /> แก้ไขจนพอใจ</span>
+                <span>•</span>
+                <span className="flex items-center gap-1"><Check className="w-3 h-3 text-amber-400" /> ชมตัวอย่างฟรีก่อน</span>
+                <span>•</span>
+                <span className="flex items-center gap-1"><Check className="w-3 h-3 text-teal-400" /> ส่งงานใน 24-48 ชม.</span>
+              </div>
+            </div>
 
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-3">
-            <a 
-              href="#pricing" 
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-slate-950 font-bold text-sm sm:text-base shadow-xl shadow-teal-500/25 transition active:scale-95 cursor-pointer"
-            >
-              <span>ดูแพ็กเกจราคาเริ่มต้น ฿2,990</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <a 
-              href="#portfolio" 
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 font-bold text-sm sm:text-base border border-slate-700 backdrop-blur-md transition cursor-pointer"
-            >
-              <span>ชมตัวอย่างจริง 5 หมวดหมู่</span>
-            </a>
-          </div>
+            {/* 4 Glassmorphic Feature Badges (Desktop & Mobile) */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 pt-3 sm:pt-6 border-t border-white/10">
+              <div className="bg-slate-950/70 border border-white/10 rounded-xl p-2.5 sm:p-4 backdrop-blur-md hover:border-teal-500/40 transition">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="p-1.5 sm:p-2 rounded-lg bg-teal-500/20 text-teal-300 shrink-0">
+                    <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">โหลดเร็ว 0.8 วิ</h4>
+                    <p className="text-[10px] sm:text-xs text-slate-300">สถาปัตยกรรม Next.js</p>
+                  </div>
+                </div>
+              </div>
 
-          {/* Trust Guarantees */}
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs text-slate-300 font-medium">
-            <div className="flex items-center gap-2 drop-shadow">
-              <ShieldCheck className="w-4 h-4 text-teal-400" />
-              <span>การันตีแก้ไขจนกว่าจะพอใจ</span>
+              <div className="bg-slate-950/70 border border-white/10 rounded-xl p-2.5 sm:p-4 backdrop-blur-md hover:border-teal-500/40 transition">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="p-1.5 sm:p-2 rounded-lg bg-emerald-500/20 text-emerald-300 shrink-0">
+                    <Monitor className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">Cinematic 16:9</h4>
+                    <p className="text-[10px] sm:text-xs text-slate-300">ไม่บังภาพบนมือถือ 100%</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-slate-950/70 border border-white/10 rounded-xl p-2.5 sm:p-4 backdrop-blur-md hover:border-teal-500/40 transition">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="p-1.5 sm:p-2 rounded-lg bg-amber-500/20 text-amber-300 shrink-0">
+                    <Target className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">Full Tracking</h4>
+                    <p className="text-[10px] sm:text-xs text-slate-300">GTM, GA4, Meta CAPI</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-slate-950/70 border border-white/10 rounded-xl p-2.5 sm:p-4 backdrop-blur-md hover:border-teal-500/40 transition">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="p-1.5 sm:p-2 rounded-lg bg-purple-500/20 text-purple-300 shrink-0">
+                    <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs sm:text-sm font-bold text-white leading-tight">การันตีพอใจ</h4>
+                    <p className="text-[10px] sm:text-xs text-slate-300">ปรับแก้ไม่อั้นก่อนขึ้นจริง</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="flex items-center gap-2 drop-shadow">
-              <Zap className="w-4 h-4 text-amber-400" />
-              <span>จัดทำตัวอย่างฟรีให้ชมก่อน</span>
-            </div>
-            <div className="flex items-center gap-2 drop-shadow">
-              <Award className="w-4 h-4 text-emerald-400" />
-              <span>ส่งมอบงานรวดเร็วใน 24-48 ชม.</span>
-            </div>
+
           </div>
 
         </div>
+
       </section>
 
       {/* 4. THE PAIN POINTS VS THE SOLUTION (จิตวิทยาขยี้ปัญหาและทางแก้) */}

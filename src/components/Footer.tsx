@@ -7,14 +7,12 @@ import {
   PhoneCall, 
   MessageCircle, 
   Mail, 
-  Clock, 
-  ExternalLink, 
-  Share2, 
   ShieldCheck, 
-  Layers, 
-  CheckCircle2,
-  TrendingUp,
-  Globe
+  Cpu, 
+  Globe,
+  Clock,
+  Layers,
+  CheckCircle2
 } from 'lucide-react';
 
 export default function PremiumFooter() {
@@ -22,16 +20,16 @@ export default function PremiumFooter() {
 
   return (
     <footer className="bg-slate-950 text-slate-300 border-t border-slate-800/80 relative overflow-hidden">
-      {/* Ambient gradient glow */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-teal-500/5 rounded-full blur-[140px] pointer-events-none" />
+      {/* Subtle ambient lighting */}
+      <div className="absolute top-0 left-1/3 w-96 h-96 bg-teal-500/5 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-[140px] pointer-events-none" />
 
-      {/* Main Footer Content */}
+      {/* Main Footer Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 sm:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 sm:gap-12 items-start">
           
-          {/* Column 1: Brand & Company Info (Cols 1-4) */}
-          <div className="lg:col-span-4 space-y-5">
+          {/* Column 1: Brand & Headquarters (Cols 1-5) */}
+          <div className="lg:col-span-5 space-y-5">
             <div className="flex items-center gap-3">
               <img 
                 src="/images/salesdesk-logo-square.png" 
@@ -48,12 +46,12 @@ export default function PremiumFooter() {
               </div>
             </div>
 
-            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal max-w-md">
               สตูดิโอออกแบบเว็บไซต์และเซลเพจสไตล์ Cinematic ปิดการขายด้วยหลักจิตวิทยาขั้นสูง 
-              ผสานเทคโนโลยี AI อัจฉริยะ โครงสร้าง 16:9 ไม่บังภาพบนมือถือ พร้อมระบบวัดผล Conversion Tracking ครบวงจร
+              ผสานเทคโนโลยี AI อัจฉริยะ สถาปัตยกรรม 16:9 ไม่บังภาพบนมือถือ พร้อมระบบวัดผล Conversion Tracking ครบวงจร
             </p>
 
-            <div className="space-y-2.5 text-xs text-slate-400 pt-2 border-t border-slate-850">
+            <div className="space-y-2.5 text-xs text-slate-400 pt-3 border-t border-slate-850">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-teal-400 shrink-0 mt-0.5" />
                 <span className="leading-relaxed">
@@ -66,12 +64,9 @@ export default function PremiumFooter() {
               </div>
             </div>
 
-            {/* Social Share & Connect */}
+            {/* Social Connect Icons */}
             <div className="pt-2">
-              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2.5">
-                ช่องทางเชื่อมต่อ & สื่อสังคมออนไลน์
-              </span>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 <a 
                   href="https://line.me/R/ti/p/@fhu6688s?text=สวัสดีครับทีมงานSalesDeskAI"
                   target="_blank" 
@@ -84,14 +79,14 @@ export default function PremiumFooter() {
                 <a 
                   href="tel:0817726444"
                   className="w-9 h-9 rounded-xl bg-teal-600/20 border border-teal-500/30 text-teal-400 hover:bg-teal-600 hover:text-white flex items-center justify-center transition active:scale-95"
-                  title="สายด่วนโทรติดต่อ"
+                  title="โทรติดต่อสายตรง"
                 >
                   <PhoneCall className="w-4 h-4" />
                 </a>
                 <a 
                   href="mailto:contact@salesdesk-ai.com"
                   className="w-9 h-9 rounded-xl bg-sky-600/20 border border-sky-500/30 text-sky-400 hover:bg-sky-600 hover:text-white flex items-center justify-center transition active:scale-95"
-                  title="อีเมลประสานงาน"
+                  title="อีเมลติดต่อฝ่ายประสานงาน"
                 >
                   <Mail className="w-4 h-4" />
                 </a>
@@ -99,8 +94,8 @@ export default function PremiumFooter() {
                   href="https://salesdesk-sites.vercel.app/"
                   target="_blank" 
                   rel="noreferrer"
-                  className="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-700 hover:text-white flex items-center justify-center transition active:scale-95"
-                  title="เว็บไซต์หลัก"
+                  className="w-9 h-9 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white flex items-center justify-center transition active:scale-95"
+                  title="SalesDesk Sites Official"
                 >
                   <Globe className="w-4 h-4" />
                 </a>
@@ -108,66 +103,24 @@ export default function PremiumFooter() {
             </div>
           </div>
 
-          {/* Column 2: Solutions & Showcase (Cols 5-7) */}
+          {/* Column 2: Architecture & Ad Tech Standards (Cols 6-8) */}
           <div className="lg:col-span-3 space-y-4">
             <h4 className="text-sm font-bold text-white tracking-wide uppercase flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-teal-400" />
-              <span>ตัวอย่างเว็บไซต์ 5 หมวดหมู่</span>
-            </h4>
-            <ul className="space-y-2.5 text-xs text-slate-400">
-              <li>
-                <a href="/nattanan-nursingcare" target="_blank" className="hover:text-teal-300 transition flex items-center justify-between group">
-                  <span>🏥 ณัฐนันท์ เนอสซิ่งแคร์ (Senior Care)</span>
-                  <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition" />
-                </a>
-              </li>
-              <li>
-                <a href="/flower" target="_blank" className="hover:text-teal-300 transition flex items-center justify-between group">
-                  <span>💐 Flower.com (Luxury Floral Boutique)</span>
-                  <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition" />
-                </a>
-              </li>
-              <li>
-                <a href="/#portfolio" className="hover:text-teal-300 transition flex items-center justify-between group">
-                  <span>🛍️ DADA Jeans (One-Page Shop & COD)</span>
-                  <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition" />
-                </a>
-              </li>
-              <li>
-                <a href="/#portfolio" className="hover:text-teal-300 transition flex items-center justify-between group">
-                  <span>🏡 The Grand Residence (Luxury Villa)</span>
-                  <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition" />
-                </a>
-              </li>
-              <li>
-                <a href="/#portfolio" className="hover:text-teal-300 transition flex items-center justify-between group">
-                  <span>🛡️ คุณปรียาพร (MDRT Financial Advisor)</span>
-                  <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition" />
-                </a>
-              </li>
-              <li>
-                <a href="/#portfolio" className="hover:text-teal-300 transition flex items-center justify-between group">
-                  <span>🎓 AI Business Masterclass (คอร์สออนไลน์)</span>
-                  <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition" />
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Column 3: Conversion Tracking & Ad Tech (Cols 8-10) */}
-          <div className="lg:col-span-3 space-y-4">
-            <h4 className="text-sm font-bold text-white tracking-wide uppercase flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-emerald-400" />
-              <span>ระบบ Tracking & โฆษณา</span>
+              <Cpu className="w-4 h-4 text-teal-400" />
+              <span>มาตรฐานสถาปัตยกรรม & แอด</span>
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-400">
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
-                <span>Google Tag Manager (GTM) ระบบจัดการแท็ก</span>
+                <span>Next.js 16 & Edge CDN โหลดไว 0.8 วิ</span>
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
-                <span>Google Analytics 4 (GA4) วัดผลลึก</span>
+                <span>สถาปัตยกรรม Cinematic 16:9 ไม่บังภาพ</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
+                <span>Google Tag Manager & GA4 เต็มระบบ</span>
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
@@ -175,11 +128,7 @@ export default function PremiumFooter() {
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
-                <span>TikTok Pixel & Event Tracking</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
-                <span>LINE Tag & Conversion Optimization</span>
+                <span>TikTok Pixel & LINE Tag Integration</span>
               </li>
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
@@ -188,45 +137,47 @@ export default function PremiumFooter() {
             </ul>
           </div>
 
-          {/* Column 4: Quick Contact & Help (Cols 11-12) */}
-          <div className="lg:col-span-2 space-y-4">
+          {/* Column 3: Concierge & Direct Contact (Cols 9-12) */}
+          <div className="lg:col-span-4 space-y-4">
             <h4 className="text-sm font-bold text-white tracking-wide uppercase flex items-center gap-2">
               <Clock className="w-4 h-4 text-amber-400" />
-              <span>ติดต่อทีมงาน</span>
+              <span>บริการและที่ปรึกษาตลอด 24 ชม.</span>
             </h4>
-            <div className="space-y-3 text-xs text-slate-400">
+            
+            <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-4 space-y-3">
               <div>
-                <span className="block text-slate-500 text-[11px]">ปรึกษาด่วน 24 ชม.:</span>
-                <a href="tel:0817726444" className="text-white font-bold hover:text-teal-300 transition text-sm">
+                <span className="block text-slate-500 text-[11px] font-medium">โทรศัพท์สายด่วน:</span>
+                <a href="tel:0817726444" className="text-white font-extrabold hover:text-teal-300 transition text-base tracking-wide">
                   081-772-6444
                 </a>
               </div>
               <div>
-                <span className="block text-slate-500 text-[11px]">LINE Official:</span>
+                <span className="block text-slate-500 text-[11px] font-medium">LINE Official Account:</span>
                 <a 
                   href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ" 
                   target="_blank" 
                   rel="noreferrer"
-                  className="text-emerald-400 font-bold hover:underline transition"
+                  className="text-emerald-400 font-bold hover:underline transition text-sm flex items-center gap-1.5"
                 >
-                  @fhu6688s (มี @)
+                  <MessageCircle className="w-4 h-4" />
+                  <span>@fhu6688s (มี @ นำหน้า)</span>
                 </a>
               </div>
               <div>
-                <span className="block text-slate-500 text-[11px]">เวลาทำการ:</span>
-                <span className="text-slate-300">ทุกวัน 24 ชั่วโมง (AI & Support)</span>
+                <span className="block text-slate-500 text-[11px] font-medium">เวลาทำการ:</span>
+                <span className="text-slate-300 text-xs">ทุกวัน 24 ชั่วโมง (AI & ทีมวิศวกรผู้เชี่ยวชาญ)</span>
               </div>
             </div>
 
-            <div className="pt-2">
+            <div className="pt-1">
               <a 
                 href="https://line.me/R/ti/p/@fhu6688s?text=ต้องการขอตัวอย่างเว็บไซต์ฟรีครับ" 
                 target="_blank" 
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-1.5 w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 text-slate-950 font-bold text-xs shadow-md shadow-teal-500/20 hover:opacity-95 transition active:scale-95"
+                className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 text-slate-950 font-black text-xs sm:text-sm shadow-md shadow-teal-500/20 hover:opacity-95 transition active:scale-95"
               >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>ขอตัวอย่างฟรีใน LINE</span>
+                <Sparkles className="w-4 h-4" />
+                <span>ปรึกษาและขอตัวอย่างฟรีใน LINE</span>
               </a>
             </div>
           </div>
@@ -246,7 +197,7 @@ export default function PremiumFooter() {
             <span>•</span>
             <a href="#terms" className="hover:text-slate-300 transition">ข้อกำหนดการให้บริการ (Terms)</a>
             <span>•</span>
-            <a href="#cookie" className="hover:text-slate-300 transition">นโยบายคุกกี้ (Cookie Policy)</a>
+            <a href="#cookie" className="hover:text-slate-300 transition">นโยบายความปลอดภัยข้อมูล</a>
             <span>•</span>
             <a 
               href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ" 

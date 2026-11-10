@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Noto_Serif_Thai, Noto_Sans_Thai, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
@@ -23,18 +23,55 @@ const jetbrainsMono = JetBrains_Mono({
   display: 'swap',
 });
 
+export const viewport: Viewport = {
+  themeColor: '#030712',
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.salesdesk-ai.com'),
   title: 'SalesDesk Sites — สตูดิโอออกแบบเว็บไซต์และเซลเพจพรีเมียมด้วย AI',
   description:
-    'ยกระดับธุรกิจของคุณสู่เว็บไซต์และเซลเพจระดับพรีเมียม โครงสร้าง Cinematic Hero สวยหรู โหลดเร็ว รองรับมือถือ 100% พร้อมระบบปิดการขายอัตโนมัติ',
-  keywords: [
-    'รับทำเซลเพจ',
-    'ออกแบบเว็บไซต์',
-    'เซลเพจพรีเมียม',
-    'SalesDesk Sites',
-    'SalesDesk AI',
-    'Salepage',
-  ],
+    'ยกระดับธุรกิจของคุณสู่เว็บไซต์และเซลเพจระดับพรีเมียม โครงสร้างจิตวิทยาปิดการขาย Cinematic Hero โหลดเร็ว 0.8 วิ รองรับมือถือ 100% พร้อมระบบ Conversion Tracking ครบวงจร',
+  alternates: {
+    canonical: 'https://www.salesdesk-ai.com',
+  },
+  openGraph: {
+    title: 'SalesDesk Sites — สตูดิโอออกแบบเว็บไซต์และเซลเพจพรีเมียมด้วย AI',
+    description:
+      'ยกระดับธุรกิจของคุณสู่เว็บไซต์และเซลเพจระดับพรีเมียม โครงสร้างจิตวิทยาปิดการขาย Cinematic Hero โหลดเร็ว 0.8 วิ รองรับมือถือ 100% พร้อมระบบ Conversion Tracking ครบวงจร',
+    url: 'https://www.salesdesk-ai.com',
+    siteName: 'SalesDesk Sites',
+    locale: 'th_TH',
+    type: 'website',
+    images: [
+      {
+        url: '/images/hero-desktop.png',
+        width: 1200,
+        height: 630,
+        alt: 'SalesDesk Sites — สตูดิโอออกแบบเว็บไซต์และเซลเพจพรีเมียมด้วย AI',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SalesDesk Sites — สตูดิโอออกแบบเว็บไซต์และเซลเพจพรีเมียมด้วย AI',
+    description:
+      'ยกระดับธุรกิจของคุณสู่เว็บไซต์และเซลเพจระดับพรีเมียม โครงสร้างจิตวิทยาปิดการขาย Cinematic Hero โหลดเร็ว 0.8 วิ รองรับมือถือ 100%',
+    images: ['/images/hero-desktop.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({

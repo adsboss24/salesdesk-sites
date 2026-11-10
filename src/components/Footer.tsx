@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { 
   Sparkles, 
   MapPin, 
@@ -31,9 +32,11 @@ export default function PremiumFooter() {
           {/* Column 1: Brand & Headquarters (Cols 1-5) */}
           <div className="lg:col-span-5 space-y-5">
             <div className="flex items-center gap-3">
-              <img 
+              <Image 
                 src="/images/salesdesk-logo-square.png" 
-                alt="SalesDesk AI" 
+                alt="SalesDesk AI Logo" 
+                width={44}
+                height={44}
                 className="w-11 h-11 rounded-xl object-contain shadow-lg shadow-teal-500/20 bg-slate-900 border border-slate-700/60 p-1" 
               />
               <div>

@@ -29,8 +29,16 @@ import {
   CheckCheck
 } from 'lucide-react';
 import PremiumFooter from '@/components/Footer';
+import DemoBanner, { useDemoMode } from '@/components/DemoBanner';
 
 export default function TandJBeddingSalepage() {
+  const { isDemo, phoneDisplay, phoneCallUrl, lineUrl } = useDemoMode({
+    clientName: 'T&J BEDDING',
+    pageKey: 'tandj-bedding',
+    defaultClientPhone: '086-461-4614',
+    defaultClientLine: 'https://line.me/ti/p/~@fhu6688s',
+  });
+
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [activeTab, setActiveTab] = useState<'all' | 'pillow' | 'bedsheet' | 'duvet' | 'topper' | 'towel'>('all');
   const [selectedPackage, setSelectedPackage] = useState<string>('Deluxe Hotel Set (ยอดนิยม 20-50 ห้อง)');
@@ -161,6 +169,9 @@ export default function TandJBeddingSalepage() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-amber-500 selection:text-white pb-24 md:pb-12 w-full max-w-full overflow-x-hidden">
       
+      {/* 0. SALESDESK AI 7-DAY DEMO BANNER & EXPIRY GUARD */}
+      <DemoBanner clientName="T&J BEDDING" pageKey="tandj-bedding" />
+
       {/* 1. TOP ANNOUNCEMENT BAR */}
       <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-blue-950 text-white text-xs py-2 px-3 sm:px-4 border-b border-amber-500/30">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
@@ -173,8 +184,8 @@ export default function TandJBeddingSalepage() {
             </span>
           </div>
           <div className="hidden md:flex items-center gap-4 text-slate-300 font-medium text-xs shrink-0">
-            <a href="tel:0864614614" className="hover:text-amber-300 flex items-center gap-1.5 transition">
-              <PhoneCall className="w-3.5 h-3.5 text-amber-400" /> 086-461-4614
+            <a href={phoneCallUrl} className="hover:text-amber-300 flex items-center gap-1.5 transition">
+              <PhoneCall className="w-3.5 h-3.5 text-amber-400" /> {phoneDisplay}
             </a>
             <span className="text-slate-600">•</span>
             <span className="text-emerald-400 flex items-center gap-1">
@@ -199,7 +210,7 @@ export default function TandJBeddingSalepage() {
                   T&J BEDDING
                 </span>
                 <span className="text-[10px] sm:text-xs px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 font-bold border border-amber-300/60">
-                  FACTORY
+                  {isDemo ? 'DEMO' : 'FACTORY'}
                 </span>
               </div>
               <p className="hidden sm:block text-[11px] sm:text-xs text-slate-500 font-medium whitespace-nowrap">
@@ -221,7 +232,7 @@ export default function TandJBeddingSalepage() {
           {/* Header Action Buttons */}
           <div className="flex items-center gap-2 shrink-0">
             <a 
-              href="https://line.me/ti/p/~@fhu6688s"
+              href={lineUrl}
               target="_blank" 
               rel="noreferrer"
               className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-xs sm:text-sm shadow-xs transition whitespace-nowrap"
@@ -229,9 +240,9 @@ export default function TandJBeddingSalepage() {
               <MessageCircle className="w-4 h-4" /> แอดไลน์ปรึกษา
             </a>
             <a 
-              href="tel:0864614614"
+              href={phoneCallUrl}
               className="inline-flex sm:hidden items-center justify-center w-9 h-9 rounded-xl bg-blue-950 text-amber-400 border border-amber-500/30"
-              title="โทรด่วน 086-4614614"
+              title={`โทรด่วน ${phoneDisplay}`}
             >
               <PhoneCall className="w-4 h-4" />
             </a>
@@ -312,11 +323,11 @@ export default function TandJBeddingSalepage() {
                 </a>
 
                 <a
-                  href="tel:0864614614"
+                  href={phoneCallUrl}
                   className="px-5 py-3.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-semibold text-base border border-slate-700/80 backdrop-blur-md transition-all flex items-center justify-center gap-2 shadow-lg"
                 >
                   <PhoneCall className="w-4 h-4 text-amber-400" />
-                  <span>086-461-4614 (ฝ่ายขายโรงงาน)</span>
+                  <span>{phoneDisplay} (ฝ่ายขาย{isDemo ? ' SalesDesk AI' : 'โรงงาน'})</span>
                 </a>
               </div>
 
@@ -352,11 +363,11 @@ export default function TandJBeddingSalepage() {
                   <span>ขอใบเสนอราคา & ปรึกษาสเปก</span>
                 </a>
                 <a
-                  href="tel:0864614614"
+                  href={phoneCallUrl}
                   className="w-full py-2.5 px-4 rounded-xl bg-slate-900/90 border border-slate-700/80 text-white font-semibold text-xs shadow-md flex items-center justify-center gap-2"
                 >
                   <PhoneCall className="w-4 h-4 text-amber-400" />
-                  <span>โทรด่วน 086-461-4614</span>
+                  <span>โทรด่วน {phoneDisplay}</span>
                 </a>
               </div>
             </div>
@@ -425,7 +436,7 @@ export default function TandJBeddingSalepage() {
             <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-blue-900 bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200/80">
               Hospitality Solutions
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-[1.35] sm:leading-[1.4]">
               โซลูชันชุดเครื่องนอน ตอบโจทย์ทุกกลุ่มธุรกิจที่พัก
             </h2>
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
@@ -528,7 +539,7 @@ export default function TandJBeddingSalepage() {
             <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-amber-300 bg-amber-500/20 px-3.5 py-1.5 rounded-full border border-amber-400/30">
               Why Choose T&J Bedding
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-[1.35] sm:leading-[1.4]">
               จุดเด่นและความเชี่ยวชาญ ที่โรงแรมชั้นนำไว้วางใจ
             </h2>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
@@ -617,11 +628,11 @@ export default function TandJBeddingSalepage() {
               </p>
             </div>
             <a
-              href="tel:0864614614"
+              href={phoneCallUrl}
               className="px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-sm shrink-0 shadow-lg shadow-amber-400/20 transition flex items-center gap-2"
             >
               <PhoneCall className="w-4 h-4 text-slate-950" />
-              <span>โทรปรึกษา 086-461-4614</span>
+              <span>โทรปรึกษา {phoneDisplay}</span>
             </a>
           </div>
 
@@ -636,7 +647,7 @@ export default function TandJBeddingSalepage() {
             <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-blue-900 bg-blue-100/70 px-3.5 py-1.5 rounded-full border border-blue-200">
               Product Catalog
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-[1.35] sm:leading-[1.4]">
               5 รายการสินค้าชุดเครื่องนอนคุณภาพ ส่งตรงจากโรงงาน
             </h2>
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
@@ -792,13 +803,13 @@ export default function TandJBeddingSalepage() {
               </p>
               <div className="pt-2 flex flex-wrap gap-3">
                 <a 
-                  href="tel:0864614614" 
+                  href={phoneCallUrl} 
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-950 text-amber-300 font-semibold text-xs shadow-sm hover:bg-blue-900 transition"
                 >
-                  <PhoneCall className="w-3.5 h-3.5" /> โทร 086-461-4614
+                  <PhoneCall className="w-3.5 h-3.5" /> โทร {phoneDisplay}
                 </a>
                 <a 
-                  href="https://line.me/ti/p/~@fhu6688s" 
+                  href={lineUrl} 
                   target="_blank" 
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 text-white font-semibold text-xs shadow-sm hover:bg-emerald-700 transition"
@@ -820,7 +831,7 @@ export default function TandJBeddingSalepage() {
             <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-amber-300 bg-amber-500/20 px-3.5 py-1.5 rounded-full border border-amber-400/30">
               Hotel Opening Packages
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-[1.35] sm:leading-[1.4] max-w-2xl mx-auto">
               แพ็กเกจเซ็ตเปิดโรงแรม & เซ็ตประหยัดราคาโรงงาน
             </h2>
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
@@ -828,7 +839,7 @@ export default function TandJBeddingSalepage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch pt-2">
             
             {/* Package 1 */}
             <div className="rounded-2xl bg-slate-800/90 border border-slate-700 p-6 sm:p-8 flex flex-col justify-between hover:border-slate-500 transition">
@@ -839,8 +850,8 @@ export default function TandJBeddingSalepage() {
                   </span>
                   <span className="text-xs text-slate-400">5 - 10 ห้อง</span>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">Starter Boutique Set</h3>
-                <p className="text-xs sm:text-sm text-slate-300 mb-6">
+                <h3 className="text-xl font-bold text-white mb-2 leading-snug">Starter Boutique Set</h3>
+                <p className="text-xs sm:text-sm text-slate-300 mb-6 leading-relaxed">
                   เหมาะสำหรับโฮมสเตย์ อพาร์ตเมนต์ หรือรีสอร์ทเปิดใหม่ขนาดเล็ก ที่ต้องการคุมงบประมาณเริ่มต้น
                 </p>
 
@@ -880,22 +891,22 @@ export default function TandJBeddingSalepage() {
             </div>
 
             {/* Package 2 (Popular Highlight) */}
-            <div className="rounded-2xl bg-gradient-to-b from-slate-800 to-blue-950/70 border-2 border-amber-400 p-6 sm:p-8 flex flex-col justify-between shadow-2xl shadow-amber-500/10 relative transform lg:-translate-y-2">
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                <span className="px-4 py-1 rounded-full bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 text-xs font-black shadow-md uppercase tracking-wider">
+            <div className="rounded-2xl bg-gradient-to-b from-slate-800 to-blue-950/70 border-2 border-amber-400 p-6 sm:p-8 pt-9 sm:pt-10 flex flex-col justify-between shadow-2xl shadow-amber-500/10 relative transform lg:-translate-y-2">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-20">
+                <span className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 text-slate-950 text-xs font-black shadow-lg uppercase tracking-wide whitespace-nowrap">
                   🔥 ยอดนิยมสูงสุด (Best Value)
                 </span>
               </div>
 
               <div>
-                <div className="flex items-center justify-between mb-4 pt-2">
+                <div className="flex items-center justify-between mb-4 pt-1">
                   <span className="px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 text-xs font-semibold border border-amber-400/30">
                     มาตรฐานโรงแรม 4-5 ดาว
                   </span>
                   <span className="text-xs text-amber-300 font-bold">20 - 50 ห้อง</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-white mb-2">Deluxe Hotel Set</h3>
-                <p className="text-xs sm:text-sm text-slate-200 mb-6">
+                <h3 className="text-xl sm:text-2xl font-black text-white mb-2 leading-snug">Deluxe Hotel Set</h3>
+                <p className="text-xs sm:text-sm text-slate-200 mb-6 leading-relaxed">
                   ชุดยอดนิยมสำหรับโรงแรม รีสอร์ท และพูลวิลล่าชั้นนำ ผ้าปูริ้วซาติน สัมผัสนุ่มเด้ง ซักอุตสาหกรรมได้ยาวนาน
                 </p>
 
@@ -997,7 +1008,7 @@ export default function TandJBeddingSalepage() {
             <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-blue-900 bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-200">
               Verified Reviews
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-[1.35] sm:leading-[1.4]">
               เสียงตอบรับจากเจ้าของโรงแรมและรีสอร์ทจริง
             </h2>
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
@@ -1113,7 +1124,7 @@ export default function TandJBeddingSalepage() {
                 <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-blue-950 bg-amber-400/30 px-3.5 py-1.5 rounded-full border border-amber-400/50">
                   Contact Factory Direct
                 </span>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mt-3">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight leading-[1.35] sm:leading-[1.4] mt-3">
                   ขอใบเสนอราคาด่วน & ขอรับตัวอย่างผ้าฟรี
                 </h2>
                 <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
@@ -1128,9 +1139,9 @@ export default function TandJBeddingSalepage() {
                     <PhoneCall className="w-6 h-6" />
                   </div>
                   <div>
-                    <span className="text-xs text-slate-500 font-medium">ฝ่ายขายและบริการลูกค้าโรงงาน</span>
-                    <a href="tel:0864614614" className="text-xl sm:text-2xl font-black text-blue-950 hover:text-amber-600 block transition">
-                      086-461-4614
+                    <span className="text-xs text-slate-500 font-medium">ฝ่ายขายและบริการลูกค้า{isDemo ? ' (SalesDesk AI Demo)' : 'โรงงาน'}</span>
+                    <a href={phoneCallUrl} className="text-xl sm:text-2xl font-black text-blue-950 hover:text-amber-600 block transition">
+                      {phoneDisplay}
                     </a>
                   </div>
                 </div>
@@ -1142,7 +1153,7 @@ export default function TandJBeddingSalepage() {
                   <div>
                     <span className="text-xs text-slate-500 font-medium">LINE Official Account</span>
                     <a 
-                      href="https://line.me/ti/p/~@fhu6688s" 
+                      href={lineUrl} 
                       target="_blank" 
                       rel="noreferrer" 
                       className="text-sm font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 transition"
@@ -1381,23 +1392,23 @@ export default function TandJBeddingSalepage() {
       <PremiumFooter />
 
       {/* 11. FIXED MOBILE ACTION BAR (High-Converting Dual Button) */}
-      <div className="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-slate-950/95 backdrop-blur-md border-t border-slate-800 p-2.5 px-3 shadow-2xl">
+      <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-slate-950/95 backdrop-blur-md border-t border-slate-800 p-2.5 px-3 shadow-2xl">
         <div className="grid grid-cols-2 gap-2">
           <a
-            href="tel:0864614614"
+            href={phoneCallUrl}
             className="w-full py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-sm"
           >
             <PhoneCall className="w-4 h-4 text-amber-400" />
-            <span>โทร 086-4614614</span>
+            <span>โทร {phoneDisplay}</span>
           </a>
           <a
-            href="https://line.me/ti/p/~@fhu6688s"
+            href={lineUrl}
             target="_blank"
             rel="noreferrer"
             className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20"
           >
             <MessageCircle className="w-4 h-4 text-slate-950" />
-            <span>ขอราคาส่งทาง LINE</span>
+            <span>{isDemo ? 'ติดต่อ SalesDesk AI' : 'ขอราคาส่งทาง LINE'}</span>
           </a>
         </div>
       </div>

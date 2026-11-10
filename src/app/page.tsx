@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { 
   Sparkles, 
   ArrowRight, 
@@ -247,8 +248,72 @@ export default function HomePage() {
     },
   ];
 
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'ProfessionalService',
+        '@id': 'https://www.salesdesk-ai.com/#organization',
+        name: 'SalesDesk Sites',
+        alternateName: 'SalesDesk AI',
+        url: 'https://www.salesdesk-ai.com',
+        logo: 'https://www.salesdesk-ai.com/images/salesdesk-logo-square.png',
+        image: 'https://www.salesdesk-ai.com/images/hero-desktop.png',
+        description: 'สตูดิโอออกแบบเว็บไซต์และเซลเพจพรีเมียมด้วย AI โครงสร้างจิตวิทยาปิดการขาย Cinematic Hero โหลดเร็ว 0.8 วิ รองรับมือถือ 100% พร้อมระบบ Conversion Tracking ครบวงจร',
+        telephone: '+66817726444',
+        priceRange: '฿2,990 - ฿9,900',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'อาคาร SalesDesk AI Tower ชั้น 18 เลขที่ 88/1 ถนนรัชดาภิเษก',
+          addressLocality: 'แขวงดินแดง เขตดินแดง',
+          addressRegion: 'กรุงเทพมหานคร',
+          postalCode: '10400',
+          addressCountry: 'TH',
+        },
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: 13.765,
+          longitude: 100.57,
+        },
+        openingHoursSpecification: {
+          '@type': 'OpeningHoursSpecification',
+          dayOfWeek: [
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday',
+            'Saturday',
+            'Sunday',
+          ],
+          opens: '00:00',
+          closes: '23:59',
+        },
+        sameAs: ['https://line.me/R/ti/p/@fhu6688s'],
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': 'https://www.salesdesk-ai.com/#faq',
+        mainEntity: faqs.map((faq) => ({
+          '@type': 'Question',
+          name: faq.q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.a,
+          },
+        })),
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-teal-500 selection:text-white overflow-x-hidden">
+      
+      {/* Advanced JSON-LD Structured Data for Google Rich Results */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       
       {/* 1. TOP ANNOUNCEMENT BAR */}
       <div className="bg-gradient-to-r from-teal-900 via-emerald-900 to-slate-900 text-teal-100 text-xs py-2 px-4 border-b border-teal-800/40 text-center font-medium">
@@ -261,9 +326,12 @@ export default function HomePage() {
           
           {/* Logo SalesDesk AI */}
           <div className="flex items-center gap-3">
-            <img 
+            <Image 
               src="/images/salesdesk-logo-square.png" 
-              alt="SalesDesk AI" 
+              alt="SalesDesk AI Logo" 
+              width={40}
+              height={40}
+              priority
               className="w-10 h-10 rounded-xl object-contain shadow-lg shadow-teal-500/20 bg-slate-900 border border-slate-700/60 p-1 shrink-0" 
             />
             <div>
@@ -313,10 +381,14 @@ export default function HomePage() {
         
         {/* Full-Bleed 16:9 Cinematic Background Image */}
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             src="/images/hero-desktop.png"
-            alt="SalesDesk Sites Hero Background"
-            className="w-full h-full object-cover object-[78%_center] lg:object-right brightness-105 contrast-[1.02] transition-all duration-700"
+            alt="SalesDesk Sites Hero — สตูดิโอออกแบบเว็บไซต์และเซลเพจปิดการขายสไตล์ Cinematic"
+            fill
+            priority
+            quality={90}
+            sizes="100vw"
+            className="object-cover object-[78%_center] lg:object-right brightness-105 contrast-[1.02] transition-all duration-700"
           />
           
           {/* Desktop Left Scrim: Darkens left 48% for 100% white text contrast, leaving right 52% completely bright */}
@@ -619,11 +691,13 @@ export default function HomePage() {
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12">
                   {/* Image Preview */}
-                  <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-auto overflow-hidden bg-slate-900">
-                    <img 
+                  <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-auto min-h-[300px] overflow-hidden bg-slate-900">
+                    <Image 
                       src={project.image} 
                       alt={project.title} 
-                      className="w-full h-full object-cover object-[78%_center] group-hover:scale-105 transition-transform duration-700"
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 58vw"
+                      className="object-cover object-[78%_center] group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent lg:hidden" />
                     <div className={`absolute top-4 left-4 inline-flex items-center gap-1.5 bg-slate-950/85 backdrop-blur-md border ${project.badgeColor} text-xs px-3 py-1 rounded-full font-semibold`}>
@@ -1080,9 +1154,11 @@ export default function HomePage() {
       {/* 10. FINAL CALL TO ACTION */}
       <section className="py-20 bg-slate-950 border-t border-slate-800 text-center relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 space-y-6 relative z-10">
-          <img 
+          <Image 
             src="/images/salesdesk-logo-square.png" 
-            alt="SalesDesk AI" 
+            alt="SalesDesk AI Logo" 
+            width={56}
+            height={56}
             className="w-14 h-14 rounded-2xl object-contain mx-auto shadow-lg shadow-teal-500/20 bg-slate-900 border border-slate-700/60 p-1.5" 
           />
           <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">

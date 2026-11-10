@@ -1268,8 +1268,8 @@ export default function IceBenzTTCUbonSalepage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-12 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 items-start">
             
-            {/* Column 1: Official Consultant Info (Cols 1-6) */}
-            <div className="lg:col-span-6 space-y-4">
+            {/* Column 1: Official Consultant Info (Cols 1-4) */}
+            <div className="lg:col-span-4 space-y-4">
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 rounded-full bg-gradient-to-tr from-slate-200 via-white to-slate-400 p-[1.5px] shadow-lg shadow-white/10 shrink-0">
                   <div className="w-full h-full rounded-full bg-slate-950 flex items-center justify-center">
@@ -1286,12 +1286,54 @@ export default function IceBenzTTCUbonSalepage() {
                 </div>
               </div>
 
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-lg">
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
                 ที่ปรึกษาการขายอย่างเป็นทางการ ดูแลการจอง ข้อเสนอพิเศษ และบริการส่งรถทดลองขับ Test Drive ถึงหน้าบ้าน ส่งมอบความประทับใจระดับพรีเมียมด้วยความจริงใจและมืออาชีพ
               </p>
 
+              <div className="pt-2">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300">
+                  <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span>ผู้แทนจำหน่ายและที่ปรึกษาการขายอย่างเป็นทางการ</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Column 2: Benz SEO Articles Hub (Center Block - Replaced Image 2) */}
+            <div className="lg:col-span-4 space-y-3">
+              <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                <BookOpen className="w-4 h-4 text-amber-400" />
+                บทความ & สาระน่ารู้
+              </h4>
+              <div className="space-y-2.5 pt-1">
+                {articles.map((post) => (
+                  <Link
+                    key={post.id}
+                    href={`/ice-benz-ttc-ubon/blog/${post.slug}`}
+                    className="group block p-3 rounded-xl bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-amber-400/50 transition duration-200"
+                  >
+                    <div className="flex items-center justify-between text-[10px] text-amber-400/90 mb-1">
+                      <span className="font-semibold">{post.category}</span>
+                      <span className="text-slate-500 text-[10px] flex items-center gap-1">
+                        <Clock className="w-3 h-3" /> {post.readTime}
+                      </span>
+                    </div>
+                    <h5 className="text-xs font-medium text-slate-200 group-hover:text-amber-300 line-clamp-2 transition leading-snug">
+                      {post.title}
+                    </h5>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 3: Contact Info & Showroom Address (Replaced Image 4 with Image 1) */}
+            <div className="lg:col-span-4 space-y-3">
+              <h4 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-amber-400" />
+                ข้อมูลติดต่อ & ที่อยู่โชว์รูม
+              </h4>
+
               {/* Real Contact Badges */}
-              <div className="space-y-2.5 text-xs text-slate-300 pt-2 border-t border-slate-800">
+              <div className="space-y-2.5 text-xs text-slate-300 pt-1">
                 <div className="flex items-start gap-2.5">
                   <MapPin className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <span className="leading-relaxed">
@@ -1360,44 +1402,6 @@ export default function IceBenzTTCUbonSalepage() {
                 >
                   <PhoneCall className="w-4 h-4" />
                 </a>
-              </div>
-            </div>
-
-            {/* Column 2: Quick Links & Models (Cols 7-9) */}
-            <div className="lg:col-span-3 space-y-3">
-              <h4 className="text-sm font-bold text-white uppercase tracking-wider">
-                รุ่นรถยนต์ยอดนิยม
-              </h4>
-              <ul className="space-y-2 text-xs text-slate-400">
-                <li>• The New E-Class (E 220 d / E 350 e)</li>
-                <li>• The C-Class (C 220 d / C 350 e)</li>
-                <li>• The New GLC SUV (4MATIC AMG)</li>
-                <li>• The CLE Coupé 2-Door Luxury</li>
-                <li>• Mercedes-AMG Performance (C 43 / CLA 35)</li>
-                <li>• smart #1 & smart #3 (100% EV)</li>
-              </ul>
-            </div>
-
-            {/* Column 3: Exclusive Privileges & Campaign (Cols 10-12) */}
-            <div className="lg:col-span-3 space-y-3">
-              <h4 className="text-sm font-bold text-white uppercase tracking-wider">
-                สิทธิประโยชน์ประจำเดือน
-              </h4>
-              <div className="bg-slate-900/90 p-4 rounded-xl border border-slate-800 space-y-2 text-xs text-slate-300">
-                <div className="flex items-center gap-1.5 text-amber-400 font-bold">
-                  <Sparkles className="w-3.5 h-3.5" /> ดอกเบี้ยพิเศษ 0%
-                </div>
-                <p className="text-[11px] text-slate-400">
-                  หรือเลือกรับฟรี MBSP บำรุงรักษานาน 5 ปี พร้อมประกันภัยชั้น 1 และบริการทดลองขับถึงหน้าบ้าน
-                </p>
-                <div className="pt-2">
-                  <a
-                    href="#booking-form"
-                    className="inline-block w-full py-2 px-3 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold text-[11px] text-center transition"
-                  >
-                    ลงทะเบียนรับสิทธิ์ทันที
-                  </a>
-                </div>
               </div>
             </div>
 

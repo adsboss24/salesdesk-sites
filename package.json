@@ -6,12 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate-article": "tsx scripts/generate-article.ts"
   },
   "dependencies": {
+    "@google/genai": "^3.0.0",
     "@next/third-parties": "^16.4.6",
     "@stripe/stripe-js": "^10.2.1",
     "clsx": "^2.1.1",
+    "google-auth-library": "^11.3.4",
     "lucide-react": "^1.67.0",
     "next": "16.4.4",
     "react": "19.3.0",
@@ -27,6 +30,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.4.4",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

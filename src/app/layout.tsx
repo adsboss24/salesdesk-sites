@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Noto_Serif_Thai, Noto_Sans_Thai, JetBrains_Mono } from 'next/font/google';
+import { GoogleTagManager } from '@next/third-parties/google';
 import './globals.css';
 
 const notoSerifThai = Noto_Serif_Thai({
@@ -82,11 +83,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-TWDV4N2'; // Replace with your GTM ID or set in .env
+
   return (
     <html
       lang="th"
       className={`${notoSerifThai.variable} ${notoSansThai.variable} ${jetbrainsMono.variable} dark scroll-smooth`}
     >
+      {gtmId && <GoogleTagManager gtmId={gtmId} />}
       <body className="min-h-screen bg-[#030712] text-slate-100 font-sans selection:bg-teal-500/30 selection:text-teal-200 antialiased overflow-x-clip relative">
         {children}
       </body>

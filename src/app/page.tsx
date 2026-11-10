@@ -33,6 +33,7 @@ import {
 } from 'lucide-react';
 import PremiumFooter from '@/components/Footer';
 import ArticleSlider from '@/components/home/ArticleSlider';
+import TrackableLineButton from '@/components/TrackableLineButton';
 import { getAllPosts } from '@/lib/posts';
 
 export default function HomePage() {
@@ -445,14 +446,13 @@ export default function HomePage() {
             >
               คำถามที่พบบ่อย
             </a>
-            <a 
+            <TrackableLineButton 
               href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ" 
-              target="_blank" 
-              rel="noreferrer"
+              buttonName="nav_cta_line"
               className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-bold text-xs sm:text-sm shadow-md shadow-teal-500/20 transition active:scale-95"
             >
               <MessageCircle className="w-4 h-4" /> <span>ขอตัวอย่างฟรีใน LINE</span>
-            </a>
+            </TrackableLineButton>
           </div>
         </div>
       </header>
@@ -563,14 +563,13 @@ export default function HomePage() {
                   <span>ดูแพ็กเกจราคาเริ่มต้น ฿2,990</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
-                <a
+                <TrackableLineButton
                   href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ"
-                  target="_blank"
-                  rel="noreferrer"
+                  buttonName="hero_mobile_line"
                   className="w-full inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-900/90 text-white font-medium text-sm border border-white/20 backdrop-blur-md active:scale-95"
                 >
                   <MessageCircle className="w-4 h-4 text-teal-400" /> ขอตัวอย่างฟรีใน LINE
-                </a>
+                </TrackableLineButton>
               </div>
 
               {/* Micro Trust (Mobile) */}
@@ -984,15 +983,15 @@ export default function HomePage() {
               </div>
 
               <div className="space-y-2">
-                <a 
+                <TrackableLineButton 
                   href="https://line.me/R/ti/p/@fhu6688s?text=สนใจแพ็กเกจStarterSalepageครับ" 
-                  target="_blank" 
-                  rel="noreferrer"
+                  buttonName="pricing_starter_2990"
+                  leadValue={2990}
                   className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm border border-slate-700 transition active:scale-95 cursor-pointer shadow-md"
                 >
                   <span>เลือกแพ็กเกจ Starter (จ่ายครั้งเดียว)</span>
                   <ArrowRight className="w-4 h-4" />
-                </a>
+                </TrackableLineButton>
 
                 <button
                   type="button"
@@ -1071,15 +1070,15 @@ export default function HomePage() {
               </div>
 
               <div className="space-y-2">
-                <a 
+                <TrackableLineButton 
                   href="https://line.me/R/ti/p/@fhu6688s?text=สนใจแพ็กเกจProfessionalBusinessครับ" 
-                  target="_blank" 
-                  rel="noreferrer"
+                  buttonName="pricing_pro_4990"
+                  leadValue={4990}
                   className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-black text-sm shadow-xl shadow-teal-500/25 transition active:scale-95 cursor-pointer"
                 >
                   <Sparkles className="w-4 h-4" />
                   <span>เลือกแพ็กเกจ Professional (จ่ายครั้งเดียว)</span>
-                </a>
+                </TrackableLineButton>
 
                 <button
                   type="button"
@@ -1192,15 +1191,15 @@ export default function HomePage() {
             </div>
 
             <div className="flex items-center gap-3 shrink-0 w-full lg:w-auto relative z-10">
-              <a 
+              <TrackableLineButton 
                 href="https://line.me/R/ti/p/@fhu6688s?text=สนใจข้อเสนอพิเศษเริ่มต้นรายเดือน_490บาทครับ" 
-                target="_blank" 
-                rel="noreferrer"
+                buttonName="pricing_monthly_490"
+                leadValue={490}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black text-xs sm:text-sm shadow-xl shadow-amber-500/20 transition active:scale-95 cursor-pointer whitespace-nowrap"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>ทักแอดมินรับสิทธิ์ ฿490/ด. (ใน LINE)</span>
-              </a>
+              </TrackableLineButton>
             </div>
           </div>
 
@@ -1341,15 +1340,14 @@ export default function HomePage() {
             ทีมงานและระบบ SalesDesk AI พร้อมส่งมอบงานคุณภาพสูงภายใน 24-48 ชม.
           </p>
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a 
+            <TrackableLineButton 
               href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ" 
-              target="_blank" 
-              rel="noreferrer"
+              buttonName="final_bottom_cta_line"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-black text-base shadow-xl shadow-teal-500/25 transition transform active:scale-95 cursor-pointer"
             >
               <MessageCircle className="w-5 h-5" />
               <span>แอดไลน์ปรึกษา & ขอตัวอย่างฟรี (@fhu6688s)</span>
-            </a>
+            </TrackableLineButton>
           </div>
         </div>
       </section>

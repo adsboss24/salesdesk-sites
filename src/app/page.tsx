@@ -47,7 +47,7 @@ export default function HomePage() {
       title: 'ศูนย์บริการรถพยาบาล 24 ชั่วโมง',
       subtitle: 'บริการรถพยาบาลเอกชน รับ-ส่ง เคลื่อนย้ายผู้ป่วยทั่วไทย',
       desc: 'เซลเพจมาตรฐาน SalesDesk Salepage Architect สำหรับศูนย์บริการรถพยาบาลเอกชน 24 ชม. ถ่ายทอดความน่าเชื่อถือระดับ Mobile ICU ด้วยภาพ Cinematic 16:9 ไร้ข้อความบดบังบนมือถือ พร้อมระบบประเมินค่าเดินทาง ฟอร์มจองรถด่วน และปุ่มโทรสายด่วนฉุกเฉิน 24 ชม.',
-      image: '/images/ambulance/ambulance-hero.jpg',
+      image: '/images/ambulance/ambulance-hero-bright.jpg',
       url: '/ambulance-24hr',
       accentColor: 'hover:border-red-500/50',
       btnBg: 'bg-gradient-to-r from-red-600 via-amber-500 to-emerald-500 hover:from-red-500 hover:to-emerald-400 text-slate-950 font-bold',

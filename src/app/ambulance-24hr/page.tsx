@@ -71,22 +71,22 @@ export default function AmbulanceServiceSalepage() {
       
       {/* 1. TOP ANNOUNCEMENT BAR (Emergency & Realtime Ready Status) */}
       <div className="bg-gradient-to-r from-red-950 via-slate-900 to-amber-950 text-slate-200 text-xs py-2 px-3 sm:px-6 border-b border-red-900/40">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 bg-red-600/30 text-red-300 border border-red-500/40 px-2.5 py-0.5 rounded-full text-[11px] font-semibold animate-pulse">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
+            <span className="inline-flex items-center gap-1.5 bg-red-600/30 text-red-300 border border-red-500/40 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold shrink-0 animate-pulse">
               <span className="w-2 h-2 rounded-full bg-red-500"></span>
               ศูนย์ปฏิบัติการฉุกเฉิน 24 ชั่วโมง
             </span>
-            <span className="hidden sm:inline text-slate-300">
-              รถพยาบาลเอกชนมาตรฐานระดับสากล • พร้อมออกปฏิบัติการด่วนทั่วประเทศ
+            <span className="text-slate-200 text-[11px] sm:text-xs font-normal">
+              รถพยาบาลเอกชนมาตรฐานสากล • พร้อมออกปฏิบัติการด่วนทั่วประเทศ
             </span>
           </div>
-          <div className="flex items-center gap-4 text-xs font-medium">
+          <div className="hidden md:flex items-center gap-4 text-xs font-medium shrink-0">
             <a href={`tel:${emergencyPhone.replace(/-/g, '')}`} className="flex items-center gap-1.5 text-amber-300 hover:text-amber-200 transition font-bold">
               <PhoneCall className="w-3.5 h-3.5" /> สายด่วน: {emergencyPhone}
             </a>
-            <span className="hidden md:inline text-slate-600">|</span>
-            <a href={`tel:${landlinePhone.replace(/-/g, '')}`} className="hidden md:flex items-center gap-1 text-slate-400 hover:text-white transition">
+            <span className="text-slate-600">|</span>
+            <a href={`tel:${landlinePhone.replace(/-/g, '')}`} className="flex items-center gap-1 text-slate-400 hover:text-white transition">
               {landlinePhone}
             </a>
           </div>
@@ -160,90 +160,94 @@ export default function AmbulanceServiceSalepage() {
         </div>
       </header>
 
-      {/* 3. HERO SECTION (16:9 Cinematic Dual-Device Layout) */}
-      <section className="relative min-h-[580px] lg:min-h-[660px] xl:min-h-[720px] flex items-center justify-center overflow-hidden border-b border-slate-800">
-        {/* Full-Bleed Background Image */}
+      {/* 3. HERO SECTION (16:9 Cinematic Layout & Dual-Device Framing - T&J Bedding Standard) */}
+      <section className="relative min-h-[92vh] sm:min-h-[660px] lg:min-h-[740px] flex flex-col justify-between sm:justify-center overflow-hidden bg-slate-950 text-white border-b border-slate-800">
+        
+        {/* Full-Bleed Background Image (Edge-to-Edge on all devices) */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/ambulance/ambulance-hero.jpg"
+            src="/images/ambulance/ambulance-hero-bright.jpg"
             alt="24HR Ambulance Service Center Private ICU Vehicle and Medical Team"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[78%_center] lg:object-right brightness-[1.02] contrast-[1.03]"
+            className="w-full h-full object-cover object-[75%_center] lg:object-right brightness-[1.03] contrast-[1.02] transition-all duration-700"
           />
           
           {/* Desktop Left Scrim: Darkens left 50% for 100% white text contrast */}
-          <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 via-50% to-transparent z-10" />
+          <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 via-50% to-transparent z-10" />
           
           {/* Mobile Multi-Layer Scrim: */}
-          {/* Layer 1 (Top Scrim): 0-25% dark behind top headline */}
-          <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-slate-950/95 via-slate-950/50 via-28% to-transparent z-10" />
+          {/* Layer 1 (Top Scrim): 0-30% dark behind top headline */}
+          <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-slate-950/95 via-slate-950/60 via-30% to-transparent z-10" />
           
           {/* Layer 2 (Bottom Scrim): Soft dark gradient behind bottom action buttons */}
-          <div className="lg:hidden absolute bottom-0 inset-x-0 h-80 bg-gradient-to-t from-slate-950 via-slate-950/90 via-50% to-transparent z-10" />
+          <div className="lg:hidden absolute bottom-0 inset-x-0 h-72 bg-gradient-to-t from-slate-950 via-slate-950/90 via-55% to-transparent z-10" />
           
           {/* Desktop Bottom Edge Fade */}
           <div className="hidden lg:block absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-slate-950 to-transparent z-10" />
         </div>
 
-        {/* Hero Content Grid */}
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 w-full py-8 sm:py-12 lg:py-16 flex flex-col justify-between min-h-[580px] lg:min-h-[660px]">
+        {/* Hero Foreground Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full pt-4 sm:pt-16 pb-4 sm:pb-12 flex-1 flex flex-col justify-between">
           
-          {/* TOP BLOCK: Headline and Badges (Unobstructed view on mobile) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-            <div className="lg:col-span-7 space-y-3.5 sm:space-y-5 text-center lg:text-left">
+          {/* TOP / LEFT BLOCK (Desktop: Cols 1-7 | Mobile: Top Stack) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-12 items-center">
+            
+            <div className="lg:col-span-7 space-y-3 sm:space-y-6 text-center lg:text-left pt-2 sm:pt-0">
               
-              {/* Luxury Trust Badge */}
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-900/80 border border-amber-500/40 text-amber-300 text-xs sm:text-sm font-medium backdrop-blur-md shadow-md">
+              {/* Luxury Badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-slate-900/85 border border-amber-500/50 backdrop-blur-md shadow-lg shadow-black/40">
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                <span>ศูนย์บริการรถพยาบาลเอกชนมาตรฐานกระทรวงสาธารณสุข</span>
+                <span className="text-amber-300 text-[11px] sm:text-xs md:text-sm font-semibold tracking-wide">
+                  ศูนย์บริการรถพยาบาลเอกชนมาตรฐานกระทรวงสาธารณสุข
+                </span>
               </div>
 
-              {/* Punchy Main Headline */}
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-white tracking-tight leading-tight sm:leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+              {/* Big Punchy Headline */}
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-white tracking-tight leading-tight sm:leading-none drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
                 รถพยาบาล รับ-ส่ง <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-amber-300 to-emerald-300 inline-block mt-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-amber-300 to-emerald-300 inline-block mt-1 sm:mt-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
                   เคลื่อนย้ายผู้ป่วย 24 ชั่วโมง
                 </span>
               </h1>
 
-              {/* Subheadline */}
+              {/* Concise Subheadline (Short & Clean on Mobile) */}
               <p className="text-xs sm:text-base md:text-lg text-slate-100 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
-                บริการรับ-ส่งผู้ป่วยฉุกเฉิน ผู้ป่วยฟอกไต พบแพทย์ตามนัด ย้ายโรงพยาบาล และส่งต่อกลับภูมิลำเนาทั่วไทย ดูแลและควบคุมคุณภาพโดยทีมแพทย์ พยาบาลวิชาชีพ และเวชกิจฉุกเฉิน พร้อมอุปกรณ์ช่วยชีวิต ICU เคลื่อนที่ครบครัน มีประกันภัยการเดินทางทุกเที่ยว
+                บริการเคลื่อนย้ายผู้ป่วยฉุกเฉิน รับ-ส่งฟอกไต พบแพทย์ตามนัด ย้ายโรงพยาบาลทั่วไทย พร้อมทีมพยาบาลวิชาชีพและอุปกรณ์ Mobile ICU ครบครัน
               </p>
 
-              {/* Desktop-only CTAs */}
+              {/* Desktop-only CTAs (Mobile renders at bottom to keep photo 100% unobstructed) */}
               <div className="hidden lg:flex flex-row items-center justify-start gap-4 pt-2">
                 <a
                   href={`tel:${emergencyPhone.replace(/-/g, '')}`}
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-amber-500 hover:from-red-500 hover:to-amber-400 text-white font-bold text-base shadow-xl shadow-red-950/60 transition transform hover:-translate-y-0.5"
+                  className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-amber-500 hover:from-red-500 hover:to-amber-400 text-white font-bold text-base shadow-xl shadow-red-950/60 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2.5"
                 >
                   <PhoneCall className="w-5 h-5 animate-bounce" />
-                  เรียกรถพยาบาลด่วน ({emergencyPhone})
+                  <span>เรียกรถพยาบาลด่วน ({emergencyPhone})</span>
                 </a>
                 <a
                   href={lineOaUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-base shadow-lg shadow-emerald-950/50 transition transform hover:-translate-y-0.5"
+                  className="px-6 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-base shadow-lg shadow-emerald-950/50 transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2.5"
                 >
                   <MessageCircle className="w-5 h-5" />
-                  ประเมินราคา & จองคิวผ่าน LINE
+                  <span>ประเมินราคา & จองคิวผ่าน LINE</span>
                 </a>
               </div>
 
-              {/* Micro Trust (3 Checkmarks) */}
-              <div className="hidden sm:flex flex-wrap items-center justify-center lg:justify-start gap-y-2 gap-x-4 pt-2 text-xs sm:text-sm text-slate-200">
-                <div className="flex items-center gap-1.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+              {/* Micro Trust (3 Checkmarks) - Desktop only on top */}
+              <div className="hidden sm:flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-xs md:text-sm text-slate-200 pt-1 font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
+                <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>อุปกรณ์ Mobile ICU ระดับสูง</span>
                 </div>
-                <div className="flex items-center gap-1.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+                <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>พยาบาลวิชาชีพ & EMT ดูแลตลอดทาง</span>
                 </div>
-                <div className="flex items-center gap-1.5 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
+                <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>ประกันภัยการเดินทางคุ้มครองทุกเคส</span>
                 </div>
@@ -251,87 +255,82 @@ export default function AmbulanceServiceSalepage() {
 
             </div>
 
-            {/* Right side is intentionally negative space for the 16:9 photo subject */}
-            <div className="lg:col-span-5 hidden lg:block" />
+            {/* Right side negative space placeholder for Desktop: Hero Photo subject is completely visible */}
+            <div className="hidden lg:block lg:col-span-5 pointer-events-none" />
           </div>
 
-          {/* BOTTOM BLOCK: Action & 4 Glassmorphic Feature Badges */}
-          <div className="mt-8 sm:mt-12 lg:mt-8">
+          {/* BOTTOM HERO BLOCK: Mobile Action + Glassmorphic Feature Badges */}
+          <div className="mt-4 sm:mt-12 lg:mt-16">
             
-            {/* Mobile-only CTAs (Bottom Positioned to avoid obstructing center photo) */}
-            <div className="lg:hidden space-y-2 mb-4">
+            {/* Mobile-only Action Buttons */}
+            <div className="lg:hidden space-y-2 mb-3">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <a
                   href={`tel:${emergencyPhone.replace(/-/g, '')}`}
-                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-red-600 to-amber-600 text-white font-bold text-sm shadow-lg shadow-red-950"
+                  className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-amber-500 text-white font-bold text-sm shadow-lg shadow-red-950 flex items-center justify-center gap-2 active:scale-98 transition"
                 >
                   <PhoneCall className="w-4 h-4" />
-                  โทรเรียกรถด่วน {emergencyPhone}
+                  <span>เรียกรถพยาบาลด่วน ({emergencyPhone})</span>
                 </a>
                 <a
                   href={lineOaUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm shadow-md shadow-emerald-950"
+                  className="w-full py-2.5 px-4 rounded-xl bg-slate-900/90 border border-slate-700/80 text-white font-semibold text-xs shadow-md flex items-center justify-center gap-2"
                 >
-                  <MessageCircle className="w-4 h-4" />
-                  แอดไลน์ประเมินราคา
+                  <MessageCircle className="w-4 h-4 text-emerald-400" />
+                  <span>แอดไลน์ประเมินราคา & จองคิว</span>
                 </a>
-              </div>
-              <div className="flex items-center justify-center gap-3 pt-1 text-[11px] text-slate-300">
-                <span className="flex items-center gap-1"><Check className="w-3 h-3 text-emerald-400" /> บริการ 24 ชม.</span>
-                <span className="flex items-center gap-1"><Check className="w-3 h-3 text-emerald-400" /> ทั่วประเทศ</span>
-                <span className="flex items-center gap-1"><Check className="w-3 h-3 text-emerald-400" /> มีประกันภัย</span>
               </div>
             </div>
 
-            {/* 4 Glassmorphic Feature Badges */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3.5 pt-3 sm:pt-4 border-t border-slate-700/60">
+            {/* Feature Badges: 2 on mobile (Clean & spacious like T&J Bedding), 4 on desktop */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4 pt-3 sm:pt-6 border-t border-white/10">
               
-              <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700/60 rounded-xl p-3 sm:p-3.5 hover:border-amber-500/50 transition">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center shrink-0">
-                    <Clock className="w-4 h-4" />
+              <div className="p-2.5 sm:p-4 rounded-xl bg-slate-950/65 backdrop-blur-md border border-white/10 hover:border-amber-400/40 transition">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-red-500/20 text-red-400 flex items-center justify-center shrink-0 border border-red-400/30">
+                    <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <div>
                     <h2 className="text-xs sm:text-sm font-bold text-white">24/7 Rapid Response</h2>
-                    <p className="text-[11px] text-slate-400">พร้อมออกปฏิบัติการด่วนทันที</p>
+                    <p className="text-[10px] sm:text-xs text-slate-300">ออกปฏิบัติการด่วนทันที</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700/60 rounded-xl p-3 sm:p-3.5 hover:border-amber-500/50 transition">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
-                    <HeartPulse className="w-4 h-4" />
+              <div className="p-2.5 sm:p-4 rounded-xl bg-slate-950/65 backdrop-blur-md border border-white/10 hover:border-amber-400/40 transition">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0 border border-amber-400/30">
+                    <HeartPulse className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <div>
                     <h2 className="text-xs sm:text-sm font-bold text-white">Full ICU Equipment</h2>
-                    <p className="text-[11px] text-slate-400">เครื่องช่วยหายใจ & กระตุกหัวใจ</p>
+                    <p className="text-[10px] sm:text-xs text-slate-300">เครื่องช่วยหายใจ & กระตุกหัวใจ</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700/60 rounded-xl p-3 sm:p-3.5 hover:border-amber-500/50 transition">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">
-                    <Navigation className="w-4 h-4" />
+              <div className="hidden lg:block p-2.5 sm:p-4 rounded-xl bg-slate-950/65 backdrop-blur-md border border-white/10 hover:border-amber-400/40 transition">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center shrink-0 border border-blue-400/30">
+                    <Navigation className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <div>
                     <h2 className="text-xs sm:text-sm font-bold text-white">All-Thailand Coverage</h2>
-                    <p className="text-[11px] text-slate-400">ครอบคลุม 77 จว. และทางอากาศ</p>
+                    <p className="text-[10px] sm:text-xs text-slate-300">ครอบคลุม 77 จว. และอากาศ</p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-slate-900/80 backdrop-blur-md border border-slate-700/60 rounded-xl p-3 sm:p-3.5 hover:border-amber-500/50 transition">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-                    <ShieldCheck className="w-4 h-4" />
+              <div className="hidden lg:block p-2.5 sm:p-4 rounded-xl bg-slate-950/65 backdrop-blur-md border border-white/10 hover:border-amber-400/40 transition">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-400/30">
+                    <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <div>
                     <h2 className="text-xs sm:text-sm font-bold text-white">Clean & Safe Certified</h2>
-                    <p className="text-[11px] text-slate-400">ฆ่าเชื้อมาตรฐาน ปลอดภัย 100%</p>
+                    <p className="text-[10px] sm:text-xs text-slate-300">ฆ่าเชื้อมาตรฐาน ปลอดภัย 100%</p>
                   </div>
                 </div>
               </div>

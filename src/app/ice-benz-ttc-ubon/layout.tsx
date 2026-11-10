@@ -4,7 +4,7 @@ import { constructMetadata } from '@/utils/seo';
 export const metadata: Metadata = constructMetadata({
   title: 'ICE LUXURY AUTO | Certified Mercedes-Benz & AMG Performance Specialist',
   description:
-    'สัมผัสประสบการณ์ยนตรกรรมระดับพรีเมียม Mercedes-Benz, Mercedes-AMG และ smart EV ป้ายแดง พร้อมแคมเปญพิเศษ ดอกเบี้ย 0% ฟรี MBSP นาน 5 ปี บริการนำรถทดลองขับ Test Drive ส่งถึงหน้าบ้านทั่วประเทศ โดย ICE • ที่ปรึกษาการขายมืออาชีพ ติดต่อ Facebook: Icebenzttcmotorubon โทร 045-475-222',
+    'สัมผัสประสบการณ์ยนตรกรรมระดับพรีเมียม Mercedes-Benz, Mercedes-AMG และ smart EV ป้ายแดง พร้อมข้อเสนอและแคมเปญพิเศษเฉพาะบุคคล บริการนำรถทดลองขับ Test Drive ส่งถึงหน้าบ้านทั่วประเทศ โดย ICE • ที่ปรึกษาการขายมืออาชีพ ติดต่อ Facebook: Icebenzttcmotorubon โทรสายตรง 065-214-2747',
   canonicalPath: '/ice-benz-ttc-ubon',
   ogImage: '/images/benz/hero-benz.jpg',
   keywords: [
@@ -12,11 +12,11 @@ export const metadata: Metadata = constructMetadata({
     'Mercedes Benz Thailand',
     'Mercedes-AMG',
     'smart EV BRABUS',
-    'ที่ปรึกษาการขายเบนซ์',
+    'ที่ปรึกษาการขายเบนซ์ อุบลราชธานี',
     'ทดลองขับเบนซ์ถึงบ้าน',
-    'โปรโมชั่นเบนซ์ป้ายแดง',
-    'MBSP 5 ปี',
+    'แคมเปญเบนซ์ป้ายแดง',
     'Trade-in รถเก่าแลกเบนซ์',
+    'คุณไอซ์ เบนซ์ อุบล',
   ],
 });
 

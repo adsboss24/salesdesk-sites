@@ -42,6 +42,24 @@ export default function HomePage() {
 
   const projects = [
     {
+      id: 'benz-ttc-ubon',
+      category: 'service',
+      tag: 'Luxury Automotive & Dealership',
+      badgeColor: 'border-amber-400/40 text-amber-300',
+      title: 'น้องไอซ์ TTC Motor อุบลราชธานี',
+      subtitle: 'ที่ปรึกษาการขาย Mercedes-Benz & AMG อย่างเป็นทางการ',
+      desc: 'เซลเพจมาตรฐาน SalesDesk Salepage Architect ระดับ Ultra Luxury สำหรับตัวแทนจำหน่ายรถยนต์ Mercedes-Benz ถ่ายทอดความสง่างามด้วยภาพ 16:9 ดาร์กโหมดไร้ข้อความบดบังตัวรถ พร้อมระบบจองสิทธิ์ทดลองขับ Test Drive ถึงหน้าบ้าน แคตตาล็อกโมเดลยอดนิยม และแคมเปญข้อเสนอสุด Exclusive',
+      image: '/images/benz/hero-benz.jpg',
+      url: '/ice-benz-ttc-ubon',
+      accentColor: 'hover:border-amber-400/50',
+      btnBg: 'bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-bold',
+      features: [
+        'สถาปัตยกรรม Cinematic 16:9 ไร้ข้อความบดบังตัวรถ Mercedes-Benz บนมือถือ',
+        'ระบบลงทะเบียนจองสิทธิ์ Test Drive ส่งรถถึงหน้าบ้าน และประเมิน Trade-in รถเก่า',
+        'แคมเปญดอกเบี้ยพิเศษ 0% ฟรี MBSP นาน 5 ปี และเชื่อมต่อ LINE OA น้องไอซ์ทันที',
+      ],
+    },
+    {
       id: 'ambulance',
       category: 'service',
       tag: 'Emergency Medical & Ambulance 24H',

@@ -83,7 +83,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const gtmId = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-TWDV4N2'; // Replace with your GTM ID or set in .env
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-WNP4KXZP';
 
   return (
     <html

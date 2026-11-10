@@ -311,13 +311,13 @@ export default function IceBenzTTCUbonSalepage() {
       : carLineup.filter((car) => car.category === activeCarTab);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-amber-400 selection:text-slate-950 pb-20 md:pb-0 w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-amber-400 selection:text-slate-950 pb-20 md:pb-0 w-full max-w-full overflow-x-clip">
       {/* Schema Injection */}
       <StructuredData data={localBusinessSchema} id="ice-luxury-auto-schema" />
       <StructuredData data={articlesItemListSchema} id="ice-benz-articles-schema" />
 
-      {/* 1. LUXURY STICKY NAVIGATION MENU */}
-      <header className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-800 transition-all duration-300">
+      {/* 1. LUXURY FIXED STICKY NAVIGATION MENU (PINNED 100% ON SCROLL) */}
+      <header className="fixed top-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-800 transition-all duration-300 shadow-xl shadow-black/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
           {/* Brand Logo & Certified Specialist */}
           <Link href="/ice-benz-ttc-ubon" className="flex items-center gap-2.5 shrink-0 group">
@@ -450,6 +450,9 @@ export default function IceBenzTTCUbonSalepage() {
         )}
       </header>
 
+      {/* Header Fixed Flow Spacer */}
+      <div className="h-16 sm:h-[65px] w-full" />
+
       {/* 2. CINEMATIC HERO SECTION (16:9 DUAL-DEVICE FRAMING - UNOBSTRUCTED MOBILE) */}
       <section className="relative min-h-[86vh] sm:min-h-[660px] lg:min-h-[740px] flex flex-col justify-between overflow-hidden bg-slate-950 text-white">
         {/* Full-Bleed 16:9 Cinematic Background */}
@@ -484,11 +487,13 @@ export default function IceBenzTTCUbonSalepage() {
               <span>Certified Mercedes-Benz & AMG Performance Executive</span>
             </div>
 
-            {/* Headline with Mandatory Thai Typography Zero-Overlapping */}
-            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-white tracking-tight leading-normal sm:leading-[1.25] lg:leading-[1.22] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
-              <span className="block">Mercedes-Benz & AMG Experience</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-300 block mt-1.5 sm:mt-2.5 pb-1 drop-shadow-[0_2px_12px_rgba(0,0,0,0.9)]">
-                โดย ICE • ที่ปรึกษายนตรกรรมหรูระดับมืออาชีพ
+            {/* Headline with Zero-Overlapping Thai Typography */}
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.1rem] font-extrabold text-white tracking-tight leading-[1.35] sm:leading-[1.35] lg:leading-[1.38] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
+              <span className="block mb-2 sm:mb-3">
+                Mercedes-Benz & AMG Experience
+              </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-300 block leading-[1.38] sm:leading-[1.42] py-1">
+                โดย คุณไอซ์ • ที่ปรึกษาการขายมืออาชีพ
               </span>
             </h1>
 

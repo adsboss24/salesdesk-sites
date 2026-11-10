@@ -87,7 +87,7 @@ export default function RootLayout({
       lang="th"
       className={`${notoSerifThai.variable} ${notoSansThai.variable} ${jetbrainsMono.variable} dark scroll-smooth`}
     >
-      <body className="min-h-screen bg-[#030712] text-slate-100 font-sans selection:bg-teal-500/30 selection:text-teal-200 antialiased overflow-x-hidden relative">
+      <body className="min-h-screen bg-[#030712] text-slate-100 font-sans selection:bg-teal-500/30 selection:text-teal-200 antialiased overflow-x-clip relative">
         {children}
       </body>
     </html>

@@ -105,7 +105,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
             <span className="text-xs font-bold text-teal-400 uppercase tracking-widest bg-teal-950/80 px-3 py-1 rounded-full border border-teal-500/30">
-              Featured Flagship Project
+              Featured Flagship Projects
             </span>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
               ผลงานระดับ Masterpiece ล่าสุด
@@ -115,63 +115,127 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Project Card: Nattanan Nursing Care */}
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl hover:border-teal-500/50 transition-all duration-500 group">
-            <div className="grid grid-cols-1 lg:grid-cols-12">
-              {/* Image Preview */}
-              <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-auto overflow-hidden">
-                <img 
-                  src="/images/nattanan-hero.jpg" 
-                  alt="ณัฐนันท์ เนอสซิ่งแคร์" 
-                  className="w-full h-full object-cover object-[78%_center] group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent lg:hidden" />
-                <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 bg-slate-950/85 backdrop-blur-md border border-teal-500/40 text-teal-300 text-xs px-3 py-1 rounded-full font-semibold">
-                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Healthcare & Senior Living</span>
+          <div className="space-y-12">
+            {/* Project Card 1: Flower.com (Luxury Floral Boutique) */}
+            <div className="bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl hover:border-rose-500/50 transition-all duration-500 group">
+              <div className="grid grid-cols-1 lg:grid-cols-12">
+                {/* Image Preview */}
+                <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-auto overflow-hidden">
+                  <img 
+                    src="/images/flower-hero.jpg" 
+                    alt="Flower.com บูทีกดอกไม้พรีเมียมและบริการจัดส่งด่วน" 
+                    className="w-full h-full object-cover object-[78%_center] group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent lg:hidden" />
+                  <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 bg-slate-950/85 backdrop-blur-md border border-rose-500/40 text-rose-300 text-xs px-3 py-1 rounded-full font-semibold">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Luxury E-Commerce & Floral Boutique</span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between space-y-6">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-rose-400">
+                      <Sparkles className="w-4 h-4" />
+                      <span>บูทีกดอกไม้พรีเมียม & Same-Day Delivery 2 ชม.</span>
+                    </div>
+                    <h3 className="text-2xl sm:text-3xl font-black text-white group-hover:text-rose-300 transition">
+                      Flower.com
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                      เซลเพจระดับ World-Class โครงสร้าง 16:9 Hero ไม่บังภาพดอกไม้และศิลปินจัดดอกไม้บนมือถือ 
+                      ผสานระบบฟิลเตอร์คอลเลกชัน ตารางราคาโปร่งใส และฟอร์มสั่งจัดดอกไม้ด่วนพร้อมปิดการขายผ่าน LINE OA
+                    </p>
+
+                    <ul className="space-y-2 pt-2 text-xs text-slate-300">
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>โครงสร้าง 16:9 Cinematic Hero โชว์ความงามของดอกไม้ 100% บนมือถือ</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>ระบบฟิลเตอร์แกลเลอรีช่อดอกไม้ & ตารางแพ็กเกจราคาโปร่งใส</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>ฟอร์มสั่งดอกไม้ด่วน ตอบกลับและสรุปแบบภายใน 10 นาที</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-800">
+                    <a 
+                      href="/flower" 
+                      target="_blank" 
+                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-bold text-sm shadow-lg shadow-rose-600/25 transition transform active:scale-95"
+                    >
+                      <span>เปิดชมหน้าเว็บตัวอย่างจริง (Flower.com)</span>
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              {/* Content */}
-              <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between space-y-6">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 text-xs font-semibold text-teal-400">
-                    <HeartHandshake className="w-4 h-4" />
-                    <span>บ้านพักผู้สูงอายุ & ศูนย์ฟื้นฟูผู้ป่วยพักฟื้น</span>
+            {/* Project Card 2: Nattanan Nursing Care */}
+            <div className="bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl hover:border-teal-500/50 transition-all duration-500 group">
+              <div className="grid grid-cols-1 lg:grid-cols-12">
+                {/* Image Preview */}
+                <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-auto overflow-hidden">
+                  <img 
+                    src="/images/nattanan-hero.jpg" 
+                    alt="ณัฐนันท์ เนอสซิ่งแคร์" 
+                    className="w-full h-full object-cover object-[78%_center] group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent lg:hidden" />
+                  <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 bg-slate-950/85 backdrop-blur-md border border-teal-500/40 text-teal-300 text-xs px-3 py-1 rounded-full font-semibold">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Healthcare & Senior Living</span>
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-black text-white group-hover:text-teal-300 transition">
-                    ณัฐนันท์ เนอสซิ่งแคร์
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
-                    เซลเพจมาตรฐานสากล ถ่ายทอดความอบอุ่น ร่มรื่น และความน่าเชื่อถือด้วยภาพสไตล์ Cinematic สวนญี่ปุ่น 
-                    พร้อมระบบเลือกแพ็กเกจ ฟอร์มนัดหมายเยี่ยมชม และปุ่มปิดการขายผ่าน LINE ครบวงจร
-                  </p>
-
-                  <ul className="space-y-2 pt-2 text-xs text-slate-300">
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>โครงสร้าง 16:9 Hero ไม่บังภาพบนมือถือ (Unobstructed View)</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>รองรับ Lead Capture นัดหมายเข้าชมสถานที่พร้อมบันทึกประวัติ</span>
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>เชื่อมต่อ LINE OA ทักตรงหาแอดมินปิดการขายได้ทันที</span>
-                    </li>
-                  </ul>
                 </div>
 
-                <div className="pt-4 border-t border-slate-800">
-                  <a 
-                    href="/nattanan-nursingcare" 
-                    target="_blank" 
-                    className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-bold text-sm shadow-lg shadow-teal-500/25 transition transform active:scale-95"
-                  >
-                    <span>เปิดชมหน้าเว็บตัวอย่างจริง</span>
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
+                {/* Content */}
+                <div className="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between space-y-6">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-teal-400">
+                      <HeartHandshake className="w-4 h-4" />
+                      <span>บ้านพักผู้สูงอายุ & ศูนย์ฟื้นฟูผู้ป่วยพักฟื้น</span>
+                    </div>
+                    <h3 className="text-2xl sm:text-3xl font-black text-white group-hover:text-teal-300 transition">
+                      ณัฐนันท์ เนอสซิ่งแคร์
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+                      เซลเพจมาตรฐานสากล ถ่ายทอดความอบอุ่น ร่มรื่น และความน่าเชื่อถือด้วยภาพสไตล์ Cinematic สวนญี่ปุ่น 
+                      พร้อมระบบเลือกแพ็กเกจ ฟอร์มนัดหมายเยี่ยมชม และปุ่มปิดการขายผ่าน LINE ครบวงจร
+                    </p>
+
+                    <ul className="space-y-2 pt-2 text-xs text-slate-300">
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>โครงสร้าง 16:9 Hero ไม่บังภาพบนมือถือ (Unobstructed View)</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>รองรับ Lead Capture นัดหมายเข้าชมสถานที่พร้อมบันทึกประวัติ</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>เชื่อมต่อ LINE OA ทักตรงหาแอดมินปิดการขายได้ทันที</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="pt-4 border-t border-slate-800">
+                    <a 
+                      href="/nattanan-nursingcare" 
+                      target="_blank" 
+                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-bold text-sm shadow-lg shadow-teal-500/25 transition transform active:scale-95"
+                    >
+                      <span>เปิดชมหน้าเว็บตัวอย่างจริง</span>
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

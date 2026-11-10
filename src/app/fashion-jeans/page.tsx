@@ -228,6 +228,57 @@ export default function FashionJeansPage() {
         </div>
       </section>
 
+      {/* 2.5 PAIN POINTS & THE DADA SOLUTION (จิตวิทยาขยี้ปัญหาและทางแก้) */}
+      <section className="py-14 bg-slate-900/60 border-y border-slate-800">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center max-w-xl mx-auto space-y-2 mb-10">
+            <span className="text-xs font-bold text-rose-400 uppercase tracking-widest bg-rose-950/80 px-3 py-1 rounded-full border border-rose-500/30">
+              Why Normal Jeans Fail
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+              เคยเจอปัญหาเหล่านี้เวลาซื้อกางเกงยีนส์ไหมคะ?
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-400">
+              90% ของสาวๆ เจอปัญหาเดิมๆ จนไม่กล้าซื้อยีนส์ออนไลน์
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div className="bg-slate-950/80 border border-rose-900/30 rounded-2xl p-5 space-y-2">
+              <div className="text-rose-400 font-bold text-sm">❌ เอวหลวม แต่ติดสะโพก</div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                ซื้อตามไซส์สะโพก เอวก็เหลืออ้าจนต้องใส่เข็มขัดรัดจนย่น เสียทรง
+              </p>
+            </div>
+            <div className="bg-slate-950/80 border border-rose-900/30 rounded-2xl p-5 space-y-2">
+              <div className="text-rose-400 font-bold text-sm">❌ ผ้าแข็ง นั่งแล้วรั้งเป้า</div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                ยีนส์ราคาถูกผ้าหนาและแข็ง ใส่ทำงาน 8 ชม. แล้วอึดอัด พุงปลิ้น
+              </p>
+            </div>
+            <div className="bg-slate-950/80 border border-rose-900/30 rounded-2xl p-5 space-y-2">
+              <div className="text-rose-400 font-bold text-sm">❌ ทักแชตไป แอดมินตอบช้า</div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                รอถามไซส์ข้ามวัน พอแอดมินตอบของก็หมด หรือไม่มั่นใจเรื่องการเปลี่ยน
+              </p>
+            </div>
+          </div>
+
+          {/* Solution Callout */}
+          <div className="bg-gradient-to-r from-amber-950/60 via-slate-950 to-slate-950 border border-amber-500/40 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
+            <div className="w-12 h-12 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center shrink-0">
+              <Sparkles className="w-6 h-6" />
+            </div>
+            <div className="space-y-1 text-center sm:text-left">
+              <h4 className="text-base sm:text-lg font-bold text-white">ทางแก้ที่สาวๆ ตกหลุมรัก: ทรง Magic-Fit สรีระสาวไทย</h4>
+              <p className="text-xs sm:text-sm text-slate-300">
+                ตัดเย็บด้วยแพทเทิร์น 3D เอวสูงเก็บพุง สะโพกปล่อยสบายนุ่มยืด Spandex 3% ลุกนั่งสบายทั้งวัน และสั่งซื้อผ่านระบบหน้าเดียวได้ทันที ไม่ต้องรอแอดมินตอบ!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 3. SIZE GUIDE */}
       <section id="sizes" className="py-16 bg-slate-950 border-y border-slate-800">
         <div className="max-w-4xl mx-auto px-4">
@@ -362,6 +413,88 @@ export default function FashionJeansPage() {
               >
                 เลือกโปรนี้
               </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4.5 REVIEWS & SOCIAL PROOF */}
+      <section className="py-16 bg-slate-950 border-t border-slate-800">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center max-w-xl mx-auto space-y-2 mb-10">
+            <span className="text-xs font-bold text-amber-400 uppercase tracking-wider bg-amber-950/80 px-3 py-1 rounded-full border border-amber-500/30">
+              Customer Reviews
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white">เสียงตอบรับจากสาวๆ ผู้ใช้จริง</h3>
+            <p className="text-xs sm:text-sm text-slate-400">มากกว่า 4,500 ตัวที่ส่งมอบ การันตีความพึงพอใจ 99.2%</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <div className="flex gap-1 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed italic">
+                "ทรงสวยมากกกก เป็นคนสะโพก 38 เอว 27 หากางเกงใส่ยากมาก ตัวนี้ใส่ไซส์ M พอดีเป๊ะ ไม่รั้งเป้า ผ้านิ่มยืดสบาย สั่งเพิ่มอีก 2 ตัวเรียบร้อยค่ะ"
+              </p>
+              <div className="text-[11px] font-bold text-slate-400 pt-2 border-t border-slate-800">
+                คุณพลอย (กรุงเทพฯ) • ยืนยันการสั่งซื้อ
+              </div>
+            </div>
+
+            <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <div className="flex gap-1 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed italic">
+                "ชอบตรงที่กดสั่งซื้อง่ายมาก ไม่ต้องรอแอดมินตอบ เลือกไซส์เลือกสีแล้วรอเก็บเงินปลายทางได้เลย ของส่งถึงใน 2 วัน ไซส์ตรงปกค่ะ"
+              </p>
+              <div className="text-[11px] font-bold text-slate-400 pt-2 border-t border-slate-800">
+                คุณเมย์ (ชลบุรี) • ยืนยันการสั่งซื้อ
+              </div>
+            </div>
+
+            <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
+              <div className="flex gap-1 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-3.5 h-3.5 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed italic">
+                "ตอนแรกสั่งไซส์ L มาแล้วหลวมไปนิด ทางร้านดูแลดีมาก ให้ส่งเปลี่ยนเป็นไซส์ M ได้ฟรี ไม่เสียเงินเพิ่ม ประทับใจบริการมากค่ะ"
+              </p>
+              <div className="text-[11px] font-bold text-slate-400 pt-2 border-t border-slate-800">
+                คุณก้อย (เชียงใหม่) • ยืนยันการสั่งซื้อ
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4.6 FAQS & GUARANTEE */}
+      <section className="py-14 bg-slate-900/50 border-t border-slate-800">
+        <div className="max-w-3xl mx-auto px-4">
+          <div className="text-center space-y-2 mb-8">
+            <h3 className="text-xl sm:text-2xl font-bold text-white">คำถามที่พบบ่อย (FAQ)</h3>
+            <p className="text-xs text-slate-400">ช้อปอย่างมั่นใจ ไม่ต้องกังวลเรื่องไซส์</p>
+          </div>
+
+          <div className="space-y-3 text-xs sm:text-sm">
+            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
+              <div className="font-bold text-amber-300 mb-1">Q: สั่งไปแล้วใส่ไม่พอดี เปลี่ยนไซส์ได้ไหม?</div>
+              <div className="text-slate-300">A: สามารถเปลี่ยนไซส์ได้ฟรีภายใน 7 วันหลังจากได้รับสินค้า เพียงเก็บป้ายสินค้าไว้ครบถ้วนค่ะ</div>
+            </div>
+            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
+              <div className="font-bold text-amber-300 mb-1">Q: สินค้าจัดส่งกี่วันถึง และมีเก็บเงินปลายทางไหม?</div>
+              <div className="text-slate-300">A: จัดส่งด่วนโดยขนส่งเอกชน สินค้าถึงภายใน 1-2 วันทำการ และมีบริการเก็บเงินปลายทาง (COD) หน้าบ้านโดยไม่มีค่าธรรมเนียมเพิ่มค่ะ</div>
+            </div>
+            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800">
+              <div className="font-bold text-amber-300 mb-1">Q: ซักแล้วกางเกงจะหดหรือสีตกไหม?</div>
+              <div className="text-slate-300">A: ผ่านกระบวนการฟอกและพรีชีริงค์ (Pre-shrunk) มาตรฐานสากล ซักแล้วไม่หด สีไม่ตก ทรงสวยเหมือนเดิมค่ะ</div>
             </div>
           </div>
         </div>

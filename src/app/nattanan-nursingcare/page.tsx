@@ -637,6 +637,40 @@ export default function NattananNursingCareSalepage() {
         </div>
       </section>
 
+      {/* 7.5 FAQS SECTION (คลายทุกความกังวลใจของครอบครัว) */}
+      <section className="py-16 md:py-20 bg-slate-50 border-t border-slate-200">
+        <div className="max-w-3xl mx-auto px-4">
+          <div className="text-center space-y-2 mb-10">
+            <span className="text-xs font-bold text-teal-700 uppercase tracking-wider bg-teal-100/70 px-3 py-1 rounded-full border border-teal-200">
+              Frequently Asked Questions
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+              คำถามที่ญาติและครอบครัวสอบถามบ่อย (FAQ)
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500">
+              ความโปร่งใสและมาตรฐานการดูแล คือหัวใจสำคัญของณัฐนันท์ เนอสซิ่งแคร์
+            </p>
+          </div>
+
+          <div className="space-y-3 text-xs sm:text-sm">
+            <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+              <div className="font-bold text-teal-800 text-sm mb-1.5">Q: ผู้สูงอายุติดเตียง เจาะคอ หรือให้อาหารทางสายยาง รับดูแลไหม?</div>
+              <div className="text-slate-600 leading-relaxed">A: รับดูแลครับ เรามีพยาบาลวิชาชีพ (RN) และผู้ช่วยพยาบาลประจำตลอด 24 ชม. พร้อมอุปกรณ์ทางการแพทย์ ได้แก่ เครื่องดูดเสมหะ ถังออกซิเจน เครื่องวัดสัญญาณชีพ และบริการทำแผลกดทับตามมาตรฐานโรงพยาบาลครับ</div>
+            </div>
+
+            <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+              <div className="font-bold text-teal-800 text-sm mb-1.5">Q: ญาติสามารถเข้าเยี่ยมได้เวลาใดบ้าง และต้องนัดหมายล่วงหน้าไหม?</div>
+              <div className="text-slate-600 leading-relaxed">A: ครอบครัวสามารถเข้าเยี่ยมได้ทุกวันตั้งแต่ 09.00 - 18.00 น. โดยไม่มีการจำกัดจำนวนครั้ง และเพื่อความสะดวกในการจัดเตรียมห้องรับรองและที่จอดรถ แนะนำให้นัดหมายเวลาล่วงหน้าผ่านแชตหรือโทรศัพท์ครับ</div>
+            </div>
+
+            <div className="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
+              <div className="font-bold text-teal-800 text-sm mb-1.5">Q: ครอบครัวจะทราบความคืบหน้าการดูแลและสุขภาพประจำวันได้อย่างไร?</div>
+              <div className="text-slate-600 leading-relaxed">A: ทีมพยาบาลจะเปิด "กลุ่ม LINE เฉพาะครอบครัว" รายงานสัญญาณชีพ อาหาร กิจกรรมกายภาพ และส่งรูปภาพหรือวิดีโอคอลให้พูดคุยกับท่านเป็นประจำทุกวัน ทำให้ท่านสบายใจเสมือนอยู่ใกล้ชิดครับ</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 8. INTERACTIVE APPOINTMENT & CONTACT FORM */}
       <section id="booking" className="py-16 md:py-24 bg-slate-100">
         <div className="max-w-4xl mx-auto px-4">

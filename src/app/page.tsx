@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Sparkles, 
   ArrowRight, 
@@ -10,15 +10,27 @@ import {
   Zap, 
   ShieldCheck, 
   MessageCircle, 
-  Layers, 
   TrendingUp, 
   CheckCircle2, 
   PhoneCall,
+  AlertTriangle,
+  XCircle,
+  Star,
+  ChevronDown,
+  RotateCcw,
+  Check,
+  Award,
+  Layers,
   HeartHandshake
 } from 'lucide-react';
 
 export default function HomePage() {
-  const [activeCategory, setActiveCategory] = React.useState<'all' | 'service' | 'shop' | 'property' | 'insurance' | 'course'>('all');
+  const [activeCategory, setActiveCategory] = useState<'all' | 'service' | 'shop' | 'property' | 'insurance' | 'course'>('all');
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  const toggleFaq = (idx: number) => {
+    setOpenFaq(openFaq === idx ? null : idx);
+  };
 
   const projects = [
     {
@@ -116,15 +128,74 @@ export default function HomePage() {
   const filteredProjects = activeCategory === 'all' 
     ? projects 
     : projects.filter(p => p.category === activeCategory);
+
+  const reviews = [
+    {
+      name: 'คุณนพวรรณ เจริญสุข',
+      role: 'เจ้าของแบรนด์แฟชั่น DADA Jeans',
+      rating: 5,
+      comment: 'เมื่อก่อนยิงแอดเข้าอินบ็อกซ์ ตอบไซส์ลูกค้าจนหมดวัน ปิดได้วันละไม่กี่ตัว พอเปลี่ยนมาใช้เซลเพจสั่งซื้อหน้าเดียวของ SalesDesk AI ลูกค้ากดเลือกไซส์ กรอกชื่อที่อยู่ แล้วเลือก COD จบเองเลย ยอดขายโตขึ้น 3 เท่าในเดือนเดียว คุ้มค่ามากค่ะ!',
+      metric: 'ยอดขายเพิ่มขึ้น +340%',
+    },
+    {
+      name: 'นพ. วิศรุต สิริวัฒนา',
+      role: 'ผู้อำนวยการ ณัฐนันท์ เนอสซิ่งแคร์',
+      rating: 5,
+      comment: 'ธุรกิจศูนย์ดูแลผู้สูงอายุต้องการความน่าเชื่อถือสูงมาก ดีไซน์แบบ Cinematic สวนญี่ปุ่นทำให้ญาติผู้ป่วยประทับใจตั้งแต่ 3 วินาทีแรก ฟอร์มนัดหมายเข้าชมทำงานดีมาก ลีดเข้ามามีคุณภาพและพร้อมตัดสินใจจริง',
+      metric: 'ยอดนัดเข้าชมสถานที่ +500%',
+    },
+    {
+      name: 'คุณปรียาพร ภักดีชน',
+      role: 'Top MDRT Financial Advisor',
+      rating: 5,
+      comment: 'ในฐานะตัวแทนประกัน ภาพลักษณ์คือทุกอย่าง เซลเพจช่วยคัดกรองลูกค้าที่มีกำลังซื้อสูง เครื่องมือคำนวณเบี้ยทำให้ลูกค้าทักเข้ามาพร้อมข้อมูลครบถ้วน ปิดเคสเบี้ยหลักแสนได้ง่ายขึ้นเยอะเลยค่ะ',
+      metric: 'อัตราการปิดเคสสำเร็จ 78%',
+    },
+    {
+      name: 'คุณธีรภัทร อัครเดชากุล',
+      role: 'เจ้าของโครงการ The Grand Villa',
+      rating: 5,
+      comment: 'บ้านราคา 30-40 ล้าน ยิงแอดแบบเดิมยากมาก พอได้เซลเพจที่ถ่ายทอดความลักชัวรีและฟอร์มนัดหมายแบบ Private Viewing ลูกค้าระดับ VIP ทักเข้ามานัดตรวจบ้านสม่ำเสมอ ทีมงานแก้ไขงานได้รวดเร็วจนพอใจ 100%',
+      metric: 'ปิดการขายวิลล่า 2 หลังใน 45 วัน',
+    },
+  ];
+
+  const faqs = [
+    {
+      q: 'ทำไมเซลเพจของ SalesDesk AI ถึงสร้างยอดขายได้ดีกว่าการยิงแอดเข้าแชตเพจโดยตรง?',
+      a: 'การยิงแอดเข้าแชต ลูกค้ามักทักมาด้วยคำสั้นๆ เช่น "สนใจค่ะ" แล้วหายไปหากแอดมินตอบช้า แต่เซลเพจ High-Conversion ของเราเรียงลำดับจิตวิทยาครบ: สะดุดตาด้วยภาพ Cinematic 16:9 -> ขยี้ปัญหา -> มอบทางแก้ -> ตารางราคาชัดเจน -> รีวิวสร้างความมั่นใจ -> และฟอร์มสั่งซื้อ/นัดหมาย ลูกค้าจึงตัดสินใจซื้อได้ด้วยตัวเองทันทีตลอด 24 ชม. ไม่ต้องรอแอดมินตอบ',
+    },
+    {
+      q: 'เงื่อนไข "การันตีแก้ไขได้จนกว่าจะพอใจ" มีรายละเอียดอย่างไร?',
+      a: 'ในแพ็กเกจ Professional Business ทางทีมงานยินดีปรับแก้ดีไซน์ โทนสี รูปภาพ ข้อความ และแบบฟอร์ม ได้อย่างไม่จำกัดรอบ (Unlimited Revisions) จนกว่าคุณจะพึงพอใจ 100% ก่อนจะทำการเผยแพร่ (Go-Live) สู่โดเมนจริง เพื่อให้มั่นใจได้ว่าคุณได้รับผลงานที่ตรงใจและดีที่สุดสำหรับธุรกิจครับ',
+    },
+    {
+      q: 'ไม่มีรูปภาพสวยๆ หรือเนื้อหามาก่อนเลย ทาง SalesDesk AI จัดการให้ได้ไหม?',
+      a: 'ได้แน่นอนครับ! เพียงคุณส่งลิงก์เพจ Facebook, ภาพถ่ายสินค้าจากมือถือ หรือบอกไอเดียธุรกิจของคุณมา ทีมงานและระบบ AI จะช่วยสร้างภาพกราฟิกความละเอียดสูงระดับ Cinematic 16:9 เขียนข้อความพาดหัวขาย และวางโครงสร้างให้เสร็จสมบูรณ์ตั้งแต่ต้นจนจบ',
+    },
+    {
+      q: 'สามารถติดตั้ง Tracking สำหรับยิงแอด (Meta Pixel, TikTok Pixel, Google Analytics) ได้หรือไม่?',
+      a: 'รองรับ 100% ครับ! เราติดตั้ง Meta Pixel (Facebook), TikTok Pixel, Google Analytics (GA4), และ LINE Tag ให้ครบถ้วน พร้อมตั้งค่า Event Tracking เช่น การกดปุ่มซื้อ (Purchase), การส่งฟอร์ม (Lead), และการกดปุ่ม LINE เพื่อให้แคมเปญโฆษณาของคุณเรียนรู้และปิดยอดขายได้แม่นยำที่สุด',
+    },
+    {
+      q: 'ใช้เวลาจัดทำกี่วันถึงจะเสร็จพร้อมใช้งาน?',
+      a: 'รวดเร็วเป็นพิเศษครับ! โครงสร้างเวอร์ชันแรกจะส่งมอบให้คุณตรวจสอบภายใน 24-48 ชั่วโมง และหลังจากการปรับแก้ตามที่คุณต้องการ ก็สามารถเชื่อมต่อโดเมนและเปิดใช้งานเพื่อยิงแอดสร้างยอดขายได้ทันทีครับ',
+    },
+    {
+      q: 'มีค่าบริการแอบแฝงรายเดือน หรือค่าธรรมเนียมอื่นเพิ่มเติมหรือไม่?',
+      a: 'ไม่มีค่าบริการแอบแฝงใดๆ ทั้งสิ้นครับ! ค่าบริการเป็นแบบจ่ายครั้งเดียวจบ รวมบริการโฮสติ้งความเร็วสูงมาตรฐานระดับสากลและใบรับรองความปลอดภัย SSL ฟรี 1 ปีเต็ม สบายใจได้ 100% ครับ',
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-teal-500 selection:text-white">
       {/* 1. TOP ANNOUNCEMENT BAR */}
       <div className="bg-gradient-to-r from-teal-900 via-emerald-900 to-slate-900 text-teal-100 text-xs py-2 px-4 border-b border-teal-800/40 text-center font-medium">
-        <span>🚀 ขับเคลื่อนด้วย SalesDesk AI Engine • สร้างเซลเพจปิดการขายระดับพรีเมียม ส่งมอบงานรวดเร็วใน 24 ชม.</span>
+        <span>🚀 ขับเคลื่อนด้วย SalesDesk AI Engine • ออกแบบเซลเพจปิดการขายระดับพรีเมียม การันตีแก้ไขจนกว่าจะพอใจ • ส่งงานใน 24-48 ชม.</span>
       </div>
 
       {/* 2. HEADER */}
-      <header className="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-md border-b border-slate-800">
+      <header className="sticky top-0 z-40 bg-slate-950/85 backdrop-blur-md border-b border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-teal-500/20">
@@ -135,19 +206,31 @@ export default function HomePage() {
                 SalesDesk <span className="text-teal-400">Sites</span>
               </span>
               <span className="text-[10px] text-slate-400 uppercase tracking-widest block font-medium">
-                AI Salepage Studio
+                Psychological Salepage Studio
               </span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
             <a 
+              href="#pricing"
+              className="hidden sm:inline-block text-xs font-semibold text-slate-300 hover:text-white transition px-3 py-2"
+            >
+              แพ็กเกจราคา
+            </a>
+            <a 
+              href="#faqs"
+              className="hidden sm:inline-block text-xs font-semibold text-slate-300 hover:text-white transition px-3 py-2"
+            >
+              คำถามที่พบบ่อย
+            </a>
+            <a 
               href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ" 
               target="_blank" 
               rel="noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-bold text-xs sm:text-sm shadow-md shadow-teal-500/20 transition active:scale-95"
             >
-              <MessageCircle className="w-4 h-4" /> <span>แอดไลน์ปรึกษาฟรี</span>
+              <MessageCircle className="w-4 h-4" /> <span>ขอตัวอย่างฟรีใน LINE</span>
             </a>
           </div>
         </div>
@@ -162,54 +245,150 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto px-4 text-center relative z-10 space-y-6">
           <div className="inline-flex items-center gap-2 bg-slate-900 border border-teal-500/30 text-teal-300 px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold shadow-inner">
             <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
-            <span>AI-Driven Cinematic Salepage Architecture</span>
+            <span>High-Converting Psychological Salepage Architecture</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-[1.15]">
-            เปลี่ยนผู้เข้าชม ให้เป็นลูกค้าตัวจริง <br />
+            เปลี่ยนคนเห็นแอด ให้เป็นลูกค้าโอนเงินทันที <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-amber-300">
-              ด้วยเว็บไซต์ & เซลเพจสไตล์ Cinematic
+              ด้วยเซลเพจปิดการขายตามหลักจิตวิทยาขั้นสูง
             </span>
           </h1>
 
           <p className="text-sm sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            ผสานเทคโนโลยี AI สร้างสรรค์ภาพพรีเมียม 16:9 ดีไซน์ระดับสากล ไม่บังภาพบนมือถือ 
-            โครงสร้างปิดการขาย 8 มิติ พร้อมเชื่อมต่อระบบ LINE OA อัตโนมัติ 24 ชม.
+            หยุดเสียเงินยิงแอดเข้าแชตที่ทักแล้วเงียบหาย! ยกระดับธุรกิจด้วยเซลเพจโหลดเร็ว 0.8 วิ 
+            โครงสร้างร้อยเรียงอารมณ์เพื่อปิดการขายอัตโนมัติ 24 ชม. พร้อมการันตีแก้ไขได้จนกว่าจะพอใจ
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4">
             <a 
-              href="#portfolio" 
+              href="#pricing" 
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white font-bold text-sm sm:text-base shadow-xl shadow-teal-500/25 transition active:scale-95"
             >
-              <span>ชมผลงานจริงล่าสุด</span>
+              <span>ดูแพ็กเกจราคาเริ่มต้น ฿2,990</span>
               <ArrowRight className="w-4 h-4" />
             </a>
             <a 
-              href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ" 
-              target="_blank" 
-              rel="noreferrer"
+              href="#portfolio" 
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold text-sm sm:text-base border border-slate-700 transition"
             >
-              <PhoneCall className="w-4 h-4 text-teal-400" />
-              <span>ปรึกษาประเมินโครงการฟรี</span>
+              <span>ชมตัวอย่างจริง 5 หมวดหมู่</span>
             </a>
+          </div>
+
+          {/* Trust Guarantees */}
+          <div className="pt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-xs text-slate-400">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-teal-400" />
+              <span>การันตีแก้ไขจนกว่าจะพอใจ</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Zap className="w-4 h-4 text-amber-400" />
+              <span>จัดทำตัวอย่างฟรีให้ชมก่อน</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Award className="w-4 h-4 text-emerald-400" />
+              <span>ส่งมอบงานรวดเร็วใน 24-48 ชม.</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 4. FEATURED PORTFOLIO SHOWCASE */}
-      <section id="portfolio" className="py-16 md:py-24 bg-slate-900/60 border-y border-slate-800 relative">
+      {/* 4. THE PAIN POINTS VS THE SOLUTION (จิตวิทยาขยี้ปัญหาและทางแก้) */}
+      <section className="py-16 md:py-24 bg-slate-900/40 border-y border-slate-800/80">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto space-y-3 mb-14">
+            <span className="text-xs font-bold text-rose-400 uppercase tracking-widest bg-rose-950/80 px-3 py-1 rounded-full border border-rose-500/30">
+              The Reality of Online Sales
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
+              ทำไมธุรกิจ 90% ยิงแอดแล้ว "ขาดทุน" หรือ "กำไรหด"?
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400">
+              หากคุณยังพึ่งพาการยิงแอดส่งคนเข้าแชต Facebook หรือ LINE ตรงๆ นี่คือต้นเหตุที่เงินค่าโฆษณาของคุณรั่วไหลทุกวัน
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+            {/* The Old Painful Way */}
+            <div className="bg-gradient-to-b from-rose-950/30 to-slate-950 border border-rose-900/40 rounded-3xl p-6 sm:p-8 space-y-5">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-rose-500/20 text-rose-400 flex items-center justify-center">
+                  <XCircle className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white">วิธีเดิม: ยิงแอดเข้าแชตโดยตรง</h3>
+                  <p className="text-xs text-rose-300">ค่าแอดแพง ปิดการขายยาก แอดมินเหนื่อยล้า</p>
+                </div>
+              </div>
+
+              <ul className="space-y-3.5 text-xs sm:text-sm text-slate-300">
+                <li className="flex items-start gap-2.5">
+                  <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                  <span><strong>คนทัก 100 ตอบ 10 ปิดได้ 1:</strong> ลูกค้าทักมาแล้วเงียบหาย แอดมินตอบช้า 3 นาที ลูกค้าเปลี่ยนใจไปซื้อร้านอื่น</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                  <span><strong>ต้องตอบคำถามเดิมซ้ำๆ ทั้งวัน:</strong> "มีไซส์ไหม", "ราคาเท่าไหร่", "ส่งของกี่วัน" เสียเวลาและพลังงานมหาศาล</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                  <span><strong>ขาดความน่าเชื่อถือ:</strong> ร้านค้าไม่มีเว็บไซต์อย่างเป็นทางการ ดูไม่มั่นคง ลูกค้าไม่กล้าโอนยอดใหญ่</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                  <span><strong>จ้างทำเว็บทั่วไปราคาแพงเกินจริง:</strong> เอเจนซีคิด 30,000 - 50,000 บาท ใช้เวลาทำ 2 เดือน ได้เว็บโหลดช้า ใช้งานจริงไม่ได้</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* The SalesDesk AI Solution */}
+            <div className="bg-gradient-to-b from-teal-950/30 to-slate-950 border border-teal-500/40 rounded-3xl p-6 sm:p-8 space-y-5 shadow-xl shadow-teal-500/5">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center">
+                  <CheckCircle2 className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white">ทางออกใหม่: SalesDesk AI Salepage</h3>
+                  <p className="text-xs text-teal-300">ระบบปิดการขายอัตโนมัติ โหลดไวระดับ 0.8 วินาที</p>
+                </div>
+              </div>
+
+              <ul className="space-y-3.5 text-xs sm:text-sm text-slate-300">
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span><strong>ลูกค้ากดสั่งซื้อหรือจองเองใน 1 นาที:</strong> ดูรูป เช็คไซส์ เลือกโปรโมชั่น กรอกที่อยู่ และเลือกเก็บเงินปลายทางได้จบในหน้าเดียว</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span><strong>ดีไซน์ระดับสากล ไม่บังภาพบนมือถือ:</strong> สถาปัตยกรรม Cinematic 16:9 สวยหรู เพิ่มมูลค่าแบรนด์ขึ้นทันที 3-5 เท่า</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span><strong>เชื่อมต่อแชต LINE OA & แจ้งเตือนออเดอร์ทันที:</strong> ทันทีที่ลูกค้ากรอกข้อมูล ข้อมูลส่งตรงเข้ามือถือแอดมินพร้อมปิดยอด</span>
+                </li>
+                <li className="flex items-start gap-2.5">
+                  <Check className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span><strong>ราคาจับต้องได้ เริ่มต้นเพียง ฿2,990:</strong> จัดทำตัวอย่างให้ชมฟรีก่อนตัดสินใจ และการันตีแก้ไขได้จนกว่าจะพอใจ 100%</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. FEATURED PORTFOLIO SHOWCASE */}
+      <section id="portfolio" className="py-16 md:py-24 bg-slate-950 relative">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto space-y-3 mb-10">
             <span className="text-xs font-bold text-teal-400 uppercase tracking-widest bg-teal-950/80 px-3 py-1 rounded-full border border-teal-500/30">
-              Showcase Directory
+              Live Showcase Demos
             </span>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
-              ตัวอย่างเว็บไซต์และเซลเพจ 5 หมวดหมู่ธุรกิจ
+              ตัวอย่างเว็บไซต์และเซลเพจ 5 หมวดหมู่ยอดนิยม
             </h2>
-            <p className="text-sm sm:text-base text-slate-400">
-              สร้างขึ้นด้วยมาตรฐาน SalesDesk Salepage Architect สวยหรู สไตล์ Cinematic Hero 16:9 ไม่บังภาพบนมือถือ
+            <p className="text-xs sm:text-sm text-slate-400">
+              คลิกเปิดชมหน้าเว็บจริงบนมือถือเพื่อสัมผัสความเร็วและการจัดวางตามหลักจิตวิทยาปิดการขาย
             </p>
           </div>
 
@@ -229,7 +408,7 @@ export default function HomePage() {
                 className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
                   activeCategory === tab.key
                     ? 'bg-gradient-to-r from-teal-500 to-emerald-500 text-slate-950 shadow-lg shadow-teal-500/20'
-                    : 'bg-slate-950 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700'
+                    : 'bg-slate-900 text-slate-300 hover:text-white border border-slate-800 hover:border-slate-700'
                 }`}
               >
                 {tab.label}
@@ -241,7 +420,7 @@ export default function HomePage() {
             {filteredProjects.map((project) => (
               <div 
                 key={project.id}
-                className={`bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl ${project.accentColor} transition-all duration-500 group`}
+                className={`bg-slate-900/90 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl ${project.accentColor} transition-all duration-500 group`}
               >
                 <div className="grid grid-cols-1 lg:grid-cols-12">
                   {/* Image Preview */}
@@ -300,86 +479,314 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5. THE 4 PILLARS */}
-      <section className="py-16 md:py-24 bg-slate-950">
+      {/* 6. PRICING & SERVICE TERMS (แพ็กเกจราคาจับต้องได้ & เงื่อนไขชัดเจน) */}
+      <section id="pricing" className="py-16 md:py-24 bg-slate-900/70 border-y border-slate-800 relative">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto space-y-3 mb-16">
-            <span className="text-xs font-bold text-teal-400 uppercase tracking-widest bg-teal-950/80 px-3 py-1 rounded-full border border-teal-500/30">
-              Why SalesDesk Sites
+            <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest bg-emerald-950/80 px-3 py-1 rounded-full border border-emerald-500/30">
+              Transparent Pricing & Guarantees
             </span>
             <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
-              4 เสาหลักที่ทำให้เซลเพจของเราปิดการขายได้จริง
+              แพ็กเกจจัดทำเซลเพจในราคาที่จับต้องได้
             </h2>
+            <p className="text-xs sm:text-sm text-slate-400">
+              จ่ายครั้งเดียวจบ ไม่มีค่าบริการแอบแฝง พร้อมการันตีความพึงพอใจและเงื่อนไขการแก้ไขงานที่โปร่งใส 100%
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-400 border border-teal-500/20 flex items-center justify-center">
-                <Monitor className="w-6 h-6" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+            
+            {/* Tier 1: Starter */}
+            <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6 hover:border-slate-700 transition">
+              <div className="space-y-4">
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Starter Salepage</span>
+                <h3 className="text-xl font-bold text-white">หน้าเดียวจบ เริ่มต้นง่าย</h3>
+                <p className="text-xs text-slate-400">เหมาะสำหรับสินค้าเดี่ยว ร้านค้าขนาดเล็ก หรือผู้ที่เริ่มต้นยิงแอด</p>
+                
+                <div className="pt-2">
+                  <span className="text-3xl font-black text-white">฿2,990</span>
+                  <span className="text-xs text-slate-400 line-through ml-2">฿5,900</span>
+                  <span className="block text-[11px] text-teal-400 font-medium mt-1">ประหยัดทันที 50%</span>
+                </div>
+
+                <div className="pt-4 border-t border-slate-800 space-y-3 text-xs text-slate-300">
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>1 หน้าเซลเพจ Responsive รองรับมือถือ 100%</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>ฟอร์มสั่งซื้อเก็บเงินปลายทาง (COD) / ติดต่อ</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span><strong>แก้ไขปรับแต่งงานได้ 3 ครั้งเต็ม</strong></span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>ส่งมอบงานรวดเร็วใน 48 ชม.</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>ฟรี! โฮสติ้งความเร็วสูงและ SSL 1 ปีเต็ม</span>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-base font-bold text-white">Cinematic Hero 16:9</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                ดีไซน์แบบ Auto Dealer Reference ฝั่งซ้ายวาง Negative Space สำหรับตัวหนังสือ ฝั่งขวาโชว์ภาพสินค้าหรือบริการอย่างคมชัด
-              </p>
+
+              <a 
+                href="https://line.me/R/ti/p/@fhu6688s?text=สนใจแพ็กเกจStarterSalepageครับ" 
+                target="_blank" 
+                rel="noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm border border-slate-700 transition"
+              >
+                <span>เลือกแพ็กเกจ Starter</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
 
-            <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center">
-                <Smartphone className="w-6 h-6" />
+            {/* Tier 2: Professional (HOT / RECOMMENDED) */}
+            <div className="bg-gradient-to-b from-slate-900 to-slate-950 border-2 border-teal-500 rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6 relative shadow-2xl shadow-teal-500/10">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-teal-500 to-emerald-400 text-slate-950 font-black text-[11px] px-3.5 py-1 rounded-full uppercase tracking-wider shadow-md">
+                🔥 แนะนำ ยอดนิยม 85%
               </div>
-              <h3 className="text-base font-bold text-white">Mobile-First 100%</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                จัดวางเลย์เอาต์พิเศษบนมือถือ เปิดพื้นที่ภาพตรงกลางโล่ง 100% ไม่ถูกปุ่มหรือตัวหนังสือบังใบหน้าหรือตัวสินค้า
-              </p>
+
+              <div className="space-y-4">
+                <span className="text-xs font-bold text-teal-400 uppercase tracking-wider block">Professional Business</span>
+                <h3 className="text-xl font-bold text-white">Cinematic High-Conversion</h3>
+                <p className="text-xs text-slate-300">เหมาะสำหรับแบรนด์ที่ยิงแอดจริงจัง ต้องการปิดการขายสูงสุด</p>
+                
+                <div className="pt-2">
+                  <span className="text-4xl font-black text-white">฿4,990</span>
+                  <span className="text-xs text-slate-400 line-through ml-2">฿9,900</span>
+                  <span className="block text-[11px] text-emerald-400 font-semibold mt-1">คุ้มค่าที่สุด คืนทุนไวใน 1-2 ออเดอร์</span>
+                </div>
+
+                <div className="pt-4 border-t border-slate-800 space-y-3 text-xs text-slate-200">
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-teal-400 shrink-0" />
+                    <span>สถาปัตยกรรม Cinematic Hero 16:9 ไม่บังภาพ</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-teal-400 shrink-0" />
+                    <span>โครงสร้างจิตวิทยาปิดการขายครบ 8 มิติ</span>
+                  </div>
+                  <div className="flex items-center gap-2 bg-teal-950/60 p-2 rounded-lg border border-teal-500/30">
+                    <ShieldCheck className="w-4 h-4 text-teal-300 shrink-0" />
+                    <span className="text-teal-200 font-bold">✨ แก้ไขได้จนกว่าจะพอใจ (Unlimited) ก่อนขึ้นจริง</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-teal-400 shrink-0" />
+                    <span>ติดตั้ง Pixel ครบ (Meta, TikTok, LINE Tag, GA4)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-teal-400 shrink-0" />
+                    <span>เชื่อมต่อแชต LINE OA พร้อมข้อความดัก Lead ออโต้</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-teal-400 shrink-0" />
+                    <span>ส่งมอบงานรวดเร็วใน 24-48 ชม.</span>
+                  </div>
+                </div>
+              </div>
+
+              <a 
+                href="https://line.me/R/ti/p/@fhu6688s?text=สนใจแพ็กเกจProfessionalBusinessครับ" 
+                target="_blank" 
+                rel="noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-black text-sm shadow-xl shadow-teal-500/25 transition active:scale-95"
+              >
+                <Sparkles className="w-4 h-4" />
+                <span>เลือกแพ็กเกจ Professional</span>
+              </a>
             </div>
 
-            <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center">
-                <TrendingUp className="w-6 h-6" />
+            {/* Tier 3: Enterprise */}
+            <div className="bg-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6 hover:border-slate-700 transition">
+              <div className="space-y-4">
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Enterprise Platform</span>
+                <h3 className="text-xl font-bold text-white">ระบบสั่งทำเฉพาะทาง</h3>
+                <p className="text-xs text-slate-400">สำหรับโชว์รูมรถยนต์, พูลวิลล่าหลายยูนิต, แคตตาล็อกขนาดใหญ่</p>
+                
+                <div className="pt-2">
+                  <span className="text-3xl font-black text-white">฿9,900+</span>
+                  <span className="text-xs text-slate-400 line-through ml-2">฿19,900</span>
+                  <span className="block text-[11px] text-slate-400 mt-1">ประเมินตามขอบเขตงานจริง</span>
+                </div>
+
+                <div className="pt-4 border-t border-slate-800 space-y-3 text-xs text-slate-300">
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>ระบบค้นหา / แคตตาล็อกสินค้าหลายหมวดหมู่</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>ระบบคำนวณค่างวดไฟแนนซ์ / แบบฟอร์มสัญญาจอง</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>ระบบนามบัตรดิจิทัลสำหรับพนักงานขายทุกคน</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span><strong>แก้ไขได้ไม่จำกัด พร้อมทีมโปรแกรมเมอร์ดูแลส่วนตัว</strong></span>
+                  </div>
+                </div>
               </div>
-              <h3 className="text-base font-bold text-white">8-Section Conversion</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                โครงสร้างร้อยเรียงอารมณ์ลูกค้าตั้งแต่สะดุดตา จุดเด่น ตารางราคา รีวิวความไว้วางใจ สู่ฟอร์มนัดหมายปิดการขาย
-              </p>
+
+              <a 
+                href="https://line.me/R/ti/p/@fhu6688s?text=สนใจแพ็กเกจEnterpriseครับ" 
+                target="_blank" 
+                rel="noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm border border-slate-700 transition"
+              >
+                <span>ปรึกษาประเมินโครงการ</span>
+                <ArrowRight className="w-4 h-4" />
+              </a>
             </div>
 
-            <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 space-y-3">
-              <div className="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/20 flex items-center justify-center">
-                <Zap className="w-6 h-6" />
+          </div>
+
+          {/* Risk Reversal Callout */}
+          <div className="mt-12 bg-gradient-to-r from-teal-950/60 via-slate-900 to-emerald-950/60 border border-teal-500/30 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-teal-500/20 text-teal-300 flex items-center justify-center shrink-0">
+                <HeartHandshake className="w-7 h-7" />
               </div>
-              <h3 className="text-base font-bold text-white">Integrated with LINE OA</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">
-                เชื่อมต่อระบบแชตและบอทอัตโนมัติ ส่งลูกค้าตรงสู่ LINE OA ของธุรกิจ พร้อมข้อความระบุเจาะจงความต้องการทันที
-              </p>
+              <div className="space-y-1">
+                <h4 className="text-base font-bold text-white">ทดลองจัดทำตัวอย่างหน้าเว็บจริงให้ชมฟรีก่อนตัดสินใจ!</h4>
+                <p className="text-xs text-slate-300">
+                  ส่งรูปสินค้าหรือลิงก์เพจของคุณมาในแชต LINE เราจะขึ้นโครงสร้างหน้าเว็บจริงให้คุณตรวจสอบก่อน ไม่ถูกใจไม่ต้องจ่ายเงิน
+                </p>
+              </div>
             </div>
+            <a 
+              href="https://line.me/R/ti/p/@fhu6688s?text=ต้องการให้ทีมงานจัดทำตัวอย่างหน้าเว็บร้านค้าของผมให้ชมฟรีก่อนครับ" 
+              target="_blank" 
+              rel="noreferrer"
+              className="px-6 py-3 rounded-xl bg-teal-400 hover:bg-teal-300 text-slate-950 font-bold text-xs sm:text-sm whitespace-nowrap shadow-md"
+            >
+              รับสิทธิ์ทำตัวอย่างฟรี
+            </a>
           </div>
         </div>
       </section>
 
-      {/* 6. CALL TO ACTION FOOTER */}
-      <footer className="py-16 bg-slate-900 border-t border-slate-800 text-center">
-        <div className="max-w-4xl mx-auto px-4 space-y-6">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center mx-auto text-slate-950 font-black shadow-lg">
-            <Sparkles className="w-6 h-6" />
+      {/* 7. CUSTOMER REVIEWS & SOCIAL PROOF (รีวิวความมั่นใจ) */}
+      <section className="py-16 md:py-24 bg-slate-950">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto space-y-3 mb-16">
+            <span className="text-xs font-bold text-amber-400 uppercase tracking-widest bg-amber-950/80 px-3 py-1 rounded-full border border-amber-500/30">
+              Verified Case Studies
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
+              เสียงยืนยันจากธุรกิจที่เปลี่ยนมาใช้ SalesDesk Sites
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400">
+              ผลลัพธ์จริงจากเจ้าของธุรกิจที่เพิ่มยอดขายและลดค่าแอดได้สำเร็จ
+            </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-            พร้อมยกระดับเว็บไซต์ธุรกิจของคุณแล้วหรือยัง?
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {reviews.map((rev, idx) => (
+              <div 
+                key={idx}
+                className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 space-y-4 hover:border-slate-700 transition"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-1 text-amber-400">
+                    {[...Array(rev.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-amber-400" />
+                    ))}
+                  </div>
+                  <span className="text-xs font-bold text-teal-400 bg-teal-950/80 px-2.5 py-1 rounded-full border border-teal-500/30">
+                    {rev.metric}
+                  </span>
+                </div>
+
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed italic">
+                  "{rev.comment}"
+                </p>
+
+                <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
+                  <div>
+                    <h4 className="text-sm font-bold text-white">{rev.name}</h4>
+                    <p className="text-xs text-slate-400">{rev.role}</p>
+                  </div>
+                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. FAQS (ตอบข้อโต้แย้งในใจให้หมดสิ้น) */}
+      <section id="faqs" className="py-16 md:py-24 bg-slate-900/60 border-t border-slate-800">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto space-y-3 mb-14">
+            <span className="text-xs font-bold text-teal-400 uppercase tracking-widest bg-teal-950/80 px-3 py-1 rounded-full border border-teal-500/30">
+              Frequently Asked Questions
+            </span>
+            <h2 className="text-2xl sm:text-4xl font-extrabold text-white">
+              คำถามที่พบบ่อย (FAQ)
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400">
+              ตอบทุกข้อสงสัยอย่างโปร่งใส เพื่อให้คุณตัดสินใจได้อย่างมั่นใจที่สุด
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <div 
+                  key={idx}
+                  className="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden transition"
+                >
+                  <button
+                    onClick={() => toggleFaq(idx)}
+                    className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-white hover:text-teal-300 transition"
+                  >
+                    <span>{faq.q}</span>
+                    <ChevronDown className={`w-5 h-5 text-teal-400 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {isOpen && (
+                    <div className="px-5 sm:px-6 pb-6 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/80 pt-4">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 9. FINAL CALL TO ACTION FOOTER */}
+      <footer className="py-20 bg-slate-950 border-t border-slate-800 text-center relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-4 space-y-6 relative z-10">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-teal-500 to-emerald-400 flex items-center justify-center mx-auto text-slate-950 font-black shadow-lg shadow-teal-500/20">
+            <Sparkles className="w-7 h-7 text-slate-950" />
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
+            พร้อมเปลี่ยนเงินค่าแอด ให้เป็นยอดขายเข้าบัญชีหรือยังครับ?
           </h2>
-          <p className="text-xs sm:text-sm text-slate-400 max-w-lg mx-auto">
-            ส่งข้อมูลธุรกิจหรือลิงก์เพจของคุณมาให้เรา ทีมงาน SalesDesk AI พร้อมเนรมิตเซลเพจระดับพรีเมียมให้คุณภายใน 24 ชม.
+          <p className="text-xs sm:text-base text-slate-300 max-w-xl mx-auto leading-relaxed">
+            ส่งข้อมูลร้านค้าของคุณมาใน LINE เพื่อรับสิทธิ์จัดทำโครงสร้างตัวอย่างฟรี <br className="hidden sm:inline" />
+            ทีมงานและระบบ SalesDesk AI พร้อมส่งมอบงานคุณภาพสูงภายใน 24-48 ชม.
           </p>
-          <div className="pt-2">
+          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
             <a 
               href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ" 
               target="_blank" 
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-bold text-base shadow-xl shadow-teal-500/25 transition transform active:scale-95"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-black text-base shadow-xl shadow-teal-500/25 transition transform active:scale-95"
             >
               <MessageCircle className="w-5 h-5" />
-              <span>ปรึกษาทีมงานผ่าน LINE OA (@fhu6688s)</span>
+              <span>แอดไลน์ปรึกษา & ขอตัวอย่างฟรี (@fhu6688s)</span>
             </a>
           </div>
-          <p className="text-[11px] text-slate-500 pt-6">
+          <p className="text-[11px] text-slate-500 pt-8">
             © 2026 SalesDesk Sites • ออกแบบและพัฒนาโดย SalesDesk AI (ผู้เชี่ยวชาญด้านเว็บไซต์ & AI การตลาด)
           </p>
         </div>

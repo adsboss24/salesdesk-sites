@@ -961,6 +961,40 @@ export default function FlowerSalepage() {
         </div>
       </section>
 
+      {/* 8.5 FAQS SECTION (คลายความกังวลเรื่องการจัดส่งและความสด) */}
+      <section className="py-12 sm:py-16 bg-white border-t border-slate-100">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <div className="text-center space-y-2 mb-8">
+            <span className="text-xs font-bold text-rose-600 uppercase tracking-wider bg-rose-50 px-3 py-1 rounded-full border border-rose-200">
+              Flower Care & Delivery FAQ
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+              คำถามที่พบบ่อย (FAQ)
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-500">
+              มั่นใจในคุณภาพดอกไม้สดเกรดประมูลและการจัดส่งควบคุมอุณหภูมิ 100%
+            </p>
+          </div>
+
+          <div className="space-y-3 text-xs sm:text-sm">
+            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+              <div className="font-bold text-slate-900 mb-1">Q: หากต้องการสั่งดอกไม้ด่วนวันเดียวกัน (Same-Day) ใช้เวลากี่ชั่วโมง?</div>
+              <div className="text-slate-600 leading-relaxed">A: ในเขตกรุงเทพฯ และปริมณฑล เรามีบริการ Same-Day Express จัดส่งถึงมือผู้รับภายใน 2-3 ชั่วโมงหลังคอนเฟิร์มแบบกับฟลอริสต์ครับ</div>
+            </div>
+
+            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+              <div className="font-bold text-slate-900 mb-1">Q: ดอกไม้จะคงความสดได้นานกี่วัน และมีการรับประกันไหม?</div>
+              <div className="text-slate-600 leading-relaxed">A: ดอกไม้นำเข้าของเราผ่านกระบวนการ Cold Chain ควบคุมอุณหภูมิ 4°C ตลอดการเดินทาง หากปฏิบัติตามคู่มือการดูแล ดอกไม้จะคงความสดชื่นได้ 5-7 วัน และเรารับประกันความสดชื่น 100% หากชำรุดเสียหายจากการขนส่งยินดีจัดใหม่ให้ทันทีครับ</div>
+            </div>
+
+            <div className="bg-slate-50 p-5 rounded-2xl border border-slate-200">
+              <div className="font-bold text-slate-900 mb-1">Q: มีรูปภาพผลงานช่อจริงให้ตรวจเช็คก่อนส่งมอบหรือไม่?</div>
+              <div className="text-slate-600 leading-relaxed">A: มีแน่นอนครับ ฟลอริสต์จะถ่ายภาพช่อดอกไม้จริงทั้งมุมตรงและมุมบน ส่งให้คุณตรวจสอบความเรียบร้อยผ่าน LINE ก่อนที่พนักงานจะนำขึ้นรถจัดส่งทุกครั้งครับ</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 9. INTERACTIVE LEAD CAPTURE FORM ("สั่งจัดดอกไม้ด่วน & ปรึกษา Master Florist") */}
       <section id="order-form" className="py-12 sm:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">

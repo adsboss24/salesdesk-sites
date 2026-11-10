@@ -228,6 +228,91 @@ export default function OnlineCoursePage() {
         </div>
       </section>
 
+      {/* 2.5 STRUGGLE VS TRANSFORMATION (จิตวิทยาความกลัวถูก Disrupt สู่การเป็นผู้นำ) */}
+      <section className="py-16 bg-slate-900/60 border-y border-slate-800">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
+            <span className="text-xs font-bold text-rose-400 uppercase tracking-widest bg-rose-950/80 px-3 py-1 rounded-full border border-rose-500/30">
+              The AI Revolution
+            </span>
+            <h3 className="text-2xl sm:text-4xl font-extrabold text-white">
+              คุณกำลังทำงานหนัก 14 ชม. ต่อวัน เพื่อให้ยอดขายเท่าเดิมอยู่หรือเปล่า?
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-400">
+              ขณะที่คุณเหนื่อยกับการตอบแชต ทำกราฟิก เขียนแคปชัน คู่แข่งของคุณกำลังใช้ AI ทำงานแทนทั้งหมดใน 15 นาที
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div className="bg-slate-950 border border-rose-900/40 rounded-2xl p-6 space-y-3">
+              <div className="text-rose-400 font-bold text-lg">❌ ตันเรื่องไอเดียและคอนเทนต์</div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                คิดแคปชันไม่ออก กราฟิกไม่สวย จ้างฟรีแลนซ์งานช้า เสียเวลาและค่าใช้จ่ายซ้ำซ้อน
+              </p>
+            </div>
+
+            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-3">
+              <div className="text-purple-400 font-bold text-lg">⚡ AI ทำงานแทน 24 ชม.</div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                เขียนโพสต์ไวรัล สร้างภาพระดับสตูดิโอ และปิดการขายอัตโนมัติด้วย Prompt เฉพาะทาง
+              </p>
+            </div>
+
+            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-3">
+              <div className="text-emerald-400 font-bold text-lg">💰 ยอดขายโต 10 เท่า</div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                ลดต้นทุนพนักงาน ยิงแอดแม่นยำขึ้น คืนเวลาให้เจ้าของธุรกิจไปโฟกัสการเติบโต
+              </p>
+            </div>
+          </div>
+
+          {/* Student Review */}
+          <div className="bg-slate-950 border border-purple-500/30 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-500 to-indigo-500 flex items-center justify-center text-white font-black text-xl shrink-0 shadow-lg">
+              VIP
+            </div>
+            <div className="space-y-1.5 text-center sm:text-left">
+              <div className="flex justify-center sm:justify-start gap-1 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs sm:text-sm text-slate-300 italic">
+                "เอาเทคนิค AI ปิดการขายในโมดูลที่ 4 ไปใช้กับร้านเสื้อผ้า คืนแรกยอดขายเข้ามา 45 ออเดอร์แบบไม่ต้องนั่งตอบแชตเองเลย คอร์สนี้เปลี่ยนชีวิตคนทำธุรกิจจริงๆ ครับ คุ้มค่าเกินค่าเรียนไปร้อยเท่า"
+              </p>
+              <div className="text-xs font-semibold text-purple-300">
+                คุณชานนท์ วรเชษฐ์ • เจ้าของแบรนด์ออนไลน์ (นักเรียนรุ่นที่ 4)
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2.6 COURSE FAQS & GUARANTEE */}
+      <section className="py-14 bg-slate-950 border-t border-slate-800">
+        <div className="max-w-3xl mx-auto px-4">
+          <div className="text-center space-y-2 mb-8">
+            <h3 className="text-xl sm:text-2xl font-bold text-white">คำถามที่พบบ่อย (FAQ)</h3>
+            <p className="text-xs text-slate-400">คลายทุกข้อสงสัยก่อนเริ่มเรียน</p>
+          </div>
+
+          <div className="space-y-3 text-xs sm:text-sm">
+            <div className="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+              <div className="font-bold text-purple-400 mb-1">Q: ไม่มีพื้นฐานด้านไอทีหรือ AI มาก่อนเลย จะเรียนรู้เรื่องไหม?</div>
+              <div className="text-slate-300">A: เนื้อหาออกแบบมาให้ทำตามทีละขั้นตอน (Step-by-Step) แบบจับมือทำ มีเทมเพลตคำสั่ง (Prompt) สำเร็จรูปให้คัดลอกไปใช้ได้ทันที แม้ไม่เก่งคอมพิวเตอร์ก็ทำตามได้แน่นอนครับ</div>
+            </div>
+            <div className="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+              <div className="font-bold text-purple-400 mb-1">Q: รูปแบบการเรียนเป็นอย่างไร และดูย้อนหลังได้ตลอดไปไหม?</div>
+              <div className="text-slate-300">A: เป็นคอร์สออนไลน์ผ่านระบบเว็บไซต์ส่วนตัว สามารถเข้าเรียนผ่านคอมพิวเตอร์ แท็บเล็ต หรือมือถือได้ตลอด 24 ชม. ไม่มีวันหมดอายุ พร้อมอัปเดตเนื้อหาใหม่ฟรีตลอดชีพครับ</div>
+            </div>
+            <div className="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+              <div className="font-bold text-purple-400 mb-1">Q: มีการันตีความพึงพอใจหรือไม่?</div>
+              <div className="text-slate-300">A: เรามั่นใจในเนื้อหา 100% หากเรียนแล้วรู้สึกว่าไม่ตรงกับที่คาดหวัง สามารถแจ้งขอคืนเงินเต็มจำนวนได้ภายใน 7 วัน โดยไม่มีเงื่อนไขใดๆ ทั้งสิ้นครับ</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 3. ENROLL FORM */}
       <section id="enroll" className="py-16 bg-slate-950 border-t border-slate-800">
         <div className="max-w-2xl mx-auto px-4">

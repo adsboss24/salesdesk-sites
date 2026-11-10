@@ -15,7 +15,8 @@ import {
   Users,
   CheckCircle2,
   Calendar,
-  ArrowRight
+  ArrowRight,
+  Star
 } from 'lucide-react';
 
 export default function InsuranceAdvisorPage() {
@@ -222,6 +223,91 @@ export default function InsuranceAdvisorPage() {
 
           </div>
 
+        </div>
+      </section>
+
+      {/* 2.5 REALITY & PEACE OF MIND (จิตวิทยาความคุ้มครองและการเงิน) */}
+      <section className="py-16 bg-slate-900/60 border-y border-slate-800">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
+            <span className="text-xs font-bold text-rose-400 uppercase tracking-widest bg-rose-950/80 px-3 py-1 rounded-full border border-rose-500/30">
+              Financial Protection Reality
+            </span>
+            <h3 className="text-2xl sm:text-4xl font-extrabold text-white">
+              อย่าให้ "ค่ารักษาพยาบาล" กัดกินเงินเก็บทั้งชีวิตของคุณ
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-400">
+              ค่ารักษาโรงพยาบาลเอกชนเฉลี่ยเติบโต 8-10% ทุกปี การมีกรมธรรม์ที่ครอบคลุมคือเกราะป้องกันครอบครัวที่ดีที่สุด
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div className="bg-slate-950 border border-rose-900/40 rounded-2xl p-6 space-y-3">
+              <div className="text-rose-400 font-bold text-lg">⚠️ ค่าผ่าตัดหลักล้าน</div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                โรคร้ายแรง มะเร็ง หลอดเลือดสมอง หรือผ่าตัดหัวใจ มีค่าใช้จ่ายเริ่มต้นที่ 500,000 - 3,000,000 บาท
+              </p>
+            </div>
+
+            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-3">
+              <div className="text-sky-400 font-bold text-lg">🛡️ เหมาจ่ายวงเงินสูง</div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                แผนเหมาจ่าย 5 - 30 ล้านบาทต่อปี จ่ายตามจริง ไม่จำกัดค่าห้อง ICU ไม่ต้องกังวลส่วนเกิน
+              </p>
+            </div>
+
+            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-3">
+              <div className="text-teal-400 font-bold text-lg">🤝 ที่ปรึกษาเคียงข้าง 24 ชม.</div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                ดูแลประสานงานแฟกซ์เคลมกับโรงพยาบาลโดยตรง ไม่ต้องสำรองจ่าย หมดปัญหาตัวแทนทิ้งงาน
+              </p>
+            </div>
+          </div>
+
+          {/* Testimonial */}
+          <div className="bg-slate-950 border border-sky-500/30 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-500 to-indigo-500 flex items-center justify-center text-white font-black text-xl shrink-0 shadow-lg">
+              MDRT
+            </div>
+            <div className="space-y-1.5 text-center sm:text-left">
+              <div className="flex justify-center sm:justify-start gap-1 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs sm:text-sm text-slate-300 italic">
+                "ลูกสาวป่วยแอดมิทไข้เลือดออก ค่าห้องและค่ายาเอกชนเกือบแสนสอง คุณปรียาพรประสานงานเคลมให้ทั้งหมดโดยไม่ต้องสำรองจ่ายแม้แต่บาทเดียว บริการดี รวดเร็ว ใส่ใจเหมือนคนในครอบครัวค่ะ"
+              </p>
+              <div className="text-xs font-semibold text-sky-300">
+                คุณชญานุช รัตนศิริ • เจ้าของธุรกิจร้านอาหาร (ลูกค้าดูแลต่อเนื่อง 4 ปี)
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2.6 INSURANCE FAQS */}
+      <section className="py-14 bg-slate-950 border-t border-slate-800">
+        <div className="max-w-3xl mx-auto px-4">
+          <div className="text-center space-y-2 mb-8">
+            <h3 className="text-xl sm:text-2xl font-bold text-white">คำถามที่พบบ่อย (FAQ)</h3>
+            <p className="text-xs text-slate-400">คำถามยอดฮิตเกี่ยวกับการทำประกันและการเคลม</p>
+          </div>
+
+          <div className="space-y-3 text-xs sm:text-sm">
+            <div className="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+              <div className="font-bold text-sky-400 mb-1">Q: มีประกันสังคมหรือสวัสดิการบริษัทอยู่แล้ว จำเป็นต้องทำเพิ่มไหม?</div>
+              <div className="text-slate-300">A: สวัสดิการทั่วไปมักมีวงเงินจำกัด เช่น ค่าห้องไม่เกิน 2,000 บาท ซึ่งโรงพยาบาลเอกชนปัจจุบันค่าห้องอยู่ที่ 5,000 - 15,000 บาท การมีแผนเหมาจ่ายเสริมจะช่วยปิดความเสี่ยงส่วนต่างได้ 100% ครับ</div>
+            </div>
+            <div className="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+              <div className="font-bold text-sky-400 mb-1">Q: ทำประกันสุขภาพแล้ว ต้องสำรองจ่ายเงินก่อนหรือไม่?</div>
+              <div className="text-slate-300">A: แผนของเรามีเครือข่ายโรงพยาบาลชั้นนำกว่า 400 แห่งทั่วประเทศ เมื่อพ้นระยะเวลารอคอย สามารถใช้สิทธิ์ Fax Claim ยื่นบัตรประชาชนใบเดียว ไม่ต้องสำรองจ่ายครับ</div>
+            </div>
+            <div className="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+              <div className="font-bold text-sky-400 mb-1">Q: สามารถนำเบี้ยประกันไปลดหย่อนภาษีได้เท่าไหร่?</div>
+              <div className="text-slate-300">A: เบี้ยประกันสุขภาพสามารถนำไปลดหย่อนภาษีเงินได้บุคคลธรรมดาได้สูงสุด 25,000 บาทต่อปี และเมื่อรวมกับประกันชีวิตทั่วไปลดหย่อนได้สูงสุด 100,000 บาทครับ</div>
+            </div>
+          </div>
         </div>
       </section>
 

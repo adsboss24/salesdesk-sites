@@ -17,7 +17,8 @@ import {
   Download, 
   ShieldCheck,
   Building,
-  ArrowRight
+  ArrowRight,
+  Star
 } from 'lucide-react';
 
 export default function PropertyLuxuryPage() {
@@ -224,6 +225,94 @@ export default function PropertyLuxuryPage() {
 
           </div>
 
+        </div>
+      </section>
+
+      {/* 2.5 EXCLUSIVITY & COMPARISON (จิตวิทยาคุณค่าและสถาปัตยกรรมระดับมาสเตอร์พีซ) */}
+      <section className="py-16 bg-slate-900/60 border-y border-slate-800">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
+            <span className="text-xs font-bold text-emerald-400 uppercase tracking-widest bg-emerald-950/80 px-3 py-1 rounded-full border border-emerald-500/30">
+              Rare Architectural Masterpiece
+            </span>
+            <h3 className="text-2xl sm:text-4xl font-extrabold text-white">
+              ทำไมมหาเศรษฐีจึงเลือกลงหลักปักฐานที่ The Grand Residence?
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-400">
+              เมื่อบ้านไม่ใช่แค่ที่อยู่อาศัย แต่คือการส่งต่อมรดกและเอกสิทธิ์แห่งการใช้ชีวิตระดับสูงสุด
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-3">
+              <div className="text-emerald-400 font-black text-2xl">12 ยูนิต</div>
+              <h4 className="text-base font-bold text-white">สังคมปิดระดับอัลตร้าลักชัวรี</h4>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                จำกัดเพียง 12 ครอบครัว เพื่อความเงียบสงบ ความปลอดภัยสูงสุด และความเป็นส่วนตัวที่ไม่ถูกรบกวน
+              </p>
+            </div>
+
+            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-3">
+              <div className="text-teal-400 font-black text-2xl">680 ตร.ม.</div>
+              <h4 className="text-base font-bold text-white">พื้นที่ใช้สอยโอ่อ่า 3 ชั้น</h4>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                เพดานสูง Double Volume 7.2 เมตร โครงสร้างรองรับแผ่นดินไหว พร้อมลิฟต์แก้วส่วนตัวภายในบ้าน
+              </p>
+            </div>
+
+            <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-3">
+              <div className="text-amber-400 font-black text-2xl">100% Freehold</div>
+              <h4 className="text-base font-bold text-white">โฉนดที่ดินกรรมสิทธิ์สมบูรณ์</h4>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                ทำเลศักยภาพใจกลางความเจริญ เดินทางสะดวก ใกล้โรงเรียนนานาชาติชั้นนำและโรงพยาบาลระดับโลก
+              </p>
+            </div>
+          </div>
+
+          {/* Testimonial / Endorsement */}
+          <div className="bg-slate-950 border border-emerald-500/30 rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-slate-950 font-black text-xl shrink-0 shadow-lg">
+              VIP
+            </div>
+            <div className="space-y-1.5 text-center sm:text-left">
+              <div className="flex justify-center sm:justify-start gap-1 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs sm:text-sm text-slate-300 italic">
+                "สถาปัตยกรรมที่นี่ตอบโจทย์ทั้งการพักผ่อนและการรับรองแขกระดับ VIP แสงธรรมชาติและลมพัดผ่านตลอดวัน สระว่ายน้ำเชื่อมต่อสวนร่มรื่น คุ้มค่าที่สุดสำหรับครอบครัว"
+              </p>
+              <div className="text-xs font-semibold text-emerald-300">
+                คุณกิตติศักดิ์ อัครวัฒน์ • เจ้าของคฤหาสน์ Villa Sovereign
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2.6 PROPERTY FAQS */}
+      <section className="py-14 bg-slate-950 border-t border-slate-800">
+        <div className="max-w-3xl mx-auto px-4">
+          <div className="text-center space-y-2 mb-8">
+            <h3 className="text-xl sm:text-2xl font-bold text-white">คำถามที่พบบ่อย (FAQ)</h3>
+            <p className="text-xs text-slate-400">ข้อมูลสำคัญสำหรับผู้สนใจครอบครองโครงการ</p>
+          </div>
+
+          <div className="space-y-3 text-xs sm:text-sm">
+            <div className="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+              <div className="font-bold text-emerald-400 mb-1">Q: โครงการสร้างเสร็จพร้อมโอนกรรมสิทธิ์หรือไม่?</div>
+              <div className="text-slate-300">A: วิลล่าทุกหลังก่อสร้างแล้วเสร็จ 100% ตกแต่ง Fully Fitted ด้วยวัสดุนำเข้าเกรดพรีเมียมจากอิตาลี พร้อมโอนกรรมสิทธิ์ได้ทันทีครับ</div>
+            </div>
+            <div className="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+              <div className="font-bold text-emerald-400 mb-1">Q: ระบบรักษาความปลอดภัยของโครงการมีมาตรฐานอย่างไร?</div>
+              <div className="text-slate-300">A: ระบบ Double Gate Security ตรวจสอบบุคคลภายนอกด้วย AI License Plate Recognition พร้อมกล้อง CCTV รอบโครงการ และเจ้าหน้าที่รักษาความปลอดภัยระดับ VIP 24 ชม.</div>
+            </div>
+            <div className="bg-slate-900/90 p-4 rounded-xl border border-slate-800">
+              <div className="font-bold text-emerald-400 mb-1">Q: หากต้องการเข้าชมโครงการ ต้องนัดหมายล่วงหน้าอย่างไร?</div>
+              <div className="text-slate-300">A: เพื่อรักษาความเป็นส่วนตัวของผู้อยู่อาศัย โครงการเปิดรับการเข้าชมแบบ Private Appointment เท่านั้น กรุณากรอกแบบฟอร์มด้านล่างเพื่อรับการต้อนรับอย่างสมเกียรติครับ</div>
+            </div>
+          </div>
         </div>
       </section>
 

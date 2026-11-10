@@ -28,7 +28,8 @@ import {
   BarChart3,
   Flame,
   Activity,
-  Cpu
+  Cpu,
+  CreditCard
 } from 'lucide-react';
 import PremiumFooter from '@/components/Footer';
 import ArticleSlider from '@/components/home/ArticleSlider';
@@ -38,6 +39,29 @@ export default function HomePage() {
   const posts = getAllPosts();
   const [activeCategory, setActiveCategory] = useState<'all' | 'service' | 'shop' | 'property' | 'insurance' | 'course'>('all');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [isCheckingOut, setIsCheckingOut] = useState<string | null>(null);
+
+  const handleCheckout = async (planId: string) => {
+    try {
+      setIsCheckingOut(planId);
+      const res = await fetch('/api/stripe/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ planId }),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        // Fallback to LINE OA with payment request text
+        window.open(`https://line.me/R/ti/p/@fhu6688s?text=สนใจชำระเงินแพ็กเกจ_${planId}_ตัดบัตรเครดิตครับ`, '_blank');
+      }
+    } catch {
+      window.open(`https://line.me/R/ti/p/@fhu6688s?text=สนใจชำระเงินแพ็กเกจ_${planId}_ตัดบัตรเครดิตครับ`, '_blank');
+    } finally {
+      setIsCheckingOut(null);
+    }
+  };
 
   const toggleFaq = (idx: number) => {
     setOpenFaq(openFaq === idx ? null : idx);
@@ -927,7 +951,8 @@ export default function HomePage() {
                 <div className="pt-2">
                   <span className="text-3xl font-black text-white">฿2,990</span>
                   <span className="text-xs text-slate-400 line-through ml-2">฿5,900</span>
-                  <span className="block text-[11px] text-teal-400 font-medium mt-1">ประหยัดทันที 50%</span>
+                  <span className="block text-[11px] text-teal-400 font-medium mt-1">ประหยัดทันที 50% (จ่ายครั้งเดียวจบ)</span>
+                  <span className="block text-[11px] text-slate-400 mt-0.5">หรือเลือกแผนทดลองใช้รายเดือน <strong className="text-amber-300 font-bold">฿490/ด.</strong></span>
                 </div>
 
                 <div className="pt-4 border-t border-slate-800 space-y-3 text-xs text-slate-300">
@@ -958,15 +983,27 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <a 
-                href="https://line.me/R/ti/p/@fhu6688s?text=สนใจแพ็กเกจStarterSalepageครับ" 
-                target="_blank" 
-                rel="noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm border border-slate-700 transition active:scale-95 cursor-pointer"
-              >
-                <span>เลือกแพ็กเกจ Starter</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
+              <div className="space-y-2">
+                <a 
+                  href="https://line.me/R/ti/p/@fhu6688s?text=สนใจแพ็กเกจStarterSalepageครับ" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm border border-slate-700 transition active:scale-95 cursor-pointer shadow-md"
+                >
+                  <span>เลือกแพ็กเกจ Starter (จ่ายครั้งเดียว)</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => handleCheckout('starter')}
+                  disabled={isCheckingOut === 'starter'}
+                  className="w-full inline-flex items-center justify-center gap-1.5 py-1.5 text-[11px] font-medium text-slate-400 hover:text-teal-300 transition cursor-pointer"
+                >
+                  <CreditCard className="w-3.5 h-3.5 text-slate-400" />
+                  <span>{isCheckingOut === 'starter' ? 'กำลังเชื่อมต่อระบบชำระเงิน...' : 'ชำระตัดบัตรเครดิต/เดบิต (Stripe ฿2,990)'}</span>
+                </button>
+              </div>
             </div>
 
             {/* Tier 2: Professional (HOT / RECOMMENDED) */}
@@ -983,7 +1020,8 @@ export default function HomePage() {
                 <div className="pt-2">
                   <span className="text-4xl font-black text-white">฿4,990</span>
                   <span className="text-xs text-slate-400 line-through ml-2">฿9,900</span>
-                  <span className="block text-[11px] text-emerald-400 font-semibold mt-1">คุ้มค่าที่สุด คืนทุนไวใน 1-2 ออเดอร์</span>
+                  <span className="block text-[11px] text-emerald-400 font-semibold mt-1">คุ้มค่าที่สุด คืนทุนไวใน 1-2 ออเดอร์ (จ่ายครั้งเดียวจบ)</span>
+                  <span className="block text-[11px] text-teal-300 mt-0.5">หรือเลือกแผนรายเดือน <strong className="text-teal-200 font-bold">฿990/ด.</strong></span>
                 </div>
 
                 <div className="pt-4 border-t border-slate-800 space-y-3 text-xs text-slate-200">
@@ -1032,15 +1070,27 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <a 
-                href="https://line.me/R/ti/p/@fhu6688s?text=สนใจแพ็กเกจProfessionalBusinessครับ" 
-                target="_blank" 
-                rel="noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-black text-sm shadow-xl shadow-teal-500/25 transition active:scale-95 cursor-pointer"
-              >
-                <Sparkles className="w-4 h-4" />
-                <span>เลือกแพ็กเกจ Professional</span>
-              </a>
+              <div className="space-y-2">
+                <a 
+                  href="https://line.me/R/ti/p/@fhu6688s?text=สนใจแพ็กเกจProfessionalBusinessครับ" 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-black text-sm shadow-xl shadow-teal-500/25 transition active:scale-95 cursor-pointer"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  <span>เลือกแพ็กเกจ Professional (จ่ายครั้งเดียว)</span>
+                </a>
+
+                <button
+                  type="button"
+                  onClick={() => handleCheckout('pro')}
+                  disabled={isCheckingOut === 'pro'}
+                  className="w-full inline-flex items-center justify-center gap-1.5 py-1.5 text-[11px] font-medium text-slate-300 hover:text-white transition cursor-pointer"
+                >
+                  <CreditCard className="w-3.5 h-3.5 text-teal-300" />
+                  <span>{isCheckingOut === 'pro' ? 'กำลังเชื่อมต่อระบบชำระเงิน...' : 'ชำระตัดบัตรเครดิต/เดบิต (Stripe ฿4,990)'}</span>
+                </button>
+              </div>
             </div>
 
             {/* Tier 3: Enterprise */}
@@ -1115,6 +1165,53 @@ export default function HomePage() {
               </a>
             </div>
 
+          </div>
+
+          {/* Flexible Monthly Subscription Alternative (ไพ่เด็ดปิดการขายตัวสำรองสำหรับคนงบจำกัด) */}
+          <div className="mt-8 bg-gradient-to-r from-amber-950/40 via-slate-900/90 to-teal-950/40 border border-amber-500/40 hover:border-amber-400/60 rounded-3xl p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6 transition shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 blur-3xl rounded-full pointer-events-none" />
+
+            <div className="flex items-start sm:items-center gap-4 relative z-10">
+              <div className="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-300 flex items-center justify-center shrink-0 border border-amber-500/30 shadow-inner">
+                <Zap className="w-7 h-7 text-amber-400" />
+              </div>
+              <div className="space-y-1.5">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-[11px] font-bold text-amber-300 uppercase tracking-widest bg-amber-950/90 px-3 py-0.5 rounded-full border border-amber-500/40">
+                    💡 ข้อเสนอพิเศษสำหรับคนงบจำกัด
+                  </span>
+                  <span className="text-xs text-slate-400 font-medium">| ไม่ต้องจ่ายเงินก้อน ยกเลิกได้ตลอดเวลา</span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-extrabold text-white">
+                  งบจำกัด? เริ่มต้นทดลองใช้แบบรายเดือนเพียง <span className="text-amber-400 text-2xl font-black">฿490</span>/เดือน
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl">
+                  ปลดล็อกให้ธุรกิจของคุณมีเซลเพจพรีเมียม 0.8 วิ พร้อมระบบดูแลโฮสติ้งและ SSL ให้ตลอดการใช้งาน (ทักแอดมินเพื่อรับข้อเสนอพิเศษและเริ่มงานได้ทันที)
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center gap-3 shrink-0 w-full lg:w-auto relative z-10">
+              <a 
+                href="https://line.me/R/ti/p/@fhu6688s?text=สนใจข้อเสนอพิเศษเริ่มต้นรายเดือน_490บาทครับ" 
+                target="_blank" 
+                rel="noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black text-xs sm:text-sm shadow-xl shadow-amber-500/20 transition active:scale-95 cursor-pointer whitespace-nowrap"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>ทักแอดมินรับสิทธิ์ ฿490/ด.</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={() => handleCheckout('starter_monthly')}
+                disabled={isCheckingOut === 'starter_monthly'}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white font-bold text-xs sm:text-sm transition cursor-pointer whitespace-nowrap"
+              >
+                <CreditCard className="w-4 h-4 text-amber-400" />
+                <span>{isCheckingOut === 'starter_monthly' ? 'กำลังเชื่อมต่อ...' : 'ตัดบัตรรายเดือนอัตโนมัติ'}</span>
+              </button>
+            </div>
           </div>
 
           {/* Risk Reversal Callout */}

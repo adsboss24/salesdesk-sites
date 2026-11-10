@@ -3,6 +3,7 @@ export interface Post {
   slug: string;
   title: string;
   metaDescription: string;
+  focusKeyword?: string;
   content: string;
   featuredImage: string;
   imageAlt: string;
@@ -21,6 +22,7 @@ export const posts: Post[] = [
     slug: 'why-salepage-converts-better-than-chat',
     title: 'ทำไมเซลเพจจิตวิทยา 16:9 ถึงปิดการขายได้ดีกว่าการยิงแอดเข้าแชตเพจ 300%?',
     metaDescription: 'เจาะลึกจิตวิทยาการปิดการขายออนไลน์ หยุดปัญหาลูกค้าทักแล้วเงียบหาย ด้วยสถาปัตยกรรมเซลเพจความเร็วสูง 0.8 วิ ปิดยอดขายอัตโนมัติ 24 ชม.',
+    focusKeyword: 'เซลเพจจิตวิทยา 16:9 ปิดการขาย',
     content: `
       <h2>ปัญหาใหญ่ของคนยิงแอด: "ลูกค้าทักมาเยอะ แต่ปิดยอดแทบไม่ได้"</h2>
       <p>เจ้าของแบรนด์กว่า 90% ต้องเผชิญกับปัญหายิงแอดส่งคนเข้า Inbox แชต Facebook หรือ LINE แต่ลูกค้าทักมาเพียง "สนใจค่ะ" แล้วเงียบหาย พอแอดมินตอบช้าไปเพียง 3 นาที ลูกค้าก็เลื่อนฟีดหนีไปซื้อร้านคู่แข่งทันที นี่คือสาเหตุอันดับ 1 ที่ทำให้ค่าโฆษณาแพงขึ้นแต่กำไรหดตัว</p>
@@ -50,6 +52,7 @@ export const posts: Post[] = [
     slug: 'google-pagespeed-100-sales-conversion-secrets',
     title: 'ทำไมเว็บโหลดเร็ว 0.8 วิ ถึงลดค่าแอด Google Ads ได้สูงสุด 40% และดันติดหน้า 1 Google?',
     metaDescription: 'เคล็ดลับเพิ่มคะแนน Google Ads Quality Score และ Core Web Vitals 100/100 ด้วย Next.js สถาปัตยกรรมที่ช่วยลดต้นทุนค่าคลิก พร้อมดัน SEO ติดหน้าแรก',
+    focusKeyword: 'วิธีทำให้เว็บโหลดเร็ว 0.8 วิ',
     content: `
       <h2>ความลับของอัลกอริทึม Google: ทำไมเว็บเร็วจึงจ่ายค่าแอดถูกกว่า?</h2>
       <p>นักการตลาดจำนวนมากเข้าใจผิดว่า การยิง Google Search Ads ให้ได้อันดับ 1 ต้องประมูลด้วยงบประมาณเงินที่สูงที่สุดเท่านั้น แต่ในความเป็นจริง Google ใช้สูตร <code>Ad Rank = Bid × Quality Score</code> ในการตัดสินอันดับ</p>
@@ -81,6 +84,7 @@ export const posts: Post[] = [
     slug: 'how-to-setup-conversion-tracking-meta-capi',
     title: 'คู่มือติดตั้ง Meta Conversions API (CAPI) คู่กับ Pixel ให้แอดแม่นยำ ไม่ตกหล่นจาก iOS 2026',
     metaDescription: 'เจาะลึกวิธีติดตั้ง Meta Pixel + Server-Side CAPI และ Custom Event Tracking ทุกปุ่ม เพื่อส่งข้อมูลให้ AI โฆษณาเรียนรู้กลุ่มลูกค้าที่โอนเงินจริง',
+    focusKeyword: 'วิธีติดตั้ง Meta Pixel CAPI',
     content: `
       <h2>ทำไมการติดตั้ง Meta Pixel แบบ Browser ธรรมดาถึงไม่เพียงพออีกต่อไป?</h2>
       <p>หลังจากมาตรการความเป็นส่วนตัวของ Apple iOS และการบล็อก Third-party Cookies ของเบราว์เซอร์สมัยใหม่ ข้อมูลการซื้อขายจาก Browser Pixel ปกติจะสูญหายไประหว่างทางมากกว่า 30-40% ส่งผลให้ระบบ AI ของ Facebook และ Instagram เรียนรู้กลุ่มเป้าหมายได้ไม่แม่นยำ และนำไปสู่ค่าแอดที่แพงขึ้นอย่างต่อเนื่อง</p>
@@ -110,6 +114,7 @@ export const posts: Post[] = [
     slug: 'mobile-first-salepage-design-psychology',
     title: 'จิตวิทยาดีไซน์เซลเพจบนมือถือ 100%: ทำไมสัดส่วน 16:9 ถึงหยุดนิ้วลูกค้าได้ใน 3 วินาทีแรก',
     metaDescription: 'เจาะลึกหลัก Visual Hierarchy และ Mobile-First Conversion Architecture ที่ทำให้ลูกค้ารู้สึกถึงความคุ้มค่าและความพรีเมียม เพิ่มยอดสั่งซื้อทันที',
+    focusKeyword: 'เซลเพจพรีเมียม บนมือถือ',
     content: `
       <h2>ทำไม 85% ของยอดสั่งซื้อออนไลน์ในไทยจึงเกิดขึ้นบนหน้าจอมือถือ?</h2>
       <p>พฤติกรรมผู้บริโภคยุคใหม่ตัดสินใจสั่งซื้อสินค้าและบริการผ่านสมาร์ตโฟนเกือบทั้งหมด แต่เว็บไซต์แบบดั้งเดิมส่วนใหญ่ถูกออกแบบบนจอคอมพิวเตอร์ก่อน แล้วย่อส่วนลงมา ทำให้ตัวหนังสือทับรูปภาพ โหลดช้า และปุ่มสั่งซื้อกดได้ยากลำบาก</p>
@@ -136,6 +141,7 @@ export const posts: Post[] = [
     slug: 'google-ads-quality-score-conversion-rate',
     title: 'เจาะลึก 5 เทคนิคดัน Google Ads Quality Score ให้เต็ม 10 และลดต้นทุนค่าคลิกสูงสุด 40%',
     metaDescription: 'วิธีปรับแต่งความเร็วเว็บไซต์ Landing Page Experience และการจัดโครงสร้าง SEO On-Page ให้ Google มองว่าหน้าเว็บของคุณมีคุณภาพสูงสุดในหมวดธุรกิจ',
+    focusKeyword: 'วิธีลดค่าคลิก Google Ads',
     content: `
       <h2>ความสัมพันธ์ระหว่าง Quality Score กับผลกำไรของธุรกิจ</h2>
       <p>หากคุณได้ Quality Score ระดับ 10/10 จาก Google คุณจะได้ส่วนลดค่าคลิก (CPC Discount) สูงสุดถึง 50% เมื่อเทียบกับค่าเฉลี่ยของตลาด ในทางตรงกันข้าม หากเว็บไซต์โหลดช้าหรือเนื้อหาไม่ตรงกับคำค้นหา คุณอาจต้องจ่ายค่าคลิกแพงขึ้นถึง 400% เพื่อให้อยู่อันดับเดียวกัน</p>

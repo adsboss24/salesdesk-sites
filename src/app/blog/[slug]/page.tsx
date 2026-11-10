@@ -37,15 +37,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ? post.featuredImage
     : `${siteUrl}${post.featuredImage}`;
 
+  // Intelligently optimize Title and Description using focusKeyword without deprecated <meta name="keywords">
+  const focusKeyword = post.focusKeyword?.trim();
+  const hasKeywordInTitle = focusKeyword 
+    ? post.title.toLowerCase().includes(focusKeyword.toLowerCase()) 
+    : true;
+  const metaTitle = focusKeyword && !hasKeywordInTitle
+    ? `${post.title} — ${focusKeyword} | SalesDesk Sites`
+    : `${post.title} | SalesDesk Sites`;
+
+  const hasKeywordInDesc = focusKeyword
+    ? post.metaDescription.toLowerCase().includes(focusKeyword.toLowerCase())
+    : true;
+  const metaDescription = focusKeyword && !hasKeywordInDesc
+    ? `${focusKeyword}: ${post.metaDescription}`.slice(0, 160)
+    : post.metaDescription;
+
   return {
-    title: `${post.title} | SalesDesk Sites`,
-    description: post.metaDescription,
+    title: metaTitle,
+    description: metaDescription,
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: post.title,
-      description: post.metaDescription,
+      title: metaTitle,
+      description: metaDescription,
       url: canonicalUrl,
       siteName: 'SalesDesk Sites',
       locale: 'th_TH',
@@ -65,8 +81,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.title,
-      description: post.metaDescription,
+      title: metaTitle,
+      description: metaDescription,
       images: [fullImageUrl],
     },
   };
@@ -125,6 +141,13 @@ export default async function BlogPostPage({ params }: Props) {
             url: `${siteUrl}/images/salesdesk-logo-square.png`,
           },
         },
+        ...(post.focusKeyword && {
+          keywords: post.focusKeyword,
+          about: {
+            '@type': 'Thing',
+            name: post.focusKeyword,
+          },
+        }),
       },
       {
         '@type': 'BreadcrumbList',
@@ -133,7 +156,7 @@ export default async function BlogPostPage({ params }: Props) {
           {
             '@type': 'ListItem',
             position: 1,
-            name: 'หน้าแรก',
+            name: 'รับทำเซลเพจ (หน้าแรก)',
             item: siteUrl,
           },
           {
@@ -177,7 +200,7 @@ export default async function BlogPostPage({ params }: Props) {
             href="/#pricing" 
             className="text-xs font-bold text-teal-400 hover:text-teal-300 transition"
           >
-            ดูแพ็กเกจเซลเพจเริ่มต้น ฿2,990 →
+            บริการรับทำเซลเพจ ปิดการขาย เริ่มต้น ฿2,990 →
           </Link>
         </div>
       </nav>
@@ -185,18 +208,27 @@ export default async function BlogPostPage({ params }: Props) {
       {/* Article Header & Breadcrumb */}
       <header className="max-w-3xl mx-auto px-4 pt-10 pb-8 space-y-6">
         
-        {/* Visual Breadcrumb */}
+        {/* Visual Breadcrumb (Optimized Internal Anchor Links) */}
         <div className="flex items-center gap-2 text-xs text-slate-400">
-          <Link href="/" className="hover:text-white transition">หน้าแรก</Link>
+          <Link href="/" title="SalesDesk Sites บริการรับทำเซลเพจ ปิดการขาย" className="hover:text-white transition font-medium">
+            รับทำเซลเพจ (หน้าแรก)
+          </Link>
           <span>/</span>
           <Link href="/blog" className="hover:text-white transition">คลังความรู้</Link>
           <span>/</span>
           <span className="text-teal-400 truncate max-w-[200px]">{post.category}</span>
         </div>
 
-        <span className="inline-block bg-teal-950/80 text-teal-300 border border-teal-500/30 text-xs px-3 py-1 rounded-full font-bold">
-          {post.category}
-        </span>
+        <div className="flex items-center gap-2 flex-wrap">
+          <span className="inline-block bg-teal-950/80 text-teal-300 border border-teal-500/30 text-xs px-3 py-1 rounded-full font-bold">
+            {post.category}
+          </span>
+          {post.focusKeyword && (
+            <span className="inline-block bg-slate-900/90 text-slate-300 border border-slate-700/80 text-xs px-3 py-1 rounded-full font-medium">
+              เป้าหมาย: {post.focusKeyword}
+            </span>
+          )}
+        </div>
 
         <h1 className="text-2xl sm:text-4xl font-black text-white leading-tight">
           {post.title}
@@ -238,27 +270,27 @@ export default async function BlogPostPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
-        {/* High-Converting In-Content CTA Box */}
+        {/* High-Converting In-Content CTA Box (Keyword Optimized Internal Links) */}
         <div className="mt-14 bg-gradient-to-r from-teal-950/70 via-slate-900 to-emerald-950/70 border border-teal-500/40 rounded-2xl p-6 sm:p-8 space-y-4 shadow-xl">
           <div className="flex items-center gap-2 text-teal-400 font-bold text-xs sm:text-sm">
             <Sparkles className="w-4 h-4" />
-            <span>ต้องการยกระดับยอดขายธุรกิจของคุณด้วยเซลเพจมาตรฐานนี้?</span>
+            <span>ต้องการยกระดับยอดขายธุรกิจของคุณด้วย <Link href="/" className="underline hover:text-white">เซลเพจพรีเมียม</Link>?</span>
           </div>
           <h3 className="text-xl sm:text-2xl font-black text-white leading-tight">
-            ให้ SalesDesk Sites สร้างเซลเพจปิดการขายให้คุณ ส่งงานใน 24-48 ชม.
+            บริการรับทำเซลเพจ ปิดการขาย โดยสตูดิโอ SalesDesk Sites ส่งงานใน 24-48 ชม.
           </h3>
           <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-            โครงสร้างจิตวิทยา 16:9 ไม่บังภาพบนมือถือ โหลดไว 0.8 วิ พร้อมติดตั้ง Technical SEO ดันติดหน้า 1 Google ฟรี
+            โครงสร้างจิตวิทยา 16:9 ไม่บังภาพบนมือถือ โหลดไว 0.8 วิ จากสตูดิโอ <Link href="/" className="text-teal-300 underline font-bold hover:text-white">รับทำเซลเพจพรีเมียม</Link> พร้อมติดตั้ง Technical SEO ดันติดหน้า 1 Google ฟรี
           </p>
           <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
             <Link
               href="/#pricing"
               className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950 font-black text-sm shadow-lg transition active:scale-95"
             >
-              ดูแพ็กเกจราคาเริ่มต้น ฿2,990 →
+              เลือกแพ็กเกจรับทำเซลเพจ เริ่มต้น ฿2,990 →
             </Link>
             <a
-              href="https://line.me/R/ti/p/@fhu6688s?text=สนใจทำเซลเพจจากบทความบล็อกครับ"
+              href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการรับทำเซลเพจปิดการขายครับ"
               target="_blank"
               rel="noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 font-semibold text-sm border border-slate-700 transition"

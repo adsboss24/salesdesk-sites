@@ -1191,26 +1191,16 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center gap-3 shrink-0 w-full lg:w-auto relative z-10">
+            <div className="flex items-center gap-3 shrink-0 w-full lg:w-auto relative z-10">
               <a 
                 href="https://line.me/R/ti/p/@fhu6688s?text=สนใจข้อเสนอพิเศษเริ่มต้นรายเดือน_490บาทครับ" 
                 target="_blank" 
                 rel="noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black text-xs sm:text-sm shadow-xl shadow-amber-500/20 transition active:scale-95 cursor-pointer whitespace-nowrap"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-black text-xs sm:text-sm shadow-xl shadow-amber-500/20 transition active:scale-95 cursor-pointer whitespace-nowrap"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>ทักแอดมินรับสิทธิ์ ฿490/ด.</span>
+                <span>ทักแอดมินรับสิทธิ์ ฿490/ด. (ใน LINE)</span>
               </a>
-
-              <button
-                type="button"
-                onClick={() => handleCheckout('starter_monthly')}
-                disabled={isCheckingOut === 'starter_monthly'}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white font-bold text-xs sm:text-sm transition cursor-pointer whitespace-nowrap"
-              >
-                <CreditCard className="w-4 h-4 text-amber-400" />
-                <span>{isCheckingOut === 'starter_monthly' ? 'กำลังเชื่อมต่อ...' : 'ตัดบัตรรายเดือนอัตโนมัติ'}</span>
-              </button>
             </div>
           </div>
 

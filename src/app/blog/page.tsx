@@ -5,27 +5,30 @@ import { Calendar, Clock, ArrowRight, Sparkles, BookOpen } from 'lucide-react';
 import PremiumFooter from '@/components/Footer';
 import { getAllPosts } from '@/lib/posts';
 
+const siteUrl = 'https://salesdesk-sites.vercel.app';
+
 export const metadata: Metadata = {
   title: 'คลังความรู้ & กลยุทธ์เซลเพจปิดการขาย | SalesDesk Sites Knowledge Hub',
   description:
     'รวมบทความและกลยุทธ์การทำเซลเพจปิดการขาย จิตวิทยา 16:9 สถาปัตยกรรม Technical SEO ดันติดหน้า 1 Google และคู่มือติดตั้ง Meta CAPI & Tracking ครบวงจร',
   alternates: {
-    canonical: 'https://www.salesdesk-ai.com/blog',
+    canonical: `${siteUrl}/blog`,
   },
   openGraph: {
     title: 'คลังความรู้ & กลยุทธ์เซลเพจปิดการขาย | SalesDesk Sites',
     description:
       'รวมบทความและกลยุทธ์การทำเซลเพจปิดการขาย จิตวิทยา 16:9 สถาปัตยกรรม Technical SEO ดันติดหน้า 1 Google และคู่มือติดตั้ง Meta CAPI & Tracking ครบวงจร',
-    url: 'https://www.salesdesk-ai.com/blog',
+    url: `${siteUrl}/blog`,
     siteName: 'SalesDesk Sites',
     locale: 'th_TH',
     type: 'website',
     images: [
       {
-        url: '/images/hero-desktop.png',
+        url: `${siteUrl}/images/hero-desktop.png`,
         width: 1200,
         height: 630,
         alt: 'SalesDesk Sites Knowledge Hub',
+        type: 'image/png',
       },
     ],
   },
@@ -40,26 +43,26 @@ export default function BlogListingPage() {
     '@graph': [
       {
         '@type': 'CollectionPage',
-        '@id': 'https://www.salesdesk-ai.com/blog#collection',
+        '@id': `${siteUrl}/blog#collection`,
         name: 'คลังความรู้ & กลยุทธ์เซลเพจปิดการขาย | SalesDesk Sites',
         description: 'รวมบทความและกลยุทธ์การทำเซลเพจปิดการขาย จิตวิทยา 16:9 สถาปัตยกรรม Technical SEO ดันติดหน้า 1 Google',
-        url: 'https://www.salesdesk-ai.com/blog',
+        url: `${siteUrl}/blog`,
       },
       {
         '@type': 'BreadcrumbList',
-        '@id': 'https://www.salesdesk-ai.com/blog#breadcrumb',
+        '@id': `${siteUrl}/blog#breadcrumb`,
         itemListElement: [
           {
             '@type': 'ListItem',
             position: 1,
             name: 'หน้าแรก',
-            item: 'https://www.salesdesk-ai.com',
+            item: siteUrl,
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'คลังความรู้ & กลยุทธ์เซลเพจ',
-            item: 'https://www.salesdesk-ai.com/blog',
+            item: `${siteUrl}/blog`,
           },
         ],
       },

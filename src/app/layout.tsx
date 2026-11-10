@@ -29,28 +29,31 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const siteUrl = 'https://salesdesk-sites.vercel.app';
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.salesdesk-ai.com'),
+  metadataBase: new URL(siteUrl),
   title: 'SalesDesk Sites — สตูดิโอออกแบบเว็บไซต์และเซลเพจพรีเมียมด้วย AI',
   description:
     'ยกระดับธุรกิจของคุณสู่เว็บไซต์และเซลเพจระดับพรีเมียม โครงสร้างจิตวิทยาปิดการขาย Cinematic Hero โหลดเร็ว 0.8 วิ รองรับมือถือ 100% พร้อมระบบ Conversion Tracking ครบวงจร',
   alternates: {
-    canonical: 'https://www.salesdesk-ai.com',
+    canonical: siteUrl,
   },
   openGraph: {
     title: 'SalesDesk Sites — สตูดิโอออกแบบเว็บไซต์และเซลเพจพรีเมียมด้วย AI',
     description:
       'ยกระดับธุรกิจของคุณสู่เว็บไซต์และเซลเพจระดับพรีเมียม โครงสร้างจิตวิทยาปิดการขาย Cinematic Hero โหลดเร็ว 0.8 วิ รองรับมือถือ 100% พร้อมระบบ Conversion Tracking ครบวงจร',
-    url: 'https://www.salesdesk-ai.com',
+    url: siteUrl,
     siteName: 'SalesDesk Sites',
     locale: 'th_TH',
     type: 'website',
     images: [
       {
-        url: '/images/hero-desktop.png',
+        url: `${siteUrl}/images/hero-desktop.png`,
         width: 1200,
         height: 630,
         alt: 'SalesDesk Sites — สตูดิโอออกแบบเว็บไซต์และเซลเพจพรีเมียมด้วย AI',
+        type: 'image/png',
       },
     ],
   },
@@ -59,7 +62,7 @@ export const metadata: Metadata = {
     title: 'SalesDesk Sites — สตูดิโอออกแบบเว็บไซต์และเซลเพจพรีเมียมด้วย AI',
     description:
       'ยกระดับธุรกิจของคุณสู่เว็บไซต์และเซลเพจระดับพรีเมียม โครงสร้างจิตวิทยาปิดการขาย Cinematic Hero โหลดเร็ว 0.8 วิ รองรับมือถือ 100%',
-    images: ['/images/hero-desktop.png'],
+    images: [`${siteUrl}/images/hero-desktop.png`],
   },
   robots: {
     index: true,

@@ -31,7 +31,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const canonicalUrl = `https://www.salesdesk-ai.com/blog/${post.slug}`;
+  const siteUrl = 'https://salesdesk-sites.vercel.app';
+  const canonicalUrl = `${siteUrl}/blog/${post.slug}`;
+  const fullImageUrl = post.featuredImage.startsWith('http')
+    ? post.featuredImage
+    : `${siteUrl}${post.featuredImage}`;
 
   return {
     title: `${post.title} | SalesDesk Sites`,
@@ -51,10 +55,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       authors: [post.author],
       images: [
         {
-          url: post.featuredImage,
+          url: fullImageUrl,
           width: 1200,
           height: 630,
           alt: post.imageAlt || post.title,
+          type: fullImageUrl.endsWith('.png') ? 'image/png' : 'image/jpeg',
         },
       ],
     },
@@ -62,7 +67,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title: post.title,
       description: post.metaDescription,
-      images: [post.featuredImage],
+      images: [fullImageUrl],
     },
   };
 }
@@ -76,7 +81,11 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  const articleUrl = `https://www.salesdesk-ai.com/blog/${post.slug}`;
+  const siteUrl = 'https://salesdesk-sites.vercel.app';
+  const articleUrl = `${siteUrl}/blog/${post.slug}`;
+  const fullImageUrl = post.featuredImage.startsWith('http')
+    ? post.featuredImage
+    : `${siteUrl}${post.featuredImage}`;
 
   // 4. Advanced Schema JSON-LD (BlogPosting + BreadcrumbList)
   const jsonLd = {
@@ -87,9 +96,9 @@ export default async function BlogPostPage({ params }: Props) {
         '@id': `${articleUrl}#article`,
         isPartOf: {
           '@type': 'WebSite',
-          '@id': 'https://www.salesdesk-ai.com/#website',
+          '@id': `${siteUrl}/#website`,
           name: 'SalesDesk Sites',
-          url: 'https://www.salesdesk-ai.com',
+          url: siteUrl,
         },
         headline: post.title,
         description: post.metaDescription,
@@ -98,7 +107,7 @@ export default async function BlogPostPage({ params }: Props) {
         dateModified: post.updatedAt,
         image: {
           '@type': 'ImageObject',
-          url: `https://www.salesdesk-ai.com${post.featuredImage}`,
+          url: fullImageUrl,
           width: 1200,
           height: 630,
         },
@@ -110,10 +119,10 @@ export default async function BlogPostPage({ params }: Props) {
         publisher: {
           '@type': 'Organization',
           name: 'SalesDesk Sites',
-          url: 'https://www.salesdesk-ai.com',
+          url: siteUrl,
           logo: {
             '@type': 'ImageObject',
-            url: 'https://www.salesdesk-ai.com/images/salesdesk-logo-square.png',
+            url: `${siteUrl}/images/salesdesk-logo-square.png`,
           },
         },
       },
@@ -125,13 +134,13 @@ export default async function BlogPostPage({ params }: Props) {
             '@type': 'ListItem',
             position: 1,
             name: 'หน้าแรก',
-            item: 'https://www.salesdesk-ai.com',
+            item: siteUrl,
           },
           {
             '@type': 'ListItem',
             position: 2,
             name: 'คลังความรู้ & กลยุทธ์เซลเพจ',
-            item: 'https://www.salesdesk-ai.com/blog',
+            item: `${siteUrl}/blog`,
           },
           {
             '@type': 'ListItem',

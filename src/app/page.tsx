@@ -249,17 +249,19 @@ export default function HomePage() {
     },
   ];
 
+  const siteUrl = 'https://salesdesk-sites.vercel.app';
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': 'ProfessionalService',
-        '@id': 'https://www.salesdesk-ai.com/#organization',
+        '@id': `${siteUrl}/#organization`,
         name: 'SalesDesk Sites',
         alternateName: 'SalesDesk AI',
-        url: 'https://www.salesdesk-ai.com',
-        logo: 'https://www.salesdesk-ai.com/images/salesdesk-logo-square.png',
-        image: 'https://www.salesdesk-ai.com/images/hero-desktop.png',
+        url: siteUrl,
+        logo: `${siteUrl}/images/salesdesk-logo-square.png`,
+        image: `${siteUrl}/images/hero-desktop.png`,
         description: 'สตูดิโอออกแบบเว็บไซต์และเซลเพจพรีเมียมด้วย AI โครงสร้างจิตวิทยาปิดการขาย Cinematic Hero โหลดเร็ว 0.8 วิ รองรับมือถือ 100% พร้อมระบบ Conversion Tracking ครบวงจร',
         telephone: '+66817726444',
         priceRange: '฿2,990 - ฿9,900',
@@ -309,7 +311,7 @@ export default function HomePage() {
       },
       {
         '@type': 'FAQPage',
-        '@id': 'https://www.salesdesk-ai.com/#faq',
+        '@id': `${siteUrl}/#faq`,
         mainEntity: faqs.map((faq) => ({
           '@type': 'Question',
           name: faq.q,

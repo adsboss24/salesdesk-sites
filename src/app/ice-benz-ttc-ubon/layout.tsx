@@ -2,20 +2,21 @@ import type { Metadata } from 'next';
 import { constructMetadata } from '@/utils/seo';
 
 export const metadata: Metadata = constructMetadata({
-  title: 'น้องไอซ์ เบนซ์ TTC Motor อุบลราชธานี | ที่ปรึกษาการขาย Mercedes-Benz อย่างเป็นทางการ',
+  title: 'ICE LUXURY AUTO | Certified Mercedes-Benz & AMG Performance Specialist',
   description:
-    'ออกรถ Mercedes-Benz & Mercedes-AMG ป้ายแดงกับ น้องไอซ์ TTC Motor อุบลราชธานี ผู้จำหน่ายอย่างเป็นทางการ ดอกเบี้ยพิเศษ ฟรีประกันภัยชั้น 1 บริการทดลองขับ Test Drive ส่งถึงหน้าบ้านทั่วภาคอีสาน โทร 045-475-222',
+    'สัมผัสประสบการณ์ยนตรกรรมระดับพรีเมียม Mercedes-Benz, Mercedes-AMG และ smart EV ป้ายแดง พร้อมแคมเปญพิเศษ ดอกเบี้ย 0% ฟรี MBSP นาน 5 ปี บริการนำรถทดลองขับ Test Drive ส่งถึงหน้าบ้านทั่วประเทศ โดย ICE • ที่ปรึกษาการขายมืออาชีพ ติดต่อ Facebook: Icebenzttcmotorubon โทร 045-475-222',
   canonicalPath: '/ice-benz-ttc-ubon',
   ogImage: '/images/benz/hero-benz.jpg',
   keywords: [
-    'เบนซ์อุบล',
-    'TTC Motor อุบลราชธานี',
-    'น้องไอซ์ เบนซ์ TTC',
-    'Mercedes Benz อุบลราชธานี',
+    'ICE LUXURY AUTO',
+    'Mercedes Benz Thailand',
+    'Mercedes-AMG',
+    'smart EV BRABUS',
+    'ที่ปรึกษาการขายเบนซ์',
+    'ทดลองขับเบนซ์ถึงบ้าน',
     'โปรโมชั่นเบนซ์ป้ายแดง',
-    'ทดลองขับเบนซ์อุบล',
-    'ศูนย์บริการเบนซ์อุบล',
-    'ซื้อเบนซ์ อีสานใต้',
+    'MBSP 5 ปี',
+    'Trade-in รถเก่าแลกเบนซ์',
   ],
 });
 

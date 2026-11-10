@@ -105,6 +105,55 @@ export const posts: Post[] = [
     publishedAt: '2026-11-08T10:00:00.000Z',
     updatedAt: '2026-11-10T16:00:00.000Z',
   },
+  {
+    id: '4',
+    slug: 'mercedes-amg-buyers-guide-one-man-one-engine',
+    title: 'เจาะลึก Mercedes-AMG: ปรัชญา ‘One Man, One Engine’ แตกต่างจาก Benz ทั่วไปอย่างไร? รหัส 35, 43, 53, 63 เลือกรุ่นไหนให้คุ้มค่าที่สุด',
+    metaDescription: 'คู่มือเลือกซื้อ Mercedes-AMG ฉบับสมบูรณ์ ทำความเข้าใจรหัสสมรรถนะ AMG 35, 43, 53, 63 ระบบขับเคลื่อน 4MATIC+ และเทคโนโลยี E PERFORMANCE ไฮบริดสูตร Formula 1 พร้อมวิธีจองทดลองขับ',
+    content: `
+      <h2>จุดกำเนิดของ Mercedes-AMG: จากโรงเก็บของใน Burgstall สู่ตำนานมอเตอร์สปอร์ตระดับโลก</h2>
+      <p>คำว่า <strong>AMG</strong> ย่อมาจากนามสกุลของผู้ก่อตั้งสองท่านคือ <em>Hans Werner Aufrecht (A)</em> และ <em>Erhard Melcher (M)</em> ร่วมกับชื่อบ้านเกิด <em>Großaspach (G)</em> เริ่มต้นในปี 1967 จากความหลงใหลในการปรับแต่งเครื่องยนต์เพื่อการแข่งขัน จนกระทั่งสร้างตำนานชนะเลิศในสนามแข่ง Spa 24 Hours ในปี 1971 ด้วยรถ Mercedes-Benz 300 SEL 6.8 ฉายา "The Red Pig"</p>
+      
+      <p>ปัจจุบัน AMG ได้กลายมาเป็นแบรนด์ยนตรกรรมสมรรถนะสูง (High-Performance Sub-brand) อย่างเป็นทางการภายใต้เครือ <strong>Mercedes-Benz Group</strong> ที่ผสานความหรูหราเข้ากับจิตวิญญาณแห่งสนามแข่งอย่างสมบูรณ์แบบ</p>
+
+      <h2>ปรัชญาในตำนาน "One Man, One Engine" คืออะไร?</h2>
+      <p>หัวใจสำคัญที่ทำให้ Mercedes-AMG แตกต่างจากรถยนต์พรีเมียมทั่วไปในตลาด คือปรัชญา <strong>"One Man, One Engine"</strong> (ช่างประกอบเครื่องยนต์หนึ่งคนต่อเครื่องยนต์หนึ่งตัว) ซึ่งดำเนินการผลิตด้วยมืออย่างประณีตในโรงงานเมือง Affalterbach ประเทศเยอรมนี</p>
+
+      <p>เครื่องยนต์ทุกตัวที่ผ่านการประกอบอย่างพิถีพิถัน จะมี <strong>แผ่นป้ายโลหะสลักลายเซ็นต์ของวิศวกรผู้ประกอบ (Master Technician Signature Badge)</strong> ติดตั้งอยู่บนฝาครอบเครื่องยนต์อย่างภาคภูมิใจ ซึ่งถือเป็นสัญลักษณ์แห่งเกียรติยศและมาตรฐานสูงสุด โดยปรัชญานี้ถูกใช้ในเครื่องยนต์รหัส V8 Biturbo (AMG 63) และ 4 สูบเทอร์โบชาร์จเจอร์ไฟฟ้าที่ทรงพลังที่สุดในโลก (AMG 45)</p>
+
+      <h2>ถอดรหัสตระกูล AMG: เลือกรหัสไหนให้ตรงกับไลฟ์สไตล์คุณ?</h2>
+      <ul>
+        <li><strong>AMG 35 Series (Entry Performance):</strong> เช่น Mercedes-AMG CLA 35 4MATIC หรือ A 35 4MATIC ขุมพลัง 4 สูบ 2.0 ลิตร เทอร์โบ 306 แรงม้า เหมาะสำหรับผู้ที่ต้องการเริ่มต้นสัมผัสความสปอร์ต คล่องตัวในเมือง ขับสนุกในชีวิตประจำวัน</li>
+        <li><strong>AMG 43 Series (Sport Dynamics):</strong> เช่น Mercedes-AMG C 43 4MATIC ขุมพลัง 2.0 ลิตร พร้อมเทคโนโลยี Electric Exhaust Gas Turbocharger ที่ถ่ายทอดโดยตรงจากรถแข่ง Formula 1™ ให้พละกำลังกว่า 408 แรงม้า ตอบสนองคันเร่งได้ฉับไวไร้อาการเทอร์โบล้า (Turbo Lag)</li>
+        <li><strong>AMG 53 Series (Mild-Hybrid Grand Touring):</strong> เช่น Mercedes-AMG CLE 53 หรือ E 53 4MATIC+ เครื่องยนต์ 6 สูบเรียง 3.0 ลิตร ทวินเทอร์โบ เสริมด้วยระบบไฟฟ้า EQ Boost ผสานความนุ่มนวลในการเดินทางไกลเข้ากับพละกำลังกว่า 449 แรงม้า</li>
+        <li><strong>AMG 63 S E PERFORMANCE (Pinnacle of Supercar):</strong> สุดยอดยนตรกรรมเรือธงระดับซูเปอร์สปอร์ต ผสานเครื่องยนต์สมรรถนะสูงเข้ากับมอเตอร์ไฟฟ้าแบบ High-Performance Battery ให้กำลังทะลุ 680 - 843 แรงม้า พร้อมระบบเลี้ยว 4 ล้อและเบรกคาร์บอนเซรามิก</li>
+      </ul>
+
+      <h2>เทคโนโลยีสนามแข่งที่ติดตั้งในรถยนต์ Mercedes-AMG ยุคใหม่</h2>
+      <ul>
+        <li><strong>ระบบขับเคลื่อน 4 ล้ออัจฉริยะ AMG Performance 4MATIC+:</strong> สามารถกระจายแรงบิดระหว่างล้อหน้าและล้อหลังได้แบบแปรผันเต็มรูปแบบ (0:100 ถึง 50:50) พร้อมโหมด <em>Drift Mode</em> ที่ปลดปล่อยพลังสู่ล้อหลัง 100% สำหรับผู้ขับขี่ที่ต้องการความเร้าใจในสนามแข่ง</li>
+        <li><strong>ช่วงล่างถุงลม AMG RIDE CONTROL+:</strong> ปรับความหนืดอัตโนมัติแบบ Adaptive Damping เพื่อความนุ่มนวลเมื่อขับช้า และเกาะถนนหนึบแน่นเมื่อใช้ความเร็วสูง</li>
+        <li><strong>เสียงคำราม AMG Real Performance Sound:</strong> ระบบท่อไอเสียแบบสปอร์ตพร้อมวาล์วแปรผัน ให้เสียงกระหึ่มเร้าอารมณ์ตามโหมดการขับขี่ Sport+ และ Race</li>
+      </ul>
+
+      <h2>สมาร์ท EV ยุคใหม่: smart #1 & smart #3 BRABUS Edition</h2>
+      <p>สำหรับผู้ที่หลงใหลในความแรงแต่ต้องการยานยนต์ไฟฟ้า 100% การร่วมมือระหว่าง Mercedes-Benz Design และสำนักแต่งระดับตำนาน <strong>BRABUS</strong> ได้ให้กำเนิด <strong>smart #1 BRABUS</strong> และ <strong>smart #3 BRABUS</strong> มอเตอร์คู่ 428 แรงม้า ขับเคลื่อน 4 ล้อ อัตราเร่ง 0-100 กม./ชม. ในเวลาเพียง 3.7 - 3.9 วินาที ถือเป็นคู่แฝดพลังไฟฟ้าที่สืบทอดจิตวิญญาณแห่งความแรงของเครือ Mercedes ไว้อย่างลงตัว</p>
+
+      <h2>การดูแลรักษาและการเป็นเจ้าของ Mercedes-AMG</h2>
+      <p>การครอบครองยนตรกรรมสมรรถนะสูงอย่าง AMG ไม่ได้ยุ่งยากอย่างที่คิด หากได้รับการดูแลจากที่ปรึกษาการขายมืออาชีพและศูนย์บริการที่ได้รับการรับรองอย่างเป็นทางการ โดยมีโปรแกรม <strong>MBSP (Mercedes-Benz Service Plus)</strong> คอยดูแลค่าบำรุงรักษา อะไหล่แท้ และรับประกันคุณภาพสูงสุด 5 ปีเต็ม</p>
+
+      <p>หากท่านกำลังมองหาข้อเสนอสุดพิเศษ ดอกเบี้ยแคมเปญพิเศษ หรือต้องการสัมผัสสมรรถนะจริงด้วยตนเอง สามารถนัดหมายทดลองขับกับที่ปรึกษาการขายมืออาชีพได้ที่ <a href="/ice-benz-ttc-ubon" class="text-teal-400 font-bold underline hover:text-teal-300">ICE LUXURY AUTO • ที่ปรึกษา Mercedes-Benz & AMG Specialist</a> พร้อมบริการนำรถไปให้ทดลองขับถึงหน้าบ้านท่านทั่วประเทศ</p>
+    `,
+    featuredImage: '/images/benz/hero-benz.jpg',
+    imageAlt: 'Mercedes-AMG High Performance One Man One Engine Guide',
+    author: 'กองบรรณาธิการ SalesDesk Auto Insights',
+    authorRole: 'Automotive SEO & Performance Editor',
+    category: 'ยานยนต์ & Mercedes-AMG',
+    readTime: '7 นาที',
+    published: true,
+    publishedAt: '2026-11-10T18:00:00.000Z',
+    updatedAt: '2026-11-10T18:30:00.000Z',
+  },
 ];
 
 export function getAllPosts(): Post[] {

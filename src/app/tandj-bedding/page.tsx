@@ -288,9 +288,9 @@ export default function TandJBeddingSalepage() {
               </div>
 
               {/* Big Punchy Headline */}
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-white tracking-tight leading-tight sm:leading-none drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-                ยกระดับห้องพักโรงแรม 5 ดาว <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-300 to-yellow-400 inline-block mt-1 sm:mt-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.15rem] font-extrabold text-white tracking-tight leading-[1.3] sm:leading-[1.3] lg:leading-[1.35] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+                <span>ยกระดับห้องพักโรงแรม 5 ดาว</span>
+                <span className="block mt-2 sm:mt-3 lg:mt-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-300 to-yellow-400 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] pb-1">
                   &quot;งบจำกัด. จัดให้ได้&quot;
                 </span>
               </h1>

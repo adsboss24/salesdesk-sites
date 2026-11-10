@@ -115,18 +115,32 @@ Always apply multi-tier drop-shadows to ensure text is 100% readable over any br
 
 ```tsx
 {/* Headline */}
-<h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-white tracking-tight leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-  พาดหัวหลัก <br />
-  <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-amber-300 inline-block mt-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+<h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.15rem] font-extrabold text-white tracking-tight leading-normal sm:leading-[1.25] lg:leading-[1.22] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+  <span className="block">พาดหัวหลักบรรทัดแรก</span>
+  <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-amber-300 block mt-1.5 sm:mt-2.5 pb-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
     ชื่อแบรนด์หรือบริการหลัก
   </span>
-</h2>
+</h1>
 
 {/* Subheadline */}
 <p className="text-xs sm:text-base md:text-lg text-slate-100 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
   คำบรรยายจุดเด่นและคุณค่าที่ลูกค้าจะได้รับ...
 </p>
 ```
+
+### Thai Typography & Zero-Overlapping Rule (MANDATORY)
+**กฎเหล็กเรื่องตัวอักษรภาษาไทย: ห้ามข้อความซ้อนทับกันโดยเด็ดขาด โดยเฉพาะ H1 / หัวข้อหลัก**
+
+- **สาเหตุที่เกิดการซ้อนทับ**: ตัวอักษรภาษาไทยมีสระบน (เช่น ิ, ี, ึ, ื) และวรรณยุกต์ (เช่น ่, ้, ๊, ๋) ที่ยื่นสูงกว่าเส้นขอบบนของตัวอักษรปกติ (Cap Height) รวมถึงสระล่าง (เช่น ุ, ู) หากใช้ `leading-none` (line-height: 1) หรือ line-height ที่บีบเกินไป วรรณยุกต์และสระบนของบรรทัดที่ 2 จะชนและทับซ้อนกับขอบล่างของบรรทัดที่ 1 ทันที
+- **ข้อห้ามเด็ดขาด**:
+  - ❌ **ห้ามใช้ `leading-none` หรือ `sm:leading-none` กับหัวข้อภาษาไทยโดยเด็ดขาด**
+  - ❌ **ห้ามใส่ `negative margin` (เช่น `-mt-2`) ระหว่างบรรทัดภาษาไทย**
+- **มาตรฐานที่ต้องปฏิบัติ**:
+  - ✅ **Line Height**: ใช้ `leading-normal sm:leading-[1.25] lg:leading-[1.22]` เพื่อให้สระบนมีระยะหายใจ (Breathing Room) อย่างน้อย 6-10px
+  - ✅ **Line Separation**: ใช้ `<span className="block">` แยกแต่ละบรรทัด พร้อมเว้นระยะห่างด้วย `mt-1.5 sm:mt-2.5`
+  - ✅ **Padding Bottom**: ใส่อย่างน้อย `pb-1` ให้กับบรรทัดที่มี Gradient (`bg-clip-text`) เพื่อป้องกันสระล่างหรือวรรณยุกต์โดนตัดตก
+  - ✅ **Navigation Menu**: ทุกเมนูใน Header ต้องใส่ `whitespace-nowrap` เพื่อป้องกันคำไทยถูกตัดขึ้นบรรทัดใหม่อย่างน่าเกลียด (เช่น "บริการของ" ตัด "เรา" ลงมา)
+
 
 ### Conditional Dual-Device Button Placement
 - **On Desktop**: CTAs render immediately under the subheadline in the left column.
@@ -200,7 +214,12 @@ Every Salepage delivered must contain the following 8 high-converting sections:
 
 Before delivering any salepage to Boss:
 - [ ] Build succeeds with `npm run build` (zero TypeScript or Turbopack errors).
-- [ ] Tested on Mobile Viewport (iPhone 14 Pro Max 430px & Standard 375px):
+- [ ] **Thai Typography Integrity & Zero Overlapping (Mandatory)**:
+  - [ ] Multi-line headlines (`<h1>`, `<h2>`) must NEVER overlap across any viewport (Desktop, Tablet, Mobile).
+  - [ ] Upper vowels (ิ, ี, ึ, ื) and tone marks (่, ้, ๊, ๋) have at least 6-10px clear vertical breathing room from the line above.
+  - [ ] Zero usage of `leading-none` or `sm:leading-none` on Thai headings. Always use `leading-normal` / `leading-[1.25]`.
+  - [ ] Header Navigation items have `whitespace-nowrap` to prevent Thai words from breaking awkwardly into two lines.
+- [ ] Tested on Mobile Viewport (iPhone 14/16 Pro Max 430px & Standard 375px):
   - [ ] No horizontal scrollbars.
   - [ ] Text never cuts off or wraps awkwardly.
   - [ ] Center of Hero photo is 100% unobstructed.
@@ -208,5 +227,6 @@ Before delivering any salepage to Boss:
 - [ ] Tested on Desktop Viewport (1440px+):
   - [ ] Negative space on left, crisp photo on right.
   - [ ] 4 Feature cards aligned neatly in 1 horizontal row.
+  - [ ] Menu items fit neatly on 1 line without breaking.
 - [ ] LINE OA link points to `@fhu6688s` with pre-filled consultation text.
 - [ ] Deployed to Vercel Production via `npx vercel --prod --yes`.

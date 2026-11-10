@@ -123,13 +123,13 @@ export default function AmbulanceServiceSalepage() {
           </a>
 
           {/* Navigation Links (Desktop) */}
-          <nav className="hidden xl:flex items-center gap-6 text-sm font-medium text-slate-300">
-            <a href="#services" className="hover:text-amber-400 transition">บริการของเรา</a>
-            <a href="#patient-types" className="hover:text-amber-400 transition">กลุ่มผู้ป่วย</a>
-            <a href="#fleet" className="hover:text-amber-400 transition">ยานพาหนะ & เครื่องมือ</a>
-            <a href="#pricing" className="hover:text-amber-400 transition">อัตราค่าบริการ</a>
-            <a href="#calculator" className="hover:text-amber-400 transition">ประเมินราคา</a>
-            <a href="#reviews" className="hover:text-amber-400 transition">รีวิวผู้ใช้บริการ</a>
+          <nav className="hidden xl:flex items-center gap-4 2xl:gap-6 text-xs 2xl:text-sm font-medium text-slate-300 whitespace-nowrap">
+            <a href="#services" className="hover:text-amber-400 transition whitespace-nowrap">บริการของเรา</a>
+            <a href="#patient-types" className="hover:text-amber-400 transition whitespace-nowrap">กลุ่มผู้ป่วย</a>
+            <a href="#fleet" className="hover:text-amber-400 transition whitespace-nowrap">ยานพาหนะ & เครื่องมือ</a>
+            <a href="#pricing" className="hover:text-amber-400 transition whitespace-nowrap">อัตราค่าบริการ</a>
+            <a href="#calculator" className="hover:text-amber-400 transition whitespace-nowrap">ประเมินราคา</a>
+            <a href="#reviews" className="hover:text-amber-400 transition whitespace-nowrap">รีวิวผู้ใช้บริการ</a>
           </nav>
 
           {/* Action CTAs */}
@@ -204,10 +204,10 @@ export default function AmbulanceServiceSalepage() {
                 </span>
               </div>
 
-              {/* Big Punchy Headline */}
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-white tracking-tight leading-tight sm:leading-none drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-                รถพยาบาล รับ-ส่ง <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-amber-300 to-emerald-300 inline-block mt-1 sm:mt-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+              {/* Big Punchy Headline - Zero Overlapping Thai Typography Standard */}
+              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.15rem] font-extrabold text-white tracking-tight leading-normal sm:leading-[1.25] lg:leading-[1.22] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+                <span className="block">รถพยาบาล รับ-ส่ง</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-amber-300 to-emerald-300 block mt-1.5 sm:mt-2.5 pb-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
                   เคลื่อนย้ายผู้ป่วย 24 ชั่วโมง
                 </span>
               </h1>

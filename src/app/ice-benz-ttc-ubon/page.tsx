@@ -1151,7 +1151,7 @@ export default function IceBenzTTCUbonSalepage() {
             <form onSubmit={handleFormSubmit} className="space-y-4 sm:space-y-6 relative z-10">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-300 mb-1.5">
                     ชื่อ-นามสกุลของคุณ <span className="text-amber-400">*</span>
                   </label>
                   <input
@@ -1160,12 +1160,12 @@ export default function IceBenzTTCUbonSalepage() {
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                     placeholder="เช่น คุณสมศักดิ์ วรเมธ"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-sm outline-none transition"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-base outline-none transition"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-300 mb-1.5">
                     เบอร์โทรศัพท์ที่สะดวกให้ติดต่อ <span className="text-amber-400">*</span>
                   </label>
                   <input
@@ -1174,20 +1174,20 @@ export default function IceBenzTTCUbonSalepage() {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="เช่น 081-234-5678"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-sm outline-none transition"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-base outline-none transition"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-300 mb-1.5">
                     รุ่นรถยนต์ที่คุณสนใจ
                   </label>
                   <select
                     value={formData.modelInterest}
                     onChange={(e) => setFormData({ ...formData, modelInterest: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-sm outline-none transition"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-base outline-none transition"
                   >
                     <option value="The New E-Class (E 220 d AMG Line / E 350 e)">The New E-Class (E 220 d AMG Line / E 350 e)</option>
                     <option value="The C-Class (C 220 d / C 350 e Night Edition)">The C-Class (C 220 d / C 350 e Night Edition)</option>
@@ -1200,13 +1200,13 @@ export default function IceBenzTTCUbonSalepage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-300 mb-1.5">
                     ความต้องการบริการหลัก
                   </label>
                   <select
                     value={formData.serviceType}
                     onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-sm outline-none transition"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-base outline-none transition"
                   >
                     <option value="จองคิวทดลองขับ Test Drive ถึงที่บ้าน">จองคิวทดลองขับ Test Drive ถึงที่บ้าน/ที่ทำงาน</option>
                     <option value="ขอใบเสนอราคาพิเศษพร้อมเงื่อนไขการเงิน">ขอใบเสนอราคาพิเศษพร้อมเงื่อนไขการเงิน</option>
@@ -1218,7 +1218,7 @@ export default function IceBenzTTCUbonSalepage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-300 mb-1.5">
                     พื้นที่พักอาศัย / สถานที่ส่งรถทดลองขับ
                   </label>
                   <input
@@ -1226,25 +1226,25 @@ export default function IceBenzTTCUbonSalepage() {
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                     placeholder="เช่น อุบลราชธานี, ศรีสะเกษ, ยโสธร, หรือจังหวัดของท่าน"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-sm outline-none transition"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-base outline-none transition"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-300 mb-1.5">
                     วันที่สะดวกให้ติดต่อกลับ หรือสะดวกทดลองขับ
                   </label>
                   <input
                     type="date"
                     value={formData.preferredDate}
                     onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-sm outline-none transition"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-base outline-none transition"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                <label className="block text-xs sm:text-sm font-semibold text-slate-300 mb-1.5">
                   รายละเอียดเพิ่มเติม (เช่น รถคันเก่าที่จะเทิร์น หรืองบประมาณดาวน์/ผ่อนที่ต้องการ)
                 </label>
                 <textarea
@@ -1252,7 +1252,7 @@ export default function IceBenzTTCUbonSalepage() {
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   placeholder="ระบุความต้องการเพิ่มเติม เช่น ต้องการผ่อนไม่เกิน 35,000 หรือมีรถคันเก่าที่จะนำมาเทิร์น..."
-                  className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-sm outline-none transition resize-none"
+                  className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 text-white text-base outline-none transition resize-none"
                 />
               </div>
 
@@ -1359,7 +1359,7 @@ export default function IceBenzTTCUbonSalepage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
 
                   {/* Floating Category Pill */}
-                  <div className="absolute top-3.5 left-3.5 bg-slate-950/85 backdrop-blur-md text-amber-300 text-[11px] font-bold px-3 py-1 rounded-full border border-amber-400/30 shadow-md">
+                  <div className="absolute top-3.5 left-3.5 bg-slate-950/85 backdrop-blur-md text-amber-300 text-xs font-bold px-3 py-1 rounded-full border border-amber-400/30 shadow-md">
                     {article.category}
                   </div>
 
@@ -1372,7 +1372,7 @@ export default function IceBenzTTCUbonSalepage() {
 
                 {/* Article Content */}
                 <div className="p-5 sm:p-6">
-                  <div className="flex items-center gap-2 text-[11px] text-slate-400 mb-2.5">
+                  <div className="flex items-center gap-2 text-xs text-slate-400 mb-2.5">
                     <span className="text-amber-400/90 font-semibold">{article.author}</span>
                     <span>•</span>
                     <span className="text-slate-400 truncate">{article.authorRole}</span>
@@ -1384,7 +1384,7 @@ export default function IceBenzTTCUbonSalepage() {
                     </Link>
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-slate-400 mt-2.5 line-clamp-3 leading-relaxed">
+                  <p className="text-sm text-slate-300 mt-2.5 line-clamp-3 leading-relaxed">
                     {article.metaDescription}
                   </p>
                 </div>
@@ -1532,13 +1532,13 @@ export default function IceBenzTTCUbonSalepage() {
                   <span className="text-xl font-black tracking-tight text-white block leading-tight">
                     Smart TTC Motor - By Ice <span className="text-amber-400">Sales Executive</span>
                   </span>
-                  <span className="text-[10px] text-slate-400 uppercase tracking-widest block font-medium">
+                  <span className="text-xs text-slate-400 uppercase tracking-widest block font-medium">
                     ICE LUXURY AUTO • Mercedes-Benz, AMG & smart EV
                   </span>
                 </div>
               </div>
 
-              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+              <p className="text-sm text-slate-300 leading-relaxed">
                 ที่ปรึกษาการขายอย่างเป็นทางการ ดูแลการจอง ข้อเสนอพิเศษ และบริการส่งรถทดลองขับ Test Drive ถึงหน้าบ้าน ส่งมอบความประทับใจระดับพรีเมียมด้วยความจริงใจและมืออาชีพ
               </p>
 
@@ -1563,13 +1563,13 @@ export default function IceBenzTTCUbonSalepage() {
                     href={`/ice-benz-ttc-ubon/blog/${post.slug}`}
                     className="group block p-3 rounded-xl bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-amber-400/50 transition duration-200"
                   >
-                    <div className="flex items-center justify-between text-[10px] text-amber-400/90 mb-1">
+                    <div className="flex items-center justify-between text-xs text-amber-400/90 mb-1">
                       <span className="font-semibold">{post.category}</span>
-                      <span className="text-slate-500 text-[10px] flex items-center gap-1">
+                      <span className="text-slate-500 text-xs flex items-center gap-1">
                         <Clock className="w-3 h-3" /> {post.readTime}
                       </span>
                     </div>
-                    <h5 className="text-xs font-medium text-slate-200 group-hover:text-amber-300 line-clamp-2 transition leading-snug">
+                    <h5 className="text-sm font-medium text-slate-200 group-hover:text-amber-300 line-clamp-2 transition leading-snug">
                       {post.title}
                     </h5>
                   </Link>

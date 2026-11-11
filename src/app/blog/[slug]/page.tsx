@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Calendar, Clock, User, ArrowLeft, Sparkles } from 'lucide-react';
 import RelatedPosts from '@/components/blog/RelatedPosts';
+import SocialShare from '@/components/blog/SocialShare';
 import PremiumFooter from '@/components/Footer';
 import { getPostBySlug, getAllPosts } from '@/lib/posts';
 
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const siteUrl = 'https://salesdesk-sites.vercel.app';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sites.salesdesk-ai.com';
   const canonicalUrl = `${siteUrl}/blog/${post.slug}`;
   const fullImageUrl = post.featuredImage.startsWith('http')
     ? post.featuredImage
@@ -97,7 +98,7 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  const siteUrl = 'https://salesdesk-sites.vercel.app';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://sites.salesdesk-ai.com';
   const articleUrl = `${siteUrl}/blog/${post.slug}`;
   const fullImageUrl = post.featuredImage.startsWith('http')
     ? post.featuredImage
@@ -261,6 +262,14 @@ export default async function BlogPostPage({ params }: Props) {
             className="object-cover"
           />
         </div>
+
+        {/* Top Social Share Bar */}
+        <SocialShare
+          url={articleUrl}
+          title={post.title}
+          description={post.metaDescription}
+          className="mt-6"
+        />
       </header>
 
       {/* Main Rich Content Section */}
@@ -268,6 +277,14 @@ export default async function BlogPostPage({ params }: Props) {
         <article 
           className="space-y-6 text-slate-200 text-sm sm:text-base leading-relaxed [&_h2]:text-xl sm:[&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-white [&_h2]:mt-8 [&_h2]:mb-3 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-teal-300 [&_h3]:mt-6 [&_h3]:mb-2 [&_p]:text-slate-300 [&_p]:leading-relaxed [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:space-y-2.5 [&_li]:text-slate-300 [&_strong]:text-white [&_code]:bg-slate-900 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded [&_code]:text-teal-300"
           dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+
+        {/* Bottom Social Share Bar */}
+        <SocialShare
+          url={articleUrl}
+          title={post.title}
+          description={post.metaDescription}
+          className="mt-10"
         />
 
         {/* High-Converting In-Content CTA Box (Keyword Optimized Internal Links) */}

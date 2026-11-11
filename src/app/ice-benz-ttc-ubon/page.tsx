@@ -503,8 +503,8 @@ export default function IceBenzTTCUbonSalepage() {
               </span>
             </h1>
 
-            {/* Subheadline */}
-            <p className="text-xs sm:text-base md:text-lg text-slate-200 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
+            {/* Subheadline - Google Standard Mobile Body Copy (14px - 18px) */}
+            <p className="text-sm sm:text-base md:text-lg text-slate-200 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
               สัมผัสยนตรกรรมชั้นนำระดับโลก ทั้ง The New E-Class, C-Class, GLC SUV, CLE Coupé, สปอร์ตพันธุ์ดุ AMG และ smart EV พร้อมข้อเสนอพิเศษเฉพาะบุคคล และบริการส่งมอบรถทดลองขับ Test Drive ถึงหน้าบ้านท่าน
             </p>
 
@@ -528,7 +528,7 @@ export default function IceBenzTTCUbonSalepage() {
             </div>
 
             {/* 3 Trust Checkmarks */}
-            <div className="pt-3 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2 sm:gap-6 text-xs text-slate-300">
+            <div className="pt-3 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2 sm:gap-6 text-xs sm:text-sm text-slate-300">
               <div className="flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>ยนตรกรรมป้ายแดงรับประกันศูนย์เยอรมัน</span>
@@ -555,7 +555,7 @@ export default function IceBenzTTCUbonSalepage() {
                 <Award className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                 <span className="font-bold text-xs sm:text-sm text-white">Certified Consultant</span>
               </div>
-              <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
                 ดูแลโดยที่ปรึกษาการขายมืออาชีพ มาตรฐานสากล
               </p>
             </div>
@@ -565,7 +565,7 @@ export default function IceBenzTTCUbonSalepage() {
                 <Car className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                 <span className="font-bold text-xs sm:text-sm text-white">VIP Home Test Drive</span>
               </div>
-              <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
                 บริการนำรถไปให้ทดลองขับถึงที่ทำงานหรือบ้านท่าน
               </p>
             </div>
@@ -575,7 +575,7 @@ export default function IceBenzTTCUbonSalepage() {
                 <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                 <span className="font-bold text-xs sm:text-sm text-white">MBSP นาน 5 ปี</span>
               </div>
-              <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
                 โปรแกรมบำรุงรักษาและรับประกัน ไม่จำกัดระยะทาง
               </p>
             </div>
@@ -585,7 +585,7 @@ export default function IceBenzTTCUbonSalepage() {
                 <BadgePercent className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                 <span className="font-bold text-xs sm:text-sm text-white">Trade-in ราคาสูง</span>
               </div>
-              <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
                 ประเมินราคารถเก่าทุกรุ่นถึงที่ เพิ่มมูลค่าแลกเบนซ์ใหม่
               </p>
             </div>
@@ -660,25 +660,25 @@ export default function IceBenzTTCUbonSalepage() {
                   <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-amber-400 transition">
                     {car.name}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-400 mt-1 line-clamp-2">
+                  <p className="text-sm text-slate-400 mt-1 line-clamp-2">
                     {car.tagline}
                   </p>
 
                   <div className="my-4 pt-3 border-t border-slate-800">
-                    <div className="text-sm font-semibold text-amber-400">
+                    <div className="text-sm sm:text-base font-semibold text-amber-400">
                       {car.price}
                     </div>
-                    <div className="text-xs text-slate-300 mt-0.5">
+                    <div className="text-xs sm:text-sm text-slate-300 mt-0.5">
                       {car.downPayment}
                     </div>
                   </div>
 
                   {/* Key Specs */}
-                  <div className="grid grid-cols-2 gap-2 text-xs text-slate-300 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                  <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm text-slate-300 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
                     {car.specs.map((spec, i) => (
                       <div key={i} className="flex flex-col">
-                        <span className="text-[10px] text-slate-400">{spec.label}</span>
-                        <span className="font-semibold text-slate-200">{spec.val}</span>
+                        <span className="text-xs text-slate-400">{spec.label}</span>
+                        <span className="font-semibold text-slate-200 text-xs sm:text-sm">{spec.val}</span>
                       </div>
                     ))}
                   </div>

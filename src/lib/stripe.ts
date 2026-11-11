@@ -12,6 +12,7 @@ export interface PlanConfig {
   mode: 'payment' | 'subscription';
   interval?: 'month' | 'year';
   description: string;
+  paymentLinkUrl?: string;
 }
 
 export const STRIPE_PLANS: Record<string, PlanConfig> = {
@@ -22,6 +23,7 @@ export const STRIPE_PLANS: Record<string, PlanConfig> = {
     currency: 'thb',
     mode: 'payment',
     description: '1 หน้า Responsive เซลเพจ โหลดเร็ว 0.8 วิ ฟอร์มสั่งซื้อ COD ติดตั้ง Pixel ฟรีโฮสติ้งและ SSL 1 ปี',
+    paymentLinkUrl: 'https://buy.stripe.com/28E8wOa6rdwtatjaZmgQE00',
   },
   pro: {
     id: 'pro',
@@ -30,6 +32,7 @@ export const STRIPE_PLANS: Record<string, PlanConfig> = {
     currency: 'thb',
     mode: 'payment',
     description: 'เซลเพจ Cinematic High-Conversion แก้ไขได้จนกว่าจะพอใจ ติดตั้ง Full Tracking GTM, GA4, CAPI, TikTok, LINE Tag และ Technical SEO',
+    paymentLinkUrl: 'https://buy.stripe.com/eVq14ma6r9gd0SJ7NagQE02',
   },
   starter_monthly: {
     id: 'starter_monthly',
@@ -39,6 +42,7 @@ export const STRIPE_PLANS: Record<string, PlanConfig> = {
     mode: 'subscription',
     interval: 'month',
     description: 'เริ่มต้นทดลองใช้เซลเพจพรีเมียมแบบรายเดือน จ่ายสบาย ดูแลระบบให้ตลอดอายุการใช้งาน ยกเลิกได้ตลอดเวลา',
+    paymentLinkUrl: 'https://buy.stripe.com/9B67sKfqLakh1WN4AYgQE01',
   },
   pro_monthly: {
     id: 'pro_monthly',

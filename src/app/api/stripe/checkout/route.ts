@@ -13,6 +13,13 @@ async function createCheckoutSession(
   }
 
   if (!process.env.STRIPE_SECRET_KEY || process.env.STRIPE_SECRET_KEY.includes('placeholder')) {
+    if (plan.paymentLinkUrl) {
+      return {
+        url: plan.paymentLinkUrl,
+        sessionId: `plink_${plan.id}`,
+        status: 200,
+      };
+    }
     return {
       error: 'Stripe API Key ยังไม่ได้ถูกตั้งค่าในระบบ',
       message: 'กรุณาตั้งค่า STRIPE_SECRET_KEY ใน Vercel Environment Variables',

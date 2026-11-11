@@ -31,6 +31,25 @@ const PHONE_1_DISPLAY = '090-958-9979';
 const PHONE_1_RAW = '0909589979';
 const PHONE_2_DISPLAY = '080-879-0959';
 const PHONE_2_RAW = '0808790959';
+const LINE_URL = 'https://line.me/ti/p/d94KjsCnvI';
+const MESSENGER_URL = 'https://m.me/NattananNursingCare';
+const FACEBOOK_URL = 'https://www.facebook.com/NattananNursingCare';
+
+function LineIcon({ className = 'w-4 h-4' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 4.269 8.846 10.036 9.608.391.084.922.258 1.057.592.121.303.079.778.039 1.085l-.171 1.027c-.053.303-.242 1.186 1.039.647 1.281-.54 6.911-4.069 9.428-6.967 1.739-1.907 2.572-3.843 2.572-5.992zm-14.92 2.482H6.625a.644.644 0 0 1-.644-.644V7.78a.644.644 0 1 1 1.288 0v3.72h1.811a.644.644 0 1 1 0 1.286zm2.478-.644a.644.644 0 1 1-1.288 0V7.78a.644.644 0 1 1 1.288 0v4.362zm5.792 0a.644.644 0 0 1-.443.612.636.636 0 0 1-.201.032.646.646 0 0 1-.517-.26l-2.238-3.046v2.662a.644.644 0 1 1-1.288 0V7.78a.644.644 0 0 1 .443-.612.64.64 0 0 1 .718.228l2.239 3.046V7.78a.644.644 0 1 1 1.287 0v4.362zm3.884-2.825a.644.644 0 1 1 0 1.288h-1.811v.895h1.811a.644.644 0 1 1 0 1.286h-2.455a.644.644 0 0 1-.644-.644V7.78c0-.355.289-.644.644-.644h2.455a.644.644 0 1 1 0 1.288h-1.811v.893h1.811z" />
+    </svg>
+  );
+}
+
+function MessengerIcon({ className = 'w-4 h-4' }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 0C5.24 0 0 4.952 0 11.64c0 3.499 1.434 6.521 3.769 8.61a.96.96 0 0 1 .323.683l.065 2.135a.96.96 0 0 0 1.347.85l2.382-1.05a.96.96 0 0 1 .641-.047c1.094.301 2.269.459 3.473.459 6.76 0 12-4.952 12-11.64S18.76 0 12 0zm7.213 8.953-3.528 5.603a1.8 1.8 0 0 1-2.603.48l-2.805-2.104a.72.72 0 0 0-.867.002l-3.788 2.874c-.506.384-1.168-.222-.828-.76l3.528-5.603a1.8 1.8 0 0 1 2.603-.48l2.805 2.104a.72.72 0 0 0 .867-.002l3.788-2.874c.506-.384 1.168.222.828.76z" />
+    </svg>
+  );
+}
 
 export default function NattananNursingCareSalepage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -39,7 +58,7 @@ export default function NattananNursingCareSalepage() {
     name: '',
     phone: '',
     careType: 'ผู้สูงอายุทั่วไป (ช่วยเหลือตัวเองได้)',
-    roomPackage: 'ต้องการให้เจ้าหน้าที่แนะนำห้องพักที่เหมาะสม',
+    roomPackage: 'ห้องรวมมาตรฐาน (Standard Shared Room)',
     visitDate: '',
     notes: '',
   });
@@ -90,8 +109,9 @@ export default function NattananNursingCareSalepage() {
     description:
       'บ้านพักผู้สูงอายุ ณัฐนันท์ เนอสซิ่งแคร์ ศูนย์ดูแลผู้สูงอายุและผู้ป่วยพักฟื้น มาตรฐานวิชาชีพ ดูแลด้วยหัวใจตลอด 24 ชั่วโมง พร้อมกายภาพบำบัดฟื้นฟูและอาหารโภชนาการเฉพาะโรค',
     telephone: [PHONE_1_DISPLAY, PHONE_2_DISPLAY],
+    sameAs: [FACEBOOK_URL, LINE_URL],
     openingHours: 'Mo-Su 00:00-23:59',
-    priceRange: '฿18,000 - ฿45,000',
+    priceRange: '฿18,000 - ฿22,000',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'กรุงเทพมหานคร',
@@ -178,22 +198,34 @@ export default function NattananNursingCareSalepage() {
           {/* Action Buttons */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <a
+              href={LINE_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 px-2.5 py-2 sm:px-3.5 sm:py-2 rounded-xl bg-[#06C755] hover:bg-[#05b34c] text-white font-semibold text-xs sm:text-sm shadow-xs transition whitespace-nowrap"
+            >
+              <LineIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+              <span className="hidden sm:inline">แอดไลน์</span>
+            </a>
+            <a
+              href={MESSENGER_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 px-2.5 py-2 sm:px-3.5 sm:py-2 rounded-xl bg-[#0084FF] hover:bg-[#0073e6] text-white font-semibold text-xs sm:text-sm shadow-xs transition whitespace-nowrap"
+            >
+              <MessengerIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+              <span className="hidden sm:inline">Messenger</span>
+            </a>
+            <a
               href={`tel:${PHONE_1_RAW}`}
               className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm shadow-xs transition whitespace-nowrap"
             >
-              <PhoneCall className="w-3.5 h-3.5 text-teal-400" /> {PHONE_1_DISPLAY}
-            </a>
-            <a
-              href={`tel:${PHONE_2_RAW}`}
-              className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs sm:text-sm shadow-xs transition whitespace-nowrap"
-            >
-              <PhoneCall className="w-3.5 h-3.5" /> {PHONE_2_DISPLAY}
+              <PhoneCall className="w-3.5 h-3.5 text-teal-400 shrink-0" /> {PHONE_1_DISPLAY}
             </a>
             <a
               href="#booking"
               className="inline-flex items-center gap-1 sm:gap-1.5 px-3 py-2 sm:px-4 sm:py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-semibold text-xs sm:text-sm shadow-md shadow-teal-700/20 transition whitespace-nowrap"
             >
-              <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               <span>นัดชมสถานที่</span>
             </a>
           </div>
@@ -242,27 +274,45 @@ export default function NattananNursingCareSalepage() {
               </p>
 
               {/* Desktop CTAs */}
-              <div className="hidden lg:flex flex-wrap items-center justify-start gap-3 pt-2">
+              <div className="hidden lg:flex flex-wrap items-center justify-start gap-2.5 pt-2">
                 <a
                   href="#booking"
-                  className="w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white font-bold text-base shadow-lg shadow-teal-500/30 transition transform active:scale-95 whitespace-nowrap"
+                  className="w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white font-bold text-sm sm:text-base shadow-lg shadow-teal-500/30 transition transform active:scale-95 whitespace-nowrap"
                 >
-                  <Calendar className="w-5 h-5 shrink-0" />
+                  <Calendar className="w-4 h-4 shrink-0" />
                   <span>นัดหมายเข้าเยี่ยมชมสถานที่</span>
                   <ChevronRight className="w-4 h-4 shrink-0" />
                 </a>
                 <a
-                  href={`tel:${PHONE_1_RAW}`}
-                  className="w-auto inline-flex items-center justify-center gap-2 px-5 py-4 rounded-xl bg-slate-900/85 hover:bg-slate-800 text-white font-bold text-base border border-teal-500/40 backdrop-blur-md shadow-xs transition whitespace-nowrap"
+                  href={LINE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#06C755] hover:bg-[#05b34c] text-white font-bold text-sm sm:text-base shadow-lg shadow-[#06C755]/25 transition transform active:scale-95 whitespace-nowrap"
                 >
-                  <PhoneCall className="w-5 h-5 text-teal-400 shrink-0" />
+                  <LineIcon className="w-4 h-4 shrink-0" />
+                  <span>แอดไลน์ปรึกษา</span>
+                </a>
+                <a
+                  href={MESSENGER_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-[#0084FF] hover:bg-[#0073e6] text-white font-bold text-sm sm:text-base shadow-lg shadow-[#0084FF]/25 transition transform active:scale-95 whitespace-nowrap"
+                >
+                  <MessengerIcon className="w-4 h-4 shrink-0" />
+                  <span>ทักแชตเพจ</span>
+                </a>
+                <a
+                  href={`tel:${PHONE_1_RAW}`}
+                  className="w-auto inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-slate-900/85 hover:bg-slate-800 text-white font-bold text-sm border border-teal-500/40 backdrop-blur-md shadow-xs transition whitespace-nowrap"
+                >
+                  <PhoneCall className="w-4 h-4 text-teal-400 shrink-0" />
                   <span>โทร {PHONE_1_DISPLAY}</span>
                 </a>
                 <a
                   href={`tel:${PHONE_2_RAW}`}
-                  className="w-auto inline-flex items-center justify-center gap-2 px-5 py-4 rounded-xl bg-slate-900/85 hover:bg-slate-800 text-white font-bold text-base border border-emerald-500/40 backdrop-blur-md shadow-xs transition whitespace-nowrap"
+                  className="w-auto inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-xl bg-slate-900/85 hover:bg-slate-800 text-white font-bold text-sm border border-emerald-500/40 backdrop-blur-md shadow-xs transition whitespace-nowrap"
                 >
-                  <PhoneCall className="w-5 h-5 text-emerald-400 shrink-0" />
+                  <PhoneCall className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>โทร {PHONE_2_DISPLAY}</span>
                 </a>
               </div>
@@ -289,14 +339,26 @@ export default function NattananNursingCareSalepage() {
           <div className="mt-4 sm:mt-16">
             {/* Mobile CTAs: Positioned at bottom so subject in middle is 100% unobstructed */}
             <div className="lg:hidden space-y-2 mb-3">
-              <a
-                href="#booking"
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 active:from-teal-600 active:to-emerald-700 text-white font-bold text-xs sm:text-sm shadow-lg shadow-teal-500/30 transition active:scale-95 whitespace-nowrap"
-              >
-                <Calendar className="w-4 h-4 shrink-0" />
-                <span>นัดหมายเข้าเยี่ยมชมสถานที่จริง</span>
-                <ChevronRight className="w-3.5 h-3.5 shrink-0" />
-              </a>
+              <div className="grid grid-cols-2 gap-2">
+                <a
+                  href={LINE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-[#06C755] active:bg-[#05b34c] text-white font-bold text-xs shadow-md shadow-[#06C755]/25 transition active:scale-95 whitespace-nowrap"
+                >
+                  <LineIcon className="w-4 h-4 shrink-0" />
+                  <span>แอดไลน์ปรึกษา</span>
+                </a>
+                <a
+                  href={MESSENGER_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-[#0084FF] active:bg-[#0073e6] text-white font-bold text-xs shadow-md shadow-[#0084FF]/25 transition active:scale-95 whitespace-nowrap"
+                >
+                  <MessengerIcon className="w-4 h-4 shrink-0" />
+                  <span>ทักแชตเพจ</span>
+                </a>
+              </div>
               <div className="grid grid-cols-2 gap-2">
                 <a
                   href={`tel:${PHONE_1_RAW}`}
@@ -657,36 +719,42 @@ export default function NattananNursingCareSalepage() {
         </div>
       </section>
 
-      {/* 6. ROOM PACKAGES (ประเภทห้องพักและราคาชัดเจน) */}
+      {/* 6. ROOM PACKAGES (อัตราค่าบริการโปร่งใส) */}
       <section id="packages" className="py-16 md:py-24 bg-slate-50 border-t border-slate-200/80">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center max-w-2xl mx-auto space-y-3 mb-14">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto space-y-3 mb-12">
             <span className="text-xs font-bold text-teal-700 uppercase tracking-wider bg-teal-50 px-3 py-1 rounded-full border border-teal-200">
-              Room Options & Packages
+              Room Package & Pricing
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 leading-normal sm:leading-[1.25]">
               อัตราค่าบริการ โปร่งใส ไม่มีค่าใช้จ่ายแอบแฝง
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              เลือกรูปแบบห้องพักที่ตรงกับความต้องการและงบประมาณของครอบครัวคุณ
+              ดูแลครบวงจรในราคาที่คุ้มค่า พร้อมสิ่งอำนวยความสะดวกและทีมบริบาลวิชาชีพดูแลตลอด 24 ชั่วโมง
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Standard Room */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 flex flex-col justify-between hover:shadow-lg transition">
-              <div className="space-y-4">
-                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">ห้องรวมมาตรฐาน</span>
-                <h3 className="text-xl font-bold text-slate-900">Standard Shared Room</h3>
-                <p className="text-xs sm:text-sm text-slate-600">
-                  ห้องพักรวมแบบโปร่ง โล่ง กว้างขวาง มีพื้นที่ส่วนตัว ไม่อึดอัด มีเพื่อนคุยคลายเหงา
-                </p>
-                <div className="pt-2">
-                  <span className="text-3xl font-extrabold text-slate-900">18,000 - 22,000</span>
-                  <span className="text-xs text-slate-500 font-medium"> บาท / เดือน</span>
+          {/* Featured Standard Room Package Card */}
+          <div className="bg-gradient-to-br from-white via-teal-50/40 to-white rounded-3xl p-6 sm:p-10 border-2 border-teal-600 shadow-xl relative overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+              <div className="md:col-span-7 space-y-4">
+                <div className="inline-flex items-center gap-2 bg-teal-600 text-white text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider shadow-xs">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                  <span>แพ็กเกจดูแลมาตรฐานครบวงจร</span>
                 </div>
+                <div>
+                  <span className="block text-xs font-bold text-teal-700 uppercase tracking-wider">
+                    ห้องรวมมาตรฐาน
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-0.5">
+                    Standard Shared Room
+                  </h3>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  ห้องพักรวมแบบโปร่ง โล่ง กว้างขวาง มีพื้นที่ส่วนตัว ไม่อึดอัด อากาศถ่ายเทสะดวก มีเพื่อนคุยคลายเหงา พร้อมทีมบริบาลวิชาชีพคอยดูแลอย่างใกล้ชิดตลอด 24 ชั่วโมง
+                </p>
 
-                <ul className="text-xs sm:text-sm text-slate-600 space-y-2.5 pt-4 border-t border-slate-200/60">
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm text-slate-700 pt-3 border-t border-teal-200/70 font-medium">
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-teal-600 shrink-0" /> เตียงผู้ป่วยมาตรฐานปรับระดับได้
                   </li>
@@ -699,101 +767,58 @@ export default function NattananNursingCareSalepage() {
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-teal-600 shrink-0" /> ซักรีดเสื้อผ้าและทำความสะอาดทุกวัน
                   </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> กิจกรรมบำบัดและกายภาพฟื้นฟูเบื้องต้น
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> รายงานสุขภาพและวิดีโอคอลคุยครอบครัว
+                  </li>
                 </ul>
               </div>
 
-              <div className="pt-6">
-                <button
-                  type="button"
-                  onClick={() => handleSelectPackage('ห้องรวมมาตรฐาน (Standard Shared Room)')}
-                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs sm:text-sm border border-slate-300 transition cursor-pointer"
-                >
-                  นัดดูห้องพักนี้
-                </button>
-              </div>
-            </div>
-
-            {/* Deluxe Room (Most Popular) */}
-            <div className="bg-gradient-to-b from-teal-50 to-white rounded-3xl p-6 md:p-8 border-2 border-teal-600 flex flex-col justify-between shadow-xl relative">
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-teal-600 text-white text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider shadow-sm">
-                ยอดนิยมที่สุด
-              </div>
-
-              <div className="space-y-4">
-                <span className="text-xs font-bold text-teal-700 uppercase tracking-wider">ห้องพิเศษ 2-3 เตียง</span>
-                <h3 className="text-xl font-bold text-slate-900">Semi-Private Deluxe</h3>
-                <p className="text-xs sm:text-sm text-slate-600">
-                  ความเป็นส่วนตัวสูงขึ้น พื้นที่กว้างขวาง ดูแลใกล้ชิด เหมาะสำหรับผู้ป่วยพักฟื้น
-                </p>
-                <div className="pt-2">
-                  <span className="text-3xl font-extrabold text-teal-900">23,000 - 28,000</span>
-                  <span className="text-xs text-teal-700 font-medium"> บาท / เดือน</span>
+              <div className="md:col-span-5 bg-white rounded-2xl p-6 border border-teal-200/80 shadow-md text-center space-y-4">
+                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
+                  อัตราค่าบริการรายเดือน
+                </span>
+                <div>
+                  <span className="text-3xl sm:text-4xl font-extrabold text-teal-900 tracking-tight block">
+                    18,000 - 22,000
+                  </span>
+                  <span className="text-xs sm:text-sm text-teal-700 font-semibold mt-1 block">
+                    บาท / เดือน (ตามภาวะสุขภาพของผู้รับบริการ)
+                  </span>
                 </div>
 
-                <ul className="text-xs sm:text-sm text-slate-700 space-y-2.5 pt-4 border-t border-teal-200/60 font-medium">
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> เตียงไฟฟ้าปรับท่าอัตโนมัติ
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> โปรแกรมกายภาพบำบัดฟื้นฟู
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> รายงานสุขภาพและวิดีโอคอลทุกวัน
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> รวมค่าบริการดูแลโดยทีมบริบาลวิชาชีพครบถ้วน
-                  </li>
-                </ul>
-              </div>
-
-              <div className="pt-6">
-                <button
-                  type="button"
-                  onClick={() => handleSelectPackage('ห้องพิเศษ 2-3 เตียง (Semi-Private Deluxe)')}
-                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-xs sm:text-sm shadow-md shadow-teal-700/20 transition cursor-pointer"
-                >
-                  จองนัดหมายห้องนี้
-                </button>
-              </div>
-            </div>
-
-            {/* VIP Private Room */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 border border-slate-200/80 flex flex-col justify-between hover:shadow-lg transition">
-              <div className="space-y-4">
-                <span className="text-xs font-bold text-amber-700 uppercase tracking-wider">ห้องเดี่ยวพิเศษ VIP</span>
-                <h3 className="text-xl font-bold text-slate-900">VIP Private Suite</h3>
-                <p className="text-xs sm:text-sm text-slate-600">
-                  ห้องเดี่ยวส่วนตัวเต็มรูปแบบ ญาติมาเฝ้าหรือพักค้างคืนได้ สะดวกสบายเหมือนอยู่บ้าน
-                </p>
-                <div className="pt-2">
-                  <span className="text-3xl font-extrabold text-slate-900">30,000 - 45,000</span>
-                  <span className="text-xs text-slate-500 font-medium"> บาท / เดือน</span>
+                <div className="space-y-2.5 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => handleSelectPackage('ห้องรวมมาตรฐาน (Standard Shared Room)')}
+                    className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-bold text-xs sm:text-sm shadow-md shadow-teal-700/20 transition cursor-pointer whitespace-nowrap"
+                  >
+                    <Calendar className="w-4 h-4 shrink-0" />
+                    <span>นัดดูห้องพักนี้</span>
+                  </button>
+                  <div className="grid grid-cols-2 gap-2">
+                    <a
+                      href={LINE_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#06C755] hover:bg-[#05b34c] text-white font-bold text-xs shadow-xs transition whitespace-nowrap"
+                    >
+                      <LineIcon className="w-3.5 h-3.5 shrink-0" />
+                      <span>สอบถามทาง LINE</span>
+                    </a>
+                    <a
+                      href={MESSENGER_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-full inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-[#0084FF] hover:bg-[#0073e6] text-white font-bold text-xs shadow-xs transition whitespace-nowrap"
+                    >
+                      <MessengerIcon className="w-3.5 h-3.5 shrink-0" />
+                      <span>ทักแชตเพจ</span>
+                    </a>
+                  </div>
                 </div>
-
-                <ul className="text-xs sm:text-sm text-slate-600 space-y-2.5 pt-4 border-t border-slate-200/60">
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> ห้องส่วนตัว พร้อมห้องน้ำในตัว
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> ทีมบริบาลวิชาชีพดูแลพิเศษ 1:1 (Option)
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> โซฟาปรับนอนสำหรับญาติผู้เข้าเยี่ยม
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> Smart TV, ตู้เย็น, แอร์ส่วนตัว
-                  </li>
-                </ul>
-              </div>
-
-              <div className="pt-6">
-                <button
-                  type="button"
-                  onClick={() => handleSelectPackage('ห้องเดี่ยวพิเศษ VIP (VIP Private Suite)')}
-                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs sm:text-sm border border-slate-300 transition cursor-pointer"
-                >
-                  สอบถามห้อง VIP
-                </button>
               </div>
             </div>
           </div>
@@ -963,6 +988,28 @@ export default function NattananNursingCareSalepage() {
                     กดโทร
                   </span>
                 </a>
+
+                {/* Direct LINE & Messenger Buttons */}
+                <div className="grid grid-cols-2 gap-2.5 pt-1">
+                  <a
+                    href={LINE_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-center gap-2 py-3 px-3 rounded-2xl bg-[#06C755] hover:bg-[#05b34c] text-white font-bold text-xs sm:text-sm shadow-md transition whitespace-nowrap"
+                  >
+                    <LineIcon className="w-4 h-4 shrink-0" />
+                    <span>แอด LINE ปรึกษา</span>
+                  </a>
+                  <a
+                    href={MESSENGER_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center justify-center gap-2 py-3 px-3 rounded-2xl bg-[#0084FF] hover:bg-[#0073e6] text-white font-bold text-xs sm:text-sm shadow-md transition whitespace-nowrap"
+                  >
+                    <MessengerIcon className="w-4 h-4 shrink-0" />
+                    <span>ทักแชตเพจ</span>
+                  </a>
+                </div>
               </div>
 
               <div className="space-y-2.5 pt-4 border-t border-white/15 text-xs text-teal-100">
@@ -972,7 +1019,7 @@ export default function NattananNursingCareSalepage() {
                 </div>
                 <div className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0 mt-0.5" />
-                  <span>สามารถแอด LINE ด้วยเบอร์โทรศัพท์ {PHONE_1_DISPLAY} หรือ {PHONE_2_DISPLAY} ได้ทันที</span>
+                  <span>พร้อมให้คำปรึกษาและประเมินการดูแลเบื้องต้นฟรีทุกช่องทาง</span>
                 </div>
               </div>
             </div>
@@ -1002,18 +1049,28 @@ export default function NattananNursingCareSalepage() {
                     <span className="font-bold underline">{formData.name}</span> เรียบร้อยแล้ว และจะติดต่อกลับที่เบอร์{' '}
                     <span className="font-bold underline">{formData.phone}</span> โดยเร็วที่สุดครับ
                   </p>
-                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-2.5">
+                  <div className="pt-2 flex flex-wrap items-center justify-center gap-2">
                     <a
-                      href={`tel:${PHONE_1_RAW}`}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-teal-700 text-white font-bold text-xs sm:text-sm shadow-sm"
+                      href={LINE_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#06C755] text-white font-bold text-xs sm:text-sm shadow-xs whitespace-nowrap"
                     >
-                      <PhoneCall className="w-4 h-4" /> โทรด่วน {PHONE_1_DISPLAY}
+                      <LineIcon className="w-4 h-4 shrink-0" /> ทัก LINE
                     </a>
                     <a
-                      href={`tel:${PHONE_2_RAW}`}
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs sm:text-sm shadow-sm"
+                      href={MESSENGER_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#0084FF] text-white font-bold text-xs sm:text-sm shadow-xs whitespace-nowrap"
                     >
-                      <PhoneCall className="w-4 h-4" /> โทรด่วน {PHONE_2_DISPLAY}
+                      <MessengerIcon className="w-4 h-4 shrink-0" /> ทัก Messenger
+                    </a>
+                    <a
+                      href={`tel:${PHONE_1_RAW}`}
+                      className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-teal-700 text-white font-bold text-xs sm:text-sm shadow-xs whitespace-nowrap"
+                    >
+                      <PhoneCall className="w-4 h-4 shrink-0" /> โทร {PHONE_1_DISPLAY}
                     </a>
                   </div>
                   <div className="pt-2">
@@ -1090,22 +1147,6 @@ export default function NattananNursingCareSalepage() {
 
                   <div>
                     <label className="block text-xs font-bold text-slate-700 mb-1.5">
-                      รูปแบบห้องพักที่สนใจ
-                    </label>
-                    <select
-                      value={formData.roomPackage}
-                      onChange={(e) => setFormData({ ...formData, roomPackage: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-hidden focus:ring-2 focus:ring-teal-600 text-base bg-white"
-                    >
-                      <option>ต้องการให้เจ้าหน้าที่แนะนำห้องพักที่เหมาะสม</option>
-                      <option>ห้องรวมมาตรฐาน (Standard Shared Room)</option>
-                      <option>ห้องพิเศษ 2-3 เตียง (Semi-Private Deluxe)</option>
-                      <option>ห้องเดี่ยวพิเศษ VIP (VIP Private Suite)</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 mb-1.5">
                       รายละเอียดเพิ่มเติม / ข้อสอบถามพิเศษ
                     </label>
                     <textarea
@@ -1154,6 +1195,26 @@ export default function NattananNursingCareSalepage() {
                 ศูนย์ดูแลผู้สูงอายุและผู้ป่วยพักฟื้น มาตรฐานวิชาชีพ ดูแลอย่างใกล้ชิด อบอุ่นเหมือนคนในครอบครัว
                 พร้อมทีมบริบาลวิชาชีพ และกายภาพบำบัดฟื้นฟูครบวงจร
               </p>
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <a
+                  href={LINE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#06C755] hover:bg-[#05b34c] text-white font-bold text-xs shadow-xs transition whitespace-nowrap"
+                >
+                  <LineIcon className="w-3.5 h-3.5 shrink-0" />
+                  <span>LINE Official</span>
+                </a>
+                <a
+                  href={MESSENGER_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#0084FF] hover:bg-[#0073e6] text-white font-bold text-xs shadow-xs transition whitespace-nowrap"
+                >
+                  <MessengerIcon className="w-3.5 h-3.5 shrink-0" />
+                  <span>Messenger</span>
+                </a>
+              </div>
             </div>
 
             {/* Quick Links */}
@@ -1206,6 +1267,24 @@ export default function NattananNursingCareSalepage() {
                   <PhoneCall className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>โทร: {PHONE_2_DISPLAY}</span>
                 </a>
+                <a
+                  href={LINE_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2.5 text-emerald-400 hover:text-emerald-300 font-bold transition"
+                >
+                  <LineIcon className="w-4 h-4 shrink-0" />
+                  <span>แอดไลน์: คลิกเพื่อพูดคุยทาง LINE</span>
+                </a>
+                <a
+                  href={MESSENGER_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2.5 text-sky-400 hover:text-sky-300 font-bold transition"
+                >
+                  <MessengerIcon className="w-4 h-4 shrink-0" />
+                  <span>Facebook Messenger: ณัฐนันท์ เนอสซิ่งแคร์</span>
+                </a>
                 <div className="flex items-start gap-2.5 text-slate-400">
                   <Clock className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <span>เปิดบริการดูแลตลอด 24 ชั่วโมง (เข้าชมสถานที่ได้ทุกวัน 08:00 - 18:00 น.)</span>
@@ -1248,20 +1327,31 @@ export default function NattananNursingCareSalepage() {
 
       {/* 10. FIXED MOBILE BOTTOM ACTION BAR */}
       <div className="fixed bottom-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-t border-slate-200 p-2 sm:hidden shadow-2xl">
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-3 gap-1.5">
           <a
             href={`tel:${PHONE_1_RAW}`}
-            className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-teal-700 active:bg-teal-800 text-white font-bold text-xs shadow-md shadow-teal-700/20 whitespace-nowrap"
+            className="flex items-center justify-center gap-1 py-2.5 px-2 rounded-xl bg-teal-700 active:bg-teal-800 text-white font-bold text-[11px] shadow-md shadow-teal-700/20 whitespace-nowrap"
           >
             <PhoneCall className="w-3.5 h-3.5 text-amber-300 shrink-0" />
-            <span>โทร {PHONE_1_DISPLAY}</span>
+            <span>โทรด่วน</span>
           </a>
           <a
-            href={`tel:${PHONE_2_RAW}`}
-            className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-emerald-600 active:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 whitespace-nowrap"
+            href={LINE_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center justify-center gap-1 py-2.5 px-2 rounded-xl bg-[#06C755] active:bg-[#05b34c] text-white font-bold text-[11px] shadow-md shadow-[#06C755]/20 whitespace-nowrap"
           >
-            <PhoneCall className="w-3.5 h-3.5 text-white shrink-0" />
-            <span>โทร {PHONE_2_DISPLAY}</span>
+            <LineIcon className="w-3.5 h-3.5 shrink-0" />
+            <span>แอด LINE</span>
+          </a>
+          <a
+            href={MESSENGER_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center justify-center gap-1 py-2.5 px-2 rounded-xl bg-[#0084FF] active:bg-[#0073e6] text-white font-bold text-[11px] shadow-md shadow-[#0084FF]/20 whitespace-nowrap"
+          >
+            <MessengerIcon className="w-3.5 h-3.5 shrink-0" />
+            <span>Messenger</span>
           </a>
         </div>
       </div>

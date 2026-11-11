@@ -947,11 +947,15 @@ export default function HomePage() {
                 <h3 className="text-xl font-bold text-white">หน้าเดียวจบ เริ่มต้นง่าย</h3>
                 <p className="text-xs text-slate-400">เหมาะสำหรับสินค้าเดี่ยว ร้านค้าขนาดเล็ก หรือผู้ที่เริ่มต้นยิงแอด</p>
                 
-                <div className="pt-2">
-                  <span className="text-3xl font-black text-white">฿2,990</span>
-                  <span className="text-xs text-slate-400 line-through ml-2">฿5,900</span>
-                  <span className="block text-[11px] text-teal-400 font-medium mt-1">ประหยัดทันที 50% (จ่ายครั้งเดียวจบ)</span>
-                  <span className="block text-[11px] text-slate-400 mt-0.5">หรือเลือกแผนทดลองใช้รายเดือน <strong className="text-amber-300 font-bold">฿490/ด.</strong></span>
+                <div className="pt-2 space-y-1.5">
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-3xl font-black text-amber-300">฿490</span>
+                    <span className="text-xs text-slate-400">/ เดือน</span>
+                    <span className="text-[10px] text-amber-300 font-bold bg-amber-950/80 px-2 py-0.5 rounded-full border border-amber-500/40">แผนรายเดือน</span>
+                  </div>
+                  <div className="text-[11px] text-slate-400">
+                    หรือเลือก <strong className="text-white">จ่ายครั้งเดียวจบ ฿2,990</strong> <span className="line-through text-slate-500">฿5,900</span> (ประหยัด 50% ตลอดชีพ)
+                  </div>
                 </div>
 
                 <div className="pt-4 border-t border-slate-800 space-y-3 text-xs text-slate-300">

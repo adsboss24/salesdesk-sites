@@ -471,17 +471,17 @@ export default function IceBenzTTCUbonSalepage() {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[75%_center] sm:object-[80%_center] lg:object-right brightness-105 contrast-[1.03]"
+            className="object-cover object-[75%_center] sm:object-[80%_center] lg:object-right brightness-110 contrast-[1.04]"
           />
 
-          {/* Desktop Left Scrim: Darkens left 50% for 100% white text contrast */}
-          <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 via-50% to-transparent" />
+          {/* Desktop Left Scrim: Gently protects text on the left 35% without darkening the car */}
+          <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/70 via-35% to-transparent" />
 
-          {/* Mobile Scrims: Transparent middle ensures the AMG car is 100% visible and unobstructed */}
-          <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/20 via-40% to-slate-950/95" />
+          {/* Mobile Scrims: Transparent middle ensures the AMG car is bright, radiant, and 100% visible */}
+          <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-slate-950/80 via-transparent via-35% to-slate-950/90" />
 
           {/* Bottom Edge Fade */}
-          <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-slate-950 to-transparent" />
+          <div className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-slate-950 to-transparent" />
         </div>
 
         {/* Hero Content Container */}

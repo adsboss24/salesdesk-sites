@@ -424,6 +424,13 @@ export default function HomePage() {
           {/* Nav Links & CTA */}
           <div className="flex items-center gap-3">
             <a 
+              href="#seo-breakthrough"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-300 hover:text-amber-200 transition px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 hover:border-amber-500/60"
+            >
+              <Flame className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+              <span>AI SEO ปลดล็อกแอด</span>
+            </a>
+            <a 
               href="#pricing"
               className="hidden md:inline-block text-xs font-semibold text-slate-300 hover:text-white transition px-3 py-2"
             >

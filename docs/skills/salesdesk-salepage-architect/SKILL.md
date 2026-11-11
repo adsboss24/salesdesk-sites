@@ -201,9 +201,14 @@ Every Salepage delivered must contain the following 8 high-converting sections:
 9. **SalesDesk AI Branding in Footer**:
    - Standard credit:
    ```tsx
-   <p className="text-xs text-slate-400">
-     🚀 ออกแบบและพัฒนาโดย <a href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ" target="_blank" rel="noreferrer" className="text-teal-400 font-semibold underline hover:text-teal-300">SalesDesk AI</a> (ผู้เชี่ยวชาญด้านเว็บไซต์ & AI การตลาด)
-   </p>
+   <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 text-xs text-slate-400">
+     <a href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ" target="_blank" rel="noreferrer" className="inline-flex items-center hover:opacity-90 transition shrink-0">
+       <img src="/images/salesdesk-ai-logo.png" alt="SalesDesk AI" className="h-7 sm:h-8 w-auto object-contain" />
+     </a>
+     <span>
+       ออกแบบและพัฒนาโดย <a href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ" target="_blank" rel="noreferrer" className="text-teal-400 font-semibold underline hover:text-teal-300">SalesDesk AI</a> (ผู้เชี่ยวชาญด้านเว็บไซต์ & AI การตลาด)
+     </span>
+   </div>
    ```
 10. **Fixed Mobile Action Bar**:
     - Floating bottom bar with 2 high-conversion buttons: `[ โทรปรึกษาด่วน ]` and `[ แอดไลน์นัดชม ]` with direct deep links.

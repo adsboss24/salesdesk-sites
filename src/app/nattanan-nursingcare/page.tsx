@@ -245,22 +245,25 @@ export default function NattananNursingCareSalepage() {
               <div className="hidden lg:flex flex-wrap items-center justify-start gap-3 pt-2">
                 <a
                   href="#booking"
-                  className="w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white font-bold text-base shadow-lg shadow-teal-500/30 transition transform active:scale-95"
+                  className="w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700 text-white font-bold text-base shadow-lg shadow-teal-500/30 transition transform active:scale-95 whitespace-nowrap"
                 >
-                  <Calendar className="w-5 h-5" /> นัดหมายเข้าเยี่ยมชมสถานที่
-                  <ChevronRight className="w-4 h-4" />
+                  <Calendar className="w-5 h-5 shrink-0" />
+                  <span>นัดหมายเข้าเยี่ยมชมสถานที่</span>
+                  <ChevronRight className="w-4 h-4 shrink-0" />
                 </a>
                 <a
                   href={`tel:${PHONE_1_RAW}`}
-                  className="w-auto inline-flex items-center justify-center gap-2 px-5 py-4 rounded-xl bg-slate-900/85 hover:bg-slate-800 text-white font-bold text-base border border-teal-500/40 backdrop-blur-md shadow-xs transition"
+                  className="w-auto inline-flex items-center justify-center gap-2 px-5 py-4 rounded-xl bg-slate-900/85 hover:bg-slate-800 text-white font-bold text-base border border-teal-500/40 backdrop-blur-md shadow-xs transition whitespace-nowrap"
                 >
-                  <PhoneCall className="w-5 h-5 text-teal-400" /> โทร {PHONE_1_DISPLAY}
+                  <PhoneCall className="w-5 h-5 text-teal-400 shrink-0" />
+                  <span>โทร {PHONE_1_DISPLAY}</span>
                 </a>
                 <a
                   href={`tel:${PHONE_2_RAW}`}
-                  className="w-auto inline-flex items-center justify-center gap-2 px-5 py-4 rounded-xl bg-slate-900/85 hover:bg-slate-800 text-white font-bold text-base border border-emerald-500/40 backdrop-blur-md shadow-xs transition"
+                  className="w-auto inline-flex items-center justify-center gap-2 px-5 py-4 rounded-xl bg-slate-900/85 hover:bg-slate-800 text-white font-bold text-base border border-emerald-500/40 backdrop-blur-md shadow-xs transition whitespace-nowrap"
                 >
-                  <PhoneCall className="w-5 h-5 text-emerald-400" /> โทร {PHONE_2_DISPLAY}
+                  <PhoneCall className="w-5 h-5 text-emerald-400 shrink-0" />
+                  <span>โทร {PHONE_2_DISPLAY}</span>
                 </a>
               </div>
 
@@ -288,22 +291,23 @@ export default function NattananNursingCareSalepage() {
             <div className="lg:hidden space-y-2 mb-3">
               <a
                 href="#booking"
-                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 active:from-teal-600 active:to-emerald-700 text-white font-bold text-xs sm:text-sm shadow-lg shadow-teal-500/30 transition active:scale-95"
+                className="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-600 active:from-teal-600 active:to-emerald-700 text-white font-bold text-xs sm:text-sm shadow-lg shadow-teal-500/30 transition active:scale-95 whitespace-nowrap"
               >
-                <Calendar className="w-4 h-4" /> นัดหมายเข้าเยี่ยมชมสถานที่จริง
-                <ChevronRight className="w-3.5 h-3.5" />
+                <Calendar className="w-4 h-4 shrink-0" />
+                <span>นัดหมายเข้าเยี่ยมชมสถานที่จริง</span>
+                <ChevronRight className="w-3.5 h-3.5 shrink-0" />
               </a>
               <div className="grid grid-cols-2 gap-2">
                 <a
                   href={`tel:${PHONE_1_RAW}`}
-                  className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-900/85 active:bg-slate-800 text-white font-bold text-xs border border-teal-500/40 backdrop-blur-md shadow-xs transition"
+                  className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-900/85 active:bg-slate-800 text-white font-bold text-xs border border-teal-500/40 backdrop-blur-md shadow-xs transition whitespace-nowrap"
                 >
                   <PhoneCall className="w-3.5 h-3.5 text-teal-400 shrink-0" />
                   <span>{PHONE_1_DISPLAY}</span>
                 </a>
                 <a
                   href={`tel:${PHONE_2_RAW}`}
-                  className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-900/85 active:bg-slate-800 text-white font-bold text-xs border border-emerald-500/40 backdrop-blur-md shadow-xs transition"
+                  className="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-900/85 active:bg-slate-800 text-white font-bold text-xs border border-emerald-500/40 backdrop-blur-md shadow-xs transition whitespace-nowrap"
                 >
                   <PhoneCall className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                   <span>{PHONE_2_DISPLAY}</span>
@@ -918,40 +922,44 @@ export default function NattananNursingCareSalepage() {
               <div className="space-y-3 pt-1">
                 <a
                   href={`tel:${PHONE_1_RAW}`}
-                  className="flex items-center justify-between p-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 transition group"
+                  className="flex items-center justify-between gap-2.5 p-3.5 sm:p-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 transition group"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-teal-500 text-slate-950 flex items-center justify-center font-bold shadow-md">
+                  <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                    <div className="w-10 h-10 rounded-xl bg-teal-500 text-slate-950 flex items-center justify-center font-bold shadow-md shrink-0">
                       <PhoneCall className="w-5 h-5" />
                     </div>
-                    <div>
-                      <span className="block text-xs text-teal-200">สายด่วนติดต่อสอบถาม (เบอร์หลัก)</span>
-                      <span className="text-lg sm:text-xl font-extrabold text-white tracking-wide">
+                    <div className="min-w-0">
+                      <span className="block text-[11px] sm:text-xs text-teal-200 whitespace-nowrap truncate">
+                        สายด่วนปรึกษา (เบอร์หลัก)
+                      </span>
+                      <span className="block text-base sm:text-xl font-extrabold text-white tracking-wide whitespace-nowrap">
                         {PHONE_1_DISPLAY}
                       </span>
                     </div>
                   </div>
-                  <span className="text-xs font-bold bg-teal-400 text-slate-950 px-2.5 py-1 rounded-lg group-hover:bg-amber-300 transition">
+                  <span className="text-xs font-bold bg-teal-400 text-slate-950 px-3 py-1.5 rounded-lg group-hover:bg-amber-300 transition whitespace-nowrap shrink-0">
                     กดโทร
                   </span>
                 </a>
 
                 <a
                   href={`tel:${PHONE_2_RAW}`}
-                  className="flex items-center justify-between p-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 transition group"
+                  className="flex items-center justify-between gap-2.5 p-3.5 sm:p-4 rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 transition group"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center font-bold shadow-md">
+                  <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                    <div className="w-10 h-10 rounded-xl bg-emerald-500 text-slate-950 flex items-center justify-center font-bold shadow-md shrink-0">
                       <PhoneCall className="w-5 h-5" />
                     </div>
-                    <div>
-                      <span className="block text-xs text-teal-200">สายด่วนนัดหมายเข้าชมศูนย์ (เบอร์สำรอง)</span>
-                      <span className="text-lg sm:text-xl font-extrabold text-white tracking-wide">
+                    <div className="min-w-0">
+                      <span className="block text-[11px] sm:text-xs text-teal-200 whitespace-nowrap truncate">
+                        สายด่วนนัดชมศูนย์ (เบอร์สำรอง)
+                      </span>
+                      <span className="block text-base sm:text-xl font-extrabold text-white tracking-wide whitespace-nowrap">
                         {PHONE_2_DISPLAY}
                       </span>
                     </div>
                   </div>
-                  <span className="text-xs font-bold bg-emerald-400 text-slate-950 px-2.5 py-1 rounded-lg group-hover:bg-amber-300 transition">
+                  <span className="text-xs font-bold bg-emerald-400 text-slate-950 px-3 py-1.5 rounded-lg group-hover:bg-amber-300 transition whitespace-nowrap shrink-0">
                     กดโทร
                   </span>
                 </a>
@@ -1208,18 +1216,32 @@ export default function NattananNursingCareSalepage() {
 
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 text-center sm:text-left">
             <p>© 2026 {BRAND_NAME}. สงวนลิขสิทธิ์ทุกประการ.</p>
-            <p className="text-xs text-slate-400">
-              🚀 ออกแบบและพัฒนาโดย{' '}
+            <div className="flex flex-wrap items-center justify-center sm:justify-end gap-2 text-xs text-slate-400">
               <a
                 href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ"
                 target="_blank"
                 rel="noreferrer"
-                className="text-teal-400 font-semibold underline hover:text-teal-300"
+                className="inline-flex items-center hover:opacity-90 transition shrink-0"
               >
-                SalesDesk AI
-              </a>{' '}
-              (ผู้เชี่ยวชาญด้านเว็บไซต์ & AI การตลาด)
-            </p>
+                <img
+                  src="/images/salesdesk-ai-logo.png"
+                  alt="SalesDesk AI"
+                  className="h-7 sm:h-8 w-auto object-contain"
+                />
+              </a>
+              <span>
+                ออกแบบและพัฒนาโดย{' '}
+                <a
+                  href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-teal-400 font-semibold underline hover:text-teal-300"
+                >
+                  SalesDesk AI
+                </a>{' '}
+                (ผู้เชี่ยวชาญด้านเว็บไซต์ & AI การตลาด)
+              </span>
+            </div>
           </div>
         </div>
       </footer>
@@ -1229,14 +1251,14 @@ export default function NattananNursingCareSalepage() {
         <div className="grid grid-cols-2 gap-2">
           <a
             href={`tel:${PHONE_1_RAW}`}
-            className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-teal-700 active:bg-teal-800 text-white font-bold text-xs shadow-md shadow-teal-700/20"
+            className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-teal-700 active:bg-teal-800 text-white font-bold text-xs shadow-md shadow-teal-700/20 whitespace-nowrap"
           >
             <PhoneCall className="w-3.5 h-3.5 text-amber-300 shrink-0" />
             <span>โทร {PHONE_1_DISPLAY}</span>
           </a>
           <a
             href={`tel:${PHONE_2_RAW}`}
-            className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-emerald-600 active:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20"
+            className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-emerald-600 active:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 whitespace-nowrap"
           >
             <PhoneCall className="w-3.5 h-3.5 text-white shrink-0" />
             <span>โทร {PHONE_2_DISPLAY}</span>

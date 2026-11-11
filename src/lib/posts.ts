@@ -57,8 +57,8 @@ export const posts: Post[] = [
       <p>ในขณะที่คุณกำลังอ่านบทความนี้ คู่แข่งของคุณอาจจะกำลังวางแผนยึดคำค้นหาหลักของคุณไปเรียบร้อยแล้ว ในโลกธุรกิจออนไลน์ <em>“ผู้ที่ลงมือก่อนและใช้เครื่องมือที่ล้ำหน้ากว่า คือผู้ที่กวาดลูกค้าไปครองทั้งตลาด”</em></p>
       <p>อย่ารอให้ยอดขายตกจนสายเกินแก้... ปรึกษาทีมสถาปัตยกรรม SalesDesk Sites วันนี้ เพื่อเปลี่ยนเว็บไซต์หรือเซลเพจของคุณให้กลายเป็น <strong>“เครื่องจักรผลิตเงินและลูกค้าหน้า 1 Google อัตโนมัติ 24 ชั่วโมง”</strong></p>
     `,
-    featuredImage: '/images/hero-desktop.png',
-    imageAlt: 'Outrank Competitors on Google First Page with SalesDesk AI',
+    featuredImage: '/images/seo-google-rank1-hero.jpg',
+    imageAlt: 'ยึดหน้าแรก Google ติดอันดับ 1 ดึงลูกค้าพร้อมซื้อด้วย SalesDesk AI SEO',
     author: 'ทีมสถาปัตยกรรม SalesDesk AI',
     authorRole: 'Chief SEO & Conversion Architect',
     category: 'กลยุทธ์ยึดหน้า 1 Google',

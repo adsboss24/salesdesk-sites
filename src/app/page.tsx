@@ -125,24 +125,6 @@ export default function HomePage() {
       ],
     },
     {
-      id: 'nattanan',
-      category: 'service',
-      tag: 'Healthcare & Senior Living',
-      badgeColor: 'border-teal-500/40 text-teal-300',
-      title: 'ณัฐนันท์ เนอสซิ่งแคร์',
-      subtitle: 'บ้านพักผู้สูงอายุ & ศูนย์ฟื้นฟูผู้ป่วยพักฟื้น',
-      desc: 'เซลเพจมาตรฐานสากล ถ่ายทอดความอบอุ่น ร่มรื่น และความน่าเชื่อถือด้วยภาพสไตล์ Cinematic สวนญี่ปุ่น พร้อมระบบเลือกแพ็กเกจ ฟอร์มนัดหมายเยี่ยมชม และปุ่มปิดการขายผ่าน LINE',
-      image: '/images/nattanan-hero.jpg',
-      url: '/nattanan-nursingcare',
-      accentColor: 'hover:border-teal-500/50',
-      btnBg: 'bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-600 hover:to-emerald-600 text-slate-950',
-      features: [
-        'โครงสร้าง 16:9 Hero ไม่บังภาพบนมือถือ (Unobstructed View)',
-        'ระบบ Lead Capture นัดหมายเข้าชมสถานที่พร้อมบันทึกประวัติ',
-        'เชื่อมต่อ LINE OA ทักตรงหาแอดมินปิดการขายได้ทันที',
-      ],
-    },
-    {
       id: 'flower',
       category: 'shop',
       tag: 'Luxury Floral & E-Commerce',
@@ -248,7 +230,7 @@ export default function HomePage() {
     },
     {
       name: 'นพ. วิศรุต สิริวัฒนา',
-      role: 'ผู้อำนวยการ ณัฐนันท์ เนอสซิ่งแคร์',
+      role: 'ผู้อำนวยการ ศูนย์ดูแลผู้สูงอายุและฟื้นฟูผู้ป่วย',
       rating: 5,
       comment: 'ธุรกิจศูนย์ดูแลผู้สูงอายุต้องการความน่าเชื่อถือสูงมาก ดีไซน์แบบ Cinematic สวนญี่ปุ่นทำให้ญาติผู้ป่วยประทับใจตั้งแต่ 3 วินาทีแรก ฟอร์มนัดหมายเข้าชมทำงานดีมาก ลีดเข้ามามีคุณภาพและพร้อมตัดสินใจจริง',
       metric: 'ยอดนัดเข้าชมสถานที่ +500%',

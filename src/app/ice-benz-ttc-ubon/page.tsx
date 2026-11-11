@@ -461,8 +461,8 @@ export default function IceBenzTTCUbonSalepage() {
       {/* Header Fixed Flow Spacer */}
       <div className="h-16 sm:h-[65px] w-full" />
 
-      {/* 2. CINEMATIC HERO SECTION (SPACIOUS, LUXURIOUS, 100% UNOBSTRUCTED) */}
-      <section className="relative min-h-[560px] sm:min-h-[640px] lg:min-h-[720px] flex items-center overflow-hidden bg-slate-950 text-white">
+      {/* 2. CINEMATIC HERO SECTION (MAXIMIZED IMAGE VISIBILITY & UNCLUTTERED) */}
+      <section className="relative min-h-[580px] sm:min-h-[640px] lg:min-h-[720px] flex flex-col justify-between overflow-hidden bg-slate-950 text-white">
         {/* Full-Bleed 16:9 Cinematic Background */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -471,75 +471,80 @@ export default function IceBenzTTCUbonSalepage() {
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[78%_center] sm:object-[80%_center] lg:object-right brightness-105 contrast-[1.03]"
+            className="object-cover object-[75%_center] sm:object-[80%_center] lg:object-right brightness-105 contrast-[1.03]"
           />
 
           {/* Desktop Left Scrim: Darkens left 50% for 100% white text contrast */}
           <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 via-50% to-transparent" />
 
-          {/* Mobile Scrims: Clean gradient for text readability while showcasing the car */}
-          <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-slate-950/95 via-slate-950/75 via-45% to-slate-950/95" />
+          {/* Mobile Scrims: Transparent middle ensures the AMG car is 100% visible and unobstructed */}
+          <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/20 via-40% to-slate-950/95" />
 
           {/* Bottom Edge Fade */}
-          <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-slate-950 to-transparent" />
+          <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-slate-950 to-transparent" />
         </div>
 
         {/* Hero Content Container */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-24 relative z-10 w-full">
-          <div className="max-w-2xl space-y-4 sm:space-y-6 text-center lg:text-left mx-auto lg:mx-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-12 pb-6 sm:pb-10 relative z-10 w-full flex-1 flex flex-col justify-between">
+          {/* Top Block: Badges & Crisp Headings (Elevated above the car) */}
+          <div className="max-w-xl space-y-2.5 sm:space-y-4 text-center lg:text-left mx-auto lg:mx-0">
             {/* International Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 backdrop-blur-md border border-amber-400/40 text-amber-300 text-xs sm:text-sm font-semibold shadow-xl">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900/90 backdrop-blur-md border border-amber-400/40 text-amber-300 text-xs font-semibold shadow-md">
               <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 shrink-0" />
               <span>Certified Mercedes-Benz & AMG Specialist</span>
             </div>
 
-            {/* Headline with Zero-Overlapping Thai Typography */}
-            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.1rem] font-extrabold text-white tracking-tight leading-[1.38] sm:leading-[1.35] lg:leading-[1.38] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
-              <span className="block mb-2 sm:mb-3">
-                Mercedes-Benz & AMG Experience
-              </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-300 block leading-[1.4] sm:leading-[1.42] py-1">
+            {/* Headline: Punchy, zero overlapping */}
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-[1.3] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+              <span className="block">Mercedes-Benz & AMG</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-yellow-300 block text-lg sm:text-2xl lg:text-3xl mt-1">
                 โดย คุณไอซ์ • ที่ปรึกษาการขายมืออาชีพ
               </span>
             </h1>
 
-            {/* Subheadline - Google Standard Mobile Body Copy (14px - 18px) */}
-            <p className="text-sm sm:text-base md:text-lg text-slate-200 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
-              สัมผัสยนตรกรรมชั้นนำระดับโลก ทั้ง The New E-Class, C-Class, GLC SUV, CLE Coupé, สปอร์ตพันธุ์ดุ AMG และ smart EV พร้อมข้อเสนอพิเศษเฉพาะบุคคล และบริการส่งมอบรถทดลองขับ Test Drive ถึงหน้าบ้านท่าน
+            {/* Subheadline: Short, focused, retains 100% core message without crowding */}
+            <p className="text-xs sm:text-base text-slate-200 leading-relaxed font-medium drop-shadow-[0_1px_6px_rgba(0,0,0,0.9)] max-w-lg mx-auto lg:mx-0">
+              ข้อเสนอพิเศษเฉพาะบุคคล พร้อมบริการส่งมอบรถทดลองขับ Test Drive ถึงหน้าบ้านท่าน
             </p>
+          </div>
 
-            {/* Action Buttons (Dual on both Mobile & Desktop with Perfect Hierarchy) */}
-            <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4">
+          {/* Dedicated Open Center: Guarantees 100% clear view of the car body */}
+          <div className="flex-1 min-h-[140px] sm:min-h-[180px] lg:min-h-[80px]" />
+
+          {/* Bottom Block: Compact Action Buttons & Single-row Trust Checks */}
+          <div className="max-w-xl mx-auto lg:mx-0 w-full space-y-3">
+            {/* Action Buttons: Clean, single-line, zero distortion */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2.5 sm:gap-4 w-full">
               <a
                 href="#booking-form"
-                className="w-full sm:w-auto px-6 sm:px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 hover:from-amber-600 hover:to-yellow-500 text-slate-950 font-bold text-sm sm:text-base text-center shadow-xl shadow-amber-500/25 active:scale-95 transition-all transform hover:-translate-y-0.5 whitespace-nowrap"
+                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 hover:from-amber-600 hover:to-yellow-500 text-slate-950 font-bold text-sm sm:text-base text-center shadow-xl shadow-amber-500/25 active:scale-95 transition whitespace-nowrap"
               >
-                จองคิวทดลองขับ / ขอใบเสนอราคา &rarr;
+                จองทดลองขับ / ขอใบเสนอราคา &rarr;
               </a>
               <a
                 href={fbMessengerUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full sm:w-auto px-5 sm:px-6 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700 font-semibold text-sm sm:text-base text-center backdrop-blur-md active:scale-95 transition whitespace-nowrap flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700 font-semibold text-sm sm:text-base text-center backdrop-blur-md active:scale-95 transition whitespace-nowrap flex items-center justify-center gap-2"
               >
                 <FacebookIcon className="w-4 h-4 fill-blue-500 text-transparent shrink-0" />
-                <span>ทักแชต Facebook เพจ</span>
+                <span>ทักแชต Facebook</span>
               </a>
             </div>
 
-            {/* 3 Trust Checkmarks */}
-            <div className="pt-3 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2 sm:gap-6 text-xs sm:text-sm text-slate-300">
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>ยนตรกรรมป้ายแดงรับประกันศูนย์เยอรมัน</span>
+            {/* 3 Trust Checkmarks: Crisp & Concise */}
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1 text-xs text-slate-300">
+              <div className="flex items-center gap-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span>ป้ายแดงรับประกันศูนย์</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>รับเทิร์นรถเก่าทุกรุ่นให้ราคาสูง</span>
+              <div className="flex items-center gap-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span>เทิร์นรถเก่าให้ราคาสูง</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                <span>ไฟแนนซ์ผ่านง่าย อนุมัติไวใน 24 ชม.</span>
+              <div className="flex items-center gap-1">
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span>ไฟแนนซ์อนุมัติไว</span>
               </div>
             </div>
           </div>
@@ -798,7 +803,7 @@ export default function IceBenzTTCUbonSalepage() {
                 <div>
                   <h4 className="text-sm font-bold text-white">ทำเลสะดวกบนถนนชยางกูร อุบลราชธานี</h4>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    {showroomAddress} (ใกล้สำนักงานเทศบาลตำบลขามใหญ่)
+                    {showroomAddress} (ใกล้เทศบาลตำบลขามใหญ่)
                   </p>
                 </div>
               </div>
@@ -808,7 +813,7 @@ export default function IceBenzTTCUbonSalepage() {
                 <div>
                   <h4 className="text-sm font-bold text-white">การันตีอะไหล่แท้และเครื่องมือวิเคราะห์เฉพาะทาง</h4>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    ตรวจสอบระบบอิเล็กทรอนิกส์และกล่องสมองกลด้วยระบบคอมพิวเตอร์ลิขสิทธิ์แท้ แม่นยำ รวดเร็ว ปลอดภัยสูงสุด
+                    ตรวจสอบระบบอิเล็กทรอนิกส์ด้วยเครื่องมือคอมพิวเตอร์ลิขสิทธิ์แท้ แม่นยำ ปลอดภัยสูงสุด
                   </p>
                 </div>
               </div>
@@ -816,28 +821,30 @@ export default function IceBenzTTCUbonSalepage() {
               <div className="flex items-start gap-3">
                 <CheckCircle2 className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-sm font-bold text-white">ศูนย์ซ่อมสีและตัวถังที่ได้รับการรับรอง (Certified Body & Paint)</h4>
+                  <h4 className="text-sm font-bold text-white">ศูนย์ซ่อมสีและตัวถังมาตรฐานสากล (Certified Body & Paint)</h4>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    ห้องอบสีระบบมาตรฐานโลก สีแท้คุณภาพสูง คืนสภาพความเงางามและปลอดภัย 100% ตามมาตรฐานโรงงาน
+                    ห้องอบสีระบบมาตรฐานโลก สีแท้คุณภาพสูง คืนสภาพความเงางามปลอดภัย 100%
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="pt-2 flex items-center gap-4">
+            <div className="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <a
                 href={`tel:${realPhoneRaw}`}
-                className="px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold text-sm transition"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-950 font-bold text-sm text-center transition flex items-center justify-center gap-2 whitespace-nowrap active:scale-95"
               >
-                โทรสายตรง {realPhone}
+                <PhoneCall className="w-4 h-4 text-slate-950 shrink-0" />
+                <span>โทร {realPhone}</span>
               </a>
               <a
                 href={fbPageUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="px-6 py-3 rounded-xl bg-slate-900 border border-slate-700 hover:border-amber-400/50 text-slate-200 text-sm font-semibold transition flex items-center gap-2"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-amber-400/50 text-slate-200 text-sm font-semibold text-center transition flex items-center justify-center gap-2 whitespace-nowrap active:scale-95"
               >
-                <FacebookIcon className="w-4 h-4 text-blue-400 fill-blue-400" /> ชมเพจ Facebook ทางการ
+                <FacebookIcon className="w-4 h-4 text-blue-400 fill-blue-400 shrink-0" />
+                <span>ชมเพจ Facebook</span>
               </a>
             </div>
           </div>
@@ -1268,8 +1275,8 @@ export default function IceBenzTTCUbonSalepage() {
                   </>
                 ) : (
                   <>
-                    <Send className="w-4 h-4" />
-                    <span>ยืนยันข้อมูลเพื่อรับสิทธิ์และข้อเสนอพิเศษทันที</span>
+                    <Send className="w-4 h-4 shrink-0" />
+                    <span className="whitespace-nowrap">ยืนยันรับสิทธิ์ข้อเสนอพิเศษทันที</span>
                   </>
                 )}
               </button>

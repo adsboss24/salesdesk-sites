@@ -33,6 +33,7 @@ import {
 } from 'lucide-react';
 import PremiumFooter from '@/components/Footer';
 import ArticleSlider from '@/components/home/ArticleSlider';
+import SeoBreakthroughSection from '@/components/home/SeoBreakthroughSection';
 import TrackableLineButton from '@/components/TrackableLineButton';
 import { getAllPosts } from '@/lib/posts';
 
@@ -923,6 +924,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 6.5. SEO & AI BREAKTHROUGH SECTION (ขยี้บาดแผลยิงแอด vs SEO ยุคเก่า + ปลดล็อกด้วย SalesDesk AI) */}
+      <SeoBreakthroughSection />
+
       {/* 7. PRICING & SERVICE TERMS (แพ็กเกจราคาจับต้องได้ & เน้น Tracking ชัดเจน) */}
       <section id="pricing" className="py-16 md:py-24 bg-slate-900/70 border-y border-slate-800 relative">
         <div className="max-w-6xl mx-auto px-4">
@@ -1113,6 +1117,10 @@ export default function HomePage() {
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />
                     <span className="text-emerald-300 font-bold">Full Enterprise SEO Architecture + Multi-Location Schema + Search Console</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-teal-400 shrink-0" />
+                    <span className="text-teal-200 font-bold">เชื่อมต่อ SalesDesk SEO Command Center ปั๊มบทความ AI ดัน Google Index ด่วน 5-15 นาที</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-emerald-400 shrink-0" />

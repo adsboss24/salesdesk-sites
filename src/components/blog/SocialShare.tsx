@@ -8,12 +8,18 @@ interface SocialShareProps {
   title: string;
   description?: string;
   className?: string;
+  label?: string;
+  sublabel?: string;
+  theme?: "teal" | "amber";
 }
 
 export default function SocialShare({
   url,
   title,
   className = "",
+  label = "แชร์บทความนี้ให้เพื่อนร่วมธุรกิจ",
+  sublabel = "ส่งต่อความรู้และข้อมูลอันเป็นประโยชน์",
+  theme = "teal",
 }: SocialShareProps) {
   const [copied, setCopied] = useState(false);
 
@@ -54,6 +60,8 @@ export default function SocialShare({
     window.open(xUrl, "_blank", "width=600,height=500");
   };
 
+  const isAmber = theme === "amber";
+
   return (
     <div
       className={`p-4 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl backdrop-blur-sm ${className}`}
@@ -61,16 +69,24 @@ export default function SocialShare({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         {/* Title / Label */}
         <div className="flex items-center gap-2 text-slate-300">
-          <div className="p-2 rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-400">
+          <div
+            className={`p-2 rounded-xl border ${
+              isAmber
+                ? "bg-amber-400/10 border-amber-400/30 text-amber-400"
+                : "bg-teal-500/10 border-teal-500/30 text-teal-400"
+            }`}
+          >
             <Share2 className="w-4 h-4 animate-pulse" />
           </div>
           <div>
-            <span className="text-xs font-bold text-white block">
-              แชร์บทความนี้ให้เพื่อนร่วมธุรกิจ
+            <span className="text-xs sm:text-sm font-bold text-white block">
+              {label}
             </span>
-            <span className="text-[11px] text-slate-400 block">
-              ส่งต่อทางรอดการตลาดยุค AI และปลดล็อกทราฟฟิกหน้า 1 Google
-            </span>
+            {sublabel && (
+              <span className="text-xs text-slate-400 block mt-0.5">
+                {sublabel}
+              </span>
+            )}
           </div>
         </div>
 

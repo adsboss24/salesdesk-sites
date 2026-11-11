@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Calendar, Clock, User, ArrowLeft, Sparkles, PhoneCall, MessageCircle, Star } from 'lucide-react';
+import SocialShare from '@/components/blog/SocialShare';
 import { getAllBenzPosts, getBenzPostBySlug } from '@/lib/benz-posts';
 import StructuredData from '@/components/StructuredData';
 import { constructMetadata } from '@/utils/seo';
@@ -175,7 +176,7 @@ export default async function BenzArticlePage({ params }: Props) {
         </h1>
 
         {/* Author & Meta */}
-        <div className="flex items-center gap-4 text-xs text-slate-400 pb-8 border-b border-slate-800 mb-8 flex-wrap">
+        <div className="flex items-center gap-4 text-xs text-slate-400 pb-8 border-b border-slate-800 mb-6 flex-wrap">
           <div className="flex items-center gap-1.5 text-slate-200 font-medium">
             <User className="w-4 h-4 text-amber-400" />
             <span>{post.author} ({post.authorRole})</span>
@@ -185,6 +186,17 @@ export default async function BenzArticlePage({ params }: Props) {
             <span>เวลาอ่าน {post.readTime}</span>
           </div>
         </div>
+
+        {/* Top Social Share */}
+        <SocialShare
+          url={articleUrl}
+          title={post.title}
+          description={post.metaDescription}
+          theme="amber"
+          label="แชร์บทความ & คู่มือนี้"
+          sublabel="แบ่งปันข้อมูลและคู่มือเลือกรถยนต์ Mercedes-Benz ให้เพื่อนหรือคนในครอบครัว"
+          className="mb-8"
+        />
 
         {/* Featured Image */}
         <div className="relative h-72 sm:h-96 md:h-[460px] w-full rounded-2xl overflow-hidden mb-10 border border-slate-800 shadow-2xl">
@@ -208,6 +220,17 @@ export default async function BenzArticlePage({ params }: Props) {
             prose-ul:text-slate-300 prose-li:my-1.5 prose-strong:text-amber-300
             prose-a:text-amber-400 prose-a:underline hover:prose-a:text-amber-300"
           dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+
+        {/* Bottom Social Share */}
+        <SocialShare
+          url={articleUrl}
+          title={post.title}
+          description={post.metaDescription}
+          theme="amber"
+          label="ชอบบทความนี้? แชร์ต่อได้เลย"
+          sublabel="ส่งต่อสาระน่ารู้เกี่ยวกับ Mercedes-Benz & AMG ให้คนที่คุณรัก"
+          className="mt-10"
         />
 
         {/* Direct Booking CTA Card */}

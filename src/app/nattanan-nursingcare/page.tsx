@@ -155,40 +155,44 @@ export default function NattananNursingCareSalepage() {
         </div>
       </div>
 
-      {/* 2. HEADER NAVIGATION (Zero Overflow on Any Mobile Device) */}
+      {/* 2. HEADER NAVIGATION (Zero Overflow & Zero Truncation on All Devices) */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
-        <div className="max-w-7xl mx-auto px-3.5 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-3">
-          {/* Logo & Brand Name */}
-          <a href="#" className="flex items-center gap-2 sm:gap-3 min-w-0">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-2 sm:gap-4">
+          {/* Logo & Brand Name (NEVER shrink or truncate) */}
+          <a href="#" className="flex items-center gap-2 sm:gap-3 shrink-0">
             <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-teal-600 to-emerald-500 flex items-center justify-center text-white shadow-md shadow-teal-500/20 shrink-0">
               <HeartHandshake className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
-            <div className="min-w-0">
-              <div className="text-xs sm:text-base md:text-lg font-extrabold tracking-tight text-slate-900 leading-tight truncate">
+            <div className="shrink-0">
+              {/* Mobile two-line crisp title */}
+              <div className="sm:hidden">
+                <span className="block text-[10px] font-bold text-teal-700 leading-tight whitespace-nowrap">
+                  บ้านพักผู้สูงอายุ
+                </span>
+                <span className="block text-sm font-extrabold tracking-tight text-slate-900 leading-tight whitespace-nowrap">
+                  ณัฐนันท์ เนอสซิ่งแคร์
+                </span>
+              </div>
+              {/* Tablet & Desktop full title */}
+              <div className="hidden sm:block text-sm md:text-base lg:text-lg font-extrabold tracking-tight text-slate-900 leading-tight whitespace-nowrap">
                 {BRAND_NAME}
               </div>
-              <p className="text-[10px] sm:text-xs text-teal-700 font-medium truncate">
+              <p className="hidden sm:block text-[11px] sm:text-xs text-teal-700 font-medium whitespace-nowrap">
                 โทร {PHONE_1_DISPLAY} • {PHONE_2_DISPLAY}
               </p>
             </div>
           </a>
 
           {/* Navigation Links (Desktop only) */}
-          <nav className="hidden xl:flex items-center gap-6 text-sm font-medium text-slate-600 whitespace-nowrap">
+          <nav className="hidden xl:flex items-center gap-4 2xl:gap-6 text-xs 2xl:text-sm font-semibold text-slate-600 whitespace-nowrap shrink-0">
             <a href="#care-group" className="hover:text-teal-700 transition whitespace-nowrap">
               กลุ่มผู้รับบริการ
             </a>
             <a href="#services" className="hover:text-teal-700 transition whitespace-nowrap">
               จุดเด่นการดูแล
             </a>
-            <a href="#facility" className="hover:text-teal-700 transition whitespace-nowrap">
-              สิ่งอำนวยความสะดวก
-            </a>
             <a href="#packages" className="hover:text-teal-700 transition whitespace-nowrap">
               อัตราค่าบริการ
-            </a>
-            <a href="#faq" className="hover:text-teal-700 transition whitespace-nowrap">
-              คำถามที่พบบ่อย
             </a>
             <a href="#contact" className="hover:text-teal-700 transition whitespace-nowrap">
               ติดต่อเรา
@@ -201,7 +205,7 @@ export default function NattananNursingCareSalepage() {
               href={LINE_URL}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-2.5 py-2 sm:px-3.5 sm:py-2 rounded-xl bg-[#06C755] hover:bg-[#05b34c] text-white font-semibold text-xs sm:text-sm shadow-xs transition whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-2.5 py-2 sm:px-3.5 sm:py-2 rounded-xl bg-[#06C755] hover:bg-[#05b34c] text-white font-semibold text-xs sm:text-sm shadow-xs transition whitespace-nowrap shrink-0"
             >
               <LineIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               <span className="hidden sm:inline">แอดไลน์</span>
@@ -210,20 +214,20 @@ export default function NattananNursingCareSalepage() {
               href={MESSENGER_URL}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-2.5 py-2 sm:px-3.5 sm:py-2 rounded-xl bg-[#0084FF] hover:bg-[#0073e6] text-white font-semibold text-xs sm:text-sm shadow-xs transition whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-2.5 py-2 sm:px-3.5 sm:py-2 rounded-xl bg-[#0084FF] hover:bg-[#0073e6] text-white font-semibold text-xs sm:text-sm shadow-xs transition whitespace-nowrap shrink-0"
             >
               <MessengerIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               <span className="hidden sm:inline">Messenger</span>
             </a>
             <a
               href={`tel:${PHONE_1_RAW}`}
-              className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm shadow-xs transition whitespace-nowrap"
+              className="hidden 2xl:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-xs sm:text-sm shadow-xs transition whitespace-nowrap shrink-0"
             >
               <PhoneCall className="w-3.5 h-3.5 text-teal-400 shrink-0" /> {PHONE_1_DISPLAY}
             </a>
             <a
               href="#booking"
-              className="inline-flex items-center gap-1 sm:gap-1.5 px-3 py-2 sm:px-4 sm:py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-semibold text-xs sm:text-sm shadow-md shadow-teal-700/20 transition whitespace-nowrap"
+              className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 py-2 sm:px-4 sm:py-2 rounded-xl bg-teal-700 hover:bg-teal-800 text-white font-semibold text-xs sm:text-sm shadow-md shadow-teal-700/20 transition whitespace-nowrap shrink-0"
             >
               <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               <span>นัดชมสถานที่</span>

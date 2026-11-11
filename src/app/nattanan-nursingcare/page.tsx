@@ -237,7 +237,7 @@ export default function NattananNursingCareSalepage() {
 
               {/* Subheadline */}
               <p className="text-xs sm:text-base md:text-lg text-slate-100 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
-                ให้คนที่คุณรักได้รับการดูแลอย่างใกล้ชิด อบอุ่น และปลอดภัย โดยทีมพยาบาลวิชาชีพและนักบริบาลตลอด 24 ชั่วโมง
+                ให้คนที่คุณรักได้รับการดูแลอย่างใกล้ชิด อบอุ่น และปลอดภัย โดยทีมบริบาลวิชาชีพตลอด 24 ชั่วโมง
                 บรรยากาศร่มรื่น โปร่งสบาย ดุจบ้านพักส่วนตัว พร้อมโปรแกรมกายภาพบำบัดฟื้นฟูเฉพาะบุคคล
               </p>
 
@@ -335,7 +335,7 @@ export default function NattananNursingCareSalepage() {
                   <Stethoscope className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-xs sm:text-sm font-bold text-white truncate">พยาบาลและบริบาล 24 ชม.</h3>
+                  <h3 className="text-xs sm:text-sm font-bold text-white truncate">ทีมบริบาลวิชาชีพ 24 ชม.</h3>
                   <p className="text-[11px] sm:text-xs text-slate-300 truncate">ตรวจวัดสัญญาณชีพทุกวัน</p>
                 </div>
               </div>
@@ -385,7 +385,7 @@ export default function NattananNursingCareSalepage() {
               เราพร้อมดูแลทุกภาวะสุขภาพด้วยความเข้าใจ
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              {BRAND_NAME} ออกแบบแผนการพยาบาลและกิจกรรมเฉพาะรายบุคคล เพื่อเสริมสร้างคุณภาพชีวิตที่ดีทั้งกายและใจ
+              {BRAND_NAME} ออกแบบแผนการดูแลโดยทีมบริบาลวิชาชีพและกิจกรรมเฉพาะรายบุคคล เพื่อเสริมสร้างคุณภาพชีวิตที่ดีทั้งกายและใจ
             </p>
           </div>
 
@@ -528,7 +528,7 @@ export default function NattananNursingCareSalepage() {
                 <Clock className="w-6 h-6" />
               </div>
               <div className="space-y-1.5">
-                <h3 className="text-base font-bold text-slate-900">ทีมบริบาลเฝ้าระวัง 24 ชั่วโมง</h3>
+                <h3 className="text-base font-bold text-slate-900">ทีมบริบาลวิชาชีพเฝ้าระวัง 24 ชั่วโมง</h3>
                 <p className="text-sm text-slate-600 leading-relaxed">
                   มีเจ้าหน้าที่ตรวจเช็กสัญญาณชีพ วัดความดัน ออกซิเจน อุณหภูมิ และบันทึกสมุดรายงานสุขภาพทุกวัน
                 </p>
@@ -691,7 +691,7 @@ export default function NattananNursingCareSalepage() {
                     <Check className="w-4 h-4 text-teal-600 shrink-0" /> เตียงผู้ป่วยมาตรฐานปรับระดับได้
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> ทีมบริบาลดูแลตลอด 24 ชั่วโมง
+                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> ทีมบริบาลวิชาชีพดูแลตลอด 24 ชั่วโมง
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-teal-600 shrink-0" /> อาหาร 3 มื้อ + อาหารว่าง 1 มื้อ
@@ -741,7 +741,7 @@ export default function NattananNursingCareSalepage() {
                     <Check className="w-4 h-4 text-teal-600 shrink-0" /> รายงานสุขภาพและวิดีโอคอลทุกวัน
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> รวมค่าบริการดูแลพยาบาลครบถ้วน
+                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> รวมค่าบริการดูแลโดยทีมบริบาลวิชาชีพครบถ้วน
                   </li>
                 </ul>
               </div>
@@ -775,7 +775,7 @@ export default function NattananNursingCareSalepage() {
                     <Check className="w-4 h-4 text-teal-600 shrink-0" /> ห้องส่วนตัว พร้อมห้องน้ำในตัว
                   </li>
                   <li className="flex items-center gap-2">
-                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> บริบาลดูแลพิเศษเฉพาะบุคคล 1:1 (Option)
+                    <Check className="w-4 h-4 text-teal-600 shrink-0" /> ทีมบริบาลวิชาชีพดูแลพิเศษ 1:1 (Option)
                   </li>
                   <li className="flex items-center gap-2">
                     <Check className="w-4 h-4 text-teal-600 shrink-0" /> โซฟาปรับนอนสำหรับญาติผู้เข้าเยี่ยม
@@ -819,7 +819,7 @@ export default function NattananNursingCareSalepage() {
             <div className="bg-teal-800/50 p-6 rounded-2xl border border-teal-700/60 space-y-4">
               <div className="flex text-amber-400">★★★★★</div>
               <p className="text-sm text-teal-100 leading-relaxed italic">
-                &ldquo;คุณแม่พักฟื้นหลังผ่าตัดสะโพกที่นี่ได้ 2 เดือน พยาบาลและน้องๆ ดูแลดีมาก ส่งรูปและคลิปวิดีโออัปเดตให้ดูทุกวัน ตอนนี้คุณแม่เดินได้คล่องขึ้นเยอะ ขอบคุณทีมงานทุกคนมากๆ ค่ะ&rdquo;
+                &ldquo;คุณแม่พักฟื้นหลังผ่าตัดสะโพกที่นี่ได้ 2 เดือน ทีมบริบาลวิชาชีพและน้องๆ ดูแลดีมาก ส่งรูปและคลิปวิดีโออัปเดตให้ดูทุกวัน ตอนนี้คุณแม่เดินได้คล่องขึ้นเยอะ ขอบคุณทีมงานทุกคนมากๆ ค่ะ&rdquo;
               </p>
               <div className="pt-2 border-t border-teal-700/60">
                 <p className="text-xs font-bold text-white">คุณสุภาภรณ์ ว.</p>
@@ -873,7 +873,7 @@ export default function NattananNursingCareSalepage() {
                 Q: ผู้สูงอายุติดเตียง เจาะคอ หรือให้อาหารทางสายยาง รับดูแลไหม?
               </div>
               <div className="text-slate-600 leading-relaxed">
-                A: รับดูแลครับ เรามีพยาบาลวิชาชีพและผู้ช่วยพยาบาลประจำตลอด 24 ชม. พร้อมอุปกรณ์ทางการแพทย์ ได้แก่ เครื่องดูดเสมหะ ถังออกซิเจน เครื่องวัดสัญญาณชีพ และบริการทำแผลกดทับตามมาตรฐานวิชาชีพครับ
+                A: รับดูแลครับ เรามีทีมบริบาลวิชาชีพประจำตลอด 24 ชม. พร้อมอุปกรณ์ทางการแพทย์ ได้แก่ เครื่องดูดเสมหะ ถังออกซิเจน เครื่องวัดสัญญาณชีพ และบริการทำแผลกดทับตามมาตรฐานวิชาชีพครับ
               </div>
             </div>
 
@@ -1152,7 +1152,7 @@ export default function NattananNursingCareSalepage() {
               </div>
               <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-md">
                 ศูนย์ดูแลผู้สูงอายุและผู้ป่วยพักฟื้น มาตรฐานวิชาชีพ ดูแลอย่างใกล้ชิด อบอุ่นเหมือนคนในครอบครัว
-                พร้อมทีมพยาบาล นักบริบาล และกายภาพบำบัดฟื้นฟูครบวงจร
+                พร้อมทีมบริบาลวิชาชีพ และกายภาพบำบัดฟื้นฟูครบวงจร
               </p>
             </div>
 

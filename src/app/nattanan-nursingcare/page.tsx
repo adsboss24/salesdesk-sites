@@ -237,26 +237,35 @@ export default function NattananNursingCareSalepage() {
       </header>
 
       {/* 3. HERO SECTION (16:9 Cinematic Split on Desktop, 100% Unobstructed Subject on Mobile) */}
-      <section className="relative min-h-[92vh] sm:min-h-[660px] lg:min-h-[740px] flex flex-col justify-between sm:justify-center overflow-hidden bg-slate-950 text-white">
-        {/* Full-Bleed Background Image */}
+      <section className="relative min-h-[92vh] sm:min-h-[680px] lg:min-h-[760px] flex flex-col justify-between sm:justify-center overflow-hidden bg-slate-950 text-white">
+        {/* Background Layer */}
         <div className="absolute inset-0 z-0">
+          {/* Mobile Full-Bleed Portrait Photo (3:4 Native Aspect Ratio fits mobile screen cleanly) */}
           <img
-            src="/images/nattanan-hero.jpg"
+            src="/images/nattanan-hero-couple.jpg"
             alt={BRAND_NAME}
-            className="w-full h-full object-cover object-[78%_center] lg:object-right brightness-105 contrast-[1.02] transition-all duration-700"
+            className="lg:hidden w-full h-full object-cover object-[50%_28%] brightness-105 contrast-[1.03] transition-all duration-700"
           />
-          {/* Desktop Left Negative Space Gradient */}
-          <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 via-50% to-transparent" />
-          {/* Mobile Multi-Layer Scrim: Top 0-25% dark, Middle 100% clear, Bottom dark behind buttons */}
-          <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/45 via-25% to-transparent" />
+          {/* Desktop Ambient Backdrop + Right-Side Framed Portrait Showcase */}
+          <div className="hidden lg:block absolute inset-0 overflow-hidden">
+            <img
+              src="/images/nattanan-hero-couple.jpg"
+              alt=""
+              aria-hidden="true"
+              className="w-full h-full object-cover object-center blur-2xl scale-110 opacity-30"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/92 via-50% to-slate-950/55" />
+          </div>
+          {/* Mobile Multi-Layer Scrim: Top 0-24% dark for headline, Middle 100% clear for couple's faces, Bottom dark behind buttons */}
+          <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/45 via-24% to-transparent" />
           <div className="lg:hidden absolute bottom-0 inset-x-0 h-72 bg-gradient-to-t from-slate-950 via-slate-950/90 via-55% to-transparent" />
           <div className="hidden lg:block absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-slate-950 to-transparent" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-5 sm:pt-16 pb-4 sm:pb-8 lg:py-24 relative z-10 w-full flex-1 flex flex-col justify-between">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-4 sm:pt-16 pb-4 sm:pb-8 lg:py-20 relative z-10 w-full flex-1 flex flex-col justify-between">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             {/* Left Content Column */}
-            <div className="lg:col-span-7 space-y-3 sm:space-y-6 text-center lg:text-left">
+            <div className="lg:col-span-7 space-y-2.5 sm:space-y-6 text-center lg:text-left">
               {/* Luxury Badge */}
               <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-slate-950/80 border border-teal-500/40 text-teal-300 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs md:text-sm font-semibold backdrop-blur-md shadow-md shadow-slate-950/50">
                 <Sparkles className="w-3.5 h-3.5 text-amber-400 shrink-0" />
@@ -266,13 +275,13 @@ export default function NattananNursingCareSalepage() {
               {/* Main Headline (Mandatory Thai Zero-Overlapping Standard) */}
               <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.15rem] font-extrabold text-white tracking-tight leading-normal sm:leading-[1.25] lg:leading-[1.22] drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
                 <span className="block">บ้านพักผู้สูงอายุ</span>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-amber-300 block mt-1.5 sm:mt-2.5 pb-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-300 to-amber-300 block mt-1 sm:mt-2.5 pb-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
                   ณัฐนันท์ เนอสซิ่งแคร์
                 </span>
               </h1>
 
               {/* Subheadline */}
-              <p className="text-xs sm:text-base md:text-lg text-slate-100 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
+              <p className="text-xs sm:text-base md:text-lg text-slate-100 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.95)]">
                 ให้คนที่คุณรักได้รับการดูแลอย่างใกล้ชิด อบอุ่น และปลอดภัย โดยทีมบริบาลวิชาชีพตลอด 24 ชั่วโมง
                 บรรยากาศร่มรื่น โปร่งสบาย ดุจบ้านพักส่วนตัว พร้อมโปรแกรมกายภาพบำบัดฟื้นฟูเฉพาะบุคคล
               </p>
@@ -335,8 +344,27 @@ export default function NattananNursingCareSalepage() {
               </div>
             </div>
 
-            {/* Desktop Right Column Spacer (Transparent so photo shines through) */}
-            <div className="hidden lg:block lg:col-span-5 pointer-events-none" />
+            {/* Desktop Right Column: Uncropped Portrait Showcase of the Elderly Couple */}
+            <div className="hidden lg:flex lg:col-span-5 justify-end">
+              <div className="relative w-full max-w-[420px] rounded-3xl overflow-hidden border-2 border-teal-400/30 shadow-2xl shadow-slate-950/80 bg-slate-900/60 group">
+                <img
+                  src="/images/nattanan-hero-couple.jpg"
+                  alt={BRAND_NAME}
+                  className="w-full h-[490px] object-cover object-top brightness-105 contrast-[1.03] group-hover:scale-103 transition-transform duration-700"
+                />
+                <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent flex items-end p-5">
+                  <div className="flex items-center gap-2.5 text-white">
+                    <div className="w-9 h-9 rounded-xl bg-teal-500/30 border border-teal-400/40 backdrop-blur-md flex items-center justify-center text-teal-300 shrink-0">
+                      <HeartHandshake className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-teal-300 leading-tight">บรรยากาศอบอุ่น ร่มรื่น เหมือนอยู่บ้าน</p>
+                      <p className="text-[11px] text-slate-200 leading-tight">รอยยิ้มและความสุขของผู้สูงอายุคือหัวใจของเรา</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Bottom Area: Mobile CTAs + 4 Glassmorphic Feature Badges */}

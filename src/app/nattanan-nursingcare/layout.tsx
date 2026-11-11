@@ -22,9 +22,9 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/images/nattanan-hero.jpg',
-        width: 1200,
-        height: 630,
+        url: '/images/nattanan-hero-couple.jpg',
+        width: 720,
+        height: 960,
         alt: 'บ้านพักผู้สูงอายุ ณัฐนันท์ เนอสซิ่งแคร์',
       },
     ],
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: 'บ้านพักผู้สูงอายุ ณัฐนันท์ เนอสซิ่งแคร์',
     description:
       'ศูนย์ดูแลผู้สูงอายุและผู้ป่วยพักฟื้น มาตรฐานวิชาชีพ ดูแลตลอด 24 ชั่วโมง โทร 090-958-9979, 080-879-0959',
-    images: ['/images/nattanan-hero.jpg'],
+    images: ['/images/nattanan-hero-couple.jpg'],
   },
 };
 

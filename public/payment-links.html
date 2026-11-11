@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="th" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SalesDesk AI — ศูนย์รวมลิงก์ชำระเงิน Stripe (One-Click Copy)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07090e;
+      --card: #0f131d;
+      --card-hover: #141a28;
+      --border: #1e293b;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --emerald: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.2);
+      --amber: #f59e0b;
+      --blue: #38bdf8;
+      --purple: #a855f7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 15% 0%, rgba(16, 185, 129, 0.08), transparent 35%),
+        radial-gradient(circle at 85% 10%, rgba(56, 189, 248, 0.08), transparent 35%);
+      color: var(--text);
+      font-family: 'IBM Plex Sans Thai', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.5;
+      min-height: 100vh;
+      padding: 32px 20px 64px;
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-badge {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #10b981, #059669);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+      color: #022c22;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+    }
+
+    .brand-title h1 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-title p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 10px #10b981;
+    }
+
+    /* Filter Tabs */
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .tab-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 9px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .tab-btn:hover {
+      border-color: #334155;
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      background: #10b981;
+      border-color: #10b981;
+      color: #022c22;
+    }
+
+    /* Section */
+    .service-section {
+      margin-bottom: 36px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .section-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: #1e293b;
+      color: #cbd5e1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      border-color: #334155;
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+
+    .card.highlight {
+      border-color: rgba(16, 185, 129, 0.55);
+      box-shadow: 0 8px 30px rgba(16, 185, 129, 0.08);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .badge-emerald { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .badge-amber { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-blue { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+    .badge-purple { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+
+    .plan-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .plan-desc {
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .price-box {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .price {
+      font-size: 22px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .price-unit {
+      font-size: 11px;
+      color: var(--muted);
+      display: block;
+    }
+
+    .url-box {
+      background: #080b11;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-family: 'Inter', monospace;
+      font-size: 12px;
+      color: #38bdf8;
+      word-break: break-all;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .btn-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 11px 12px;
+      font-size: 12.5px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: #10b981;
+      color: #022c22;
+    }
+
+    .btn-primary:hover {
+      background: #34d399;
+    }
+
+    .btn-secondary {
+      background: #1e293b;
+      color: #f8fafc;
+      border: 1px solid #334155;
+    }
+
+    .btn-secondary:hover {
+      background: #334155;
+    }
+
+    .btn-open {
+      grid-column: span 2;
+      background: transparent;
+      color: var(--muted);
+      border: 1px dashed #334155;
+      padding: 8px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .btn-open:hover {
+      color: #ffffff;
+      border-color: #64748b;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #064e3b;
+      border: 1px solid #10b981;
+      color: #ecfdf5;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="brand-badge">S</div>
+        <div class="brand-title">
+          <h1>SalesDesk AI — ศูนย์รวมลิงก์ชำระเงิน Stripe</h1>
+          <p>กดปุ่ม Copy ลิงก์ หรือ Copy ข้อความพร้อมส่งให้ลูกค้าในแชต LINE OA ได้ทันที</p>
+        </div>
+      </div>
+      <div class="live-pill">
+        <span class="live-dot"></span>
+        Stripe Live Mode (AI Business Partner) • รองรับ PromptPay & บัตรเครดิต
+      </div>
+    </header>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="filterCategory('all', this)">แสดงทั้งหมด (12 แพ็กเกจ)</button>
+      <button class="tab-btn" onclick="filterCategory('sites', this)">🌐 1. เว็บไซต์ & เซลเพจ (4)</button>
+      <button class="tab-btn" onclick="filterCategory('ai', this)">🤖 2. ผู้ช่วย AI ปิดการขาย (3)</button>
+      <button class="tab-btn" onclick="filterCategory('namecard', this)">🪪 3. นามบัตร NameCard (3)</button>
+      <button class="tab-btn" onclick="filterCategory('dealership', this)">🚗 4. เต็นท์รถยนต์ Dealership (3)</button>
+    </div>
+
+    <div id="catalog"></div>
+  </div>
+
+  <div id="toast">✅ คัดลอกเรียบร้อยแล้ว!</div>
+
+  <script>
+    const SECTIONS = [
+      {
+        id: 'sites',
+        title: '🌐 บริการที่ 1: เว็บไซต์ & เซลเพจ (SalesDesk Sites)',
+        tag: 'PromptPay QR + บัตรเครดิต + Apple Pay',
+        items: [
+          {
+            badge: 'แผนรายเดือน เริ่มต้นง่าย',
+            badgeClass: 'badge-amber',
+            name: 'Starter Salepage (รายเดือน)',
+            desc: 'เซลเพจหน้าเดียวจบ ส่งงานไวใน 48 ชม. ฟรีโฮสติ้งตลอดอายุการใช้งาน',
+            price: '฿490',
+            unit: '/ เดือน',
+            url: 'https://buy.stripe.com/9B67sKfqLakh1WN4AYgQE01',
+            msg: `ขอบพระคุณที่ไว้วางใจเลือกแพ็กเกจเว็บไซต์ Starter Salepage (แผนรายเดือน 490 บาท/เดือน) ครับผม\n\nสามารถกดชำระเงินออนไลน์อย่างปลอดภัยผ่านระบบ Stripe ที่ลิงก์นี้ได้เลยครับ:\n👉 https://buy.stripe.com/9B67sKfqLakh1WN4AYgQE01\n\nเมื่อชำระสำเร็จ ระบบจะออกใบเสร็จให้ทันที และทีมงานจะเริ่มจัดทำหน้าเว็บไซต์ให้ภายใน 24-48 ชม. ครับ 🙏✨`
+          },
+          {
+            badge: 'ยอดนิยม • จ่ายครั้งเดียวจบ',
+            badgeClass: 'badge-emerald',
+            highlight: true,
+            name: 'Starter Salepage (ซื้อขาด)',
+            desc: 'จ่ายครั้งเดียวจบ ไม่มีรายเดือน ฟรีโฮสติ้ง & SSL 1 ปีเต็ม ส่งงานใน 48 ชม.',
+            price: '฿2,990',
+            unit: 'จ่ายครั้งเดียวจบ',
+            url: 'https://buy.stripe.com/28E8wOa6rdwtatjaZmgQE00',
+            msg: `ขอบพระคุณที่ไว้วางใจเลือกแพ็กเกจเว็บไซต์ Starter Salepage (2,990 บาท จ่ายครั้งเดียวจบ) ครับผม\n\nสามารถกดชำระเงินออนไลน์อย่างปลอดภัยผ่านระบบ Stripe (รองรับทั้ง QR PromptPay และบัตรเครดิต) ที่ลิงก์นี้ได้เลยครับ:\n👉 https://buy.stripe.com/28E8wOa6rdwtatjaZmgQE00\n\nเมื่อชำระสำเร็จ ระบบจะออกใบเสร็จให้ทันที และทีมงานจะเริ่มจัดทำโครงสร้างเว็บไซต์ให้ภายใน 24-48 ชม. ครับ 🙏✨`
+          },
+          {
+            badge: '🔥 แนะนำ • ขายดีที่สุด',
+            badgeClass: 'badge-emerald',
+            highlight: true,
+            name: 'Professional Business Salepage',
+            desc: 'Cinematic High-Conversion แก้ไขได้จนกว่าจะพอใจ + ติดตั้ง Full Tracking & SEO',
+            price: '฿4,990',
+            unit: 'จ่ายครั้งเดียวจบ',
+            url: 'https://buy.stripe.com/eVq14ma6r9gd0SJ7NagQE02',
+            msg: `ขอบพระคุณที่ไว้วางใจเลือกแพ็กเกจเว็บไซต์ Professional Business (4,990 บาท จ่ายครั้งเดียวจบ การันตีแก้ไขจนกว่าจะพอใจ) ครับผม\n\nสามารถกดชำระเงินออนไลน์ผ่านระบบ Stripe (รองรับทั้ง QR PromptPay และบัตรเครดิต) ที่ลิงก์นี้ได้เลยครับ:\n👉 https://buy.stripe.com/eVq14ma6r9gd0SJ7NagQE02\n\nเมื่อชำระสำเร็จ ระบบจะออกใบเสร็จให้ทันที และทีมงานจะเริ่มจัดทำหน้าเว็บให้ภายใน 24-48 ชม. ครับ 🙏✨`
+          },
+          {
+            badge: 'ระดับองค์กร Custom',
+            badgeClass: 'badge-purple',
+            name: 'Enterprise Platform',
+            desc: 'เว็บไซต์ระบบสั่งทำเฉพาะทาง แคตตาล็อกขนาดใหญ่ พร้อมทีมโปรแกรมเมอร์ดูแล',
+            price: '฿9,900',
+            unit: 'จ่ายครั้งเดียว',
+            url: 'https://buy.stripe.com/3cIcN44M7eAxfNDffCgQE06',
+            msg: `ขอบพระคุณที่ไว้วางใจเลือกแพ็กเกจเว็บไซต์ Enterprise Platform (9,900 บาท) ครับผม\n\nสามารถกดชำระเงินออนไลน์ผ่านระบบ Stripe ที่ลิงก์นี้ได้เลยครับ:\n👉 https://buy.stripe.com/3cIcN44M7eAxfNDffCgQE06\n\nเมื่อชำระสำเร็จ ระบบจะออกใบเสร็จอิเล็กทรอนิกส์ให้ทันทีครับ 🙏✨`
+          }
+        ]
+      },
+      {
+        id: 'ai',
+        title: '🤖 บริการที่ 2: ผู้ช่วย AI ปิดการขาย (SalesDesk AI Assistant)',
+        tag: 'เชื่อมต่อ LINE OA & Facebook',
+        items: [
+          {
+            badge: 'เริ่มต้นธุรกิจ',
+            badgeClass: 'badge-blue',
+            name: 'AI Starter Plan',
+            desc: 'รองรับ 1,500 ข้อความ/เดือน เชื่อมต่อ 1 LINE OA + 1 Facebook Page แอดมิน 2 ท่าน',
+            price: '฿990',
+            unit: '/ เดือน',
+            url: 'https://buy.stripe.com/00weVc0vR9gd44VaZmgQE03',
+            msg: `ขอบพระคุณที่สนใจแพ็กเกจผู้ช่วย AI ปิดการขาย SalesDesk Starter (990 บาท/เดือน) ครับผม\n\nสามารถกดสมัครและชำระเงินผ่านระบบ Stripe ที่ลิงก์นี้ได้เลยครับ:\n👉 https://buy.stripe.com/00weVc0vR9gd44VaZmgQE03`
+          },
+          {
+            badge: '🔥 ยอดนิยมที่สุด',
+            badgeClass: 'badge-emerald',
+            highlight: true,
+            name: 'AI Growth Plan',
+            desc: 'รองรับ 10,000 ข้อความ/เดือน ตรวจสลิปโอนเงินอัตโนมัติ เชื่อมครบทุกช่องทาง แอดมิน 5 ท่าน',
+            price: '฿2,490',
+            unit: '/ เดือน',
+            url: 'https://buy.stripe.com/00wdR80vRgIF0SJffCgQE04',
+            msg: `ขอบพระคุณที่สนใจแพ็กเกจผู้ช่วย AI ปิดการขาย SalesDesk Growth (2,490 บาท/เดือน) ครับผม\n\nสามารถกดสมัครและชำระเงินผ่านระบบ Stripe ที่ลิงก์นี้ได้เลยครับ:\n👉 https://buy.stripe.com/00wdR80vRgIF0SJffCgQE04`
+          },
+          {
+            badge: 'ไม่จำกัดข้อความ',
+            badgeClass: 'badge-purple',
+            name: 'AI Scale Enterprise',
+            desc: 'AI ตอบแชตและตรวจสลิปไม่จำกัด เชื่อมต่อ API/ERP เทรนโมเดลเฉพาะแบรนด์',
+            price: '฿5,990',
+            unit: '/ เดือน',
+            url: 'https://buy.stripe.com/8x2aEWfqL3VT6d3ebygQE05',
+            msg: `ขอบพระคุณที่สนใจแพ็กเกจผู้ช่วย AI ปิดการขาย SalesDesk Scale (5,990 บาท/เดือน) ครับผม\n\nสามารถกดสมัครและชำระเงินผ่านระบบ Stripe ที่ลิงก์นี้ได้เลยครับ:\n👉 https://buy.stripe.com/8x2aEWfqL3VT6d3ebygQE05`
+          }
+        ]
+      },
+      {
+        id: 'namecard',
+        title: '🪪 บริการที่ 3: นามบัตรดิจิทัล & โชว์รูม (SalesDesk NameCard)',
+        tag: 'สำหรับเซลส์และธุรกิจทุกประเภท',
+        items: [
+          {
+            badge: 'ฟรีตลอดชีพ',
+            badgeClass: 'badge-blue',
+            name: 'นามบัตรดิจิทัลฟรีตลอดชีพ',
+            desc: 'สร้างโปรไฟล์เซลส์ ตารางคำนวณค่างวด ปุ่มเซฟเบอร์ vCard และ QR Code ฟรี',
+            price: '฿0',
+            unit: 'ฟรีตลอดไป',
+            url: 'https://namecard.salesdesk-ai.com/home',
+            msg: `คุณลูกค้าสามารถกดเปิดสร้างและปรับแต่งนามบัตรดิจิทัลฟรีตลอดชีพ ได้ที่ลิงก์นี้เลยครับผม:\n👉 https://namecard.salesdesk-ai.com/home`
+          },
+          {
+            badge: 'โชว์รูมแคตาล็อก',
+            badgeClass: 'badge-blue',
+            name: 'แพ็กเกจโชว์รูมแคตาล็อก',
+            desc: 'หน้ารวมแคตตาล็อกรุ่นรถยนต์และสินค้า ลงรูป สเปก และจัดการสต็อกเองได้',
+            price: '฿190',
+            unit: '/ เดือน',
+            url: 'https://buy.stripe.com/dRmfZg1zV3VT44V3wUgQE07',
+            msg: `ขอบพระคุณที่เลือกแพ็กเกจ SalesDesk NameCard — โชว์รูมแคตาล็อก (190 บาท/เดือน) ครับผม\n\nสามารถกดชำระเงินผ่านระบบ Stripe ที่ลิงก์นี้ได้เลยครับ:\n👉 https://buy.stripe.com/dRmfZg1zV3VT44V3wUgQE07`
+          },
+          {
+            badge: '🔥 แนะนำ • AI ปิดการขาย 24 ชม.',
+            badgeClass: 'badge-amber',
+            highlight: true,
+            name: 'AI ริน & กล่องลูกค้าเป้าหมาย',
+            desc: 'ผู้ช่วย AI ริน ตอบสเปกและค่างวด 24 ชม. พร้อมแจ้งเตือนลีดเข้า LINE ทันที',
+            price: '฿390',
+            unit: '/ เดือน',
+            url: 'https://buy.stripe.com/3cI00i92n641gRH0kIgQE08',
+            msg: `ขอบพระคุณที่เลือกแพ็กเกจ SalesDesk NameCard — ผู้ช่วย AI ริน และกล่องลูกค้าเป้าหมาย (390 บาท/เดือน) ครับผม\n\nสามารถกดชำระเงินผ่านระบบ Stripe ที่ลิงก์นี้ได้เลยครับ:\n👉 https://buy.stripe.com/3cI00i92n641gRH0kIgQE08`
+          }
+        ]
+      },
+      {
+        id: 'dealership',
+        title: '🚗 บริการที่ 4: แพลตฟอร์มโชว์รูม & เต็นท์รถยนต์ (SalesDesk Dealership)',
+        tag: 'ระบบบริหารเต็นท์รถครบวงจร',
+        items: [
+          {
+            badge: 'สต็อกสูงสุด 30 คัน',
+            badgeClass: 'badge-blue',
+            name: 'Dealership Starter Plan (รายเดือน)',
+            desc: 'โชว์รูมออนไลน์ ตรวจสภาพ 18 มุม คำนวณค่างวดไฟแนนซ์ ระบบมัดจำล็อกรถ',
+            price: '฿1,658',
+            unit: '/ เดือน',
+            url: 'https://buy.stripe.com/3cIeVc4M78c944V7NagQE09',
+            msg: `ขอบพระคุณที่เลือกแพ็กเกจระบบเต็นท์รถยนต์ SalesDesk Dealership — Starter Plan (1,658 บาท/เดือน) ครับผม\n\nสามารถกดชำระเงินผ่านระบบ Stripe ที่ลิงก์นี้ได้เลยครับ:\n👉 https://buy.stripe.com/3cIeVc4M78c944V7NagQE09`
+          },
+          {
+            badge: '⭐ คุ้มค่าที่สุด • ประหยัด 2 เดือน',
+            badgeClass: 'badge-amber',
+            highlight: true,
+            name: 'Dealership Professional Plan (รายปี)',
+            desc: 'สต็อก 50 คัน ระบบวิเคราะห์กำไรสุทธิรายคัน (Net Profit Tracker) ฟรีโดเมนเต็นท์',
+            price: '฿19,900',
+            unit: '/ ปี',
+            url: 'https://buy.stripe.com/00weVc0vR2RP8lb6J6gQE0a',
+            msg: `ขอบพระคุณที่เลือกแพ็กเกจระบบเต็นท์รถยนต์ SalesDesk Dealership — Professional Plan รายปี (19,900 บาท/ปี) ครับผม\n\nสามารถกดชำระเงินผ่านระบบ Stripe ที่ลิงก์นี้ได้เลยครับ:\n👉 https://buy.stripe.com/00weVc0vR2RP8lb6J6gQE0a`
+          },
+          {
+            badge: '👑 สิทธิ์ตลอดชีพ VIP',
+            badgeClass: 'badge-emerald',
+            name: 'Dealership Lifetime VIP (ตลอดชีพ)',
+            desc: 'ชำระครั้งเดียวใช้งานตลอดชีพ สต็อก 100 คัน ไม่มีค่าธรรมเนียมรายปีอีกต่อไป',
+            price: '฿49,000',
+            unit: 'จ่ายครั้งเดียวจบ',
+            url: 'https://buy.stripe.com/dRm6oGa6r8c9gRHc3qgQE0b',
+            msg: `ขอบพระคุณที่เลือกแพ็กเกจระบบเต็นท์รถยนต์ SalesDesk Dealership — Lifetime VIP ตลอดชีพ (49,000 บาท จ่ายครั้งเดียวจบ) ครับผม\n\nสามารถกดชำระเงินผ่านระบบ Stripe (รองรับทั้ง QR PromptPay และบัตรเครดิต) ที่ลิงก์นี้ได้เลยครับ:\n👉 https://buy.stripe.com/dRm6oGa6r8c9gRHc3qgQE0b`
+          }
+        ]
+      }
+    ];
+
+    let activeCategory = 'all';
+
+    function renderCatalog() {
+      const container = document.getElementById('catalog');
+      container.innerHTML = '';
+
+      SECTIONS.forEach((sec) => {
+        if (activeCategory !== 'all' && activeCategory !== sec.id) return;
+
+        const secEl = document.createElement('div');
+        secEl.className = 'service-section';
+
+        let cardsHtml = '';
+        sec.items.forEach((item, idx) => {
+          const encodedUrl = encodeURIComponent(item.url);
+          const encodedMsg = encodeURIComponent(item.msg);
+          cardsHtml += `
+            <div class="card ${item.highlight ? 'highlight' : ''}">
+              <div>
+                <div class="card-top">
+                  <div>
+                    <span class="badge ${item.badgeClass}">${item.badge}</span>
+                    <div class="plan-name">${item.name}</div>
+                  </div>
+                  <div class="price-box">
+                    <span class="price">${item.price}</span>
+                    <span class="price-unit">${item.unit}</span>
+                  </div>
+                </div>
+                <p class="plan-desc">${item.desc}</p>
+              </div>
+
+              <div>
+                <div class="url-box" style="margin-bottom: 12px;">
+                  <span>${item.url}</span>
+                </div>
+                <div class="btn-group">
+                  <button class="btn btn-primary" onclick="copyDecoded('${encodedUrl}', 'คัดลอกลิงก์ ${item.name} แล้ว!')">
+                    🔗 Copy ลิงก์
+                  </button>
+                  <button class="btn btn-secondary" onclick="copyDecoded('${encodedMsg}', 'คัดลอกข้อความพร้อมส่ง ${item.name} แล้ว!')">
+                    💬 Copy ข้อความส่งลูกค้า
+                  </button>
+                  <a class="btn btn-open" href="${item.url}" target="_blank" rel="noopener noreferrer">
+                    ↗️ เปิดหน้าชำระเงินทดสอบในแท็บใหม่
+                  </a>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        secEl.innerHTML = `
+          <div class="section-header">
+            <h2>${sec.title}</h2>
+            <span class="section-tag">${sec.tag}</span>
+          </div>
+          <div class="grid">${cardsHtml}</div>
+        `;
+        container.appendChild(secEl);
+      });
+    }
+
+    function filterCategory(cat, btn) {
+      activeCategory = cat;
+      document.querySelectorAll('.tab-btn').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCatalog();
+    }
+
+    function copyDecoded(encodedText, label) {
+      const text = decodeURIComponent(encodedText);
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(label);
+      }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showToast(label);
+      });
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = '✅ ' + msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        t.classList.remove('show');
+      }, 2400);
+    }
+
+    renderCatalog();
+  </script>
+</body>
+</html>

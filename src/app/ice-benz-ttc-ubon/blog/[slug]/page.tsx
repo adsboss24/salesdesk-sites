@@ -58,7 +58,7 @@ export default async function BenzArticlePage({ params }: Props) {
     notFound();
   }
 
-  const siteUrl = 'https://salesdesk-sites.vercel.app';
+  const siteUrl = 'https://sites.salesdesk-ai.com';
   const articleUrl = `${siteUrl}/ice-benz-ttc-ubon/blog/${post.slug}`;
   const fullImageUrl = post.featuredImage.startsWith('http')
     ? post.featuredImage

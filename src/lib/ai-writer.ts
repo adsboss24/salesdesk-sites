@@ -39,7 +39,7 @@ export async function generateSeoArticle(
   const ai = new GoogleGenAI({ apiKey });
 
   const prompt = `
-You are the Chief Conversion Rate Architect & Technical SEO Strategist for "SalesDesk Sites" (https://salesdesk-sites.vercel.app).
+You are the Chief Conversion Rate Architect & Technical SEO Strategist for "SalesDesk Sites" (https://sites.salesdesk-ai.com).
 SalesDesk Sites creates premium 16:9 Psychological Salepages and High-Speed Web Applications that load in 0.8s, eliminating the problem of "chat leads going silent" and maximizing conversion rates for Facebook Ads & Google Ads.
 
 Your task is to write a comprehensive, high-ranking SEO article based on:

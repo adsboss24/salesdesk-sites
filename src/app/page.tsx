@@ -278,7 +278,7 @@ export default function HomePage() {
     },
   ];
 
-  const siteUrl = 'https://salesdesk-sites.vercel.app';
+  const siteUrl = 'https://sites.salesdesk-ai.com';
 
   const jsonLd = {
     '@context': 'https://schema.org',

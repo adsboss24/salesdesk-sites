@@ -30,7 +30,7 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const siteUrl = 'https://salesdesk-sites.vercel.app';
+const siteUrl = 'https://sites.salesdesk-ai.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

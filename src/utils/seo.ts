@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-export const DEFAULT_SITE_URL = 'https://salesdesk-sites.vercel.app';
+export const DEFAULT_SITE_URL = 'https://sites.salesdesk-ai.com';
 export const DEFAULT_SITE_NAME = 'SalesDesk Sites';
 export const DEFAULT_LOCALE = 'th_TH';
 export const DEFAULT_OG_IMAGE = `${DEFAULT_SITE_URL}/images/hero-desktop.png`;

@@ -3,7 +3,7 @@ import { getAllPosts } from '@/lib/posts';
 import { getAllBenzPosts } from '@/lib/benz-posts';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://salesdesk-sites.vercel.app';
+  const baseUrl = 'https://sites.salesdesk-ai.com';
   const currentDate = new Date();
 
   // 1. Static Core Landing & Hub Routes

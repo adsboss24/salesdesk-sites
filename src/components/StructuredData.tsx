@@ -41,7 +41,7 @@ export function generateArticleSchema({
   dateModified,
   authorName = 'ทีมงาน SalesDesk AI',
   publisherName = 'SalesDesk Sites',
-  publisherLogo = 'https://salesdesk-sites.vercel.app/images/salesdesk-logo-square.png',
+  publisherLogo = 'https://sites.salesdesk-ai.com/images/salesdesk-logo-square.png',
 }: {
   url: string;
   headline: string;

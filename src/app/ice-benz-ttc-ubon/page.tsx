@@ -159,12 +159,12 @@ export default function IceBenzTTCUbonSalepage() {
   const localBusinessSchema = {
     '@context': 'https://schema.org',
     '@type': 'AutoDealer',
-    '@id': 'https://salesdesk-sites.vercel.app/ice-benz-ttc-ubon#dealer',
+    '@id': 'https://sites.salesdesk-ai.com/ice-benz-ttc-ubon#dealer',
     name: 'ICE LUXURY AUTO - Certified Mercedes-Benz & AMG Specialist',
-    image: 'https://salesdesk-sites.vercel.app/images/benz/hero-benz.jpg',
+    image: 'https://sites.salesdesk-ai.com/images/benz/hero-benz.jpg',
     telephone: realPhone,
     email: realEmail,
-    url: 'https://salesdesk-sites.vercel.app/ice-benz-ttc-ubon',
+    url: 'https://sites.salesdesk-ai.com/ice-benz-ttc-ubon',
     sameAs: [fbPageUrl, tiktokUrl],
     priceRange: '฿฿฿฿฿',
     address: {
@@ -190,17 +190,17 @@ export default function IceBenzTTCUbonSalepage() {
       position: index + 1,
       item: {
         '@type': 'BlogPosting',
-        '@id': `https://salesdesk-sites.vercel.app/ice-benz-ttc-ubon/blog/${article.slug}`,
+        '@id': `https://sites.salesdesk-ai.com/ice-benz-ttc-ubon/blog/${article.slug}`,
         headline: article.title,
         description: article.metaDescription,
-        image: `https://salesdesk-sites.vercel.app${article.featuredImage}`,
+        image: `https://sites.salesdesk-ai.com${article.featuredImage}`,
         author: {
           '@type': 'Person',
           name: article.author,
           jobTitle: article.authorRole,
         },
         datePublished: article.publishedAt,
-        url: `https://salesdesk-sites.vercel.app/ice-benz-ttc-ubon/blog/${article.slug}`,
+        url: `https://sites.salesdesk-ai.com/ice-benz-ttc-ubon/blog/${article.slug}`,
       },
     })),
   };

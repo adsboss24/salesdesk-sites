@@ -131,7 +131,7 @@ export async function GET(request: NextRequest) {
                 fontWeight: 700,
               }}
             >
-              salesdesk-sites.vercel.app
+              sites.salesdesk-ai.com
             </span>
           </div>
         </div>

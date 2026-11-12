@@ -75,7 +75,7 @@ export async function GET(request: Request) {
     const planId = urlObj.searchParams.get('plan') || urlObj.searchParams.get('planId') || 'starter';
     const customerName = urlObj.searchParams.get('name') || urlObj.searchParams.get('customerName') || undefined;
     const customerEmail = urlObj.searchParams.get('email') || urlObj.searchParams.get('customerEmail') || undefined;
-    const origin = urlObj.origin || 'https://salesdesk-sites.vercel.app';
+    const origin = urlObj.origin || 'https://sites.salesdesk-ai.com';
 
     const result = await createCheckoutSession(planId, origin, customerName, customerEmail);
     if (result.url) {
@@ -85,7 +85,7 @@ export async function GET(request: Request) {
     return NextResponse.redirect(`${origin}/#pricing`, 302);
   } catch (err: any) {
     console.error('Stripe GET Checkout Error:', err);
-    return NextResponse.redirect('https://salesdesk-sites.vercel.app/#pricing', 302);
+    return NextResponse.redirect('https://sites.salesdesk-ai.com/#pricing', 302);
   }
 }
 
@@ -93,7 +93,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json().catch(() => ({}));
     const { planId = 'pro', customerEmail, customerName } = body;
-    const origin = request.headers.get('origin') || 'https://salesdesk-sites.vercel.app';
+    const origin = request.headers.get('origin') || 'https://sites.salesdesk-ai.com';
 
     const result = await createCheckoutSession(planId, origin, customerName, customerEmail);
     if (result.error) {

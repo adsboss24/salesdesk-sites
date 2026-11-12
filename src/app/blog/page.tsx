@@ -5,7 +5,7 @@ import { Calendar, Clock, ArrowRight, Sparkles, BookOpen } from 'lucide-react';
 import PremiumFooter from '@/components/Footer';
 import { getAllPosts } from '@/lib/posts';
 
-const siteUrl = 'https://salesdesk-sites.vercel.app';
+const siteUrl = 'https://sites.salesdesk-ai.com';
 
 export const metadata: Metadata = {
   title: 'คลังความรู้ & กลยุทธ์เซลเพจปิดการขาย | SalesDesk Sites Knowledge Hub',

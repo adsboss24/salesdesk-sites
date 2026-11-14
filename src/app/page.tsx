@@ -366,7 +366,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-teal-500 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-teal-500 selection:text-white overflow-x-clip">
       
       {/* Advanced JSON-LD Structured Data for Google Rich Results */}
       <script
@@ -379,8 +379,8 @@ export default function HomePage() {
         <span>🚀 ขับเคลื่อนด้วย SalesDesk AI Engine • เซลเพจปิดการขายระดับพรีเมียม โครงสร้าง SEO ดันติดหน้า 1 Google • ส่งงานใน 24-48 ชม.</span>
       </div>
 
-      {/* 2. HEADER NAVIGATION */}
-      <header className="sticky top-0 z-40 bg-slate-950/90 backdrop-blur-md border-b border-slate-800">
+      {/* 2. HEADER NAVIGATION (Sticky on scroll) */}
+      <header className="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 shadow-lg shadow-black/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
           
           {/* Logo SalesDesk AI */}

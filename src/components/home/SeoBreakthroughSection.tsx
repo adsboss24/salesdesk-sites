@@ -15,7 +15,9 @@ import {
   ArrowRight,
   CheckCircle2,
   ExternalLink,
+  MessageCircle,
 } from "lucide-react";
+import TrackableLineButton from "@/components/TrackableLineButton";
 
 export default function SeoBreakthroughSection() {
   return (
@@ -174,15 +176,14 @@ export default function SeoBreakthroughSection() {
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                <a
-                  href="https://seo.salesdesk-ai.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-sky-500 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-base shadow-xl shadow-blue-500/30 transition transform hover:-translate-y-0.5"
+                <TrackableLineButton
+                  href="https://line.me/R/ti/p/@fhu6688s?text=สนใจขอชมเดโมระบบ_SalesDesk_SEO_Command_Center_ครับ"
+                  buttonName="seo_demo_cta_line"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-base shadow-xl shadow-emerald-500/25 transition transform hover:-translate-y-0.5 active:scale-95"
                 >
-                  <ExternalLink className="h-5 w-5" />
-                  ส่องระบบจริงที่ SalesDesk SEO Command Center
-                </a>
+                  <MessageCircle className="h-5 w-5" />
+                  ขอชมเดโมระบบจริง &amp; ปรึกษาผู้เชี่ยวชาญผ่าน LINE
+                </TrackableLineButton>
 
                 <a
                   href="#pricing"

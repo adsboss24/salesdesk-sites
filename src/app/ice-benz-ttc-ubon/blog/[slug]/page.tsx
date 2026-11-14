@@ -4,9 +4,11 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Calendar, Clock, User, ArrowLeft, Sparkles, PhoneCall, MessageCircle, Star } from 'lucide-react';
 import SocialShare from '@/components/blog/SocialShare';
-import { getAllBenzPosts, getBenzPostBySlug } from '@/lib/benz-posts';
+import { getAllBenzPosts, fetchLiveBenzPostBySlug } from '@/lib/benz-posts';
 import StructuredData from '@/components/StructuredData';
 import { constructMetadata } from '@/utils/seo';
+
+export const dynamic = 'force-dynamic';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -21,7 +23,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBenzPostBySlug(slug);
+  const post = await fetchLiveBenzPostBySlug(slug);
 
   if (!post) {
     return {
@@ -52,7 +54,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BenzArticlePage({ params }: Props) {
   const { slug } = await params;
-  const post = getBenzPostBySlug(slug);
+  const post = await fetchLiveBenzPostBySlug(slug);
 
   if (!post) {
     notFound();

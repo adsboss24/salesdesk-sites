@@ -206,6 +206,66 @@ export const benzPosts: BenzPost[] = [
   },
 ];
 
+export function mergeWithRemoteBenzPosts(remotePosts: Partial<BenzPost>[]): BenzPost[] {
+  const localBySlug = new Map(benzPosts.map((p) => [p.slug, p]));
+  const merged = new Map<string, BenzPost>();
+
+  for (const remote of remotePosts) {
+    if (!remote.slug || !remote.title) continue;
+    const existing = localBySlug.get(remote.slug);
+    merged.set(remote.slug, {
+      id: String(remote.id || existing?.id || remote.slug),
+      slug: remote.slug,
+      title: remote.title,
+      metaDescription: remote.metaDescription || existing?.metaDescription || remote.title,
+      content: remote.content || existing?.content || `<p>${remote.metaDescription || remote.title}</p>`,
+      featuredImage: existing?.featuredImage || '/images/benz/e-class-real.jpg',
+      imageAlt: remote.imageAlt || existing?.imageAlt || remote.title,
+      author: remote.author || 'คุณไอซ์ (Ice)',
+      authorRole: remote.authorRole || 'Certified Mercedes-Benz & AMG Specialist',
+      category: remote.category || 'Mercedes-Benz Review',
+      readTime: remote.readTime || '6 นาที',
+      published: remote.published !== false,
+      publishedAt: remote.publishedAt
+        ? new Date(remote.publishedAt).toISOString()
+        : existing?.publishedAt || new Date().toISOString(),
+      updatedAt: remote.updatedAt
+        ? new Date(remote.updatedAt).toISOString()
+        : existing?.updatedAt || new Date().toISOString(),
+    });
+  }
+
+  for (const local of benzPosts) {
+    if (local.published && !merged.has(local.slug)) {
+      merged.set(local.slug, local);
+    }
+  }
+
+  return Array.from(merged.values());
+}
+
+export async function fetchAllLiveBenzPosts(): Promise<BenzPost[]> {
+  try {
+    const res = await fetch('https://seo.salesdesk-ai.com/api/seo/posts?client=ice-benz-ttc-ubon', {
+      cache: 'no-store',
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success && Array.isArray(data.posts)) {
+        return mergeWithRemoteBenzPosts(data.posts);
+      }
+    }
+  } catch {
+    // Fallback to local
+  }
+  return getAllBenzPosts();
+}
+
+export async function fetchLiveBenzPostBySlug(slug: string): Promise<BenzPost | undefined> {
+  const all = await fetchAllLiveBenzPosts();
+  return all.find((p) => p.slug === slug && p.published);
+}
+
 export function getAllBenzPosts(): BenzPost[] {
   return benzPosts.filter((p) => p.published);
 }

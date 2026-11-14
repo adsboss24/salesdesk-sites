@@ -82,7 +82,24 @@ export default function IceBenzTTCUbonSalepage() {
   const [activeCarTab, setActiveCarTab] = useState<'all' | 'sedan' | 'suv' | 'amg' | 'smart'>('all');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const articles = getAllBenzPosts();
+  const [articles, setArticles] = useState(() => getAllBenzPosts());
+
+  React.useEffect(() => {
+    let active = true;
+    fetch('https://seo.salesdesk-ai.com/api/seo/posts?client=ice-benz-ttc-ubon', { cache: 'no-store' })
+      .then((res) => res.json())
+      .then((data) => {
+        if (active && data?.success && Array.isArray(data.posts) && data.posts.length > 0) {
+          import('@/lib/benz-posts').then(({ mergeWithRemoteBenzPosts }) => {
+            if (active) setArticles(mergeWithRemoteBenzPosts(data.posts));
+          });
+        }
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
 
   // Carousel slider state for Articles Hub
   const articleSliderRef = React.useRef<HTMLDivElement>(null);

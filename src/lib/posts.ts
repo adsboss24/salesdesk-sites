@@ -87,7 +87,7 @@ export const posts: Post[] = [
       <h2>การันตีผลลัพธ์ด้วยสถาปัตยกรรมโหลดเร็ว 0.8 วินาที</h2>
       <p>งานวิจัยด้าน E-Commerce ระดับโลกยืนยันว่า เว็บไซต์ที่โหลดช้าเกิน 3 วินาที จะสูญเสียลูกค้าไปมากกว่า 53% สตูดิโอ SalesDesk Sites พัฒนาด้วย Next.js และ Edge CDN สากล ทำให้หน้าเว็บเปิดได้ทันทีใน 0.8 วิ ส่งผลให้ลูกค้าไม่กดปิดหนี และดันอัตรา Conversion Rate สูงกว่าการยิงเข้าแชตถึง 3 เท่า</p>
     `,
-    featuredImage: '/images/hero-desktop.png',
+    featuredImage: '/images/covers/cover-salepage-psychology.jpg',
     imageAlt: 'SalesDesk Sites Psychological Salepage Strategy',
     author: 'ทีมสถาปัตยกรรม SalesDesk AI',
     authorRole: 'Conversion Rate Architect',
@@ -218,26 +218,87 @@ export const posts: Post[] = [
 ];
 
 const CURATED_BLOG_IMAGES = [
+  '/images/covers/cover-salepage-psychology.jpg',
+  '/images/covers/cover-cod-facebook-ads.jpg',
+  '/images/covers/cover-technical-seo-schema.jpg',
+  '/images/covers/cover-speed-core-web-vitals.jpg',
   '/images/line-oa-cards/06-salesdesk-ai-closing.jpg',
-  '/images/hero-ai.png',
-  '/images/line-oa-cards/05-online-course.jpg',
-  '/images/line-oa-cards/02-fashion-ecommerce.jpg',
   '/images/line-oa-cards/04-wealth-insurance.jpg',
-  '/images/line-oa-cards/03-luxury-poolvilla.jpg',
+  '/images/line-oa-cards/02-fashion-ecommerce.jpg',
   '/images/line-oa-cards/01-healthcare-seniorliving.jpg',
 ];
 
-function pickDistinctImage(slug: string, rawImage?: string): string {
+function pickDistinctImage(
+  slug: string,
+  rawImage?: string,
+  title?: string,
+  focusKeyword?: string,
+  category?: string
+): string {
   if (slug === 'outrank-competitors-google-first-page-ai-seo') {
     return '/images/seo-google-rank1-hero.jpg';
   }
+  if (rawImage && rawImage.startsWith('/images/covers/')) {
+    return rawImage;
+  }
+
+  const combined = `${title || ''} ${focusKeyword || ''} ${category || ''} ${slug}`.toLowerCase();
+
+  if (
+    combined.includes('cod') ||
+    combined.includes('ทักแล้วเงียบ') ||
+    combined.includes('facebook') ||
+    combined.includes('ยิงแอด') ||
+    combined.includes('checkout') ||
+    combined.includes('no-reply')
+  ) {
+    return '/images/covers/cover-cod-facebook-ads.jpg';
+  }
+
+  if (
+    combined.includes('0.8') ||
+    combined.includes('สปีด') ||
+    combined.includes('ความเร็ว') ||
+    combined.includes('speed') ||
+    combined.includes('vitals') ||
+    combined.includes('bounce') ||
+    combined.includes('pagespeed')
+  ) {
+    return '/images/covers/cover-speed-core-web-vitals.jpg';
+  }
+
+  if (
+    combined.includes('schema') ||
+    combined.includes('semantic') ||
+    combined.includes('faq') ||
+    combined.includes('local seo') ||
+    combined.includes('maps') ||
+    combined.includes('เทคนิคทำ seo') ||
+    combined.includes('ติดหน้าแรก')
+  ) {
+    return '/images/covers/cover-technical-seo-schema.jpg';
+  }
+
+  if (
+    combined.includes('จิตวิทยา') ||
+    combined.includes('16:9') ||
+    combined.includes('fomo') ||
+    combined.includes('conversion') ||
+    combined.includes('เซลเพจหน้าเดียว')
+  ) {
+    return '/images/covers/cover-salepage-psychology.jpg';
+  }
+
   if (
     rawImage &&
     rawImage.startsWith('/images/') &&
-    rawImage !== '/images/seo-google-rank1-hero.jpg'
+    rawImage !== '/images/seo-google-rank1-hero.jpg' &&
+    rawImage !== '/images/hero-desktop.png' &&
+    rawImage !== '/images/hero-ai.png'
   ) {
     return rawImage;
   }
+
   let hash = 0;
   for (let i = 0; i < slug.length; i++) {
     hash = (hash * 31 + slug.charCodeAt(i)) >>> 0;
@@ -266,7 +327,13 @@ export function mergeWithRemotePosts(remotePosts: Partial<Post>[]): Post[] {
       metaDescription: remote.metaDescription || existingLocal?.metaDescription || remote.title,
       focusKeyword: remote.focusKeyword || existingLocal?.focusKeyword,
       content: remote.content || existingLocal?.content || `<p>${remote.metaDescription || remote.title}</p>`,
-      featuredImage: existingLocal?.featuredImage || pickDistinctImage(remote.slug, remote.featuredImage),
+      featuredImage: pickDistinctImage(
+        remote.slug,
+        existingLocal?.featuredImage || remote.featuredImage,
+        remote.title,
+        remote.focusKeyword,
+        remote.category
+      ),
       imageAlt: remote.imageAlt || existingLocal?.imageAlt || remote.title,
       author: remote.author || existingLocal?.author || 'ทีมสถาปัตยกรรม SalesDesk AI',
       authorRole: remote.authorRole || existingLocal?.authorRole || 'Chief SEO & Conversion Architect',

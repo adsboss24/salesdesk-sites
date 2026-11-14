@@ -238,11 +238,22 @@ function pickDistinctImage(
   if (slug === 'outrank-competitors-google-first-page-ai-seo') {
     return '/images/seo-google-rank1-hero.jpg';
   }
-  if (rawImage && rawImage.startsWith('/images/covers/')) {
-    return rawImage;
+  if (
+    rawImage &&
+    (rawImage.includes('/api/seo/cover') ||
+      rawImage.startsWith('/images/covers/') ||
+      rawImage.startsWith('/images/benz/'))
+  ) {
+    return rawImage.startsWith('/api/seo/cover')
+      ? `https://seo.salesdesk-ai.com${rawImage}`
+      : rawImage;
   }
 
   const combined = `${title || ''} ${focusKeyword || ''} ${category || ''} ${slug}`.toLowerCase();
+
+  if (combined.includes('benz') || combined.includes('เบนซ์') || combined.includes('amg') || combined.includes('smart')) {
+    return '/images/benz/hero-benz-front.jpg';
+  }
 
   if (
     combined.includes('cod') ||
@@ -365,7 +376,7 @@ export function mergeWithRemotePosts(remotePosts: Partial<Post>[]): Post[] {
 
 export async function fetchAllLivePosts(): Promise<Post[]> {
   try {
-    const res = await fetch('https://seo.salesdesk-ai.com/api/seo/posts', {
+    const res = await fetch('https://seo.salesdesk-ai.com/api/seo/posts?client=all', {
       cache: 'no-store',
     });
     if (res.ok) {

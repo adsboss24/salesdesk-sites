@@ -207,6 +207,7 @@ export default async function BenzArticlePage({ params }: Props) {
             alt={post.imageAlt}
             fill
             priority
+            unoptimized={post.featuredImage.includes('/api/seo/cover')}
             sizes="(max-width: 896px) 100vw, 896px"
             className="object-cover"
           />

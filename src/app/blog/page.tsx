@@ -150,6 +150,7 @@ export default async function BlogListingPage() {
                   src={post.featuredImage}
                   alt={post.imageAlt || post.title}
                   fill
+                  unoptimized={post.featuredImage.includes('/api/seo/cover')}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover group-hover:scale-105 transition duration-500"
                 />

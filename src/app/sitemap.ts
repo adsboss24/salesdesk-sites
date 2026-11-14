@@ -25,6 +25,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 2. High-Converting Industry Showcase Salepages
   const showcaseRoutes: MetadataRoute.Sitemap = [
     {
+      url: `${baseUrl}/minmax-media`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/ice-benz-ttc-ubon`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

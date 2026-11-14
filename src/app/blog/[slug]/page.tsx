@@ -260,6 +260,7 @@ export default async function BlogPostPage({ params }: Props) {
             alt={post.imageAlt || post.title}
             fill
             priority
+            unoptimized={post.featuredImage.includes('/api/seo/cover')}
             sizes="(max-width: 768px) 100vw, 800px"
             className="object-cover"
           />

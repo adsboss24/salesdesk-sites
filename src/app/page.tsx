@@ -71,6 +71,24 @@ export default function HomePage() {
 
   const projects = [
     {
+      id: 'minmax-media',
+      category: 'service',
+      tag: 'Full-Service Marketing & Event Agency',
+      badgeColor: 'border-emerald-400/40 text-emerald-300',
+      title: 'MINMAX MEDIA',
+      subtitle: 'MinMax Media Event Agency รับทำการตลาดครบวงจร พร้อมปั้นแบรนด์',
+      desc: 'เซลเพจมาตรฐาน SalesDesk สถาปัตยกรรม Cinematic 16:9 สไตล์ Auto Dealer ที่จอมือถือไม่โดนข้อความบดบังตัวภาพ ครอบคลุม 6 เสาหลัก (Marketing Strategy, Production, Content, Influencer, Social Media, Performance Ads) พร้อมแถบปุ่มติดหน้าจอ (Fixed Mobile Action Bar) ตามมาตรฐานปิดการขายระดับสูง',
+      image: '/images/minmax/hero-16-9.jpg',
+      url: '/minmax-media',
+      accentColor: 'hover:border-emerald-400/50',
+      btnBg: 'bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-300 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-bold',
+      features: [
+        'สถาปัตยกรรม Hero 16:9 สไตล์ Auto Dealer ที่จอมือถือไม่บังภาพและพรีเซนเตอร์ 100%',
+        'แถบปุ่มด้านล่างตามมาตรฐาน SalesDesk (โทรด่วน, Messenger, แอดไลน์ @malakor)',
+        'เจาะลึก 6 บริการหลัก, ฟอร์ม Lead วิเคราะห์กลยุทธ์ฟรี และรองรับ SEO Schema เต็มสูบ',
+      ],
+    },
+    {
       id: 'benz-ttc-ubon',
       category: 'service',
       tag: 'Luxury Automotive & AMG Specialist',

@@ -1377,6 +1377,7 @@ export default function IceBenzTTCUbonSalepage() {
                     src={article.featuredImage}
                     alt={article.imageAlt}
                     fill
+                    unoptimized={article.featuredImage.includes('/api/seo/cover')}
                     sizes="(max-width: 640px) 86vw, (max-width: 1024px) 380px, 400px"
                     className="object-cover group-hover:scale-105 transition duration-500"
                   />

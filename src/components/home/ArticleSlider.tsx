@@ -29,7 +29,7 @@ export default function ArticleSlider({ posts: initialPosts }: ArticleSliderProp
 
   useEffect(() => {
     let active = true;
-    fetch('https://seo.salesdesk-ai.com/api/seo/posts', { cache: 'no-store' })
+    fetch('https://seo.salesdesk-ai.com/api/seo/posts?client=all', { cache: 'no-store' })
       .then((res) => res.json())
       .then((data) => {
         if (active && data?.success && Array.isArray(data.posts)) {
@@ -189,6 +189,7 @@ export default function ArticleSlider({ posts: initialPosts }: ArticleSliderProp
                     src={post.featuredImage}
                     alt={post.imageAlt || post.title}
                     fill
+                    unoptimized={post.featuredImage.includes('/api/seo/cover')}
                     sizes="(max-width: 640px) 90vw, (max-width: 1024px) 380px, 410px"
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     loading={idx < 3 ? 'eager' : 'lazy'}

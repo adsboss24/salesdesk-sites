@@ -54,8 +54,8 @@ export const benzPosts: BenzPost[] = [
     `,
     featuredImage: '/images/benz/amg-real.jpg',
     imageAlt: 'Mercedes-AMG High Performance One Man One Engine Guide',
-    author: 'คุณไอซ์ (Ice)',
-    authorRole: 'Certified Mercedes-Benz & AMG Specialist',
+    author: 'ไอซ์ อมิตา (Executive Sales Consultant)',
+    authorRole: 'Mercedes-Benz Certified Specialist',
     category: 'Mercedes-AMG Performance',
     readTime: '7 นาที',
     published: true,
@@ -94,8 +94,8 @@ export const benzPosts: BenzPost[] = [
     `,
     featuredImage: '/images/benz/e-class-real.jpg',
     imageAlt: 'Mercedes-Benz The New E-Class vs C-Class Comparison',
-    author: 'คุณไอซ์ (Ice)',
-    authorRole: 'Certified Mercedes-Benz & AMG Specialist',
+    author: 'ไอซ์ อมิตา (Executive Sales Consultant)',
+    authorRole: 'Mercedes-Benz Certified Specialist',
     category: 'เปรียบเทียบรุ่นรถยนต์',
     readTime: '6 นาที',
     published: true,
@@ -132,8 +132,8 @@ export const benzPosts: BenzPost[] = [
     `,
     featuredImage: '/images/benz/smart-real.jpg',
     imageAlt: 'smart 1 and smart 3 BRABUS Edition 100% EV',
-    author: 'คุณไอซ์ (Ice)',
-    authorRole: 'Certified Mercedes-Benz & AMG Specialist',
+    author: 'ไอซ์ อมิตา (Executive Sales Consultant)',
+    authorRole: 'Mercedes-Benz Certified Specialist',
     category: 'ยานยนต์ไฟฟ้า smart EV',
     readTime: '6 นาที',
     published: true,
@@ -165,8 +165,8 @@ export const benzPosts: BenzPost[] = [
     `,
     featuredImage: '/images/benz/glc-real.jpg',
     imageAlt: 'Mercedes-Benz Service Plus MBSP Maintenance Package',
-    author: 'คุณไอซ์ (Ice)',
-    authorRole: 'Certified Mercedes-Benz & AMG Specialist',
+    author: 'ไอซ์ อมิตา (Executive Sales Consultant)',
+    authorRole: 'Mercedes-Benz Certified Specialist',
     category: 'คู่มือการเป็นเจ้าของ (Ownership Guide)',
     readTime: '5 นาที',
     published: true,
@@ -196,8 +196,8 @@ export const benzPosts: BenzPost[] = [
     `,
     featuredImage: '/images/benz/cle-real.jpg',
     imageAlt: 'Mercedes-Benz Auto Loan and Tax Planning Guide',
-    author: 'คุณไอซ์ (Ice)',
-    authorRole: 'Certified Mercedes-Benz & AMG Specialist',
+    author: 'ไอซ์ อมิตา (Executive Sales Consultant)',
+    authorRole: 'Mercedes-Benz Certified Specialist',
     category: 'การเงิน & ภาษี (Financial Planning)',
     readTime: '6 นาที',
     published: true,
@@ -213,17 +213,24 @@ export function mergeWithRemoteBenzPosts(remotePosts: Partial<BenzPost>[]): Benz
   for (const remote of remotePosts) {
     if (!remote.slug || !remote.title) continue;
     const existing = localBySlug.get(remote.slug);
+    const resolvedCover =
+      remote.featuredImage &&
+      (remote.featuredImage.includes('/api/seo/cover') || remote.featuredImage.startsWith('/images/benz/'))
+        ? remote.featuredImage.startsWith('/api/seo/cover')
+          ? `https://seo.salesdesk-ai.com${remote.featuredImage}`
+          : remote.featuredImage
+        : existing?.featuredImage || '/images/benz/hero-benz-front.jpg';
     merged.set(remote.slug, {
       id: String(remote.id || existing?.id || remote.slug),
       slug: remote.slug,
-      title: remote.title,
-      metaDescription: remote.metaDescription || existing?.metaDescription || remote.title,
-      content: remote.content || existing?.content || `<p>${remote.metaDescription || remote.title}</p>`,
-      featuredImage: existing?.featuredImage || '/images/benz/e-class-real.jpg',
-      imageAlt: remote.imageAlt || existing?.imageAlt || remote.title,
-      author: remote.author || 'คุณไอซ์ (Ice)',
-      authorRole: remote.authorRole || 'Certified Mercedes-Benz & AMG Specialist',
-      category: remote.category || 'Mercedes-Benz Review',
+      title: remote.title.replace(/ไอซ์ ภัทรียา/g, 'ไอซ์ อมิตา'),
+      metaDescription: (remote.metaDescription || existing?.metaDescription || remote.title).replace(/ไอซ์ ภัทรียา/g, 'ไอซ์ อมิตา'),
+      content: (remote.content || existing?.content || `<p>${remote.metaDescription || remote.title}</p>`).replace(/ไอซ์ ภัทรียา/g, 'ไอซ์ อมิตา'),
+      featuredImage: resolvedCover,
+      imageAlt: (remote.imageAlt || existing?.imageAlt || remote.title).replace(/ไอซ์ ภัทรียา/g, 'ไอซ์ อมิตา'),
+      author: (remote.author || 'ไอซ์ อมิตา (Executive Sales Consultant)').replace(/ไอซ์ ภัทรียา/g, 'ไอซ์ อมิตา'),
+      authorRole: (remote.authorRole || 'Mercedes-Benz Certified Specialist').split(' | client:')[0].trim(),
+      category: remote.category || 'Mercedes-Benz & Luxury Auto',
       readTime: remote.readTime || '6 นาที',
       published: remote.published !== false,
       publishedAt: remote.publishedAt

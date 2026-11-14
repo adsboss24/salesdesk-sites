@@ -3,7 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, Clock, ArrowRight, Sparkles, BookOpen } from 'lucide-react';
 import PremiumFooter from '@/components/Footer';
-import { getAllPosts } from '@/lib/posts';
+import { fetchAllLivePosts } from '@/lib/posts';
+
+export const dynamic = 'force-dynamic';
 
 const siteUrl = 'https://sites.salesdesk-ai.com';
 
@@ -34,8 +36,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogListingPage() {
-  const posts = getAllPosts();
+export default async function BlogListingPage() {
+  const posts = await fetchAllLivePosts();
 
   // Structured Data for Blog Collection
   const jsonLd = {

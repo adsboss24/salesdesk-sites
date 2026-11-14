@@ -14,17 +14,35 @@ import {
   TrendingUp,
   UserCheck
 } from 'lucide-react';
-import { Post } from '@/lib/posts';
+import { Post, mergeWithRemotePosts } from '@/lib/posts';
 
 interface ArticleSliderProps {
   posts: Post[];
 }
 
-export default function ArticleSlider({ posts }: ArticleSliderProps) {
+export default function ArticleSlider({ posts: initialPosts }: ArticleSliderProps) {
+  const [posts, setPosts] = useState<Post[]>(initialPosts);
   const sliderRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    let active = true;
+    fetch('https://seo.salesdesk-ai.com/api/seo/posts', { cache: 'no-store' })
+      .then((res) => res.json())
+      .then((data) => {
+        if (active && data?.success && Array.isArray(data.posts)) {
+          setPosts(mergeWithRemotePosts(data.posts));
+        }
+      })
+      .catch(() => {
+        // Keep initialPosts if offline
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const checkScrollState = () => {
     if (!sliderRef.current) return;

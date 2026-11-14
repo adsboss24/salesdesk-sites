@@ -1,14 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowRight, Clock } from 'lucide-react';
-import { getRelatedPosts } from '@/lib/posts';
+import { fetchLiveRelatedPosts } from '@/lib/posts';
 
 interface RelatedPostsProps {
   currentSlug: string;
 }
 
-export default function RelatedPosts({ currentSlug }: RelatedPostsProps) {
-  const related = getRelatedPosts(currentSlug, 2);
+export default async function RelatedPosts({ currentSlug }: RelatedPostsProps) {
+  const related = await fetchLiveRelatedPosts(currentSlug, 2);
 
   if (related.length === 0) return null;
 

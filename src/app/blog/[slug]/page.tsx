@@ -6,13 +6,15 @@ import { Calendar, Clock, User, ArrowLeft, Sparkles } from 'lucide-react';
 import RelatedPosts from '@/components/blog/RelatedPosts';
 import SocialShare from '@/components/blog/SocialShare';
 import PremiumFooter from '@/components/Footer';
-import { getPostBySlug, getAllPosts } from '@/lib/posts';
+import { fetchLivePostBySlug, getAllPosts } from '@/lib/posts';
+
+export const dynamic = 'force-dynamic';
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
-// 1. Static Generation of All Articles for 0.8s Instant Load
+// 1. Static Generation of Core Articles + Dynamic Live Fallback
 export async function generateStaticParams() {
   const posts = getAllPosts();
   return posts.map((post) => ({
@@ -23,7 +25,7 @@ export async function generateStaticParams() {
 // 2. Dynamic SEO Metadata Generation
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await fetchLivePostBySlug(slug);
 
   if (!post) {
     return {
@@ -92,7 +94,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // 3. Dynamic Article Page Component
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const post = await fetchLivePostBySlug(slug);
 
   if (!post) {
     notFound();

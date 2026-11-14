@@ -217,6 +217,112 @@ export const posts: Post[] = [
   },
 ];
 
+const CURATED_BLOG_IMAGES = [
+  '/images/line-oa-cards/06-salesdesk-ai-closing.jpg',
+  '/images/hero-ai.png',
+  '/images/line-oa-cards/05-online-course.jpg',
+  '/images/line-oa-cards/02-fashion-ecommerce.jpg',
+  '/images/line-oa-cards/04-wealth-insurance.jpg',
+  '/images/line-oa-cards/03-luxury-poolvilla.jpg',
+  '/images/line-oa-cards/01-healthcare-seniorliving.jpg',
+];
+
+function pickDistinctImage(slug: string, rawImage?: string): string {
+  if (slug === 'outrank-competitors-google-first-page-ai-seo') {
+    return '/images/seo-google-rank1-hero.jpg';
+  }
+  if (
+    rawImage &&
+    rawImage.startsWith('/images/') &&
+    rawImage !== '/images/seo-google-rank1-hero.jpg'
+  ) {
+    return rawImage;
+  }
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) {
+    hash = (hash * 31 + slug.charCodeAt(i)) >>> 0;
+  }
+  return CURATED_BLOG_IMAGES[hash % CURATED_BLOG_IMAGES.length];
+}
+
+export function mergeWithRemotePosts(remotePosts: Partial<Post>[]): Post[] {
+  const localBySlug = new Map(posts.map((p) => [p.slug, p]));
+  const mergedMap = new Map<string, Post>();
+
+  // 1. Always keep our #1 Pillar Post at the very top
+  const pillarPost = localBySlug.get('outrank-competitors-google-first-page-ai-seo');
+  if (pillarPost) {
+    mergedMap.set(pillarPost.slug, pillarPost);
+  }
+
+  // 2. Add live remote posts from Supabase (sorted newest first)
+  for (const remote of remotePosts) {
+    if (!remote.slug || !remote.title) continue;
+    const existingLocal = localBySlug.get(remote.slug);
+    const normalized: Post = {
+      id: String(remote.id || existingLocal?.id || remote.slug),
+      slug: remote.slug,
+      title: remote.title,
+      metaDescription: remote.metaDescription || existingLocal?.metaDescription || remote.title,
+      focusKeyword: remote.focusKeyword || existingLocal?.focusKeyword,
+      content: remote.content || existingLocal?.content || `<p>${remote.metaDescription || remote.title}</p>`,
+      featuredImage: existingLocal?.featuredImage || pickDistinctImage(remote.slug, remote.featuredImage),
+      imageAlt: remote.imageAlt || existingLocal?.imageAlt || remote.title,
+      author: remote.author || existingLocal?.author || 'ทีมสถาปัตยกรรม SalesDesk AI',
+      authorRole: remote.authorRole || existingLocal?.authorRole || 'Chief SEO & Conversion Architect',
+      category: remote.category || existingLocal?.category || 'กลยุทธ์เซลเพจ & Conversion',
+      readTime: remote.readTime || existingLocal?.readTime || '5 นาที',
+      published: remote.published !== false,
+      publishedAt: remote.publishedAt
+        ? new Date(remote.publishedAt).toISOString()
+        : existingLocal?.publishedAt || new Date().toISOString(),
+      updatedAt: remote.updatedAt
+        ? new Date(remote.updatedAt).toISOString()
+        : existingLocal?.updatedAt || new Date().toISOString(),
+    };
+
+    if (normalized.published && !mergedMap.has(normalized.slug)) {
+      mergedMap.set(normalized.slug, normalized);
+    }
+  }
+
+  // 3. Append any remaining local posts
+  for (const local of posts) {
+    if (local.published && !mergedMap.has(local.slug)) {
+      mergedMap.set(local.slug, local);
+    }
+  }
+
+  return Array.from(mergedMap.values());
+}
+
+export async function fetchAllLivePosts(): Promise<Post[]> {
+  try {
+    const res = await fetch('https://seo.salesdesk-ai.com/api/seo/posts', {
+      cache: 'no-store',
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.success && Array.isArray(data.posts)) {
+        return mergeWithRemotePosts(data.posts);
+      }
+    }
+  } catch (err) {
+    console.warn('Fallback to local posts:', err);
+  }
+  return getAllPosts();
+}
+
+export async function fetchLivePostBySlug(slug: string): Promise<Post | undefined> {
+  const all = await fetchAllLivePosts();
+  return all.find((p) => p.slug === slug && p.published);
+}
+
+export async function fetchLiveRelatedPosts(currentSlug: string, limit = 2): Promise<Post[]> {
+  const all = await fetchAllLivePosts();
+  return all.filter((p) => p.slug !== currentSlug && p.published).slice(0, limit);
+}
+
 export function getAllPosts(): Post[] {
   return posts.filter((p) => p.published);
 }

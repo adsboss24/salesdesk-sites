@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { getAllPosts } from '@/lib/posts';
+import { fetchAllLivePosts } from '@/lib/posts';
 import { getAllBenzPosts } from '@/lib/benz-posts';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -80,8 +80,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ];
 
-  // 3. Dynamic Knowledge Hub Articles (fetching from DB or Post Repository)
-  const posts = getAllPosts();
+  // 3. Dynamic Knowledge Hub Articles (fetching live from DB + Post Repository)
+  const posts = await fetchAllLivePosts();
   const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.updatedAt || post.publishedAt),

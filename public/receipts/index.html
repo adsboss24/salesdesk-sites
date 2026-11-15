@@ -636,6 +636,16 @@
         <label>วันที่ออกเอกสาร</label>
         <input type="text" id="inputDate" value="15 พฤศจิกายน 2569" oninput="updateReceiptData()">
       </div>
+      <div class="form-group" id="formGroupValidity">
+        <label style="color: #f59e0b; font-weight: 700;">⏱️ ระยะเวลายืนยันราคา (Quotation Validity)</label>
+        <select id="inputValidityDays" onchange="updateReceiptData()" style="width: 100%; padding: 7px 10px; background: #0f172a; border: 1px solid #f59e0b; border-radius: 6px; color: #fef3c7; font-size: 13px; font-weight: 600;">
+          <option value="⏱️ ยืนยันราคาพิเศษ 3 วัน" selected>⚡ 3 วัน (เร่งการตัดสินใจ - ราคาโปรพิเศษ แนะนำ)</option>
+          <option value="⏱️ ยืนยันราคา 7 วัน">📅 7 วัน (มาตรฐานทั่วไป)</option>
+          <option value="⏱️ ยืนยันราคา 15 วัน">🏢 15 วัน (โครงการใหญ่ B2B)</option>
+          <option value="⏱️ ยืนยันราคา 24 ชั่วโมง">🔥 24 ชั่วโมง (Flash Offer)</option>
+          <option value="⏱️ กำหนดชำระภายใน 16 พ.ย. 2569">📌 ภายใน 16 พ.ย. 2569 (ตรงกับวันพรุ่งนี้)</option>
+        </select>
+      </div>
       <div class="form-group">
         <label>ชื่อลูกค้า / นิติบุคคล (Customer Name)</label>
         <input type="text" id="inputCustomerName" value="บริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด" oninput="updateReceiptData()">
@@ -899,7 +909,7 @@
         titleEl.textContent = 'ใบเสนอราคา';
         subEl.textContent = 'QUOTATION (NON-VAT)';
         badgeEl.className = 'badge-status badge-quotation';
-        badgeEl.textContent = '⏱️ ยืนยันราคา 15 วัน';
+        badgeEl.textContent = document.getElementById('inputValidityDays')?.value || '⏱️ ยืนยันราคาพิเศษ 3 วัน';
         clientLabel.textContent = 'เรียน (ATTN TO)';
         payLabel.textContent = 'เงื่อนไขการชำระเงิน (PAYMENT TERMS)';
         payBody.innerHTML = '<strong>การชำระเงิน:</strong> ชำระมัดจำเพื่อเริ่มงาน หรือชำระเต็มจำนวน<br><strong>ธนาคาร:</strong> เกียรตินาคินภัทร (KKP) เลขที่ 2061291340<br><strong>ชื่อบัญชี:</strong> มานพ ฤาชุตกุล<br><strong>กำหนดส่งมอบงาน:</strong> 24–48 ชม. หลังได้รับข้อมูล';
@@ -1045,6 +1055,10 @@
       }
 
       document.getElementById('dispRefNo').textContent = refNo;
+      if (currentDocType === 'QUOTATION') {
+        const valBadge = document.getElementById('inputValidityDays')?.value || '⏱️ ยืนยันราคาพิเศษ 3 วัน';
+        document.getElementById('dispReceiptBadge').textContent = valBadge;
+      }
       document.getElementById('dispCustomerSignName').textContent = contactPerson + ' (ผู้สั่งซื้อ / ลูกค้า)';
       document.getElementById('dispCustomerSignRole').textContent = customerName;
     }

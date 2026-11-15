@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { 
   ShoppingCart, 
@@ -102,10 +102,13 @@ export default function SupperSurfaceSalesPage() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isSubmittingLead, setIsSubmittingLead] = useState<boolean>(false);
 
-  // In-Page Interactive E-Catalog Lookbook State (100% Native, Zero External iFrame)
+  // In-Page Interactive E-Catalog Lookbook State
   const [selectedCatalogId, setSelectedCatalogId] = useState<number>(1);
   const [activeCatalogPage, setActiveCatalogPage] = useState<number>(1);
   const [activeModalCatalog, setActiveModalCatalog] = useState<any | null>(null);
+  
+  // Dynamic Scroll Ref for Tabs
+  const tabsScrollRef = useRef<HTMLDivElement>(null);
 
   // Estimator State
   const [estimatorArea, setEstimatorArea] = useState<number>(50);
@@ -130,6 +133,13 @@ export default function SupperSurfaceSalesPage() {
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 4000);
+  };
+
+  const scrollTabs = (direction: 'left' | 'right') => {
+    if (tabsScrollRef.current) {
+      const scrollOffset = direction === 'left' ? -260 : 260;
+      tabsScrollRef.current.scrollBy({ left: scrollOffset, behavior: 'smooth' });
+    }
   };
 
   // Product Master Data
@@ -262,10 +272,12 @@ export default function SupperSurfaceSalesPage() {
     },
   ], []);
 
-  // 9 Complete Native In-Page Interactive E-Catalogs & Lookbooks
+  // 9 Complete Native In-Page Interactive E-Catalogs with Short Titles & Numeric Indexes (Zero Emojis)
   const catalogsList = useMemo(() => [
     {
       id: 1,
+      indexStr: '01',
+      shortTitle: 'หินวีเนียร์ MCM',
       title: '1. หินวีเนียร์ Veneer & MCM (Flexible Stone)',
       code: 'SS-MCM-CAT',
       categoryName: 'หินวีเนียร์ & MCM',
@@ -326,6 +338,8 @@ export default function SupperSurfaceSalesPage() {
     },
     {
       id: 2,
+      indexStr: '02',
+      shortTitle: 'ไม้สังเคราะห์ WPC',
       title: '2. ไม้สังเคราะห์ WPC (Wood Plastic Composite)',
       code: 'SS-WPC-CAT',
       categoryName: 'ไม้สังเคราะห์ WPC',
@@ -386,6 +400,8 @@ export default function SupperSurfaceSalesPage() {
     },
     {
       id: 3,
+      indexStr: '03',
+      shortTitle: 'ฝ้าอลูมิเนียม 85 C',
       title: '3. ฝ้าอลูมิเนียม 85 C (Linear Ceiling System)',
       code: 'SS-85C-CAT',
       categoryName: 'ฝ้าอลูมิเนียม',
@@ -446,6 +462,8 @@ export default function SupperSurfaceSalesPage() {
     },
     {
       id: 4,
+      indexStr: '04',
+      shortTitle: 'ฝ้าอลูมิเนียม 85 F',
       title: '4. ฝ้าอลูมิเนียม 85 F (Linear Ceiling with Joint)',
       code: 'SS-85F-CAT',
       categoryName: 'ฝ้าอลูมิเนียม',
@@ -506,6 +524,8 @@ export default function SupperSurfaceSalesPage() {
     },
     {
       id: 5,
+      indexStr: '05',
+      shortTitle: 'ระแนงอลูมิเนียม Louver',
       title: '5. ระแนงอลูมิเนียม (Architectural Louver System)',
       code: 'SS-LV-CAT',
       categoryName: 'ระแนงอลูมิเนียม',
@@ -566,6 +586,8 @@ export default function SupperSurfaceSalesPage() {
     },
     {
       id: 6,
+      indexStr: '06',
+      shortTitle: 'DECO คอมโพสิตหลังคา',
       title: '6. อลูมิเนียมคอมโพสิต DECO งานหลังคา (Roof & Canopy)',
       code: 'SS-DECO-R-CAT',
       categoryName: 'คอมโพสิตหลังคา',
@@ -626,6 +648,8 @@ export default function SupperSurfaceSalesPage() {
     },
     {
       id: 7,
+      indexStr: '07',
+      shortTitle: 'DECO คอมโพสิตผนัง',
       title: '7. อลูมิเนียมคอมโพสิต DECO งานผนังและ Facade',
       code: 'SS-DECO-F-CAT',
       categoryName: 'คอมโพสิตผนัง',
@@ -686,6 +710,8 @@ export default function SupperSurfaceSalesPage() {
     },
     {
       id: 8,
+      indexStr: '08',
+      shortTitle: 'ALTEX คอมโพสิตทนไฟ FR',
       title: '8. อลูมิเนียมคอมโพสิต ALTEX (FR Grade Class A2/B1)',
       code: 'SS-ALTEX-CAT',
       categoryName: 'คอมโพสิตทนไฟ FR',
@@ -746,6 +772,8 @@ export default function SupperSurfaceSalesPage() {
     },
     {
       id: 9,
+      indexStr: '09',
+      shortTitle: 'ไฟเบอร์ซีเมนต์ NICHIHA',
       title: '9. แผ่นไฟเบอร์ซีเมนต์นิชิฮะ (NICHIHA Japan MicroGuard)',
       code: 'SS-NICHIHA-CAT',
       categoryName: 'NICHIHA ญี่ปุ่น',
@@ -910,9 +938,9 @@ export default function SupperSurfaceSalesPage() {
     return `QT-FL-${dateStr}-889`;
   }, []);
 
-  // Format Quotation Text for Clipboard & LINE
+  // Format Quotation Text for Clipboard & LINE (Zero Emojis)
   const generateQuotationSummaryText = () => {
-    return `📄 ใบเสนอราคาทางการ (QUOTATION)
+    return `[ใบเสนอราคาทางการ - QUOTATION]
 เลขที่: ${quoteRef}
 วันที่: ${new Date().toLocaleDateString('th-TH')}
 ----------------------------------
@@ -927,7 +955,7 @@ ${cart.map((item, idx) => `${idx + 1}. ${item.name} (${item.code})\n   จำน
 ----------------------------------
 ยอดรวมก่อน VAT: ฿${subtotal.toLocaleString()}
 ภาษีมูลค่าเพิ่ม (VAT 7%): ฿${vat.toLocaleString()}
-💰 ยอดรวมสุทธิทั้งสิ้น: ฿${grandTotal.toLocaleString()} บาท
+ยอดรวมสุทธิทั้งสิ้น: ฿${grandTotal.toLocaleString()} บาท
 ----------------------------------
 บจก. เฟมไลน์ โปร์ดักส์ (Supper Surface)
 ติดต่อคุณแอล (เสาวลักษณ์ นุ่นหนู) โทร. 066-168-5157`;
@@ -941,7 +969,7 @@ ${cart.map((item, idx) => `${idx + 1}. ${item.name} (${item.code})\n   จำน
     // 1. Copy formatted quote to clipboard for instant pasting into LINE
     try {
       await navigator.clipboard.writeText(quoteSummary);
-      showToast('คัดลอกใบเสนอราคาแล้ว! พร้อมกดวาง (Paste) ใน LINE คุณแอลได้ทันที');
+      showToast('คัดลอกใบเสนอราคาแล้ว พร้อมกดวางใน LINE คุณแอลได้ทันที');
     } catch (err) {
       console.error('Clipboard copy failed:', err);
     }
@@ -975,7 +1003,7 @@ ${cart.map((item, idx) => `${idx + 1}. ${item.name} (${item.code})\n   จำน
   // 2. Confirm Payment & Handoff to Khun L's LINE
   const handleConfirmPayment = async () => {
     setIsSubmittingLead(true);
-    const paymentSummary = `💰 แจ้งชำระเงินค่าสินค้า (บจก. เฟมไลน์ โปร์ดักส์)
+    const paymentSummary = `[แจ้งชำระเงินค่าสินค้า - บจก. เฟมไลน์ โปร์ดักส์]
 เลขที่อ้างอิง: ${quoteRef}
 ----------------------------------
 ผู้โอน/บริษัท: ${customerInfo.businessName || customerInfo.name || 'ลูกค้าโครงการ'}
@@ -988,7 +1016,7 @@ ${cart.map((item, idx) => `${idx + 1}. ${item.name} (${item.code})\n   จำน
 
     try {
       await navigator.clipboard.writeText(paymentSummary);
-      showToast('คัดลอกข้อมูลการแจ้งชำระเงินแล้ว! พร้อมส่งหลักฐานให้คุณแอลใน LINE');
+      showToast('คัดลอกข้อมูลการแจ้งชำระเงินแล้ว พร้อมส่งหลักฐานให้คุณแอลใน LINE');
     } catch (err) {}
 
     try {
@@ -1700,7 +1728,7 @@ ${cart.map((item, idx) => `${idx + 1}. ${item.name} (${item.code})\n   จำน
         </div>
       </section>
 
-      {/* 5. NATIVE IN-PAGE ARCHITECTURAL SPEC LOOKBOOK & E-BOOK (Zero Third-Party iFrame, 100% Reliable) */}
+      {/* 5. NATIVE IN-PAGE ARCHITECTURAL SPEC LOOKBOOK & E-BOOK (Dynamic Tabs with Scroll Affordance & Zero Emojis) */}
       <section id="live-anyflip" className="py-16 md:py-24 bg-slate-900/40 border-y border-slate-900 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           
@@ -1716,21 +1744,97 @@ ${cart.map((item, idx) => `${idx + 1}. ${item.name} (${item.code})\n   จำน
             </p>
           </div>
 
-          {/* 9 Catalogs Selector Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 scrollbar-thin">
-            {catalogsList.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => handleSelectCatalog(cat.id)}
-                className={`px-3.5 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition flex items-center gap-2 border ${
-                  selectedCatalogId === cat.id
-                    ? 'bg-amber-500 text-slate-950 border-amber-500 font-bold shadow-lg shadow-amber-500/20'
-                    : 'bg-slate-950/80 text-slate-400 border-slate-800 hover:text-white hover:bg-slate-900'
-                }`}
+          {/* DYNAMIC 9 CATALOG TABS NAVIGATOR (Scroll Affordance, Arrow Controls & Dot Indicators - Zero Emojis) */}
+          <div className="mb-6 space-y-3">
+            
+            {/* Header: Counter, Category Status & Arrow Controls */}
+            <div className="flex items-center justify-between px-1">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-mono uppercase tracking-wider text-amber-400 font-bold bg-amber-500/10 border border-amber-500/20 px-2.5 py-1 rounded-lg">
+                  9 หมวดหมู่ผลิตภัณฑ์
+                </span>
+                <span className="text-slate-400 text-xs hidden sm:inline">
+                  กำลังดู: <strong className="text-white">{activeCatalog.shortTitle}</strong> ({selectedCatalogId} จาก 9 หมวด)
+                </span>
+              </div>
+
+              {/* Dynamic Scroll Controller Arrows */}
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <button
+                  onClick={() => scrollTabs('left')}
+                  className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-amber-400/60 transition shadow active:scale-95 flex items-center justify-center"
+                  aria-label="เลื่อนไปทางซ้าย"
+                  title="เลื่อนหมวดหมู่ไปทางซ้าย"
+                >
+                  <ChevronLeft className="w-4 h-4 text-amber-400" />
+                </button>
+
+                <span className="text-xs font-mono font-bold text-slate-300 bg-slate-950 border border-slate-800 px-2.5 py-1 rounded-lg">
+                  {selectedCatalogId.toString().padStart(2, '0')} / 09
+                </span>
+
+                <button
+                  onClick={() => scrollTabs('right')}
+                  className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-amber-400/60 transition shadow active:scale-95 flex items-center justify-center"
+                  aria-label="เลื่อนไปทางขวา"
+                  title="เลื่อนหมวดหมู่ไปทางขวา"
+                >
+                  <ChevronRight className="w-4 h-4 text-amber-400" />
+                </button>
+              </div>
+            </div>
+
+            {/* Dynamic Carousel Strip with Edge Fade Gradients */}
+            <div className="relative">
+              {/* Left Subtle Gradient Mask */}
+              <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-slate-950 via-slate-950/70 to-transparent z-10" />
+
+              {/* Scrollable Tabs */}
+              <div 
+                ref={tabsScrollRef}
+                className="flex items-center gap-2.5 overflow-x-auto py-2 px-1 scrollbar-none scroll-smooth"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
               >
-                <span>{cat.title}</span>
-              </button>
-            ))}
+                {catalogsList.map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => handleSelectCatalog(cat.id)}
+                    className={`px-4 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all duration-300 flex items-center gap-2.5 border shrink-0 ${
+                      selectedCatalogId === cat.id
+                        ? 'bg-amber-500 text-slate-950 border-amber-500 font-bold shadow-lg shadow-amber-500/25 scale-[1.02]'
+                        : 'bg-slate-900/90 text-slate-300 border-slate-800 hover:text-white hover:border-slate-700 hover:bg-slate-850'
+                    }`}
+                  >
+                    <span className={`font-mono text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                      selectedCatalogId === cat.id ? 'bg-slate-950 text-amber-400' : 'bg-slate-950/80 text-slate-400 border border-slate-800'
+                    }`}>
+                      {cat.indexStr}
+                    </span>
+                    <span>{cat.shortTitle}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Right Subtle Gradient Mask (Visual Affordance Hint) */}
+              <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-20 bg-gradient-to-l from-slate-950 via-slate-950/80 to-transparent z-10" />
+            </div>
+
+            {/* Dot Progress Indicators (9 Dots) */}
+            <div className="flex items-center justify-center gap-1.5 pt-1">
+              {catalogsList.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => handleSelectCatalog(cat.id)}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    selectedCatalogId === cat.id
+                      ? 'w-7 bg-amber-500 shadow-md shadow-amber-500/40'
+                      : 'w-2 bg-slate-800 hover:bg-slate-600'
+                  }`}
+                  title={`เลือกหมวดที่ ${cat.id}: ${cat.shortTitle}`}
+                />
+              ))}
+            </div>
+
           </div>
 
           {/* In-Page Interactive Showcase Box */}
@@ -1912,7 +2016,7 @@ ${cart.map((item, idx) => `${idx + 1}. ${item.name} (${item.code})\n   จำน
               {/* In-Book Direct Actions */}
               <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800/80">
                 <div className="text-xs text-slate-400 text-center sm:text-left">
-                  💡 กำลังดู: <strong className="text-amber-400">{activeCatalog.title}</strong> (฿{activeCatalog.price.toLocaleString()} /{activeCatalog.unit})
+                  สเปกที่กำลังเลือกดู: <strong className="text-amber-400">{activeCatalog.title}</strong> (฿{activeCatalog.price.toLocaleString()} /{activeCatalog.unit})
                 </div>
 
                 <div className="flex items-center gap-2 w-full sm:w-auto">
@@ -2278,7 +2382,7 @@ ${cart.map((item, idx) => `${idx + 1}. ${item.name} (${item.code})\n   จำน
         </div>
       </section>
 
-      {/* 9. MINIMALL CART & CHECKOUT SLIDE-OUT DRAWER (Full Working Quotation & Lead Dispatch) */}
+      {/* 9. MINIMALL CART & CHECKOUT SLIDE-OUT DRAWER */}
       {isCartOpen && (
         <div className="fixed inset-0 z-50 flex justify-end">
           {/* Backdrop */}
@@ -2553,7 +2657,7 @@ ${cart.map((item, idx) => `${idx + 1}. ${item.name} (${item.code})\n   จำน
                       ***กรณีโอนเงินชำระค่าสินค้าแล้วไม่สามารถเปลี่ยนแปลงหรือคืนสินค้าได้ ดังนั้น ตรวจสอบความถูกต้องของสเปก ขนาด สี และปริมาณ ก่อนสั่งซื้อสินค้าทุกครั้ง***
                     </p>
                     <div className="text-[10px] text-rose-400 font-bold">
-                      ❗️โอนเข้าบัญชี บจก. เฟมไลน์ โปร์ดักส์ เท่านั้น (ไม่รับโอนเข้าบัญชีบุคคลธรรมดา)
+                      [สำคัญ] โอนเข้าบัญชี บจก. เฟมไลน์ โปร์ดักส์ เท่านั้น (ไม่รับโอนเข้าบัญชีบุคคลธรรมดา)
                     </div>
                   </div>
 

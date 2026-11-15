@@ -39,7 +39,7 @@ import { getAllPosts } from '@/lib/posts';
 
 export default function HomePage() {
   const posts = getAllPosts();
-  const [activeCategory, setActiveCategory] = useState<'all' | 'service' | 'shop' | 'property' | 'insurance' | 'course'>('all');
+  const [activeCategory, setActiveCategory] = useState<'all' | 'service' | 'auto' | 'property' | 'insurance' | 'course'>('all');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [isCheckingOut, setIsCheckingOut] = useState<string | null>(null);
 
@@ -89,21 +89,21 @@ export default function HomePage() {
       ],
     },
     {
-      id: 'tandj',
-      category: 'shop',
-      tag: 'B2B Hospitality & Hotel Bedding',
-      badgeColor: 'border-amber-500/40 text-amber-300',
-      title: 'T&J BEDDING',
-      subtitle: 'ชุดเครื่องนอนโรงแรม รีสอร์ท ส่งตรงจากโรงงาน',
-      desc: 'เซลเพจมาตรฐาน SalesDesk Salepage Architect สำหรับโรงงานสิ่งทอและผู้นำเข้าเครื่องนอนโรงแรมกว่า 30 ปี ชูสโลแกน "งบจำกัด จัดให้ได้" พร้อมสเปกหมอนไมโครเจล ผ้าปูริ้วซาติน Topper ผ้าขนหนู และระบบขอใบเสนอราคาส่งด่วน',
-      image: '/images/tandj-hero.jpg',
-      url: '/tandj-bedding',
-      accentColor: 'hover:border-amber-500/50',
+      id: 'benz-ttc-ubon',
+      category: 'auto',
+      tag: 'Luxury Automotive & AMG Specialist',
+      badgeColor: 'border-amber-400/40 text-amber-300',
+      title: 'ICE LUXURY AUTO',
+      subtitle: 'Certified Mercedes-Benz & AMG Performance Specialist (TTC Motor)',
+      desc: 'เซลเพจมาตรฐาน SalesDesk Salepage Architect ระดับ Ultra Luxury สำหรับที่ปรึกษายนตรกรรม Mercedes-Benz, Mercedes-AMG และ smart EV ถ่ายทอดความสง่างามด้วยภาพ 16:9 ดาร์กโหมดไร้ข้อความบดบังตัวรถ พร้อมระบบจองสิทธิ์ทดลองขับ Test Drive ถึงหน้าบ้าน แคตตาล็อกโมเดลยอดนิยม และแคมเปญข้อเสนอสุด Exclusive',
+      image: '/images/benz/hero-benz.jpg',
+      url: '/ice-benz-ttc-ubon',
+      accentColor: 'hover:border-amber-400/50',
       btnBg: 'bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-bold',
       features: [
-        'สถาปัตยกรรม Cinematic 16:9 ไร้ข้อความบดบังภาพหมอนและเตียงบนมือถือ',
-        'ระบบขอใบเสนอราคา & สั่งตัวอย่างผ้าฟรี ภายใน 30 นาที',
-        'ตารางเปรียบเทียบ 5 หมวดสินค้า และ 3 แพ็กเกจเซ็ตเปิดโรงแรม',
+        'สถาปัตยกรรม Cinematic 16:9 ไร้ข้อความบดบังตัวรถ Mercedes-Benz & AMG บนมือถือ',
+        'ระบบลงทะเบียนจองสิทธิ์ Test Drive ส่งรถถึงหน้าบ้าน และประเมิน Trade-in รถเก่า',
+        'แคมเปญดอกเบี้ยพิเศษ 0% ฟรี MBSP นาน 5 ปี และเชื่อมต่อแชต Facebook Page โดยตรง',
       ],
     },
     {
@@ -684,7 +684,7 @@ export default function HomePage() {
             {[
               { key: 'all', label: 'ทั้งหมด' },
               { key: 'service', label: '🏥 ธุรกิจบริการ' },
-              { key: 'shop', label: '🛍️ สั่งซื้อสินค้าหน้าเดียว' },
+              { key: 'auto', label: '🚗 ยานยนต์ & โชว์รูม' },
               { key: 'property', label: '🏡 อสังหาริมทรัพย์' },
               { key: 'insurance', label: '🛡️ ตัวแทนประกันชีวิต' },
               { key: 'course', label: '🎓 คอร์สออนไลน์' },

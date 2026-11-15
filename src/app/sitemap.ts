@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { fetchAllLivePosts } from '@/lib/posts';
 import { getAllBenzPosts } from '@/lib/benz-posts';
+import { getAllMinMaxPosts } from '@/lib/minmax-posts';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://sites.salesdesk-ai.com';
@@ -95,7 +96,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // 4. Client Blog Articles (ICE LUXURY AUTO Knowledge Hub)
+  // 4. Client Blog Articles (ICE LUXURY AUTO & MinMax Media Knowledge Hubs)
   const benzPosts = getAllBenzPosts();
   const benzBlogRoutes: MetadataRoute.Sitemap = benzPosts.map((post) => ({
     url: `${baseUrl}/ice-benz-ttc-ubon/blog/${post.slug}`,
@@ -104,5 +105,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
-  return [...staticRoutes, ...showcaseRoutes, ...blogRoutes, ...benzBlogRoutes];
+  const minmaxPosts = getAllMinMaxPosts();
+  const minmaxBlogRoutes: MetadataRoute.Sitemap = minmaxPosts.map((post) => ({
+    url: `${baseUrl}/minmax-media/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt || post.publishedAt),
+    changeFrequency: 'weekly',
+    priority: 0.85,
+  }));
+
+  return [...staticRoutes, ...showcaseRoutes, ...blogRoutes, ...benzBlogRoutes, ...minmaxBlogRoutes];
 }

@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ใบเสร็จรับเงิน - บริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด | SalesDesk AI</title>
+  <title>ระบบเอกสารการขาย SalesDesk AI (3-in-1 Document Suite)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- html2pdf.js for 1-click PDF download -->
+  <!-- html2pdf.js for instant PDF export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     * {
@@ -26,7 +26,7 @@
     /* Top Control Bar */
     .top-toolbar {
       max-width: 800px;
-      margin: 0 auto 14px auto;
+      margin: 0 auto 12px auto;
       background: #1e293b;
       padding: 12px 18px;
       border-radius: 10px;
@@ -35,6 +35,8 @@
       align-items: center;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       border: 1px solid #334155;
+      flex-wrap: wrap;
+      gap: 10px;
     }
     .toolbar-title {
       color: #f8fafc;
@@ -46,10 +48,11 @@
     }
     .toolbar-actions {
       display: flex;
-      gap: 10px;
+      gap: 8px;
+      flex-wrap: wrap;
     }
     .btn {
-      padding: 8px 15px;
+      padding: 7px 14px;
       border-radius: 8px;
       font-weight: 600;
       font-size: 13px;
@@ -84,12 +87,47 @@
       background: #4f46e5;
     }
 
+    /* Document Type Tabs (3-in-1 Switcher) */
+    .doc-type-tabs {
+      max-width: 800px;
+      margin: 0 auto 14px auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    .tab-btn {
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1.5px solid #334155;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 700;
+      font-family: 'Sarabun', sans-serif;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .tab-btn:hover {
+      background: #334155;
+      color: #f8fafc;
+    }
+    .tab-btn.active {
+      background: #4f46e5;
+      color: #ffffff;
+      border-color: #6366f1;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+    }
+
     /* Edit Panel Drawer */
     .edit-drawer {
       max-width: 800px;
       margin: 0 auto 16px auto;
       background: #1e293b;
-      padding: 20px 22px;
+      padding: 18px 22px;
       border-radius: 10px;
       border: 1px solid #475569;
       box-shadow: 0 10px 25px rgba(0,0,0,0.4);
@@ -97,8 +135,11 @@
     }
     .edit-drawer h3 {
       color: #38bdf8;
-      font-size: 15px;
-      margin-bottom: 14px;
+      font-size: 14.5px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .form-grid {
       display: grid;
@@ -144,12 +185,12 @@
       cursor: pointer;
     }
 
-    /* Precise A4 Page Fitting Box */
+    /* Precise A4 Page Fitting Box (Target for PDF) */
     #invoice-print-area {
       max-width: 790px;
       margin: 0 auto;
       background: #ffffff;
-      padding: 30px 38px 24px 38px;
+      padding: 28px 36px 20px 36px;
       border-radius: 8px;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
       position: relative;
@@ -174,7 +215,7 @@
       display: block;
     }
     .company-brand p {
-      font-size: 12.5px;
+      font-size: 12px;
       color: #475569;
       line-height: 1.45;
     }
@@ -191,23 +232,36 @@
       line-height: 1.2;
     }
     .doc-subtitle {
-      font-size: 11.5px;
+      font-size: 11px;
       color: #64748b;
       font-weight: 600;
       letter-spacing: 0.5px;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
-    .badge-paid {
+    .badge-status {
       display: inline-block;
-      background: #ecfdf5;
-      color: #059669;
-      border: 1px solid #a7f3d0;
       padding: 2px 10px;
       border-radius: 9999px;
       font-size: 11px;
       font-weight: 600;
       margin-bottom: 4px;
     }
+    .badge-paid {
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+    }
+    .badge-deposit {
+      background: #eff6ff;
+      color: #2563eb;
+      border: 1px solid #bfdbfe;
+    }
+    .badge-quotation {
+      background: #fffbeb;
+      color: #d97706;
+      border: 1px solid #fde68a;
+    }
+
     .info-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -229,7 +283,7 @@
       margin-bottom: 4px;
     }
     .info-name {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
       color: #1e293b;
       margin-bottom: 2px;
@@ -257,7 +311,7 @@
     .items-table td {
       padding: 10px 12px;
       border-bottom: 1px solid #f1f5f9;
-      font-size: 13px;
+      font-size: 12.5px;
       color: #1e293b;
       vertical-align: top;
     }
@@ -280,20 +334,20 @@
       margin-bottom: 12px;
     }
     .summary-table {
-      width: 300px;
+      width: 320px;
     }
     .summary-row {
       display: flex;
       justify-content: space-between;
       padding: 2px 0;
-      font-size: 13px;
+      font-size: 12.5px;
       color: #64748b;
     }
     .summary-row.total {
       border-top: 1.5px solid #e2e8f0;
       margin-top: 4px;
       padding-top: 6px;
-      font-size: 16px;
+      font-size: 15.5px;
       font-weight: 700;
       color: #4f46e5;
     }
@@ -304,14 +358,14 @@
       font-size: 12px;
       color: #334155;
       font-weight: 500;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       border-left: 3px solid #4f46e5;
     }
     .signatures-row {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 12px;
-      margin-top: 14px;
+      margin-top: 12px;
       padding-top: 12px;
       border-top: 1px dashed #cbd5e1;
       align-items: flex-end;
@@ -321,7 +375,7 @@
       position: relative;
     }
     .sig-slot {
-      height: 72px;
+      height: 70px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -335,7 +389,7 @@
       z-index: 2;
     }
     .digital-cert-badge {
-      font-size: 8.5px;
+      font-size: 8px;
       color: #10b981;
       font-weight: 600;
       background: #ecfdf5;
@@ -350,8 +404,8 @@
       position: absolute;
       right: 2px;
       top: -18px;
-      width: 110px;
-      height: 110px;
+      width: 105px;
+      height: 105px;
       pointer-events: none;
       z-index: 1;
       opacity: 0.92;
@@ -360,7 +414,7 @@
     .stamp-circle {
       width: 100%;
       height: 100%;
-      border: 2.5px double #b45309;
+      border: 2px double #b45309;
       border-radius: 50%;
       display: flex;
       flex-direction: column;
@@ -371,13 +425,13 @@
       box-shadow: inset 0 0 0 1px rgba(180, 83, 9, 0.35);
     }
     .stamp-logo {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       object-fit: contain;
       filter: drop-shadow(0 1px 2px rgba(180, 83, 9, 0.3));
     }
     .stamp-text-top {
-      font-size: 7px;
+      font-size: 6.5px;
       font-weight: 800;
       color: #b45309;
       letter-spacing: 0.8px;
@@ -385,7 +439,7 @@
       margin-bottom: 1px;
     }
     .stamp-text-bottom {
-      font-size: 7px;
+      font-size: 6.5px;
       font-weight: 800;
       color: #b45309;
       letter-spacing: 0.6px;
@@ -399,13 +453,13 @@
       border-bottom: 1.5px solid #3b82f6;
     }
     .sig-name {
-      font-size: 12.5px;
+      font-size: 12px;
       font-weight: 700;
       color: #1e293b;
       margin-top: 1px;
     }
     .sig-role {
-      font-size: 11px;
+      font-size: 10.5px;
       color: #64748b;
     }
     .qr-box {
@@ -416,32 +470,32 @@
       border: 1px solid #e2e8f0;
     }
     .qr-img {
-      width: 66px;
-      height: 66px;
+      width: 64px;
+      height: 64px;
       display: block;
       margin: 0 auto 3px auto;
       border-radius: 4px;
     }
     .qr-label {
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 600;
       color: #059669;
     }
     .qr-sub {
-      font-size: 9.5px;
+      font-size: 9px;
       color: #64748b;
     }
     .footer-note {
       text-align: center;
       margin-top: 14px;
-      font-size: 11px;
+      font-size: 10.5px;
       color: #94a3b8;
       line-height: 1.4;
     }
 
     @page {
       size: A4 portrait;
-      margin: 8mm 10mm;
+      margin: 6mm 8mm;
     }
     @media print {
       html, body {
@@ -450,7 +504,7 @@
         margin: 0 !important;
         height: auto !important;
       }
-      .top-toolbar, .edit-drawer {
+      .top-toolbar, .doc-type-tabs, .edit-drawer {
         display: none !important;
       }
       #invoice-print-area {
@@ -468,21 +522,37 @@
   <!-- Top Toolbar -->
   <div class="top-toolbar">
     <div class="toolbar-title">
-      <span>📄 ระบบจัดการใบเสร็จรับเงิน SalesDesk AI</span>
+      <span>📄 ระบบจัดการเอกสารการขาย SalesDesk AI</span>
     </div>
     <div class="toolbar-actions">
       <button class="btn btn-edit" onclick="toggleEditDrawer()">⚙️ ปรับแต่งข้อมูลลูกค้า/ราคา</button>
-      <button class="btn btn-download-pdf" onclick="exportReceiptPDF()">⬇️ ดาวน์โหลด PDF หน้าเดียว</button>
+      <button class="btn btn-download-pdf" onclick="exportReceiptPDF()">⬇️ ดาวน์โหลด PDF ส่งใน LINE</button>
       <button class="btn btn-print" onclick="window.print()">🖨️ พิมพ์</button>
     </div>
   </div>
 
+  <!-- 3-in-1 Document Switcher Tabs -->
+  <div class="doc-type-tabs">
+    <button class="tab-btn" id="tabQuotation" onclick="switchDocumentType('QUOTATION')">
+      📑 ใบเสนอราคา (Quotation)
+    </button>
+    <button class="tab-btn" id="tabDeposit" onclick="switchDocumentType('DEPOSIT')">
+      📋 ใบรับเงินมัดจำ (Deposit Receipt)
+    </button>
+    <button class="tab-btn active" id="tabReceipt" onclick="switchDocumentType('RECEIPT')">
+      🧾 ใบเสร็จรับเงิน (Official Receipt)
+    </button>
+  </div>
+
   <!-- Quick Edit Drawer -->
   <div class="edit-drawer" id="editDrawer">
-    <h3>⚙️ ปรับแต่งข้อมูลที่ต้องเปลี่ยนแปลงเฉพาะจุด</h3>
+    <h3>
+      <span>⚙️ กรอกข้อมูลครั้งเดียว — ใช้ร่วมกันได้ทั้ง 3 เอกสาร</span>
+      <button class="btn-chip" style="background: #475569;" onclick="toggleEditDrawer()">✕ ปิดฟอร์ม</button>
+    </h3>
     <div class="form-grid">
       <div class="form-group">
-        <label>เลขที่เอกสาร (Receipt No.)</label>
+        <label>เลขที่เอกสาร</label>
         <input type="text" id="inputReceiptNo" value="RE-20261115-001" oninput="updateReceiptData()">
       </div>
       <div class="form-group">
@@ -520,7 +590,7 @@
         <input type="text" id="inputItemTitle" value="บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)" oninput="updateReceiptData()">
       </div>
       <div class="form-group">
-        <label>ยอดเงินรวม (บาท)</label>
+        <label>ยอดเงินรวมทั้งหมด (บาท)</label>
         <input type="number" id="inputAmount" value="3900" oninput="updateReceiptData()">
       </div>
       <div class="form-group full-width">
@@ -530,17 +600,17 @@
 • ฟรีบริการโฮสติ้งความเร็วสูง และส่งมอบงานแก้ไขจนกว่าจะพึงพอใจ</textarea>
       </div>
       <div class="form-group">
-        <label>ช่องทางชำระเงิน</label>
+        <label id="lblPaymentMethod">ช่องทางชำระเงิน</label>
         <input type="text" id="inputPaymentMethod" value="โอนผ่านระบบธนาคารไทยพาณิชย์ (SCB)" oninput="updateReceiptData()">
       </div>
       <div class="form-group">
-        <label>รหัสอ้างอิงรายการโอน</label>
+        <label id="lblRefNo">รหัสอ้างอิงรายการโอน / วันหมดอายุ</label>
         <input type="text" id="inputRefNo" value="261115112056" oninput="updateReceiptData()">
       </div>
     </div>
   </div>
 
-  <!-- Printable/Exportable Paper Container (Single Page A4 Guaranteed) -->
+  <!-- Printable/Exportable Paper Container (Guaranteed 1-Page A4) -->
   <div id="invoice-print-area">
     <!-- Header -->
     <div class="header-row">
@@ -552,19 +622,19 @@
         <p><strong>เบอร์โทร:</strong> 081-772-6444 | <strong>LINE OA:</strong> @fhu6688s | <strong>เว็บไซต์:</strong> sites.salesdesk-ai.com</p>
       </div>
       <div class="doc-meta">
-        <div class="doc-title">ใบเสร็จรับเงิน</div>
-        <div class="doc-subtitle">RECEIPT (NON-VAT)</div>
-        <span class="badge-paid">✓ ชำระเงินเรียบร้อยแล้ว</span>
-        <div style="font-size: 12.5px; color: #475569; margin-top: 3px;"><strong>เลขที่เอกสาร:</strong> <span id="dispReceiptNo">RE-20261115-001</span></div>
-        <div style="font-size: 12.5px; color: #475569;"><strong>วันที่:</strong> <span id="dispDate">15 พฤศจิกายน 2569</span></div>
-        <div style="font-size: 11.5px; color: #64748b;"><strong>อ้างอิงโอน:</strong> <span id="dispRefNo">261115112056</span></div>
+        <div class="doc-title" id="dispDocTitle">ใบเสร็จรับเงิน</div>
+        <div class="doc-subtitle" id="dispDocSubtitle">RECEIPT (NON-VAT)</div>
+        <span class="badge-status badge-paid" id="dispBadge">✓ ชำระเงินเรียบร้อยแล้ว</span>
+        <div style="font-size: 12px; color: #475569; margin-top: 3px;"><strong>เลขที่เอกสาร:</strong> <span id="dispReceiptNo">RE-20261115-001</span></div>
+        <div style="font-size: 12px; color: #475569;"><strong>วันที่:</strong> <span id="dispDate">15 พฤศจิกายน 2569</span></div>
+        <div style="font-size: 11px; color: #64748b;" id="dispRefRow"><strong>อ้างอิงโอน:</strong> <span id="dispRefNo">261115112056</span></div>
       </div>
     </div>
 
     <!-- Client & Payment Info -->
     <div class="info-grid">
       <div class="info-card">
-        <div class="info-label">ได้รับเงินจาก (Customer)</div>
+        <div class="info-label" id="dispClientCardLabel">ได้รับเงินจาก (CUSTOMER)</div>
         <div class="info-name" id="dispCustomerName">บริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด</div>
         <div class="info-detail">
           <strong>ผู้ติดต่อ:</strong> <span id="dispContactPerson">คุณ Thor (tjbedding.salepagess)</span><br>
@@ -574,8 +644,8 @@
         </div>
       </div>
       <div class="info-card">
-        <div class="info-label">รายละเอียดการชำระเงิน (Payment Method)</div>
-        <div class="info-detail" style="margin-top: 2px;">
+        <div class="info-label" id="dispPaymentCardLabel">รายละเอียดการชำระเงิน (PAYMENT METHOD)</div>
+        <div class="info-detail" style="margin-top: 2px;" id="dispPaymentCardBody">
           <strong>ช่องทางชำระ:</strong> <span id="dispPaymentMethod">โอนผ่านระบบธนาคารไทยพาณิชย์ (SCB)</span><br>
           <strong>เข้าบัญชี:</strong> ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน) KKP<br>
           <strong>เลขที่บัญชี:</strong> 2061291340 (มานพ ฤาชุตกุล)<br>
@@ -628,7 +698,7 @@
           <span>0.00 บาท</span>
         </div>
         <div class="summary-row total">
-          <span>ยอดเงินสุทธิ (Net Total):</span>
+          <span id="dispNetTotalLabel">ยอดเงินสุทธิ (Net Total):</span>
           <span id="dispNetTotal">3,900.00 บาท</span>
         </div>
       </div>
@@ -649,7 +719,7 @@
       <!-- 2. Official Receiver Sign & Stamp -->
       <div class="sig-box">
         <div class="sig-slot" id="receiver-sig-slot">
-          <div class="digital-cert-badge">🔒 ดิจิทัลลายเซ็นอิเล็กทรอนิกส์ยืนยันแล้ว</div>
+          <div class="digital-cert-badge" id="dispSigBadge">🔒 ดิจิทัลลายเซ็นอิเล็กทรอนิกส์ยืนยันแล้ว</div>
           
           <div id="active-signature-container">
             <svg class="signature-svg" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -671,7 +741,7 @@
 
         <div class="sig-line"></div>
         <div class="sig-name">มานพ ฤาชุตกุล</div>
-        <div class="sig-role">ผู้รับเงิน / ผู้มีอำนาจลงนาม (SalesDesk AI)</div>
+        <div class="sig-role" id="dispReceiverRole">ผู้รับเงิน / ผู้มีอำนาจลงนาม (SalesDesk AI)</div>
       </div>
 
       <!-- 3. LINE Official QR Code Box -->
@@ -683,13 +753,80 @@
     </div>
 
     <!-- Footer Note -->
-    <div class="footer-note">
+    <div class="footer-note" id="dispFooterNote">
       เอกสารฉบับนี้ออกโดยระบบคอมพิวเตอร์อัตโนมัติ SalesDesk AI Platform<br>
       ขอบพระคุณที่ไว้วางใจเลือกใช้บริการจัดทำเว็บไซต์และเซลเพจกับเราครับ 🙏✨
     </div>
   </div>
 
   <script>
+    let currentDocType = 'RECEIPT';
+
+    function switchDocumentType(type) {
+      currentDocType = type;
+      document.getElementById('tabQuotation').classList.remove('active');
+      document.getElementById('tabDeposit').classList.remove('active');
+      document.getElementById('tabReceipt').classList.remove('active');
+
+      const titleEl = document.getElementById('dispDocTitle');
+      const subEl = document.getElementById('dispDocSubtitle');
+      const badgeEl = document.getElementById('dispBadge');
+      const clientLabel = document.getElementById('dispClientCardLabel');
+      const payLabel = document.getElementById('dispPaymentCardLabel');
+      const payBody = document.getElementById('dispPaymentCardBody');
+      const receiverRole = document.getElementById('dispReceiverRole');
+      const footerNote = document.getElementById('dispFooterNote');
+      const netTotalLabel = document.getElementById('dispNetTotalLabel');
+
+      if (type === 'QUOTATION') {
+        document.getElementById('tabQuotation').classList.add('active');
+        titleEl.textContent = 'ใบเสนอราคา';
+        subEl.textContent = 'QUOTATION (NON-VAT)';
+        badgeEl.className = 'badge-status badge-quotation';
+        badgeEl.textContent = '⏱️ ยืนยันราคา 15 วัน';
+        clientLabel.textContent = 'เรียน (ATTN TO)';
+        payLabel.textContent = 'เงื่อนไขการชำระเงิน (PAYMENT TERMS)';
+        payBody.innerHTML = '<strong>การชำระเงิน:</strong> ชำระมัดจำ 50% เพื่อเริ่มงาน หรือชำระเต็มจำนวน<br><strong>ธนาคาร:</strong> เกียรตินาคินภัทร (KKP) เลขที่ 2061291340<br><strong>ชื่อบัญชี:</strong> มานพ ฤาชุตกุล<br><strong>กำหนดส่งมอบงาน:</strong> 24–48 ชม. หลังได้รับข้อมูล';
+        receiverRole.textContent = 'ผู้ออกใบเสนอราคา (SalesDesk AI)';
+        footerNote.innerHTML = 'เอกสารใบเสนอราคานี้ออกโดยระบบคอมพิวเตอร์ SalesDesk AI Platform<br>หากต้องการสั่งซื้อ สามารถติดต่อกลับทางแชต LINE OA ได้ทันทีครับ 🙏✨';
+        netTotalLabel.textContent = 'ยอดรวมสุทธิทั้งสิ้น:';
+        if (document.getElementById('inputReceiptNo').value.startsWith('RE-')) {
+          document.getElementById('inputReceiptNo').value = 'QT-' + document.getElementById('inputReceiptNo').value.slice(3);
+        }
+      } else if (type === 'DEPOSIT') {
+        document.getElementById('tabDeposit').classList.add('active');
+        titleEl.textContent = 'ใบรับเงินมัดจำ';
+        subEl.textContent = 'DEPOSIT RECEIPT (NON-VAT)';
+        badgeEl.className = 'badge-status badge-deposit';
+        badgeEl.textContent = '✓ รับชำระมัดจำแล้ว';
+        clientLabel.textContent = 'ได้รับเงินมัดจำจาก (CUSTOMER)';
+        payLabel.textContent = 'รายละเอียดการชำระมัดจำ (DEPOSIT DETAILS)';
+        payBody.innerHTML = '<strong>ช่องทางชำระ:</strong> โอนผ่านระบบธนาคาร<br><strong>เข้าบัญชี:</strong> ธนาคารเกียรตินาคินภัทร (KKP) เลขที่ 2061291340<br><strong>ชื่อบัญชี:</strong> มานพ ฤาชุตกุล<br><strong>สถานะ:</strong> รับเงินมัดจำและเริ่มจัดทำระบบทันที';
+        receiverRole.textContent = 'ผู้รับเงินมัดจำ / ผู้มีอำนาจ (SalesDesk AI)';
+        footerNote.innerHTML = 'ได้รับเงินมัดจำเรียบร้อยแล้ว ทีมงานจะส่งมอบดราฟต์แรกให้ตรวจสอบภายใน 48 ชม. ครับ 🙏✨';
+        netTotalLabel.textContent = 'ยอดเงินมัดจำสุทธิ:';
+        if (document.getElementById('inputReceiptNo').value.startsWith('QT-') || document.getElementById('inputReceiptNo').value.startsWith('RE-')) {
+          document.getElementById('inputReceiptNo').value = 'DP-' + document.getElementById('inputReceiptNo').value.slice(3);
+        }
+      } else {
+        document.getElementById('tabReceipt').classList.add('active');
+        titleEl.textContent = 'ใบเสร็จรับเงิน';
+        subEl.textContent = 'RECEIPT (NON-VAT)';
+        badgeEl.className = 'badge-status badge-paid';
+        badgeEl.textContent = '✓ ชำระเงินเรียบร้อยแล้ว';
+        clientLabel.textContent = 'ได้รับเงินจาก (CUSTOMER)';
+        payLabel.textContent = 'รายละเอียดการชำระเงิน (PAYMENT METHOD)';
+        payBody.innerHTML = '<strong>ช่องทางชำระ:</strong> ' + document.getElementById('inputPaymentMethod').value + '<br><strong>เข้าบัญชี:</strong> ธนาคารเกียรตินาคินภัทร (KKP) เลขที่ 2061291340<br><strong>ชื่อบัญชี:</strong> มานพ ฤาชุตกุล<br><strong>สถานะ:</strong> ยอดเงินเข้าบัญชีสมบูรณ์เรียบร้อย';
+        receiverRole.textContent = 'ผู้รับเงิน / ผู้มีอำนาจลงนาม (SalesDesk AI)';
+        footerNote.innerHTML = 'เอกสารฉบับนี้ออกโดยระบบคอมพิวเตอร์อัตโนมัติ SalesDesk AI Platform<br>ขอบพระคุณที่ไว้วางใจเลือกใช้บริการจัดทำเว็บไซต์และเซลเพจกับเราครับ 🙏✨';
+        netTotalLabel.textContent = 'ยอดเงินสุทธิ (Net Total):';
+        if (document.getElementById('inputReceiptNo').value.startsWith('QT-') || document.getElementById('inputReceiptNo').value.startsWith('DP-')) {
+          document.getElementById('inputReceiptNo').value = 'RE-' + document.getElementById('inputReceiptNo').value.slice(3);
+        }
+      }
+      updateReceiptData();
+    }
+
     function toggleEditDrawer() {
       const drawer = document.getElementById('editDrawer');
       drawer.style.display = drawer.style.display === 'block' ? 'none' : 'block';
@@ -745,9 +882,7 @@
       document.getElementById('dispNetTotal').textContent = formattedAmount + ' บาท';
       document.getElementById('dispBahtText').textContent = numberToThaiBaht(amount);
 
-      document.getElementById('dispPaymentMethod').textContent = paymentMethod;
       document.getElementById('dispRefNo').textContent = refNo;
-
       document.getElementById('dispCustomerSignName').textContent = contactPerson + ' (ผู้สั่งซื้อ / ลูกค้า)';
       document.getElementById('dispCustomerSignRole').textContent = customerName;
     }
@@ -759,41 +894,46 @@
       updateReceiptData();
     }
 
-    // Export direct Single-Page A4 PDF
+    // Export direct Single-Page A4 PDF with Short Safe Filename for LINE OA
     function exportReceiptPDF() {
       const element = document.getElementById('invoice-print-area');
-      const receiptNo = document.getElementById('dispReceiptNo').textContent.trim() || 'Receipt';
-      const customerName = document.getElementById('dispCustomerName').textContent.trim() || 'Customer';
-      const filename = `ใบเสร็จรับเงิน_${receiptNo}_${customerName}.pdf`;
+      const receiptNo = document.getElementById('dispReceiptNo').textContent.trim() || 'DOC';
+      
+      // LINE OA Safe Short English/Alphanumeric Filename (Max 20 chars, No Thai characters that cause LINE upload error)
+      let prefix = 'Receipt';
+      if (currentDocType === 'QUOTATION') prefix = 'Quotation';
+      if (currentDocType === 'DEPOSIT') prefix = 'Deposit';
+      const cleanDocNo = receiptNo.replace(/[^a-zA-Z0-9-]/g, '');
+      const safeFilename = `${prefix}_${cleanDocNo}.pdf`;
 
       const opt = {
-        margin:       [6, 8, 6, 8],
-        filename:     filename,
+        margin:       [4, 6, 4, 6],
+        filename:     safeFilename,
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 2, useCORS: true, logging: false },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+        pagebreak:    { mode: ['avoid-all'] }
       };
 
       const btn = event?.target;
       if (btn) {
-        btn.innerHTML = '⏳ กำลังสร้าง PDF หน้าเดียว...';
+        btn.innerHTML = '⏳ กำลังบันทึก PDF...';
         btn.disabled = true;
       }
 
       html2pdf().set(opt).from(element).save().then(() => {
         if (btn) {
-          btn.innerHTML = '✅ บันทึก PDF หน้าเดียวสำเร็จ!';
+          btn.innerHTML = '✅ ดาวน์โหลดสำเร็จ!';
           setTimeout(() => {
-            btn.innerHTML = '⬇️ ดาวน์โหลด PDF หน้าเดียว';
+            btn.innerHTML = '⬇️ ดาวน์โหลด PDF ส่งใน LINE';
             btn.disabled = false;
           }, 2500);
         }
       }).catch(err => {
-        console.error('PDF generation error:', err);
+        console.error('PDF error:', err);
         window.print();
         if (btn) {
-          btn.innerHTML = '⬇️ ดาวน์โหลด PDF หน้าเดียว';
+          btn.innerHTML = '⬇️ ดาวน์โหลด PDF ส่งใน LINE';
           btn.disabled = false;
         }
       });

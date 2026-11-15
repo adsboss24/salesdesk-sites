@@ -469,122 +469,65 @@ export default function MinMaxMediaSalepage() {
       {/* Header Fixed Flow Spacer */}
       <div className="h-16 sm:h-[68px] w-full" />
 
-      {/* 2. HERO SECTION (16:9 MINIMAL PREMIUM — CRYSTAL CLEAR ON MOBILE & DESKTOP) */}
-      {/* 2A. MOBILE HERO: 100% UNOBSTRUCTED 16:9 VISUAL SHOWCASE */}
-      <section className="lg:hidden bg-[#04090d] pt-4 pb-8 px-4 border-b border-emerald-500/15">
-        <div className="max-w-xl mx-auto space-y-5">
-          {/* Top Minimal Badge & Headline */}
-          <div className="text-center space-y-2">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-[11px] font-semibold">
-              <Star className="w-3 h-3 text-emerald-400 fill-emerald-400 shrink-0" />
-              <span>MinMax Media • Marketing & Event Agency</span>
-            </div>
-            <h1 className="text-3xl font-black text-white tracking-tight leading-tight">
-              MINMAX <span className="text-emerald-400">MEDIA</span>
-              <span className="block text-lg sm:text-xl font-bold text-slate-200 mt-1">
-                รับทำการตลาดครบวงจร • พร้อมปั้นแบรนด์
-              </span>
-            </h1>
-          </div>
-
-          {/* PURE UNOBSTRUCTED 16:9 HERO IMAGE (ZERO TEXT OVERLAY ON MOBILE) */}
-          <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border border-emerald-500/30 shadow-2xl shadow-emerald-950/60 bg-slate-950">
-            <Image
-              src="/images/minmax/hero-minimal-premium.jpg"
-              alt="MINMAX MEDIA - รับทำการตลาดครบวงจร พร้อมปั้นแบรนด์ สไตล์ Minimal Premium"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-right brightness-105 contrast-[1.03]"
-            />
-          </div>
-
-          {/* Value Proposition & CTAs cleanly below the 16:9 visual */}
-          <div className="space-y-4 text-center">
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              วางกลยุทธ์ ผลิตสื่อโปรดักชั่น ถ่ายทำ ตัดต่อ จัดหา KOL/KOC ดูแลเพจ และยิงแอดสร้างยอดขาย 8 หลัก วัดผล ROI จริง
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-2.5">
-              <a
-                href="#consult-form"
-                className="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-300 text-slate-950 font-black text-sm text-center shadow-lg shadow-emerald-500/20 active:scale-95 transition"
-              >
-                ขอรับคำปรึกษากลยุทธ์ / เสนอราคา &rarr;
-              </a>
-              <a
-                href={fbMessengerUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="w-full py-3 px-5 rounded-xl bg-slate-900 border border-slate-800 text-slate-100 font-semibold text-sm flex items-center justify-center gap-2 active:scale-95 transition"
-              >
-                <FacebookIcon className="w-4 h-4 fill-blue-500" />
-                <span>ทักแชต Facebook</span>
-              </a>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1.5 text-[11px] text-slate-300 pt-1">
-              <span className="inline-flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> วางกลยุทธ์ตรงกลุ่มเป้าหมาย
-              </span>
-              <span className="inline-flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> โปรดักชั่นระดับพรีเมียม
-              </span>
-              <span className="inline-flex items-center gap-1">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> ยิงแอดวัดผล ROI จริง
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2B. DESKTOP HERO: FULL-BLEED 16:9 CINEMATIC AUTO DEALER ARCHITECTURE */}
-      <section className="hidden lg:flex relative min-h-[700px] xl:min-h-[740px] flex-col justify-between overflow-hidden bg-[#04090d] text-white">
+      {/* 2. CINEMATIC HERO SECTION (UNIFIED FULL-BLEED 16:9 AUTO DEALER STYLE ON MOBILE & DESKTOP) */}
+      <section className="relative min-h-[600px] sm:min-h-[660px] lg:min-h-[720px] flex flex-col justify-between overflow-hidden bg-[#04090d] text-white">
         {/* Full-Bleed 16:9 Minimal Premium Background */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/minmax/hero-minimal-premium.jpg"
-            alt="MINMAX MEDIA - รับทำการตลาดครบวงจร พร้อมปั้นแบรนด์ สไตล์ Auto Dealer 16:9"
+            alt="MINMAX MEDIA - รับทำการตลาดครบวงจร พร้อมปั้นแบรนด์ สไตล์ Minimal Premium"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-right brightness-105 contrast-[1.03]"
+            className="object-cover object-[72%_22%] sm:object-[76%_20%] lg:object-right brightness-105 contrast-[1.03]"
           />
-          {/* Subtle Left Scrim protecting left 42% typography without darkening right 58% portrait */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#04090d] via-[#04090d]/85 via-38% to-transparent" />
+
+          {/* Desktop Left Scrim: Gently protects left 38% typography without darkening right portrait */}
+          <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-[#04090d] via-[#04090d]/85 via-38% to-transparent" />
+
+          {/* Mobile Scrims: Transparent middle ensures the presenter & studio are bright and 100% visible */}
+          <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-[#04090d]/90 via-transparent via-35% to-[#04090d]/95" />
+
           {/* Subtle Emerald Studio Rim Glow */}
-          <div className="absolute inset-0 bg-gradient-to-tr from-emerald-950/30 via-transparent to-transparent" />
+          <div className="hidden lg:block absolute inset-0 bg-gradient-to-tr from-emerald-950/30 via-transparent to-transparent" />
+
           {/* Bottom Edge Fade */}
-          <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#04090d] to-transparent" />
+          <div className="absolute bottom-0 inset-x-0 h-14 bg-gradient-to-t from-[#04090d] to-transparent" />
         </div>
 
-        {/* Desktop Hero Content Container */}
-        <div className="max-w-7xl mx-auto px-6 py-16 relative z-10 w-full flex-1 flex flex-col justify-center">
-          <div className="max-w-xl space-y-6">
+        {/* Hero Content Container */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-12 pb-6 sm:pb-12 relative z-10 w-full flex-1 flex flex-col justify-between">
+          {/* Top Block: Badge & Crisp Headings (Elevated above the subject on mobile) */}
+          <div className="max-w-xl space-y-2.5 sm:space-y-4 text-center lg:text-left mx-auto lg:mx-0 lg:pt-6">
             {/* Minimal Premium Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 backdrop-blur-md border border-emerald-400/30 text-emerald-300 text-xs font-semibold shadow-lg">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#04090d]/85 backdrop-blur-md border border-emerald-400/35 text-emerald-300 text-xs font-semibold shadow-lg">
               <Star className="w-3.5 h-3.5 text-emerald-400 fill-emerald-400 shrink-0" />
               <span>Certified Full-Service Marketing & Event Agency</span>
             </div>
 
-            {/* Minimalist Punchy Typography */}
-            <h1 className="text-5xl xl:text-6xl font-black text-white tracking-tight leading-[1.18] drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]">
+            {/* Headline: Punchy, zero overlapping */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white tracking-tight leading-[1.2] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]">
               <span className="block">MINMAX MEDIA</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300 block text-3xl xl:text-4xl mt-2 font-extrabold">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-300 to-cyan-300 block text-lg sm:text-2xl lg:text-3xl xl:text-4xl mt-1.5 font-extrabold">
                 รับทำการตลาดครบวงจร • พร้อมปั้นแบรนด์
               </span>
             </h1>
 
             {/* Focused Value Proposition */}
-            <p className="text-base text-slate-300 leading-relaxed font-normal max-w-lg">
+            <p className="text-xs sm:text-base text-slate-200 leading-relaxed font-medium drop-shadow-[0_1px_8px_rgba(0,0,0,0.95)] max-w-lg mx-auto lg:mx-0">
               ยกระดับแบรนด์สู่ยอดขาย 8 หลักด้วยระบบ One-Stop Marketing House วางกลยุทธ์ ผลิตสื่อโปรดักชั่น ถ่ายทำ ตัดต่อ ดีล KOL/KOC ดูแลเพจ และยิงแอดวัดผล ROI จริง
             </p>
+          </div>
 
-            {/* Primary & Secondary CTAs */}
-            <div className="flex items-center gap-4 pt-2">
+          {/* Dedicated Open Center: Guarantees 100% clear view of the presenter & studio on mobile */}
+          <div className="flex-1 min-h-[190px] sm:min-h-[220px] lg:min-h-[40px]" />
+
+          {/* Bottom Block: Action Buttons & Trust Signals */}
+          <div className="max-w-xl mx-auto lg:mx-0 w-full space-y-3 lg:pb-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-2.5 sm:gap-4 w-full">
               <a
                 href="#consult-form"
-                className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-300 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black text-sm shadow-xl shadow-emerald-500/25 active:scale-95 transition whitespace-nowrap"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-300 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black text-sm sm:text-base text-center shadow-xl shadow-emerald-500/25 active:scale-95 transition whitespace-nowrap"
               >
                 ขอรับคำปรึกษากลยุทธ์ / ขอใบเสนอราคา &rarr;
               </a>
@@ -592,7 +535,7 @@ export default function MinMaxMediaSalepage() {
                 href={fbMessengerUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="px-5 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700/80 hover:border-emerald-400/40 font-semibold text-sm backdrop-blur-md active:scale-95 transition whitespace-nowrap flex items-center gap-2"
+                className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-100 border border-slate-700/80 hover:border-emerald-400/40 font-semibold text-sm sm:text-base text-center backdrop-blur-md active:scale-95 transition whitespace-nowrap flex items-center justify-center gap-2"
               >
                 <FacebookIcon className="w-4 h-4 fill-blue-500 shrink-0" />
                 <span>ทักแชต Facebook</span>
@@ -600,17 +543,17 @@ export default function MinMaxMediaSalepage() {
             </div>
 
             {/* 3 Concise Trust Signals */}
-            <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-slate-300 pt-2">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 sm:gap-x-5 gap-y-1.5 text-xs text-slate-200 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                 <span>วางกลยุทธ์ตรงกลุ่มเป้าหมาย</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                 <span>โปรดักชั่นระดับพรีเมียม</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
                 <span>ยิงแอดวัดผล ROI จริง</span>
               </div>
             </div>

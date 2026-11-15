@@ -241,28 +241,29 @@
       position: relative;
     }
 
-    .header-row {
-      display: flex;
-      justify-content: space-between;
+        .header-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
       align-items: flex-start;
       border-bottom: 1.5px solid #e2e8f0;
-      padding-bottom: 8px;
-      margin-bottom: 10px;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
     }
-        .company-brand {
-      max-width: 510px;
+    .company-brand {
+      max-width: 440px;
     }
     .brand-header-flex {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
     .header-gold-logo {
-      width: 56px;
-      height: 56px;
-      border-radius: 12px;
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
       object-fit: contain;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.16);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.14);
       flex-shrink: 0;
     }
     .brand-text-block {
@@ -272,55 +273,65 @@
     .brand-title-row {
       display: flex;
       align-items: baseline;
-      gap: 8px;
+      gap: 6px;
       margin-bottom: 2px;
     }
     .brand-name {
-      font-size: 21px;
+      font-size: 18px;
       font-weight: 800;
       color: #1e3a8a;
-      letter-spacing: -0.4px;
+      letter-spacing: -0.3px;
       line-height: 1.1;
     }
     .brand-tagline {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
       color: #2563eb;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
     }
     .brand-address {
-      font-size: 10px;
+      font-size: 8.5px;
       color: #1e40af;
-      line-height: 1.45;
-      margin-bottom: 3px;
+      line-height: 1.35;
+      margin-bottom: 2px;
       font-weight: 500;
     }
     .brand-contacts {
-      font-size: 10px;
+      font-size: 8.5px;
       color: #1d4ed8;
-      line-height: 1.4;
+      line-height: 1.35;
       font-weight: 600;
     }
     .contact-sep {
       color: #93c5fd;
-      margin: 0 4px;
+      margin: 0 3px;
     }
     .doc-meta {
       text-align: right;
+      min-width: 255px;
+      flex-shrink: 0;
     }
     .doc-title {
-      font-size: 21px;
-      font-weight: 700;
+      font-size: 20px;
+      font-weight: 800;
       color: #0f172a;
-      line-height: 1.2;
+      line-height: 1.15;
+      margin-bottom: 2px;
     }
     .doc-subtitle {
-      font-size: 10.5px;
+      font-size: 10px;
       color: #64748b;
       font-weight: 600;
       letter-spacing: 0.5px;
       margin-bottom: 3px;
+    }
+    .doc-meta-line {
+      white-space: nowrap !important;
+      font-size: 10.5px;
+      color: #475569;
+      line-height: 1.4;
+      white-space: nowrap;
     }
     .badge-status {
       display: inline-block;
@@ -747,19 +758,19 @@
         </div>
       </div>
       <div class="doc-meta">
-        <div class="doc-title" id="dispDocTitle">ใบรับเงินมัดจำ</div>
-        <div class="doc-subtitle" id="dispDocSubtitle">DEPOSIT RECEIPT (NON-VAT)</div>
-        <span class="badge-status badge-deposit" id="dispBadge">รับชำระเงินมัดจำแล้ว</span>
-        <div style="font-size: 11.5px; color: #475569; margin-top: 2px;"><strong>เลขที่เอกสาร:</strong> <span id="dispReceiptNo">DP-20261115-001</span></div>
-        <div style="font-size: 11.5px; color: #475569;"><strong>วันที่:</strong> <span id="dispDate">15 พฤศจิกายน 2569</span></div>
-        <div style="font-size: 10.5px; color: #64748b;" id="dispRefRow"><strong>อ้างอิงโอน:</strong> <span id="dispRefNo">261115112056</span></div>
+        <div class="doc-title" id="dispDocTitle">ใบเสนอราคา</div>
+        <div class="doc-subtitle" id="dispDocSubtitle">QUOTATION (NON-VAT)</div>
+        <span class="badge-status badge-quotation" id="dispBadge">ยืนยันราคาพิเศษ 3 วัน</span>
+        <div class="doc-meta-line"><strong>เลขที่เอกสาร:</strong> <span id="dispReceiptNo">QT-20261115-001</span></div>
+        <div class="doc-meta-line"><strong>วันที่:</strong> <span id="dispDate">15 พฤศจิกายน 2569</span></div>
+        <div class="doc-meta-line" id="dispRefRow"><strong id="dispRefLabel">กำหนดชำระ:</strong> <span id="dispRefNo">ภายใน 16 พ.ย. 2569</span></div>
       </div>
     </div>
 
     <!-- Client & Payment Info -->
     <div class="info-grid">
       <div class="info-card">
-        <div class="info-label" id="dispClientCardLabel">ได้รับเงินมัดจำจาก (CUSTOMER)</div>
+        <div class="info-label" id="dispClientCardLabel">เรียน (ATTN TO)</div>
         <div class="info-name" id="dispCustomerName">บริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด</div>
         <div class="info-detail">
           <strong>ผู้ติดต่อ:</strong> <span id="dispContactPerson">คุณ Thor</span><br>
@@ -769,7 +780,7 @@
         </div>
       </div>
       <div class="info-card">
-        <div class="info-label" id="dispPaymentCardLabel">รายละเอียดการชำระมัดจำ (DEPOSIT DETAILS)</div>
+        <div class="info-label" id="dispPaymentCardLabel">เงื่อนไขการชำระเงิน (PAYMENT TERMS)</div>
         <div class="info-detail" style="margin-top: 2px;" id="dispPaymentCardBody">
           <strong>ช่องทางชำระ:</strong> <span id="dispPaymentMethod">โอนผ่านระบบธนาคารไทยพาณิชย์ (SCB)</span><br>
           <strong>เข้าบัญชี:</strong> ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน) KKP<br>
@@ -800,15 +811,15 @@
 • ฟรีบริการโฮสติ้งความเร็วสูง และส่งมอบงานแก้ไขจนกว่าจะพึงพอใจ</div>
           </td>
           <td class="text-center">1 งาน</td>
-          <td class="text-right" id="dispTotalContractPrice">3,900.00</td>
-          <td class="text-right" style="font-weight: 600;" id="dispItemTotal">3,900.00</td>
+          <td class="text-right" id="dispTotalContractPrice">990.00</td>
+          <td class="text-right" style="font-weight: 600;" id="dispItemTotal">990.00</td>
         </tr>
       </tbody>
     </table>
 
     <!-- Baht Text -->
     <div class="baht-text-card">
-      <strong id="dispBahtLabel">จำนวนเงินมัดจำ (ตัวอักษร):</strong> <span id="dispBahtText">สองพันบาทถ้วน</span>
+      <strong id="dispBahtLabel">จำนวนเงินรวมทั้งสิ้น (ตัวอักษร):</strong> <span id="dispBahtText">เก้าร้อยเก้าสิบบาทถ้วน</span>
     </div>
 
     <!-- Summary (With Deposit Deduction) -->
@@ -816,7 +827,7 @@
       <div class="summary-table">
         <div class="summary-row" id="rowTotalProject">
           <span>ราคาทั้งหมดตามใบเสนอราคา:</span>
-          <span style="font-weight: 600; color: #1e293b;" id="dispSummaryTotalProject">3,900.00 บาท</span>
+          <span style="font-weight: 600; color: #1e293b;" id="dispSummaryTotalProject">990.00 บาท</span>
         </div>
         <div class="summary-row highlight-deposit" id="rowDeductDeposit">
           <span>หัก: ชำระเงินมัดจำแล้ว (Deposit):</span>
@@ -831,7 +842,7 @@
           <span>0.00 บาท</span>
         </div>
         <div class="summary-row total">
-          <span id="dispNetTotalLabel">ยอดเงินมัดจำสุทธิ:</span>
+          <span id="dispNetTotalLabel">ยอดรวมสุทธิทั้งสิ้น:</span>
           <span id="dispNetTotal">2,000.00 บาท</span>
         </div>
       </div>
@@ -902,6 +913,7 @@
       if (type === 'QUOTATION') {
         document.getElementById('tabQuotation').classList.add('active');
         titleEl.textContent = 'ใบเสนอราคา';
+        const refLbl = document.getElementById('dispRefLabel'); if (refLbl) refLbl.textContent = 'กำหนดชำระ:';
         subEl.textContent = 'QUOTATION (NON-VAT)';
         badgeEl.className = 'badge-status badge-quotation';
         badgeEl.textContent = document.getElementById('inputValidityDays')?.value || 'ยืนยันราคาพิเศษ 3 วัน';
@@ -920,16 +932,17 @@
       } else if (type === 'DEPOSIT') {
         document.getElementById('tabDeposit').classList.add('active');
         titleEl.textContent = 'ใบรับเงินมัดจำ';
+        const refLbl = document.getElementById('dispRefLabel'); if (refLbl) refLbl.textContent = 'อ้างอิงโอน:';
         subEl.textContent = 'DEPOSIT RECEIPT (NON-VAT)';
         badgeEl.className = 'badge-status badge-deposit';
         badgeEl.textContent = 'รับชำระเงินมัดจำแล้ว';
         clientLabel.textContent = 'ได้รับเงินมัดจำจาก (CUSTOMER)';
         payLabel.textContent = 'รายละเอียดการชำระมัดจำ (DEPOSIT DETAILS)';
         payBody.innerHTML = '<strong>ช่องทางชำระ:</strong> ' + document.getElementById('inputPaymentMethod').value + '<br><strong>เข้าบัญชี:</strong> ธนาคารเกียรตินาคินภัทร (KKP) เลขที่ 2061291340<br><strong>ชื่อบัญชี:</strong> มานพ ฤาชุตกุล<br><strong>สถานะ:</strong> รับเงินมัดจำและเริ่มจัดทำระบบทันที';
-        receiverRole.textContent = 'ผู้รับเงินมัดจำ / ผู้มีอำนาจ (SalesDesk AI)';
+        receiverRole.textContent = 'ผู้ออกใบเสนอราคา (SalesDesk AI)';
         footerNote.innerHTML = 'ได้รับเงินมัดจำเรียบร้อยแล้ว ทีมงานจะส่งมอบดราฟต์แรกให้ตรวจสอบภายใน 48 ชม. ครับ ';
-        netTotalLabel.textContent = 'ยอดเงินมัดจำสุทธิ:';
-        bahtLabel.textContent = 'จำนวนเงินมัดจำ (ตัวอักษร):';
+        netTotalLabel.textContent = 'ยอดรวมสุทธิทั้งสิ้น:';
+        bahtLabel.textContent = 'จำนวนเงินรวมทั้งสิ้น (ตัวอักษร):';
         rowDeduct.style.display = 'flex';
         rowRemaining.style.display = 'flex';
         if (document.getElementById('inputReceiptNo').value.startsWith('QT-') || document.getElementById('inputReceiptNo').value.startsWith('RE-')) {
@@ -938,6 +951,7 @@
       } else {
         document.getElementById('tabReceipt').classList.add('active');
         titleEl.textContent = 'ใบเสร็จรับเงิน';
+        const refLbl = document.getElementById('dispRefLabel'); if (refLbl) refLbl.textContent = 'อ้างอิงโอน:';
         subEl.textContent = 'RECEIPT (NON-VAT)';
         badgeEl.className = 'badge-status badge-paid';
         badgeEl.textContent = 'ชำระเงินเรียบร้อยแล้ว';
@@ -1050,6 +1064,10 @@
       }
 
       document.getElementById('dispRefNo').textContent = refNo;
+      const refLbl = document.getElementById('dispRefLabel');
+      if (refLbl) {
+        refLbl.textContent = (currentDocType === 'QUOTATION') ? 'กำหนดชำระ:' : 'อ้างอิงโอน:';
+      }
       if (currentDocType === 'QUOTATION') {
         const valBadge = document.getElementById('inputValidityDays')?.value || 'ยืนยันราคาพิเศษ 3 วัน';
         const badgeEl = document.getElementById('dispBadge'); if (badgeEl) badgeEl.textContent = valBadge;
@@ -1071,7 +1089,7 @@
       document.getElementById('inputDepositAmount').value = 990;
       document.getElementById('inputItemSub').value = 'รายการบริการ:\n1. บริการเซ็ตอัประบบ LINE Official Account เชิงธุรกิจตามมาตรฐาน\n2. ออกแบบกราฟิก Rich Menu พรีเมียม 6 ช่อง (โทนสีและสไตล์เข้าชุดกับหน้าเว็บ)\n3. ตั้งค่าระบบข้อความต้อนรับอัตโนมัติ (Greeting Message) และระบบตอบคำถามเบื้องต้น\n4. เชื่อมต่อระบบรับคำสั่งซื้อจากเซลเพจตรงเข้า LINE OA\n\n- ราคาปกติ: 2,500 บาท\n- ส่วนลดพิเศษสำหรับลูกค้าทำเว็บไซต์: -1,510 บาท\n- ยอดสุทธิที่ต้องชำระ: 990.00 บาทถ้วน';
       document.getElementById('inputPaymentMethod').value = 'โอนผ่านบัญชีธนาคาร เกียรตินาคินภัทร (KKP) เลขที่ 2061291340';
-      document.getElementById('inputRefNo').value = 'กำหนดชำระภายใน 16 พ.ย. 2569';
+      document.getElementById('inputRefNo').value = 'ภายใน 16 พ.ย. 2569';
       document.getElementById('inputValidityDays').value = 'ยืนยันราคาพิเศษ 3 วัน';
       updateReceiptData();
     }

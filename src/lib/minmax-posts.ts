@@ -47,7 +47,7 @@ export const minmaxPosts: MinMaxPost[] = [
       <h2>เริ่มต้นวางรากฐานแบรนด์ของคุณวันนี้</h2>
       <p>หากคุณต้องการยกระดับธุรกิจจาก "พ่อค้าแม่ค้าออนไลน์ที่ต้องลุ้นยอดขายรายวัน" สู่ "แบรนด์ที่แข็งแกร่งและมียอดขายเติบโตอย่างเป็นระบบ" ทีมที่ปรึกษากลยุทธ์ของ <strong>MinMax Media</strong> พร้อมช่วยคุณวิเคราะห์และวางโรดแมปแบบเฉพาะเจาะจง</p>
 
-      <p>สามารถลงทะเบียนรับการวิเคราะห์แผนการตลาดเบื้องต้นฟรีได้ที่ <a href="/minmax-media#consult-form" class="text-emerald-400 font-bold underline hover:text-emerald-300">หน้าลงทะเบียนปรึกษากลยุทธ์ MinMax Media</a> หรือแอดไลน์คุยกับทีมผู้เชี่ยวชาญโดยตรงที่ <a href="https://line.me/R/ti/p/%40malakor" target="_blank" rel="noreferrer" class="text-emerald-400 font-bold underline hover:text-emerald-300">LINE Official: @malakor</a></p>
+      <p>สามารถลงทะเบียนรับการวิเคราะห์แผนการตลาดเบื้องต้นฟรีได้ที่ <a href="/minmax-media#consult-form" class="text-emerald-400 font-bold underline hover:text-emerald-300">หน้าลงทะเบียนปรึกษากลยุทธ์ MinMax Media</a> หรือแอดไลน์คุยกับทีมผู้เชี่ยวชาญโดยตรงที่ <a href="https://line.me/R/ti/p/%40malakor" target="_blank" rel="noreferrer" class="text-emerald-400 font-bold underline hover:text-emerald-300">LINE Official: MINMAX MEDIA</a></p>
     `,
     featuredImage: '/images/covers/cover-salepage-psychology.jpg',
     imageAlt: 'กลยุทธ์ Full-Funnel Marketing 2026 ปั้นแบรนด์สู่ยอดขาย 8 หลัก โดย MinMax Media',
@@ -86,7 +86,7 @@ export const minmaxPosts: MinMaxPost[] = [
       </ul>
 
       <h2>ให้ทีมโปรดักชั่นมืออาชีพดูแลภาพลักษณ์แบรนด์ของคุณ</h2>
-      <p>ที่ <strong>MinMax Media Event Agency</strong> เรามีทีมครีเอทีฟ ช่างภาพ วิดีโอเอดิเตอร์ และกราฟิกดีไซเนอร์ที่พร้อมเปลี่ยนไอเดียของคุณให้กลายเป็นสื่อโฆษณาทรงพลัง ดูรายละเอียดบริการทั้ง 6 ด้านได้ที่ <a href="/minmax-media#services" class="text-emerald-400 font-bold underline hover:text-emerald-300">บริการครบวงจรของ MinMax Media</a> หรือทักแชทปรึกษาโปรเจกต์ได้ที่ <a href="https://line.me/R/ti/p/%40malakor" target="_blank" rel="noreferrer" class="text-emerald-400 font-bold underline hover:text-emerald-300">LINE: @malakor</a></p>
+      <p>ที่ <strong>MinMax Media Event Agency</strong> เรามีทีมครีเอทีฟ ช่างภาพ วิดีโอเอดิเตอร์ และกราฟิกดีไซเนอร์ที่พร้อมเปลี่ยนไอเดียของคุณให้กลายเป็นสื่อโฆษณาทรงพลัง ดูรายละเอียดบริการทั้ง 6 ด้านได้ที่ <a href="/minmax-media#services" class="text-emerald-400 font-bold underline hover:text-emerald-300">บริการครบวงจรของ MinMax Media</a> หรือทักแชทปรึกษาโปรเจกต์ได้ที่ <a href="https://line.me/R/ti/p/%40malakor" target="_blank" rel="noreferrer" class="text-emerald-400 font-bold underline hover:text-emerald-300">LINE: MINMAX MEDIA</a></p>
     `,
     featuredImage: '/images/covers/cover-speed-core-web-vitals.jpg',
     imageAlt: 'เทคนิค Video Production ตัดต่อคลิปสั้น Reels และ TikTok เพิ่มยอดขาย โดย MinMax Media',
@@ -128,7 +128,7 @@ export const minmaxPosts: MinMaxPost[] = [
       <h2>ปรึกษาการวางแคมเปญ Influencer & Performance Ads กับ MinMax Media</h2>
       <p>ไม่ว่าคุณจะมีงบประมาณเริ่มต้นสำหรับ SME หรือต้องการรันแคมเปญระดับประเทศ ทีมงาน <strong>MinMax Media Event Agency</strong> พร้อมดูแลตั้งแต่การคัดกรองอินฟลูเอนเซอร์ บรีฟงาน ตรวจสคริปต์ ไปจนถึงการยิงแอดวัดผลยอดขาย</p>
 
-      <p>ติดต่อขอรับคำปรึกษาและใบเสนอราคาฟรีได้ที่ <a href="/minmax-media#consult-form" class="text-emerald-400 font-bold underline hover:text-emerald-300">แบบฟอร์มขอรับคำปรึกษา MinMax Media</a> หรือทักไลน์ <a href="https://line.me/R/ti/p/%40malakor" target="_blank" rel="noreferrer" class="text-emerald-400 font-bold underline hover:text-emerald-300">LINE: @malakor</a></p>
+      <p>ติดต่อขอรับคำปรึกษาและใบเสนอราคาฟรีได้ที่ <a href="/minmax-media#consult-form" class="text-emerald-400 font-bold underline hover:text-emerald-300">แบบฟอร์มขอรับคำปรึกษา MinMax Media</a> หรือทักไลน์ <a href="https://line.me/R/ti/p/%40malakor" target="_blank" rel="noreferrer" class="text-emerald-400 font-bold underline hover:text-emerald-300">LINE: MINMAX MEDIA</a></p>
     `,
     featuredImage: '/images/covers/cover-cod-facebook-ads.jpg',
     imageAlt: 'กลยุทธ์ Influencer KOL KOC ผสาน Performance Ads เพิ่ม ROAS โดย MinMax Media',

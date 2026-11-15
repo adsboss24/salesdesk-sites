@@ -158,7 +158,7 @@ export default async function MinMaxArticlePage({ params }: Props) {
               buttonName="article_header_line"
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-xs text-slate-950 font-extrabold shadow-md shadow-emerald-500/20"
             >
-              <MessageCircle className="w-3.5 h-3.5" /> LINE: @malakor
+              <MessageCircle className="w-3.5 h-3.5" /> LINE: MINMAX MEDIA
             </TrackableLineButton>
           </div>
         </div>
@@ -346,7 +346,7 @@ export default async function MinMaxArticlePage({ params }: Props) {
               buttonName="article_bottom_line"
               className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-[#06C755] hover:bg-[#05b34c] text-white font-bold text-xs sm:text-sm transition flex items-center justify-center gap-2"
             >
-              <MessageCircle className="w-4 h-4" /> แอด LINE: @malakor
+              <MessageCircle className="w-4 h-4" /> แอด LINE: MINMAX MEDIA
             </TrackableLineButton>
           </div>
         </div>
@@ -369,7 +369,7 @@ export default async function MinMaxArticlePage({ params }: Props) {
             buttonName="article_mobile_sticky_line"
             className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-black text-xs"
           >
-            <span>แอด LINE @malakor</span>
+            <span>แอด LINE MINMAX MEDIA</span>
           </TrackableLineButton>
         </div>
       </div>

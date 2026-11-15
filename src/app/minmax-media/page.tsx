@@ -51,7 +51,7 @@ function LineIcon({ className = 'w-4 h-4' }: { className?: string }) {
 export default function MinMaxMediaSalepage() {
   // Official Contact Credentials & Verified Endpoints
   const lineUrl = 'https://line.me/R/ti/p/%40malakor';
-  const lineId = '@malakor';
+  const lineId = 'MINMAX MEDIA';
   const fbPageUrl = 'https://www.facebook.com/MinmaxMediaAgency';
   const fbMessengerUrl = 'https://m.me/MinmaxMediaAgency';
 
@@ -141,7 +141,7 @@ export default function MinMaxMediaSalepage() {
       if (res.ok) {
         setIsSubmitted(true);
       } else {
-        alert('เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาติดต่อทาง LINE @malakor โดยตรงครับ');
+        alert('เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาติดต่อทาง LINE MINMAX MEDIA โดยตรงครับ');
       }
     } catch (err) {
       console.error(err);
@@ -450,7 +450,7 @@ export default function MinMaxMediaSalepage() {
                 className="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-950 font-black text-center text-xs flex items-center justify-center gap-1.5"
               >
                 <LineIcon className="w-4 h-4 fill-slate-950" />
-                แอดไลน์ @malakor ปรึกษาฟรี
+                แอดไลน์ MINMAX MEDIA ปรึกษาฟรี
               </TrackableLineButton>
               <a
                 href={fbPageUrl}
@@ -933,7 +933,7 @@ export default function MinMaxMediaSalepage() {
                     className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-400 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black text-sm shadow-lg shadow-emerald-500/30"
                   >
                     <LineIcon className="w-4 h-4 fill-slate-950" />
-                    <span>ทัก LINE @malakor ด่วน</span>
+                    <span>ทัก LINE MINMAX MEDIA ด่วน</span>
                   </TrackableLineButton>
                 </div>
               </div>

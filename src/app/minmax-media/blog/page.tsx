@@ -51,7 +51,7 @@ export default function MinMaxBlogIndexPage() {
               buttonName="blog_index_header_line"
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-xs text-slate-950 font-extrabold"
             >
-              <MessageCircle className="w-3.5 h-3.5" /> LINE: @malakor
+              <MessageCircle className="w-3.5 h-3.5" /> LINE: MINMAX MEDIA
             </TrackableLineButton>
           </div>
         </div>

@@ -4,7 +4,7 @@ import { constructMetadata } from '@/utils/seo';
 export const metadata: Metadata = constructMetadata({
   title: 'MinMax Media Event Agency | รับทำการตลาดครบวงจร พร้อมปั้นแบรนด์',
   description:
-    'เอเจนซี่การตลาดและอีเวนต์ครบวงจร วางกลยุทธ์แบรนด์ โปรดักชั่นวิดีโอ กราฟิกดีไซน์ คอนเทนต์สร้างยอดขาย จัดหาอินฟลูเอนเซอร์ KOL/KOC ดูแลโซเชียลมีเดียทุกช่องทาง และวางกลยุทธ์แอดโฆษณาวัดผล ROI สูงสุด โดยทีมงานมืออาชีพ MinMax Media ติดต่อ LINE: @malakor',
+    'เอเจนซี่การตลาดและอีเวนต์ครบวงจร วางกลยุทธ์แบรนด์ โปรดักชั่นวิดีโอ กราฟิกดีไซน์ คอนเทนต์สร้างยอดขาย จัดหาอินฟลูเอนเซอร์ KOL/KOC ดูแลโซเชียลมีเดียทุกช่องทาง และวางกลยุทธ์แอดโฆษณาวัดผล ROI สูงสุด โดยทีมงานมืออาชีพ MinMax Media ติดต่อ LINE: MINMAX MEDIA',
   canonicalPath: '/minmax-media',
   ogImage: '/images/minmax/hero-minimal-premium.jpg',
   keywords: [

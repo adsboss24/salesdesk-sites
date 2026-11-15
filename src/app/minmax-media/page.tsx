@@ -213,63 +213,58 @@ export default function MinMaxMediaSalepage() {
             : 'bg-[#04090d]/85 border-b border-emerald-500/15'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-[68px] flex items-center justify-between">
-          {/* Logo & Agency Identity */}
-          <Link href="/minmax-media" className="flex items-center gap-3 shrink-0 group">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-emerald-400 via-teal-300 to-cyan-400 p-[1.5px] shadow-lg shadow-emerald-500/20 shrink-0 group-hover:scale-105 transition">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-[70px] flex items-center justify-between gap-4">
+          {/* Logo & Agency Identity (Minimal Premium Clean) */}
+          <Link href="/minmax-media" className="flex items-center gap-2.5 shrink-0 group">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-emerald-400 via-teal-300 to-cyan-400 p-[1.5px] shadow-md shadow-emerald-500/20 shrink-0 group-hover:scale-105 transition">
               <div className="w-full h-full rounded-full bg-[#04090d] flex items-center justify-center">
-                <span className="font-black text-xs sm:text-sm tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-300">
+                <span className="font-black text-xs tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-teal-300">
                   MN
                 </span>
               </div>
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-sm sm:text-lg font-black tracking-tight text-white leading-tight">
-                  MINMAX <span className="text-emerald-400">MEDIA</span>
-                </span>
-                <span className="hidden xl:inline-block bg-emerald-500/15 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30 whitespace-nowrap">
-                  {t.header.badge}
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-400 truncate hidden sm:block">
-                {t.header.tagline}
-              </p>
+            <div className="leading-none">
+              <span className="text-sm sm:text-base font-black tracking-tight text-white whitespace-nowrap block">
+                MINMAX <span className="text-emerald-400">MEDIA</span>
+              </span>
+              <span className="hidden sm:block text-[10px] tracking-wider uppercase text-slate-400 mt-0.5 whitespace-nowrap">
+                {t.header.badge}
+              </span>
             </div>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-xs font-semibold text-slate-300">
-            <a href="#services" className="hover:text-emerald-400 transition">
+          {/* Desktop Nav Links (Single-line Minimalist) */}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-[13px] font-medium text-slate-300">
+            <a href="#services" className="hover:text-emerald-400 transition whitespace-nowrap">
               {t.header.navServices}
             </a>
-            <a href="#cases" className="hover:text-emerald-400 transition">
+            <a href="#cases" className="hover:text-emerald-400 transition whitespace-nowrap">
               {t.header.navCases}
             </a>
-            <a href="#workflow" className="hover:text-emerald-400 transition">
+            <a href="#workflow" className="hover:text-emerald-400 transition whitespace-nowrap">
               {t.header.navWorkflow}
             </a>
-            <a href="#articles" className="hover:text-emerald-400 transition">
+            <a href="#articles" className="hover:text-emerald-400 transition whitespace-nowrap">
               {t.header.navArticles}
             </a>
-            <a href="#faq" className="hover:text-emerald-400 transition">
+            <a href="#faq" className="hover:text-emerald-400 transition whitespace-nowrap">
               {t.header.navFaq}
             </a>
           </nav>
 
           {/* Desktop Direct Contact Action & Language Switcher */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
             {/* Language Switcher Pill (TH / EN) */}
             <div
-              className="inline-flex items-center p-0.5 rounded-xl bg-slate-900/90 border border-emerald-500/25 text-[11px] font-bold"
+              className="inline-flex items-center p-0.5 rounded-full bg-slate-900/90 border border-white/10 text-[11px] font-bold"
               role="group"
               aria-label="Language Switcher"
             >
-              <Globe className="w-3.5 h-3.5 text-emerald-400 ml-2 mr-1 hidden sm:block" />
+              <Globe className="w-3.5 h-3.5 text-emerald-400 ml-2 mr-1 hidden xl:block" />
               <button
                 type="button"
                 onClick={() => switchLang('th')}
-                className={`px-2 py-1 rounded-lg transition cursor-pointer ${
+                className={`px-2.5 py-1 rounded-full transition cursor-pointer ${
                   lang === 'th'
                     ? 'bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-950 font-black shadow-sm'
                     : 'text-slate-400 hover:text-white'
@@ -280,7 +275,7 @@ export default function MinMaxMediaSalepage() {
               <button
                 type="button"
                 onClick={() => switchLang('en')}
-                className={`px-2 py-1 rounded-lg transition cursor-pointer ${
+                className={`px-2.5 py-1 rounded-full transition cursor-pointer ${
                   lang === 'en'
                     ? 'bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-950 font-black shadow-sm'
                     : 'text-slate-400 hover:text-white'
@@ -293,14 +288,14 @@ export default function MinMaxMediaSalepage() {
             <TrackableLineButton
               href={lineUrl}
               buttonName="header_line_official"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-emerald-300 border border-emerald-500/30 hover:border-emerald-400/60 font-semibold text-xs transition whitespace-nowrap"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-emerald-300 border border-emerald-500/25 hover:border-emerald-400/60 font-semibold text-xs transition whitespace-nowrap"
             >
               <LineIcon className="w-3.5 h-3.5 fill-emerald-400" />
               <span>LINE: {lineId}</span>
             </TrackableLineButton>
             <a
               href="#consult-form"
-              className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-300 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black text-xs shadow-lg shadow-emerald-500/20 transition active:scale-95 whitespace-nowrap"
+              className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-300 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/20 transition active:scale-95 whitespace-nowrap"
             >
               <Calendar className="w-3.5 h-3.5" />
               <span>{t.header.ctaBook}</span>
@@ -309,7 +304,7 @@ export default function MinMaxMediaSalepage() {
             {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-emerald-400 transition"
+              className="lg:hidden p-2 rounded-full bg-slate-900/90 border border-white/10 text-slate-300 hover:text-emerald-400 transition"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}

@@ -102,7 +102,7 @@ export default async function SupperSurfaceArticlePage({ params }: Props) {
       worksFor: {
         '@type': 'Organization',
         name: 'บจก. เฟมไลน์ โปร์ดักส์ (FAMELINE PRODUCTS CO., LTD.)',
-        url: 'https://fameline.com',
+        url: `${siteUrl}/supper-surface`,
       },
     },
     publisher: {

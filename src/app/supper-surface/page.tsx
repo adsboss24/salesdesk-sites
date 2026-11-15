@@ -62,9 +62,6 @@ export default function SupperSurfaceSalesPage() {
   const companyNameTh = 'บจก. เฟมไลน์ โปร์ดักส์';
   const companyNameEn = 'FAMELINE PRODUCTS CO., LTD.';
   const companyAddress = '35/11 ถนนกาญจนาภิเษก แขวงดอกไม้ เขตประเวศ กรุงเทพฯ 10250';
-  const officeTel = '02-365-5899';
-  const officeFax = '02-365-5890';
-  const website = 'fameline.com';
   
   // Sale Contact Person
   const saleName = 'เสาวลักษณ์ นุ่นหนู (คุณแอล)';
@@ -2325,21 +2322,18 @@ ${cart.map((item, idx) => `${idx + 1}. ${item.name} (${item.code})\n   จำน
                     <PhoneCall className="w-4 h-4 text-amber-400 shrink-0" />
                     <div>
                       <span className="text-slate-400">เบอร์โทรศัพท์สายตรง: </span>
-                      <a href={salePhoneCallUrl} className="font-bold text-white hover:text-amber-400 transition text-base">
+                      <a href={salePhoneCallUrl} className="font-bold text-amber-400 hover:underline transition text-base">
                         {salePhone}
                       </a>
-                      <span className="text-slate-400 ml-3">โทรศัพท์บริษัท: </span>
-                      <span className="text-slate-200">{officeTel}</span>
+                      <span className="text-xs text-slate-400 ml-2">(ติดต่อคุณแอล ฝ่ายขายโครงการ)</span>
                     </div>
                   </div>
 
                   <div className="flex items-center gap-3">
                     <FileText className="w-4 h-4 text-amber-400 shrink-0" />
                     <div>
-                      <span className="text-slate-400">อีเมลติดต่อ: </span>
+                      <span className="text-slate-400">อีเมลติดต่อฝ่ายขาย: </span>
                       <a href={`mailto:${saleEmail}`} className="text-white hover:underline">{saleEmail}</a>
-                      <span className="text-slate-400 ml-3">เว็บไซต์: </span>
-                      <a href={`https://${website}`} target="_blank" rel="noreferrer" className="text-amber-400 hover:underline">{website}</a>
                     </div>
                   </div>
                 </div>
@@ -3037,11 +3031,11 @@ ${cart.map((item, idx) => `${idx + 1}. ${item.name} (${item.code})\n   จำน
               SUPPER SURFACE BY FAMELINE PRODUCTS CO., LTD.
             </div>
             <p>
-              35/11 ถนนกาญจนาภิเษก แขวงดอกไม้ เขตประเวศ กรุงเทพฯ 10250 | โทร. 02-365-5899 | แฟกซ์ 02-365-5890
+              35/11 ถนนกาญจนาภิเษก แขวงดอกไม้ เขตประเวศ กรุงเทพฯ 10250 | ติดต่อฝ่ายขายตรง: {salePhone} (คุณแอล)
             </p>
           </div>
           <div className="text-[11px] text-slate-600">
-            © {new Date().getFullYear()} Fameline Products Co., Ltd. All rights reserved. Designed with SalesDesk AI Standard.
+            © {new Date().getFullYear()} Supper Surface by Fameline Products Co., Ltd. All rights reserved. Designed with SalesDesk AI Standard.
           </div>
         </div>
       </footer>

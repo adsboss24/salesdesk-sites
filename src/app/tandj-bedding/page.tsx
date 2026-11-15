@@ -41,8 +41,6 @@ import {
   HelpCircle,
   CheckCircle
 } from 'lucide-react';
-import PremiumFooter from '@/components/Footer';
-import DemoBanner, { useDemoMode } from '@/components/DemoBanner';
 
 // Types
 export interface CartItem {
@@ -59,12 +57,16 @@ export interface CartItem {
 }
 
 export default function TandJBeddingEcommercePage() {
-  const { isDemo, phoneDisplay, phoneCallUrl, lineUrl } = useDemoMode({
-    clientName: 'บจก.ซัคเซสลอนดรี้ แอนด์ โฮเทลซัพพลายส์',
-    pageKey: 'tandj-bedding',
-    defaultClientPhone: '086-461-4614',
-    defaultClientLine: 'https://line.me/ti/p/~@fhu6688s',
-  });
+  // Official Client Information (Live Production - Unlocked)
+  const clientName = 'บริษัท ซัคเซสลอนดรี้ แอนด์ โฮเทลซัพพลายส์ จำกัด';
+  const clientPhone = '086-461-4614';
+  const phoneDisplay = '086-461-4614';
+  const phoneCallUrl = 'tel:0864614614';
+  const lineUrl = 'https://line.me/ti/p/~@fhu6688s';
+
+  const getLineShareUrl = (text: string) => {
+    return `https://line.me/ti/p/~@fhu6688s?text=${encodeURIComponent(text)}`;
+  };
 
   // State
   const [activeCategory, setActiveCategory] = useState<string>('all');
@@ -630,9 +632,6 @@ export default function TandJBeddingEcommercePage() {
   return (
     <div className="min-h-screen bg-[#FDFDFD] text-slate-800 font-sans selection:bg-blue-900 selection:text-white pb-24 md:pb-12 w-full max-w-full overflow-x-hidden">
       
-      {/* 0. DEMO GUARD / URGENCY BANNER */}
-      <DemoBanner clientName="บจก.ซัคเซสลอนดรี้ แอนด์ โฮเทลซัพพลายส์" pageKey="tandj-bedding" />
-
       {/* 1. TOP MINIMAL BAR */}
       <div className="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
@@ -2145,9 +2144,9 @@ export default function TandJBeddingEcommercePage() {
                   {/* Quote Actions */}
                   <div className="space-y-3 pt-2">
                     <a
-                      href={`${lineUrl}&text=${encodeURIComponent(
+                      href={getLineShareUrl(
                         `สวัสดีครับ ขอส่งใบเสนอราคา บจก.ซัคเซสลอนดรี้ เลขที่ ${quotationNumber} ของ ${customerInfo.businessName || 'โครงการ'} จำนวน ${totalItemCount} ชิ้น ยอดรวม ฿${grandTotal.toLocaleString()} บาทครับ`
-                      )}`}
+                      )}
                       target="_blank"
                       rel="noreferrer"
                       className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition"
@@ -2370,9 +2369,9 @@ export default function TandJBeddingEcommercePage() {
                     </button>
 
                     <a
-                      href={`${lineUrl}&text=${encodeURIComponent(
+                      href={getLineShareUrl(
                         `สวัสดีครับ ขอแจ้งโอนเงิน บจก.ซัคเซสลอนดรี้ สำหรับ ${customerInfo.name || 'ลูกค้า'} ยอดเงิน ฿${grandTotal.toLocaleString()} บาท พร้อมส่งสลิปครับ`
-                      )}`}
+                      )}
                       target="_blank"
                       rel="noreferrer"
                       className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition"
@@ -2415,9 +2414,9 @@ export default function TandJBeddingEcommercePage() {
 
                   <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
                     <a
-                      href={`${lineUrl}&text=${encodeURIComponent(
+                      href={getLineShareUrl(
                         `สวัสดีครับ ตรวจสอบรายการสั่งซื้อ บจก.ซัคเซสลอนดรี้ อ้างอิง ${quotationNumber} ยอด ฿${grandTotal.toLocaleString()} บาทครับ`
-                      )}`}
+                      )}
                       target="_blank"
                       rel="noreferrer"
                       className="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md flex items-center justify-center gap-2 transition"
@@ -2451,8 +2450,136 @@ export default function TandJBeddingEcommercePage() {
         brandName="T&J Bedding (Success Laundry & Hotel Supply)"
       />
 
-      {/* 7. FOOTER */}
-      <PremiumFooter />
+      {/* 7. OFFICIAL CLIENT B2B FOOTER */}
+      <footer className="bg-slate-950 text-slate-400 text-xs border-t border-slate-800 pt-16 pb-12 mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
+            
+            {/* Brand & Address */}
+            <div className="md:col-span-5 space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full overflow-hidden bg-white p-0.5 border border-amber-400 shrink-0">
+                  <img
+                    src="/images/tandj/success-logo.jpg"
+                    alt="บจก.ซัคเซสลอนดรี้ แอนด์ โฮเทลซัพพลายส์"
+                    className="w-full h-full object-contain rounded-full"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-white font-extrabold text-base leading-tight">
+                    บริษัท ซัคเซสลอนดรี้ แอนด์ โฮเทลซัพพลายส์ จำกัด
+                  </h3>
+                  <p className="text-amber-400 text-[11px] font-semibold">
+                    Success Laundry & Hotel Supply Co., Ltd.
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-slate-400 leading-relaxed text-xs">
+                โรงงานผลิตและจัดจำหน่ายสิ่งทอและชุดเครื่องนอนมาตรฐานโรงแรม 4-5 ดาว รีสอร์ท พูลวิลล่า 
+                พร้อมโมเดลบริการให้เช่าชุดเครื่องนอนโรงแรม 0 CAPEX เจ้าแรกในภาคใต้
+              </p>
+
+              <div className="space-y-1.5 text-xs text-slate-300">
+                <p className="flex items-start gap-2">
+                  <span className="text-slate-500 font-bold shrink-0">สำนักงานใหญ่:</span>
+                  <span>11 ซอยน้ำทิพย์ ถนนเลียบคลอง ร.๕ ตำบลคอหงส์ อำเภอหาดใหญ่ จังหวัดสงขลา 90110</span>
+                </p>
+                <p className="flex items-center gap-2">
+                  <span className="text-slate-500 font-bold shrink-0">เลขประจำตัวผู้เสียภาษี:</span>
+                  <span className="font-mono text-white font-bold bg-slate-900 px-2 py-0.5 rounded border border-slate-800">0905569004400</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Products & Services */}
+            <div className="md:col-span-3 space-y-3">
+              <h4 className="text-white font-bold text-sm uppercase tracking-wider text-amber-400">
+                กลุ่มสินค้าและบริการ
+              </h4>
+              <ul className="space-y-2 text-xs">
+                <li>
+                  <button onClick={() => { setActiveCategory('rental'); window.scrollTo({ top: 300, behavior: 'smooth' }); }} className="hover:text-amber-300 transition text-left cursor-pointer">
+                    ⭐ บริการเช่าชุดเครื่องนอนโรงแรม (วันละ 3.-)
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => { setActiveCategory('pillow'); window.scrollTo({ top: 300, behavior: 'smooth' }); }} className="hover:text-white transition text-left cursor-pointer">
+                    • หมอน & ปลอกหมอนโรงแรม
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => { setActiveCategory('bedsheet'); window.scrollTo({ top: 300, behavior: 'smooth' }); }} className="hover:text-white transition text-left cursor-pointer">
+                    • ผ้าปูที่นอนปล่อยชาย (Cotton / CVC / TC)
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => { setActiveCategory('duvet'); window.scrollTo({ top: 300, behavior: 'smooth' }); }} className="hover:text-white transition text-left cursor-pointer">
+                    • ปลอกผ้านวม & ไส้นวมไมโครไฟเบอร์
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => { setActiveCategory('protector'); window.scrollTo({ top: 300, behavior: 'smooth' }); }} className="hover:text-white transition text-left cursor-pointer">
+                    • ผ้ารองกันเปื้อนกันน้ำ 100%
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => { setActiveCategory('topper'); window.scrollTo({ top: 300, behavior: 'smooth' }); }} className="hover:text-white transition text-left cursor-pointer">
+                    • ท็อปเปอร์ไมโครไฟเบอร์ หนา 3 นิ้ว
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => { setActiveCategory('towel'); window.scrollTo({ top: 300, behavior: 'smooth' }); }} className="hover:text-white transition text-left cursor-pointer">
+                    • ผ้าขนหนูขนคู่ & ผ้าเช็ดเท้า Welcome
+                  </button>
+                </li>
+              </ul>
+            </div>
+
+            {/* Direct Contact & B2B Inquiries */}
+            <div className="md:col-span-4 space-y-4">
+              <h4 className="text-white font-bold text-sm uppercase tracking-wider text-amber-400">
+                ติดต่อฝ่ายขายและสั่งซื้อโครงการ
+              </h4>
+              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3">
+                <div>
+                  <span className="block text-slate-500 text-[11px] font-medium">โทรศัพท์สายตรงฝ่ายขาย:</span>
+                  <a href="tel:0864614614" className="text-white font-black hover:text-amber-300 transition text-lg tracking-wide flex items-center gap-2">
+                    <PhoneCall className="w-4 h-4 text-amber-400" />
+                    <span>086-461-4614</span>
+                  </a>
+                </div>
+                <div>
+                  <span className="block text-slate-500 text-[11px] font-medium">LINE Official Account:</span>
+                  <a
+                    href="https://line.me/ti/p/~@fhu6688s"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-emerald-400 font-bold hover:underline transition text-sm flex items-center gap-1.5"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>@fhu6688s (มี @ นำหน้า)</span>
+                  </a>
+                </div>
+                <div className="pt-2 border-t border-slate-800 text-[11px] text-slate-400">
+                  <span>เวลาทำการ: จันทร์ - เสาร์ 08:30 - 17:30 น. (ฝ่ายขายและบริการหลังการขาย)</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Copyright & Platform Credit */}
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+            <p>© 2026 บริษัท ซัคเซสลอนดรี้ แอนด์ โฮเทลซัพพลายส์ จำกัด. สงวนลิขสิทธิ์ทั้งหมด</p>
+            <p className="flex items-center gap-2">
+              <span>ระบบเซลเพจแคตตาล็อก & ออกใบเสนอราคา B2B อัตโนมัติ</span>
+              <span>•</span>
+              <span className="text-slate-400">SalesDesk B2B Platform</span>
+            </p>
+          </div>
+        </div>
+      </footer>
 
     </div>
   );

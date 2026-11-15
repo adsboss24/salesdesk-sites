@@ -229,11 +229,11 @@ export default function MinMaxMediaSalepage() {
             <a href="#services" className="hover:text-emerald-400 transition">
               {t.header.navServices}
             </a>
-            <a href="#workflow" className="hover:text-emerald-400 transition">
-              {t.header.navWorkflow}
-            </a>
             <a href="#cases" className="hover:text-emerald-400 transition">
               {t.header.navCases}
+            </a>
+            <a href="#workflow" className="hover:text-emerald-400 transition">
+              {t.header.navWorkflow}
             </a>
             <a href="#articles" className="hover:text-emerald-400 transition">
               {t.header.navArticles}
@@ -616,44 +616,8 @@ export default function MinMaxMediaSalepage() {
         </div>
       </section>
 
-      {/* 5. PROVEN 4-STEP WORKFLOW BLUEPRINT */}
-      <section id="workflow" className="py-14 sm:py-20 bg-[#04090d] relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-            <span className="text-emerald-400 text-xs font-bold tracking-widest uppercase">
-              {t.workflowSection.eyebrow}
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-white mt-1.5">
-              {t.workflowSection.title}
-            </h2>
-            <p className="text-slate-400 text-sm mt-2">
-              {t.workflowSection.subtitle}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {executionSteps.map((step, idx) => (
-              <div
-                key={idx}
-                className="relative p-6 rounded-2xl bg-slate-900/40 border border-slate-800/80 hover:border-emerald-400/40 transition duration-300 space-y-3"
-              >
-                <div className="text-4xl font-black text-emerald-400/20 font-mono">
-                  {step.step}
-                </div>
-                <h3 className="text-base font-bold text-white">
-                  {step.title}
-                </h3>
-                <p className="text-xs text-slate-300 leading-relaxed font-normal">
-                  {step.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 6. INDUSTRY CASE STUDIES & RESULTS */}
-      <section id="cases" className="py-14 sm:py-24 bg-[#060d12] border-y border-emerald-500/10 relative z-10">
+      {/* 5. INDUSTRY CASE STUDIES & RESULTS (SOCIAL PROOF BEFORE PROCESS) */}
+      <section id="cases" className="py-14 sm:py-24 bg-[#04090d] relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
             <span className="text-emerald-400 text-xs font-bold tracking-widest uppercase">
@@ -684,6 +648,42 @@ export default function MinMaxMediaSalepage() {
                 <h3 className="text-lg font-bold text-white">{item.name}</h3>
                 <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                   {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. PROVEN 4-STEP WORKFLOW BLUEPRINT (LOGICAL CERTAINTY) */}
+      <section id="workflow" className="py-14 sm:py-20 bg-[#060d12] border-y border-emerald-500/10 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+            <span className="text-emerald-400 text-xs font-bold tracking-widest uppercase">
+              {t.workflowSection.eyebrow}
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black text-white mt-1.5">
+              {t.workflowSection.title}
+            </h2>
+            <p className="text-slate-400 text-sm mt-2">
+              {t.workflowSection.subtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {executionSteps.map((step, idx) => (
+              <div
+                key={idx}
+                className="relative p-6 rounded-2xl bg-[#091218] border border-slate-800/80 hover:border-emerald-400/40 transition duration-300 space-y-3"
+              >
+                <div className="text-4xl font-black text-emerald-400/20 font-mono">
+                  {step.step}
+                </div>
+                <h3 className="text-base font-bold text-white">
+                  {step.title}
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed font-normal">
+                  {step.desc}
                 </p>
               </div>
             ))}
@@ -771,8 +771,54 @@ export default function MinMaxMediaSalepage() {
         </div>
       </section>
 
-      {/* 8. INTERACTIVE VIP LEAD & CONSULTATION BOOKING FORM */}
-      <section id="consult-form" className="py-14 sm:py-20 bg-[#060d12] border-y border-emerald-500/15 relative z-10">
+      {/* 8. FAQ ACCORDION SECTION (OBJECTION REMOVAL BEFORE THE ASK) */}
+      <section id="faq" className="py-14 sm:py-20 bg-[#060d12] border-y border-emerald-500/10 relative z-10">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <div className="text-center max-w-xl mx-auto mb-10 sm:mb-14">
+            <span className="text-emerald-400 text-xs font-bold tracking-widest uppercase">
+              {t.faqSection.eyebrow}
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">
+              {t.faqSection.title}
+            </h2>
+            <p className="text-slate-400 text-sm mt-1">
+              {t.faqSection.subtitle}
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            {faqs.map((faq, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <div
+                  key={idx}
+                  className="rounded-2xl bg-[#091218] border border-slate-800/80 overflow-hidden transition"
+                >
+                  <button
+                    onClick={() => setOpenFaq(isOpen ? null : idx)}
+                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-white text-sm sm:text-base hover:text-emerald-400 transition"
+                  >
+                    <span>{faq.q}</span>
+                    <ChevronDown
+                      className={`w-5 h-5 text-slate-400 transition-transform duration-200 shrink-0 ${
+                        isOpen ? 'rotate-180 text-emerald-400' : ''
+                      }`}
+                    />
+                  </button>
+                  {isOpen && (
+                    <div className="px-4 pb-5 sm:px-5 sm:pb-6 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3">
+                      {faq.a}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* 9. INTERACTIVE VIP LEAD & CONSULTATION BOOKING FORM (CONVERSION CLIMAX) */}
+      <section id="consult-form" className="py-14 sm:py-20 bg-[#04090d] relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="rounded-3xl bg-[#091218] border border-emerald-500/30 p-6 sm:p-10 shadow-2xl shadow-emerald-950/40 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -912,52 +958,6 @@ export default function MinMaxMediaSalepage() {
                 </button>
               </form>
             )}
-          </div>
-        </div>
-      </section>
-
-      {/* 9. FAQ ACCORDION SECTION */}
-      <section id="faq" className="py-14 sm:py-20 bg-[#04090d] relative z-10">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-xl mx-auto mb-10 sm:mb-14">
-            <span className="text-emerald-400 text-xs font-bold tracking-widest uppercase">
-              {t.faqSection.eyebrow}
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-white mt-1">
-              {t.faqSection.title}
-            </h2>
-            <p className="text-slate-400 text-sm mt-1">
-              {t.faqSection.subtitle}
-            </p>
-          </div>
-
-          <div className="space-y-3">
-            {faqs.map((faq, idx) => {
-              const isOpen = openFaq === idx;
-              return (
-                <div
-                  key={idx}
-                  className="rounded-2xl bg-[#091218] border border-slate-800/80 overflow-hidden transition"
-                >
-                  <button
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-white text-sm sm:text-base hover:text-emerald-400 transition"
-                  >
-                    <span>{faq.q}</span>
-                    <ChevronDown
-                      className={`w-5 h-5 text-slate-400 transition-transform duration-200 shrink-0 ${
-                        isOpen ? 'rotate-180 text-emerald-400' : ''
-                      }`}
-                    />
-                  </button>
-                  {isOpen && (
-                    <div className="px-4 pb-5 sm:px-5 sm:pb-6 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/60 pt-3">
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
           </div>
         </div>
       </section>

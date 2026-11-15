@@ -13,34 +13,28 @@ import {
   MessageCircle, 
   CheckCircle2, 
   Printer, 
-  Download, 
   Search, 
   X, 
-  ExternalLink, 
   Layers, 
   Sparkles, 
   ShieldCheck, 
-  Truck, 
   Building2, 
-  Copy, 
-  ChevronRight, 
   Table, 
   Grid, 
   Check, 
-  ArrowRight,
-  QrCode,
-  UploadCloud,
-  FileCheck,
-  AlertCircle,
-  Calculator,
-  Compass,
-  CheckCircle,
-  HelpCircle,
-  Info,
-  Maximize2,
-  Share2,
-  BookOpen,
-  Clock
+  ArrowRight, 
+  QrCode, 
+  UploadCloud, 
+  AlertCircle, 
+  Calculator, 
+  Compass, 
+  CheckCircle, 
+  HelpCircle, 
+  Share2, 
+  BookOpen, 
+  Clock, 
+  Eye, 
+  BookCheck
 } from 'lucide-react';
 import { getAllSupperSurfacePosts } from '@/lib/supper-surface-posts';
 
@@ -55,7 +49,6 @@ export interface CartItem {
   unitPrice: number;
   quantity: number;
   image: string;
-  catalogUrl: string;
 }
 
 export default function SupperSurfaceSalesPage() {
@@ -76,7 +69,7 @@ export default function SupperSurfaceSalesPage() {
   const facebookPageUrl = 'https://www.facebook.com/suppersurface';
   const lineUrl = 'https://line.me/ti/p/~0661685157';
 
-  // Bank Account Information
+  // Bank Account Information (Used inside Cart Drawer)
   const scbAccount = {
     bank: 'ไทยพาณิชย์ (SCB)',
     number: '154-3-00307-6',
@@ -97,7 +90,10 @@ export default function SupperSurfaceSalesPage() {
   const [checkoutStep, setCheckoutStep] = useState<'cart' | 'quote' | 'payment' | 'success'>('cart');
   const [copiedBank, setCopiedBank] = useState<string | null>(null);
   const [showQrModal, setShowQrModal] = useState<boolean>(false);
-  const [showNamecardModal, setShowNamecardModal] = useState<boolean>(false);
+
+  // In-Page Interactive E-Catalog Previewer State
+  const [selectedCatalogId, setSelectedCatalogId] = useState<number>(1);
+  const [activeModalCatalog, setActiveModalCatalog] = useState<any | null>(null);
 
   // Estimator State
   const [estimatorArea, setEstimatorArea] = useState<number>(50);
@@ -133,7 +129,6 @@ export default function SupperSurfaceSalesPage() {
       price: 1450,
       image: '/images/suppersurface/mcm-stone.jpg',
       badge: 'นวัตกรรมยอดนิยม ดัดโค้งได้',
-      catalogUrl: 'https://anyflip.com/bookcase/xfyfc',
       features: ['ดัดโค้งรัศมีแคบได้ ไม่แตกร้าว', 'น้ำหนักเบากว่าหินจริง 80%', 'ติดตั้งง่ายด้วยกาวโพลียูรีเทน', 'ทนแดด ทน UV เกรดภายนอก'],
     },
     {
@@ -148,7 +143,6 @@ export default function SupperSurfaceSalesPage() {
       price: 1250,
       image: '/images/suppersurface/wpc-wood.jpg',
       badge: 'ทนปลวก ทนชื้น 100%',
-      catalogUrl: 'https://anyflip.com/bookcase/xfyfc',
       features: ['ไร้กังวลเรื่องปลวกและเชื้อรา', 'ทนน้ำและความชื้น ไม่โก่งงอ', 'ระบบคลิปล็อคซ่อนหัวสกรู', 'เป็นมิตรต่อสิ่งแวดล้อม รีไซเคิลได้'],
     },
     {
@@ -163,7 +157,6 @@ export default function SupperSurfaceSalesPage() {
       price: 980,
       image: '/images/suppersurface/ceiling-85c.jpg',
       badge: 'มาตรฐานโครงการ B2B',
-      catalogUrl: 'https://anyflip.com/bookcase/xfyfc',
       features: ['อลูมิเนียมเกรด A ปลอดสนิมตลอดชีพ', 'ระบบโครงสร้างล็อค Snap-in แข็งแรง', 'รองรับงานภายนอกอาคารและใต้หลังคา', 'สั่งตัดความยาวตามหน้างาน ลดเศษสูญเสีย'],
     },
     {
@@ -178,7 +171,6 @@ export default function SupperSurfaceSalesPage() {
       price: 1050,
       image: '/images/suppersurface/ceiling-85f.jpg',
       badge: 'ดีไซน์ร่องโมเดิร์น มีมิติ',
-      catalogUrl: 'https://anyflip.com/bookcase/xfyfc',
       features: ['สร้างเส้นสายเฉียบคมทางสถาปัตยกรรม', 'ทนต่อแรงลมภายนอกอาคาร', 'เคลือบสี Polyester / PVDF คุณภาพสูง', 'ติดตั้งร่วมกับโคมไฟ Linear Light ได้ลงตัว'],
     },
     {
@@ -193,7 +185,6 @@ export default function SupperSurfaceSalesPage() {
       price: 1850,
       image: '/images/suppersurface/louver-modern.jpg',
       badge: 'ประหยัดพลังงาน เปลือกอาคาร',
-      catalogUrl: 'https://anyflip.com/bookcase/xfyfc',
       features: ['ลดความร้อนจากแสงแดดเข้าสู่อาคาร', 'โครงสร้างอลูมิเนียมน้ำหนักเบา ไม่เป็นภาระโครงสร้าง', 'เคลือบสีลายไม้ธรรมชาติ หรือสี Powder Coat', 'ทนพายุ ลมแรง ไม่บิดเบี้ยว'],
     },
     {
@@ -208,7 +199,6 @@ export default function SupperSurfaceSalesPage() {
       price: 1100,
       image: '/images/suppersurface/deco-roof.jpg',
       badge: 'ทนแดด ทนฝน ไม่รั่วซึม',
-      catalogUrl: 'https://anyflip.com/bookcase/xfyfc',
       features: ['พื้นผิวเรียบตึง ไม่เกิดคลื่น (No Oil Canning)', 'ป้องกันรังสี UV และลดเสียงฝนกระทบ', 'ดัดพับขึ้นรูปขอบกล่องกันน้ำได้สนิท', 'น้ำหนักเบา ติดตั้งบนโครงสร้างเหล็กได้ง่าย'],
     },
     {
@@ -223,7 +213,6 @@ export default function SupperSurfaceSalesPage() {
       price: 950,
       image: '/images/suppersurface/composite-deco.jpg',
       badge: 'เกรดมาตรฐานโครงการ',
-      catalogUrl: 'https://anyflip.com/bookcase/xfyfc',
       features: ['สีสันสดใส มีให้เลือกกว่า 50 เฉดสี', 'ผิวเคลือบสีทนทานต่อสารเคมีและมลภาวะ', 'ตัด ฉลุ ดัดโค้ง พับกล่อง ทำงานได้ง่าย', 'ราคาคุ้มค่า ประหยัดงบประมาณโครงการ'],
     },
     {
@@ -238,7 +227,6 @@ export default function SupperSurfaceSalesPage() {
       price: 1650,
       image: '/images/suppersurface/composite-altex.jpg',
       badge: 'สเปกเมกะโปรเจกต์ ไส้ทนไฟ FR',
-      catalogUrl: 'https://drive.google.com/file/d/1MfvcTjjty6C4UYwGAYokBsH9PqE37SHJ/view?usp=drivesdk',
       features: ['ไส้กลางกันไฟลาม Class A2 / B1 ปลอดภัยสูงสุด', 'เคลือบสี Kynar 500 PVDF ทนทาน 20 ปี+', 'ผ่านการทดสอบมาตรฐานสากล ASTM, BS, ISO', 'เอกสารสเปกพร้อมยื่นงานราชการและอาคารสูง'],
     },
     {
@@ -253,10 +241,134 @@ export default function SupperSurfaceSalesPage() {
       price: 2150,
       image: '/images/suppersurface/nichiha-cement.jpg',
       badge: 'แบรนด์อันดับ 1 จากญี่ปุ่น ทำความสะอาดตัวเองได้',
-      catalogUrl: 'https://online.anyflip.com/wbgdd/uqhl/mobile/index.html',
       features: ['ระบบคลิปล็อค ไร้รอยสกรูบนหน้าแผ่น', 'เทคโนโลยี MicroGuard สลายคราบสกปรกด้วยแสงแดดและน้ำฝน', 'ลวดลายหิน ไม้ และคอนกรีตลึก 3 มิติ สมจริงเหนือระดับ', 'ฉนวนกันเสียงและป้องกันความร้อนเข้าสู่ตัวบ้าน'],
     },
   ], []);
+
+  // 9 Interactive E-Catalogs (In-Page Spec Preview System)
+  const catalogsList = useMemo(() => [
+    {
+      id: 1,
+      title: '1. หินวีเนียร์ Veneer & MCM (Flexible Stone)',
+      code: 'SS-MCM-CAT',
+      categoryName: 'หินวีเนียร์ & MCM',
+      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
+      image: '/images/suppersurface/mcm-stone.jpg',
+      desc: 'นวัตกรรมหินแผ่นบางยืดหยุ่นดัดโค้งได้ หนา 2-4 มม. น้ำหนักเบากว่าหินจริง 80% ปิดผิวเสากลม ผนังโค้ง และ Facade โมเดิร์น ไม่ลามไฟ',
+      specs: ['ความหนา 2 - 4 มม.', 'ขนาดแผ่น 60x120 ซม. / 120x240 ซม.', 'น้ำหนัก 3.5 - 5.5 กก./ตร.ม.', 'ติดตั้งด้วยกาว PU ทับผนังเดิมได้'],
+      productId: 'veneer-mcm-1',
+      price: 1450,
+      unit: 'ตร.ม.',
+    },
+    {
+      id: 2,
+      title: '2. ไม้สังเคราะห์ WPC (Wood Plastic Composite)',
+      code: 'SS-WPC-CAT',
+      categoryName: 'ไม้สังเคราะห์ WPC',
+      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
+      image: '/images/suppersurface/wpc-wood.jpg',
+      desc: 'ไม้เทียมสังเคราะห์เกรดภายนอก-ภายใน ผิวสัมผัสลายเสี้ยนไม้ธรรมชาติ ทนปลวก ทนชื้น 100% ไม่ผุ ไม่โก่งงอ สีคงทนยาวนาน',
+      specs: ['หน้ากว้าง 15 ซม. ยาว 3.0 ม.', 'ความหนา 22 มม.', 'ระบบคลิปล็อคซ่อนหัวสกรู', 'ทนแดด ทน UV ไม่ต้องทาสีซ้ำ'],
+      productId: 'wpc-cladding-1',
+      price: 1250,
+      unit: 'ตร.ม.',
+    },
+    {
+      id: 3,
+      title: '3. ฝ้าอลูมิเนียม 85 C (Linear Ceiling System)',
+      code: 'SS-85C-CAT',
+      categoryName: 'ฝ้าอลูมิเนียม',
+      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
+      image: '/images/suppersurface/ceiling-85c.jpg',
+      desc: 'ระบบฝ้าเพดานอลูมิเนียมเส้นยาวแบบล็อคเรียบชิด Snap-in รอยต่อแนบสนิท ปลอดสนิมตลอดชีพ ทนทานต่อแรงลม ชายคา และปั๊มน้ำมัน',
+      specs: ['หน้ากว้าง 85 มม. ความยาวสั่งตัดตามขนาด', 'อลูมิเนียมเกรด A ปลอดสนิม 100%', 'ทนทานต่อไอเกลือทะเลและความชื้น', 'ระบบโครง Carrier แข็งแรงพิเศษ'],
+      productId: 'ceiling-85c',
+      price: 980,
+      unit: 'ตร.ม.',
+    },
+    {
+      id: 4,
+      title: '4. ฝ้าอลูมิเนียม 85 F (Linear Ceiling with Joint)',
+      code: 'SS-85F-CAT',
+      categoryName: 'ฝ้าอลูมิเนียม',
+      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
+      image: '/images/suppersurface/ceiling-85f.jpg',
+      desc: 'ระบบฝ้าเพดานอลูมิเนียมเว้นร่อง 15 มม. สร้างมิติเส้นสายของเงาสไตล์โมเดิร์น เหมาะสำหรับล็อบบี้และโถงอาคารสูง',
+      specs: ['หน้ากว้าง 85 มม. ร่อง 15 มม.', 'สั่งตัดตามความยาวหน้างาน', 'เคลือบสี Polyester / PVDF ทนทาน', 'ติดตั้งร่วมกับโคมไฟ Linear Light ได้ลงตัว'],
+      productId: 'ceiling-85f',
+      price: 1050,
+      unit: 'ตร.ม.',
+    },
+    {
+      id: 5,
+      title: '5. ระแนงอลูมิเนียม (Architectural Louver System)',
+      code: 'SS-LV-CAT',
+      categoryName: 'ระแนงอลูมิเนียม',
+      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
+      image: '/images/suppersurface/louver-modern.jpg',
+      desc: 'ระแนงบังแดดและเปลือกอาคารอลูมิเนียมระบายอากาศ ลดความร้อนเข้าสู่ตัวอาคาร โครงสร้างน้ำหนักเบา ไม่เป็นภาระอาคาร',
+      specs: ['หน้าตัด 25x50, 50x100 มม.', 'ความยาวเส้นมาตรฐาน 6.0 ม.', 'สี Powder Coat หรือลายไม้', 'ต้านทานแรงลมพายุมาตรฐานวิศวกรรม'],
+      productId: 'aluminum-louver',
+      price: 1850,
+      unit: 'ตร.ม.',
+    },
+    {
+      id: 6,
+      title: '6. อลูมิเนียมคอมโพสิต DECO งานหลังคา (Roof & Canopy)',
+      code: 'SS-DECO-R-CAT',
+      categoryName: 'คอมโพสิตหลังคา',
+      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
+      image: '/images/suppersurface/deco-roof.jpg',
+      desc: 'คอมโพสิตเกรดพิเศษสำหรับงานหลังคา กันสาด และชายคา ดัดพับขึ้นรูปขอบกล่องกันน้ำ ป้องกันการรั่วซึมได้ 100%',
+      specs: ['ขนาด 1250 x 2440 มม. หนา 4 มม.', 'ผิวเรียบตึง No Oil Canning', 'รางระบายน้ำซ่อนภายใน', 'ลดเสียงฝนตกกระทบ'],
+      productId: 'composite-deco-roof',
+      price: 1100,
+      unit: 'ตร.ม.',
+    },
+    {
+      id: 7,
+      title: '7. อลูมิเนียมคอมโพสิต DECO งานผนังและ Facade',
+      code: 'SS-DECO-F-CAT',
+      categoryName: 'คอมโพสิตผนัง',
+      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
+      image: '/images/suppersurface/composite-deco.jpg',
+      desc: 'แผ่นคอมโพสิตตกแต่งผนังภายนอก-ภายใน ผิวเคลือบสม่ำเสมอกว่า 50 เฉดสี ตัด พับ ดัด ฉลุลายได้ง่าย คุ้มค่างบประมาณ',
+      specs: ['ขนาด 1250 x 2440 มม. หนา 4 มม.', 'อลูมิเนียม 0.3 - 0.5 มม.', 'มีให้เลือกกว่า 50 เฉดสี', 'รับประกันสีเคลือบ 10 ปี'],
+      productId: 'composite-deco-facade',
+      price: 950,
+      unit: 'ตร.ม.',
+    },
+    {
+      id: 8,
+      title: '8. อลูมิเนียมคอมโพสิต ALTEX (FR Grade Class A2/B1)',
+      code: 'SS-ALTEX-CAT',
+      categoryName: 'คอมโพสิตทนไฟ FR',
+      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
+      image: '/images/suppersurface/composite-altex.jpg',
+      desc: 'สเปกระดับเมกะโปรเจกต์ ไส้กลางกันไฟลาม Class A2/B1 เคลือบสี Kynar 500 PVDF ทนแดด ทน UV ยาวนาน 20 ปี ผ่านมาตรฐาน ASTM',
+      specs: ['กว้าง 1250/1500 มม. สั่งผลิตยาวพิเศษ', 'ไส้ทนไฟ FR Class A2 / B1', 'สีเคลือบ PVDF Kynar 500', 'เอกสารรับรองมาตรฐานอาคารสูงครบ'],
+      productId: 'composite-altex',
+      price: 1650,
+      unit: 'ตร.ม.',
+    },
+    {
+      id: 9,
+      title: '9. แผ่นไฟเบอร์ซีเมนต์นิชิฮะ (NICHIHA Japan MicroGuard)',
+      code: 'SS-NICHIHA-CAT',
+      categoryName: 'NICHIHA ญี่ปุ่น',
+      iframeUrl: 'https://online.anyflip.com/wbgdd/uqhl/mobile/index.html',
+      image: '/images/suppersurface/nichiha-cement.jpg',
+      desc: 'แบรนด์อันดับ 1 จากญี่ปุ่น เทคโนโลยี MicroGuard ทำความสะอาดตัวเองด้วยน้ำฝน ระบบคลิปล็อคซ่อนหัวสกรู ลวดลาย 3D สมจริง',
+      specs: ['ขนาด 455 x 3030 มม. หนา 16 มม.', 'เทคโนโลยีนาโน MicroGuard Self-Cleaning', 'ระบบคลิปล็อค ไร้รอยเจาะหน้าแผ่น', 'ฉนวนกันความร้อนและเสียงระดับสูง'],
+      productId: 'nichiha-japan',
+      price: 2150,
+      unit: 'ตร.ม.',
+    },
+  ], []);
+
+  const activeCatalog = useMemo(() => {
+    return catalogsList.find((c) => c.id === selectedCatalogId) || catalogsList[0];
+  }, [catalogsList, selectedCatalogId]);
 
   // Filter products
   const filteredProducts = useMemo(() => {
@@ -292,7 +404,6 @@ export default function SupperSurfaceSalesPage() {
           unitPrice: product.price,
           quantity: qty,
           image: product.image,
-          catalogUrl: product.catalogUrl,
         },
       ];
     });
@@ -355,81 +466,62 @@ export default function SupperSurfaceSalesPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-amber-500 selection:text-slate-950 pb-28 md:pb-16 w-full max-w-full overflow-x-hidden">
       
-      {/* 0. TOP NOTIFICATION BAR */}
-      <div className="bg-gradient-to-r from-amber-600 via-amber-700 to-slate-900 text-white text-xs py-2 px-4 sticky top-0 z-50 shadow-md">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-          <div className="flex items-center gap-2">
-            <span className="bg-white/20 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider">
-              Official B2B Partner
-            </span>
-            <span className="font-medium text-xs">
-              Supper Surface โดย บจก. เฟมไลน์ โปร์ดักส์ • ศูนย์รวมวัสดุปิดผิวสถาปัตยกรรมระดับพรีเมียม
-            </span>
-          </div>
-          <div className="flex items-center gap-3">
-            <a 
-              href={salePhoneCallUrl} 
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/40 hover:bg-slate-950/60 text-white text-xs font-bold transition whitespace-nowrap"
-            >
-              <PhoneCall className="w-3.5 h-3.5 text-amber-400" /> โทร. {salePhone} (คุณแอล)
-            </a>
-            <a 
-              href={lineUrl} 
-              target="_blank" 
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500 hover:bg-emerald-600 text-slate-950 text-xs font-bold transition whitespace-nowrap shadow-sm"
-            >
-              <MessageCircle className="w-3.5 h-3.5" /> แอดไลน์ฝ่ายขาย
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* 1. STICKY EXECUTIVE HEADER */}
-      <header className="bg-slate-950/95 backdrop-blur-md border-b border-slate-800 sticky top-8 sm:top-7 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+      {/* 1. UNIFIED SLEEK STICKY MENU (Airy, Non-Cramped UI) */}
+      <header className="sticky top-0 z-50 bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80 transition-all duration-300 shadow-xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-4">
           
           {/* Brand Identity */}
-          <Link href="/supper-surface" className="flex items-center gap-3 group">
+          <Link href="/supper-surface" className="flex items-center gap-3 group shrink-0">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
-              <Layers className="w-6 h-6 text-slate-950" />
+              <Layers className="w-5 h-5 text-slate-950" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-lg sm:text-xl font-black tracking-tight text-white leading-none">
+                <span className="text-base sm:text-lg font-black tracking-tight text-white leading-none">
                   SUPPER SURFACE
                 </span>
                 <span className="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1.5 py-0.5 rounded font-bold uppercase">
-                  BY FAMELINE
+                  FAMELINE
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 font-medium tracking-wider">
-                บจก. เฟมไลน์ โปร์ดักส์ (FAMELINE PRODUCTS)
+              <p className="text-[11px] text-slate-400 font-medium tracking-wider hidden sm:block">
+                ผู้นำนวัตกรรมวัสดุปิดผิวสถาปัตยกรรม
               </p>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-300">
+          {/* Desktop Navigation (Airy & Well-spaced) */}
+          <nav className="hidden xl:flex items-center gap-7 text-xs sm:text-sm font-medium text-slate-300">
             <a href="#hero" className="hover:text-amber-400 transition">หน้าแรก</a>
             <a href="#innovations" className="hover:text-amber-400 transition">จุดเด่นนวัตกรรม</a>
             <a href="#minimall-catalog" className="hover:text-amber-400 transition">MiniMall แคตตาล็อก</a>
+            <a href="#live-anyflip" className="hover:text-amber-400 transition flex items-center gap-1">
+              <BookCheck className="w-3.5 h-3.5 text-amber-400" />
+              <span>Live AnyFlip</span>
+            </a>
             <a href="#estimator" className="hover:text-amber-400 transition">คำนวณพื้นที่</a>
-            <a href="#bank-details" className="hover:text-amber-400 transition">บัญชีชำระเงิน</a>
-            <a href="#articles" className="hover:text-amber-400 transition">บทความสถาปัตยกรรม</a>
+            <a href="#articles" className="hover:text-amber-400 transition">บทความ SEO</a>
             <a href="#contact-sales" className="hover:text-amber-400 transition">ติดต่อคุณแอล</a>
           </nav>
 
-          {/* Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-3">
-            {/* View Catalogs */}
+          {/* Action Area */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <a 
-              href="https://anyflip.com/bookcase/xfyfc" 
+              href={salePhoneCallUrl} 
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/40 text-slate-200 text-xs font-semibold transition"
+            >
+              <PhoneCall className="w-3.5 h-3.5 text-amber-400" /> 
+              <span>{salePhone}</span>
+            </a>
+
+            <a 
+              href={lineUrl} 
               target="_blank" 
               rel="noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-slate-700 hover:border-amber-500/50 text-slate-300 hover:text-white text-xs font-semibold transition"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 text-xs font-bold transition shadow-sm"
             >
-              <ExternalLink className="w-3.5 h-3.5 text-amber-400" /> แคตตาล็อก AnyFlip
+              <MessageCircle className="w-3.5 h-3.5" /> 
+              <span>แอดไลน์ฝ่ายขาย</span>
             </a>
 
             {/* Cart Trigger */}
@@ -438,10 +530,10 @@ export default function SupperSurfaceSalesPage() {
                 setIsCartOpen(true);
                 setCheckoutStep('cart');
               }}
-              className="relative inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs sm:text-sm shadow-md shadow-amber-500/20 transition active:scale-95"
+              className="relative inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs sm:text-sm shadow-md shadow-amber-500/20 transition active:scale-95"
             >
               <ShoppingCart className="w-4 h-4 text-slate-950" />
-              <span>ตะกร้าสินค้า</span>
+              <span>ตะกร้า</span>
               {totalItemCount > 0 && (
                 <span className="w-5 h-5 rounded-full bg-slate-950 text-amber-400 text-xs font-extrabold flex items-center justify-center animate-pulse">
                   {totalItemCount}
@@ -452,169 +544,87 @@ export default function SupperSurfaceSalesPage() {
         </div>
       </header>
 
-      {/* 2. CINEMATIC HERO SECTION (16:9 Universal Standard & Dual-Device Framing) */}
-      <section id="hero" className="relative min-h-[92vh] sm:min-h-[660px] lg:min-h-[740px] flex flex-col justify-between sm:justify-center overflow-hidden bg-slate-950 text-white">
+      {/* 2. CINEMATIC HERO SECTION (Unobstructed 16:9 Facade - Card Removed) */}
+      <section id="hero" className="relative min-h-[90vh] sm:min-h-[640px] lg:min-h-[720px] flex flex-col justify-center overflow-hidden bg-slate-950 text-white">
         
         {/* Full-Bleed 16:9 Cinematic Background Image */}
         <div className="absolute inset-0 z-0">
           <img
             src="/images/suppersurface/hero-cinematic.jpg"
             alt="Supper Surface by Fameline นวัตกรรมวัสดุปิดผิวสถาปัตยกรรม Facade หินวีเนียร์ MCM ฝ้า ระแนง คอมโพสิต นิชิฮะ"
-            className="w-full h-full object-cover object-[75%_center] lg:object-right brightness-105 contrast-[1.03] transition-all duration-700"
+            className="w-full h-full object-cover object-[70%_center] lg:object-right brightness-105 contrast-[1.03] transition-all duration-700"
           />
           
-          {/* Desktop Left Negative Space Scrim: Darkens left 55% for 100% white text contrast */}
-          <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 via-50% to-transparent" />
+          {/* Desktop Left Scrim: Darkens left side for text readability while leaving right 50% totally open */}
+          <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 via-48% to-transparent" />
           
-          {/* Mobile Multi-Layer Scrim: 
-              Layer 1: Top dark scrim behind headline
-              Middle is OPEN & UNOBSTRUCTED for the architectural facade subject
-              Layer 2: Soft bottom dark scrim behind buttons & highlights */}
+          {/* Mobile Scrim: Top & Bottom soft fades */}
           <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-slate-950/95 via-slate-950/50 via-30% to-transparent" />
-          <div className="lg:hidden absolute bottom-0 inset-x-0 h-80 bg-gradient-to-t from-slate-950 via-slate-950/90 via-60% to-transparent" />
-          
-          {/* Desktop Bottom Edge Fade */}
-          <div className="hidden lg:block absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-slate-950 to-transparent" />
+          <div className="lg:hidden absolute bottom-0 inset-x-0 h-72 bg-gradient-to-t from-slate-950 via-slate-950/90 via-60% to-transparent" />
+          <div className="hidden lg:block absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-slate-950 to-transparent" />
         </div>
 
-        {/* Hero Content Container */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-16 pb-6 sm:pb-12 lg:py-24 relative z-10 w-full flex-1 flex flex-col justify-between">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        {/* Hero Content Container (Clean Negative Space, 100% Grand Unobstructed View) */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 relative z-10 w-full">
+          <div className="max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-6 text-center lg:text-left">
             
-            {/* Left Content Column (Negative Space on Desktop) */}
-            <div className="lg:col-span-8 space-y-4 sm:space-y-6 text-center lg:text-left">
-              
-              {/* Authority Badge */}
-              <div className="inline-flex items-center gap-2 bg-slate-950/85 border border-amber-500/40 text-amber-300 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold backdrop-blur-md shadow-lg shadow-slate-950/60">
-                <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>ผู้นำนวัตกรรมวัสดุปิดผิวสถาปัตยกรรม • FAMELINE GROUP</span>
-              </div>
-
-              {/* Main Headline */}
-              <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-white tracking-tight leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
-                ยกระดับสถาปัตยกรรมสู่อนาคต <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-500 inline-block mt-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-                  ด้วยวัสดุปิดผิวระดับไฮเอนด์ ครบวงจร
-                </span>
-              </h1>
-
-              {/* Subheadline */}
-              <p className="text-sm sm:text-base md:text-lg text-slate-200 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
-                ศูนย์รวมนวัตกรรมวัสดุ Facade, <strong>หินวีเนียร์ MCM ยืดหยุ่นดัดโค้งได้</strong>, ไม้เทียม WPC, 
-                ฝ้าอลูมิเนียม 85C/85F, ระแนงอลูมิเนียม Louver, คอมโพสิต <strong>DECO & ALTEX</strong>, 
-                และแผ่นไฟเบอร์ซีเมนต์ <strong>NICHIHA ญี่ปุ่น</strong> มาตรฐานโปรเจกต์ระดับประเทศ
-              </p>
-
-              {/* CTAs */}
-              <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
-                <a
-                  href="#minimall-catalog"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm sm:text-base shadow-lg shadow-amber-500/25 transition active:scale-95"
-                >
-                  <ShoppingCart className="w-4 h-4 text-slate-950" />
-                  <span>เลือกชมผลิตภัณฑ์ & ขอใบเสนอราคา</span>
-                </a>
-                
-                <a
-                  href={salePhoneCallUrl}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white font-semibold text-sm sm:text-base border border-slate-700 shadow-md backdrop-blur-md transition"
-                >
-                  <PhoneCall className="w-4 h-4 text-amber-400" />
-                  <span>โทรหาคุณแอล: {salePhone}</span>
-                </a>
-              </div>
-
-              {/* Trust Metrics Bar */}
-              <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-left">
-                <div className="bg-slate-900/70 border border-slate-800 rounded-xl p-2.5 backdrop-blur-sm">
-                  <div className="text-amber-400 font-extrabold text-lg sm:text-xl">30+ ปี</div>
-                  <div className="text-[11px] text-slate-400">ประสบการณ์ Fameline</div>
-                </div>
-                <div className="bg-slate-900/70 border border-slate-800 rounded-xl p-2.5 backdrop-blur-sm">
-                  <div className="text-amber-400 font-extrabold text-lg sm:text-xl">2,500+</div>
-                  <div className="text-[11px] text-slate-400">โครงการระดับประเทศ</div>
-                </div>
-                <div className="bg-slate-900/70 border border-slate-800 rounded-xl p-2.5 backdrop-blur-sm">
-                  <div className="text-amber-400 font-extrabold text-lg sm:text-xl">FR Class A2</div>
-                  <div className="text-[11px] text-slate-400">มาตรฐานทนไฟสากล</div>
-                </div>
-                <div className="bg-slate-900/70 border border-slate-800 rounded-xl p-2.5 backdrop-blur-sm">
-                  <div className="text-amber-400 font-extrabold text-lg sm:text-xl">100% B2B</div>
-                  <div className="text-[11px] text-slate-400">ใบเสนอราคา & ชำระในนาม บจก.</div>
-                </div>
-              </div>
-
+            {/* Authority Badge */}
+            <div className="inline-flex items-center gap-2 bg-slate-950/80 border border-amber-500/40 text-amber-300 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold backdrop-blur-md shadow-lg shadow-slate-950/60">
+              <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+              <span>ผู้นำนวัตกรรมวัสดุปิดผิวสถาปัตยกรรม • FAMELINE GROUP</span>
             </div>
 
-            {/* Right Column / Quick Contact Card on Desktop */}
-            <div className="hidden lg:block lg:col-span-4">
-              <div className="bg-slate-900/90 border border-slate-800/90 rounded-2xl p-6 backdrop-blur-xl shadow-2xl space-y-4">
-                
-                <div className="flex items-center gap-3 pb-3 border-b border-slate-800">
-                  <div className="w-12 h-12 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold text-lg">
-                    L
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-white text-base leading-tight">{saleName}</h3>
-                    <p className="text-xs text-amber-400 font-medium">{saleRole}</p>
-                    <p className="text-[11px] text-slate-400">{companyNameTh}</p>
-                  </div>
-                </div>
+            {/* Main Headline */}
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-white tracking-tight leading-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.95)]">
+              ยกระดับสถาปัตยกรรมสู่อนาคต <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-500 inline-block mt-1 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                ด้วยวัสดุปิดผิวระดับไฮเอนด์ ครบวงจร
+              </span>
+            </h1>
 
-                <div className="space-y-2 text-xs text-slate-300">
-                  <div className="flex items-center justify-between py-1 border-b border-slate-800/50">
-                    <span className="text-slate-400">เบอร์โทรสายตรง:</span>
-                    <a href={salePhoneCallUrl} className="font-bold text-amber-400 hover:underline">{salePhone}</a>
-                  </div>
-                  <div className="flex items-center justify-between py-1 border-b border-slate-800/50">
-                    <span className="text-slate-400">อีเมลทางการ:</span>
-                    <a href={`mailto:${saleEmail}`} className="font-medium text-slate-200 hover:underline">{saleEmail}</a>
-                  </div>
-                  <div className="flex items-center justify-between py-1 border-b border-slate-800/50">
-                    <span className="text-slate-400">สำนักงานใหญ่:</span>
-                    <span className="font-medium text-slate-200">ประเวศ กรุงเทพฯ</span>
-                  </div>
-                </div>
+            {/* Subheadline */}
+            <p className="text-sm sm:text-base md:text-lg text-slate-200 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)] max-w-2xl">
+              ศูนย์รวมนวัตกรรมวัสดุ Facade, <strong>หินวีเนียร์ MCM ยืดหยุ่นดัดโค้งได้</strong>, ไม้เทียม WPC, 
+              ฝ้าอลูมิเนียม 85C/85F, ระแนงอลูมิเนียม Louver, คอมโพสิต <strong>DECO & ALTEX</strong>, 
+              และแผ่นไฟเบอร์ซีเมนต์ <strong>NICHIHA ญี่ปุ่น</strong> มาตรฐานโปรเจกต์ระดับประเทศ
+            </p>
 
-                {/* QR Code thumbnail */}
-                <div className="bg-slate-950/80 p-3 rounded-xl border border-slate-800 flex items-center gap-3">
-                  <img 
-                    src="/images/suppersurface/line-qr.jpg" 
-                    alt="LINE QR Code คุณแอล Fameline" 
-                    className="w-16 h-16 rounded-lg object-contain bg-white p-0.5 shrink-0 cursor-pointer hover:scale-105 transition"
-                    onClick={() => setShowQrModal(true)}
-                  />
-                  <div className="space-y-1">
-                    <div className="text-xs font-bold text-white flex items-center gap-1">
-                      <QrCode className="w-3.5 h-3.5 text-emerald-400" /> สแกนแอดไลน์คุณแอล
-                    </div>
-                    <p className="text-[11px] text-slate-400">ส่งแบบ BOQ หรือปรึกษาสเปกผ่าน LINE ได้ทันที</p>
-                    <button 
-                      onClick={() => setShowQrModal(true)}
-                      className="text-[10px] text-amber-400 hover:underline font-semibold"
-                    >
-                      กดเพื่อขยาย QR Code
-                    </button>
-                  </div>
-                </div>
+            {/* CTAs */}
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+              <a
+                href="#minimall-catalog"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm sm:text-base shadow-lg shadow-amber-500/25 transition active:scale-95"
+              >
+                <ShoppingCart className="w-4 h-4 text-slate-950" />
+                <span>เลือกชมผลิตภัณฑ์ & ขอใบเสนอราคา</span>
+              </a>
+              
+              <a
+                href={salePhoneCallUrl}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white font-semibold text-sm sm:text-base border border-slate-700 shadow-md backdrop-blur-md transition"
+              >
+                <PhoneCall className="w-4 h-4 text-amber-400" />
+                <span>โทรหาคุณแอล: {salePhone}</span>
+              </a>
+            </div>
 
-                <div className="pt-2 flex flex-col gap-2">
-                  <a
-                    href={lineUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs transition"
-                  >
-                    <MessageCircle className="w-4 h-4" /> แอดไลน์ปรึกษางานโครงการ
-                  </a>
-                  <button
-                    onClick={() => setShowNamecardModal(true)}
-                    className="w-full inline-flex items-center justify-center gap-1.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium transition"
-                  >
-                    <Building2 className="w-3.5 h-3.5 text-slate-400" /> ดูนามบัตรบริษัทอย่างเป็นทางการ
-                  </button>
-                </div>
-
+            {/* Trust Metrics Bar */}
+            <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-left max-w-2xl">
+              <div className="bg-slate-900/75 border border-slate-800 rounded-xl p-3 backdrop-blur-md">
+                <div className="text-amber-400 font-extrabold text-lg sm:text-xl">30+ ปี</div>
+                <div className="text-[11px] text-slate-400">ประสบการณ์ Fameline</div>
+              </div>
+              <div className="bg-slate-900/75 border border-slate-800 rounded-xl p-3 backdrop-blur-md">
+                <div className="text-amber-400 font-extrabold text-lg sm:text-xl">2,500+</div>
+                <div className="text-[11px] text-slate-400">โครงการระดับประเทศ</div>
+              </div>
+              <div className="bg-slate-900/75 border border-slate-800 rounded-xl p-3 backdrop-blur-md">
+                <div className="text-amber-400 font-extrabold text-lg sm:text-xl">FR Class A2</div>
+                <div className="text-[11px] text-slate-400">มาตรฐานทนไฟสากล</div>
+              </div>
+              <div className="bg-slate-900/75 border border-slate-800 rounded-xl p-3 backdrop-blur-md">
+                <div className="text-amber-400 font-extrabold text-lg sm:text-xl">100% B2B</div>
+                <div className="text-[11px] text-slate-400">ใบเสนอราคา & ชำระในนาม บจก.</div>
               </div>
             </div>
 
@@ -704,7 +714,7 @@ export default function SupperSurfaceSalesPage() {
                 แคตตาล็อกวัสดุและระบบสั่งซื้อ / ขอใบเสนอราคา
               </h2>
               <p className="text-xs sm:text-sm text-slate-400 max-w-xl">
-                เลือกสินค้าลงตะกร้าเพื่อคำนวณงบประมาณ ขอใบเสนอราคาทางการ หรือสั่งซื้อในนามบริษัท พร้อมดาวน์โหลดแคตตาล็อกฉบับเต็ม
+                เลือกสินค้าลงตะกร้าเพื่อคำนวณงบประมาณ ขอใบเสนอราคาทางการ หรือสั่งซื้อในนามบริษัท พร้อมสลับดูสเปกได้ทันที
               </p>
             </div>
 
@@ -829,16 +839,18 @@ export default function SupperSurfaceSalesPage() {
                       {product.badge}
                     </div>
 
-                    {/* Catalog link button */}
-                    <a
-                      href={product.catalogUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="absolute top-3 right-3 bg-slate-900/80 hover:bg-amber-500 text-slate-300 hover:text-slate-950 p-1.5 rounded-lg text-xs backdrop-blur-md transition shadow"
-                      title="เปิดดูแคตตาล็อกฉบับเต็ม"
+                    {/* Preview Spec In-Page Trigger */}
+                    <button
+                      onClick={() => {
+                        const matchCat = catalogsList.find(c => c.productId === product.id) || catalogsList[0];
+                        setActiveModalCatalog(matchCat);
+                      }}
+                      className="absolute top-3 right-3 bg-slate-900/80 hover:bg-amber-500 text-slate-300 hover:text-slate-950 p-2 rounded-lg text-xs backdrop-blur-md transition shadow flex items-center gap-1"
+                      title="พรีวิวสเปกแคตตาล็อก"
                     >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
+                      <Eye className="w-3.5 h-3.5" />
+                      <span className="text-[10px] font-bold">พรีวิวสเปก</span>
+                    </button>
 
                     {/* Code & Unit */}
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-slate-300 font-mono">
@@ -891,15 +903,16 @@ export default function SupperSurfaceSalesPage() {
                       </div>
 
                       <div className="flex items-center gap-2">
-                        <a
-                          href={product.catalogUrl}
-                          target="_blank"
-                          rel="noreferrer"
+                        <button
+                          onClick={() => {
+                            const matchCat = catalogsList.find(c => c.productId === product.id) || catalogsList[0];
+                            setActiveModalCatalog(matchCat);
+                          }}
                           className="p-2.5 rounded-xl border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition"
-                          title="อ่านแคตตาล็อก AnyFlip / PDF"
+                          title="พรีวิวสเปกแคตตาล็อกบนหน้าเว็บ"
                         >
                           <FileText className="w-4 h-4" />
-                        </a>
+                        </button>
 
                         <button
                           onClick={() => addToCart(product, 1)}
@@ -924,7 +937,7 @@ export default function SupperSurfaceSalesPage() {
                     <th className="p-3.5">รหัส / รูปภาพ</th>
                     <th className="p-3.5">ชื่อผลิตภัณฑ์ & สเปก</th>
                     <th className="p-3.5">ขนาดมาตรฐาน</th>
-                    <th className="p-3.5">แคตตาล็อก</th>
+                    <th className="p-3.5">พรีวิวสเปก</th>
                     <th className="p-3.5 text-right">ราคาประเมิน</th>
                     <th className="p-3.5 text-center">ดำเนินการ</th>
                   </tr>
@@ -953,14 +966,15 @@ export default function SupperSurfaceSalesPage() {
                         {product.size}
                       </td>
                       <td className="p-3.5">
-                        <a
-                          href={product.catalogUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1 text-xs text-amber-400 hover:underline"
+                        <button
+                          onClick={() => {
+                            const matchCat = catalogsList.find(c => c.productId === product.id) || catalogsList[0];
+                            setActiveModalCatalog(matchCat);
+                          }}
+                          className="inline-flex items-center gap-1 text-xs text-amber-400 hover:underline font-semibold"
                         >
-                          <ExternalLink className="w-3.5 h-3.5" /> AnyFlip / PDF
-                        </a>
+                          <Eye className="w-3.5 h-3.5" /> พรีวิวสเปก
+                        </button>
                       </td>
                       <td className="p-3.5 text-right font-bold text-amber-400 text-sm">
                         ฿{product.price.toLocaleString()} <span className="text-xs text-slate-400 font-normal">/{product.unit}</span>
@@ -983,8 +997,97 @@ export default function SupperSurfaceSalesPage() {
         </div>
       </section>
 
-      {/* 5. INTERACTIVE AREA & BUDGET ESTIMATOR */}
-      <section id="estimator" className="py-16 md:py-20 bg-slate-900/50 border-y border-slate-900">
+      {/* 5. LIVE ANYFLIP E-BOOK & IN-PAGE SPEC PREVIEW SECTION */}
+      <section id="live-anyflip" className="py-16 md:py-24 bg-slate-900/40 border-y border-slate-900 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          
+          <div className="text-center max-w-3xl mx-auto space-y-3 mb-10">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3.5 py-1 rounded-full">
+              Live AnyFlip Interactive E-Book
+            </span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
+              พรีวิวแคตตาล็อกสเปกออนไลน์ ฉบับสมบูรณ์ (บนหน้าเว็บทันที)
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-400">
+              เปิดอ่านแบบจำลอง 3D Flipbook และตรวจสอบสเปกวิศวกรรมได้ทันทีบนหน้านี้ ไม่ต้องกดดาวน์โหลดหรือสลับไปหน้าอื่น
+            </p>
+          </div>
+
+          {/* 9 Catalogs Selector Tabs */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-thin">
+            {catalogsList.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCatalogId(cat.id)}
+                className={`px-3.5 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition flex items-center gap-2 border ${
+                  selectedCatalogId === cat.id
+                    ? 'bg-amber-500 text-slate-950 border-amber-500 font-bold shadow-lg shadow-amber-500/20'
+                    : 'bg-slate-950/80 text-slate-400 border-slate-800 hover:text-white hover:bg-slate-900'
+                }`}
+              >
+                <span>{cat.title}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* In-Page Interactive Showcase Box */}
+          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5 sm:p-8 shadow-2xl space-y-6">
+            
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+              <div>
+                <div className="inline-flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-wider mb-1">
+                  <span>{activeCatalog.categoryName}</span> • <span className="font-mono">{activeCatalog.code}</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-white">{activeCatalog.title}</h3>
+                <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">{activeCatalog.desc}</p>
+              </div>
+
+              <div className="flex items-center gap-3 shrink-0">
+                <button
+                  onClick={() => {
+                    const matchProd = products.find(p => p.id === activeCatalog.productId);
+                    if (matchProd) addToCart(matchProd, 1);
+                  }}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-bold text-xs sm:text-sm shadow-md transition active:scale-95"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>ใส่ตะกร้า (฿{activeCatalog.price.toLocaleString()} /{activeCatalog.unit})</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Spec Highlights Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+              {activeCatalog.specs.map((sp: string, idx: number) => (
+                <div key={idx} className="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex items-start gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <span className="text-slate-200 font-medium">{sp}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Live AnyFlip Embedded Reader */}
+            <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl">
+              <iframe
+                src={activeCatalog.iframeUrl}
+                className="w-full h-full border-0"
+                allowFullScreen
+                title={activeCatalog.title}
+              />
+            </div>
+
+            <div className="flex items-center justify-between text-[11px] text-slate-500 pt-2">
+              <span>* รองรับการเปิดอ่านบนมือถือและแท็บเล็ต หมุนหน้าจอแนวนอนเพื่ออ่านแบบ 2 หน้าคู่</span>
+              <span className="text-amber-400 font-semibold">Supper Surface Official E-Book Catalog</span>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 6. INTERACTIVE AREA & BUDGET ESTIMATOR */}
+      <section id="estimator" className="py-16 md:py-20 bg-slate-950 border-b border-slate-900">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           
           <div className="bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
@@ -1104,213 +1207,7 @@ export default function SupperSurfaceSalesPage() {
         </div>
       </section>
 
-      {/* 6. DIGITAL CATALOG LIBRARY (AnyFlip & Google Drive) */}
-      <section className="py-16 md:py-20 bg-slate-950 border-b border-slate-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          
-          <div className="text-center max-w-3xl mx-auto space-y-3 mb-12">
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full">
-              Full E-Catalog Library
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
-              คลังแคตตาล็อกสเปกออนไลน์ ฉบับสมบูรณ์
-            </h2>
-            <p className="text-sm text-slate-400">
-              เปิดอ่านแบบเสมือนจริง (E-Book Flipbook) ทั้ง 9 เล่ม จาก AnyFlip และ Google Drive ได้ทันทีตลอด 24 ชั่วโมง
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            
-            {[
-              { title: '1. แคตตาล็อก หินวีเนียร์ Veneer & MCM', url: 'https://anyflip.com/bookcase/xfyfc', tag: 'AnyFlip Bookcase' },
-              { title: '2. แคตตาล็อก ไม้สังเคราะห์ WPC', url: 'https://anyflip.com/bookcase/xfyfc', tag: 'AnyFlip Bookcase' },
-              { title: '3. แคตตาล็อก ฝ้าอลูมิเนียม 85 C', url: 'https://anyflip.com/bookcase/xfyfc', tag: 'AnyFlip Bookcase' },
-              { title: '4. แคตตาล็อก ฝ้าอลูมิเนียม 85 F', url: 'https://anyflip.com/bookcase/xfyfc', tag: 'AnyFlip Bookcase' },
-              { title: '5. แคตตาล็อก ระแนงอลูมิเนียม Louver', url: 'https://anyflip.com/bookcase/xfyfc', tag: 'AnyFlip Bookcase' },
-              { title: '6. แคตตาล็อก คอมโพสิต DECO งานหลังคา', url: 'https://anyflip.com/bookcase/xfyfc', tag: 'AnyFlip Bookcase' },
-              { title: '7. แคตตาล็อก คอมโพสิต DECO งานผนัง', url: 'https://anyflip.com/bookcase/xfyfc', tag: 'AnyFlip Bookcase' },
-              { title: '8. แคตตาล็อก อลูมิเนียมคอมโพสิต ALTEX (ใหม่)', url: 'https://drive.google.com/file/d/1MfvcTjjty6C4UYwGAYokBsH9PqE37SHJ/view?usp=drivesdk', tag: 'Google Drive PDF' },
-              { title: '9. แคตตาล็อก แผ่นไฟเบอร์ซีเมนต์นิชิฮะ (NICHIHA)', url: 'https://online.anyflip.com/wbgdd/uqhl/mobile/index.html', tag: 'AnyFlip Direct' },
-            ].map((cat, idx) => (
-              <a
-                key={idx}
-                href={cat.url}
-                target="_blank"
-                rel="noreferrer"
-                className="bg-slate-900/60 border border-slate-800 hover:border-amber-500/50 p-4 rounded-xl flex items-center justify-between gap-3 group transition"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 group-hover:scale-105 transition shrink-0">
-                    <FileText className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-white group-hover:text-amber-300 transition">
-                      {cat.title}
-                    </h4>
-                    <span className="text-[10px] text-slate-500">{cat.tag}</span>
-                  </div>
-                </div>
-                <ExternalLink className="w-4 h-4 text-slate-500 group-hover:text-amber-400 shrink-0 transition" />
-              </a>
-            ))}
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* 7. OFFICIAL COMPANY PAYMENT & LEGAL WARNING SECTION */}
-      <section id="bank-details" className="py-16 md:py-20 bg-slate-950 border-b border-slate-900">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          
-          <div className="text-center max-w-2xl mx-auto space-y-3 mb-10">
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3 py-1 rounded-full">
-              B2B Official Payment Gateway
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-              ช่องทางการชำระเงินในนามบริษัท
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-400">
-              โปรดโอนเงินเข้าบัญชีทางการของ <strong>บจก. เฟมไลน์ โปร์ดักส์</strong> เท่านั้น เพื่อความถูกต้อง ปลอดภัย และออกใบเสร็จ/ใบกำกับภาษีเต็มรูป
-            </p>
-          </div>
-
-          {/* CRITICAL WARNING BANNER */}
-          <div className="bg-rose-950/40 border-2 border-rose-500/80 rounded-2xl p-5 mb-8 flex items-start gap-4 shadow-xl">
-            <AlertCircle className="w-6 h-6 text-rose-400 shrink-0 mt-0.5" />
-            <div className="space-y-1">
-              <h4 className="text-sm sm:text-base font-bold text-rose-200">
-                คำเตือนและข้อกำหนดสำคัญสำหรับการสั่งซื้อสินค้า
-              </h4>
-              <p className="text-xs sm:text-sm text-rose-300/90 font-medium leading-relaxed">
-                ***กรณีโอนเงินชำระค่าสินค้าแล้วไม่สามารถเปลี่ยนแปลงหรือคืนสินค้าได้ ดังนั้น ตรวจสอบความถูกต้องของสเปก ขนาด สี และปริมาณ ก่อนสั่งซื้อสินค้าทุกครั้ง***
-              </p>
-              <div className="text-[11px] text-rose-400 pt-1 font-semibold">
-                ❗️โอนเข้าบัญชี บจก. เฟมไลน์ โปร์ดักส์ เท่านั้น (ไม่รับโอนเข้าบัญชีบุคคลธรรมดา)
-              </div>
-            </div>
-          </div>
-
-          {/* Bank Accounts Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
-            {/* SCB */}
-            <div className="bg-gradient-to-br from-slate-900 to-purple-950/20 border border-purple-500/30 rounded-2xl p-6 relative overflow-hidden shadow-lg">
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-purple-900/60 border border-purple-500/50 flex items-center justify-center text-white font-extrabold text-sm">
-                    SCB
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-white text-base">ธนาคารไทยพาณิชย์</h4>
-                    <p className="text-xs text-purple-300 font-medium">Siam Commercial Bank</p>
-                  </div>
-                </div>
-                <span className="text-[10px] bg-purple-500/20 text-purple-300 px-2 py-0.5 rounded font-mono">B2B Account</span>
-              </div>
-
-              <div className="py-5 space-y-3">
-                <div>
-                  <span className="text-xs text-slate-400">เลขที่บัญชี:</span>
-                  <div className="flex items-center justify-between mt-1 bg-slate-950/80 p-3 rounded-xl border border-slate-800">
-                    <span className="font-mono text-xl sm:text-2xl font-black text-amber-400 tracking-wider">
-                      {scbAccount.number}
-                    </span>
-                    <button
-                      onClick={() => handleCopy(scbAccount.number, 'scb')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 transition"
-                    >
-                      {copiedBank === 'scb' ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-emerald-400" />
-                          <span className="text-emerald-400 font-bold">คัดลอกแล้ว</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>คัดลอก</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </div>
-
-                <div className="text-xs text-slate-300">
-                  <span className="text-slate-400">ชื่อบัญชี: </span>
-                  <strong className="text-white">{scbAccount.name}</strong>
-                </div>
-              </div>
-            </div>
-
-            {/* KBANK */}
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950/20 border border-emerald-500/30 rounded-2xl p-6 relative overflow-hidden shadow-lg">
-              <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-emerald-900/60 border border-emerald-500/50 flex items-center justify-center text-white font-extrabold text-sm">
-                    KBANK
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-white text-base">ธนาคารกสิกรไทย</h4>
-                    <p className="text-xs text-emerald-300 font-medium">Kasikornbank</p>
-                  </div>
-                </div>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded font-mono">B2B Account</span>
-              </div>
-
-              <div className="py-5 space-y-3">
-                <div>
-                  <span className="text-xs text-slate-400">เลขที่บัญชี:</span>
-                  <div className="flex items-center justify-between mt-1 bg-slate-950/80 p-3 rounded-xl border border-slate-800">
-                    <span className="font-mono text-xl sm:text-2xl font-black text-amber-400 tracking-wider">
-                      {kbankAccount.number}
-                    </span>
-                    <button
-                      onClick={() => handleCopy(kbankAccount.number, 'kbank')}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 transition"
-                    >
-                      {copiedBank === 'kbank' ? (
-                        <>
-                          <Check className="w-3.5 h-3.5 text-emerald-400" />
-                          <span className="text-emerald-400 font-bold">คัดลอกแล้ว</span>
-                        </>
-                      ) : (
-                        <>
-                          <Copy className="w-3.5 h-3.5" />
-                          <span>คัดลอก</span>
-                        </>
-                      )}
-                    </button>
-                  </div>
-                </div>
-
-                <div className="text-xs text-slate-300">
-                  <span className="text-slate-400">ชื่อบัญชี: </span>
-                  <strong className="text-white">{kbankAccount.name}</strong>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Quick Pay CTA */}
-          <div className="mt-8 text-center">
-            <button
-              onClick={() => {
-                setIsCartOpen(true);
-                setCheckoutStep('payment');
-              }}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm shadow-lg shadow-amber-500/20 transition active:scale-95"
-            >
-              <CreditCard className="w-4 h-4 text-slate-950" />
-              <span>แจ้งชำระเงินและอัปโหลดสลิปหลักฐานการโอน</span>
-            </button>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 8. SEO ARTICLES & ARCHITECTURAL KNOWLEDGE HUB SECTION */}
+      {/* 7. SEO ARTICLES & ARCHITECTURAL KNOWLEDGE HUB SECTION */}
       <section id="articles" className="py-16 md:py-24 bg-slate-950 border-b border-slate-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           
@@ -1391,36 +1288,39 @@ export default function SupperSurfaceSalesPage() {
         </div>
       </section>
 
-      {/* 9. SALE EXECUTIVE & COMPANY PROFILE */}
+      {/* 8. SALE EXECUTIVE & PREMIUM ARCHITECTURAL MASTERPIECE (Replaced Namecard with Premium Image) */}
       <section id="contact-sales" className="py-16 md:py-24 bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           
           <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               
-              {/* Left Column: Official Namecard & QR */}
+              {/* Left Column: Premium Architectural Showcase Photo */}
               <div className="lg:col-span-5 space-y-4 text-center">
-                <div className="bg-slate-950 p-2 rounded-2xl border border-slate-800 inline-block shadow-inner">
+                <div className="relative aspect-[16/11] w-full max-w-md mx-auto rounded-2xl overflow-hidden border border-amber-500/30 shadow-2xl group">
                   <img
-                    src="/images/suppersurface/namecard.jpg"
-                    alt="นามบัตรทางการ เสาวลักษณ์ นุ่นหนู แอล Fameline Products Co., Ltd."
-                    className="w-full max-w-sm rounded-xl object-contain cursor-pointer hover:scale-[1.02] transition"
-                    onClick={() => setShowNamecardModal(true)}
+                    src="/images/suppersurface/hero-facade.jpg"
+                    alt="งานติดตั้งวัสดุปิดผิวสถาปัตยกรรมระดับพรีเมียม Fameline Products"
+                    className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/25 to-transparent" />
+                  
+                  <div className="absolute top-3 left-3 bg-slate-950/85 border border-amber-500/40 text-amber-300 px-3 py-1 rounded-lg text-xs font-bold backdrop-blur-md">
+                    FAMELINE MASTERPIECE
+                  </div>
+
+                  <div className="absolute bottom-3 left-3 right-3 text-left">
+                    <div className="text-sm font-bold text-white">มาตรฐานเปลือกอาคารระดับสากล</div>
+                    <div className="text-[11px] text-slate-300">ส่งมอบผลงานโครงการคุณภาพกว่า 2,500+ โปรเจกต์ทั่วประเทศ</div>
+                  </div>
                 </div>
-                <div className="flex items-center justify-center gap-3">
-                  <button
-                    onClick={() => setShowNamecardModal(true)}
-                    className="inline-flex items-center gap-1.5 text-xs text-amber-400 hover:underline font-semibold"
-                  >
-                    <Maximize2 className="w-3.5 h-3.5" /> คลิกดูนามบัตรขนาดใหญ่
-                  </button>
-                  <span className="text-slate-600">•</span>
+
+                <div className="flex items-center justify-center gap-3 pt-1">
                   <button
                     onClick={() => setShowQrModal(true)}
-                    className="inline-flex items-center gap-1.5 text-xs text-emerald-400 hover:underline font-semibold"
+                    className="inline-flex items-center gap-1.5 text-xs text-emerald-400 hover:underline font-semibold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30"
                   >
-                    <QrCode className="w-3.5 h-3.5" /> สแกน LINE QR Code
+                    <QrCode className="w-3.5 h-3.5" /> สแกน LINE QR Code คุณแอล
                   </button>
                 </div>
               </div>
@@ -1510,7 +1410,7 @@ export default function SupperSurfaceSalesPage() {
         </div>
       </section>
 
-      {/* 9. MINIMALL CART & CHECKOUT SLIDE-OUT DRAWER */}
+      {/* 9. MINIMALL CART & CHECKOUT SLIDE-OUT DRAWER (Houses B2B Payment & Slip Upload) */}
       {isCartOpen && (
         <div className="fixed inset-0 z-50 flex justify-end">
           {/* Backdrop */}
@@ -1529,7 +1429,7 @@ export default function SupperSurfaceSalesPage() {
                 <h3 className="font-bold text-white text-base">
                   {checkoutStep === 'cart' && `ตะกร้าสินค้า MiniMall (${totalItemCount} รายการ)`}
                   {checkoutStep === 'quote' && 'ขอใบเสนอราคาทางการ (Formal Quotation)'}
-                  {checkoutStep === 'payment' && 'ชำระเงินในนาม บจก. เฟมไลน์ โปร์ดักส์'}
+                  {checkoutStep === 'payment' && 'ช่องทางการชำระเงินในนามบริษัท'}
                   {checkoutStep === 'success' && 'ดำเนินการสำเร็จ'}
                 </h3>
               </div>
@@ -1773,66 +1673,87 @@ export default function SupperSurfaceSalesPage() {
                 </div>
               )}
 
-              {/* STEP 3: COMPANY PAYMENT & SLIP UPLOAD */}
+              {/* STEP 3: COMPANY PAYMENT & SLIP UPLOAD (Moved Here Exclusively) */}
               {checkoutStep === 'payment' && (
                 <div className="space-y-4">
-                  {/* Warning */}
-                  <div className="bg-rose-950/40 border border-rose-500/80 rounded-xl p-3 text-xs text-rose-300 space-y-1">
-                    <div className="font-bold flex items-center gap-1.5 text-rose-200">
-                      <AlertCircle className="w-4 h-4 shrink-0" /> โปรดตรวจสอบความถูกต้อง
+                  {/* CRITICAL WARNING BANNER */}
+                  <div className="bg-rose-950/40 border-2 border-rose-500/80 rounded-xl p-3.5 text-xs text-rose-300 space-y-1.5 shadow-md">
+                    <div className="font-bold flex items-center gap-1.5 text-rose-200 text-xs sm:text-sm">
+                      <AlertCircle className="w-4 h-4 shrink-0" /> คำเตือนและข้อกำหนดสำคัญสำหรับการสั่งซื้อ
                     </div>
                     <p className="text-[11px] leading-relaxed">
-                      ***กรณีโอนเงินชำระค่าสินค้าแล้วไม่สามารถเปลี่ยนแปลงหรือคืนสินค้าได้ ดังนั้น ตรวจสอบความถูกต้องก่อนสั่งซื้อสินค้าทุกครั้ง***
+                      ***กรณีโอนเงินชำระค่าสินค้าแล้วไม่สามารถเปลี่ยนแปลงหรือคืนสินค้าได้ ดังนั้น ตรวจสอบความถูกต้องของสเปก ขนาด สี และปริมาณ ก่อนสั่งซื้อสินค้าทุกครั้ง***
                     </p>
                     <div className="text-[10px] text-rose-400 font-bold">
-                      ❗️โอนเข้าบัญชี บจก. เฟมไลน์ โปร์ดักส์ เท่านั้น
+                      ❗️โอนเข้าบัญชี บจก. เฟมไลน์ โปร์ดักส์ เท่านั้น (ไม่รับโอนเข้าบัญชีบุคคลธรรมดา)
                     </div>
                   </div>
 
-                  {/* Bank Select */}
+                  {/* Bank Accounts */}
                   <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-300">เลือกบัญชีธนาคารที่ต้องการโอน:</label>
+                    <label className="text-xs font-bold text-slate-300">ช่องทางโอนเงินเข้าบัญชีบริษัท:</label>
                     
-                    <div className="grid grid-cols-2 gap-2">
-                      <button
-                        onClick={() => setCustomerInfo({ ...customerInfo, transferBank: 'SCB' })}
-                        className={`p-3 rounded-xl border text-left transition ${
-                          customerInfo.transferBank === 'SCB'
-                            ? 'bg-purple-950/40 border-purple-500 text-white'
-                            : 'bg-slate-950 border-slate-800 text-slate-400'
-                        }`}
-                      >
-                        <div className="font-bold text-xs text-purple-300">ไทยพาณิชย์ (SCB)</div>
-                        <div className="font-mono text-xs text-white font-bold mt-1">154-3-00307-6</div>
-                      </button>
+                    {/* SCB */}
+                    <div className="bg-gradient-to-br from-slate-950 to-purple-950/30 border border-purple-500/40 rounded-xl p-3.5 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-lg bg-purple-900/60 border border-purple-500/50 flex items-center justify-center text-white font-extrabold text-xs">
+                            SCB
+                          </div>
+                          <div>
+                            <div className="text-xs font-bold text-white">ธนาคารไทยพาณิชย์</div>
+                            <div className="text-[10px] text-purple-300">บจก. เฟมไลน์ โปร์ดักส์</div>
+                          </div>
+                        </div>
+                        <span className="text-[10px] bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded font-mono">B2B Account</span>
+                      </div>
 
-                      <button
-                        onClick={() => setCustomerInfo({ ...customerInfo, transferBank: 'KBANK' })}
-                        className={`p-3 rounded-xl border text-left transition ${
-                          customerInfo.transferBank === 'KBANK'
-                            ? 'bg-emerald-950/40 border-emerald-500 text-white'
-                            : 'bg-slate-950 border-slate-800 text-slate-400'
-                        }`}
-                      >
-                        <div className="font-bold text-xs text-emerald-300">กสิกรไทย (KBANK)</div>
-                        <div className="font-mono text-xs text-white font-bold mt-1">421-2-13883-0</div>
-                      </button>
+                      <div className="flex items-center justify-between bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                        <span className="font-mono text-base font-black text-amber-400 tracking-wider">
+                          {scbAccount.number}
+                        </span>
+                        <button
+                          onClick={() => handleCopy(scbAccount.number, 'scb-cart')}
+                          className="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 transition font-semibold"
+                        >
+                          {copiedBank === 'scb-cart' ? 'คัดลอกแล้ว' : 'คัดลอก'}
+                        </button>
+                      </div>
                     </div>
 
-                    <div className="text-xs text-slate-300 bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex items-center justify-between">
-                      <span>ชื่อบัญชี: <strong>บจก. เฟมไลน์ โปร์ดักส์</strong></span>
-                      <button
-                        onClick={() => handleCopy(customerInfo.transferBank === 'SCB' ? '1543003076' : '4212138830', 'modal-copy')}
-                        className="text-[10px] text-amber-400 hover:underline font-bold"
-                      >
-                        คัดลอกเลขบัญชี
-                      </button>
+                    {/* KBANK */}
+                    <div className="bg-gradient-to-br from-slate-950 to-emerald-950/30 border border-emerald-500/40 rounded-xl p-3.5 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-lg bg-emerald-900/60 border border-emerald-500/50 flex items-center justify-center text-white font-extrabold text-xs">
+                            KBANK
+                          </div>
+                          <div>
+                            <div className="text-xs font-bold text-white">ธนาคารกสิกรไทย</div>
+                            <div className="text-[10px] text-emerald-300">บจก. เฟมไลน์ โปร์ดักส์</div>
+                          </div>
+                        </div>
+                        <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-mono">B2B Account</span>
+                      </div>
+
+                      <div className="flex items-center justify-between bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                        <span className="font-mono text-base font-black text-amber-400 tracking-wider">
+                          {kbankAccount.number}
+                        </span>
+                        <button
+                          onClick={() => handleCopy(kbankAccount.number, 'kbank-cart')}
+                          className="px-2.5 py-1 rounded-md bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 transition font-semibold"
+                        >
+                          {copiedBank === 'kbank-cart' ? 'คัดลอกแล้ว' : 'คัดลอก'}
+                        </button>
+                      </div>
                     </div>
+
                   </div>
 
                   {/* Total to Pay */}
                   <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center">
-                    <span className="text-xs text-slate-400">ยอดที่ต้องชำระ (รวม VAT):</span>
+                    <span className="text-xs text-slate-400">ยอดที่ต้องชำระสุทธิ (รวม VAT 7%):</span>
                     <span className="text-xl font-black text-amber-400">฿{grandTotal.toLocaleString()}</span>
                   </div>
 
@@ -1842,7 +1763,7 @@ export default function SupperSurfaceSalesPage() {
                     <div className="border-2 border-dashed border-slate-700 hover:border-amber-500 rounded-xl p-4 text-center cursor-pointer bg-slate-950 transition">
                       <UploadCloud className="w-8 h-8 text-slate-500 mx-auto mb-2" />
                       <div className="text-xs text-slate-300 font-semibold">คลิกเพื่ออัปโหลดไฟล์รูปสลิป</div>
-                      <div className="text-[10px] text-slate-500 mt-1">รองรับไฟล์ JPG, PNG หรือส่งทาง LINE ภายหลังได้</div>
+                      <div className="text-[10px] text-slate-500 mt-1">รองรับไฟล์ JPG, PNG หรือส่งยืนยันทาง LINE ภายหลังได้</div>
                     </div>
                   </div>
                 </div>
@@ -1944,7 +1865,85 @@ export default function SupperSurfaceSalesPage() {
         </div>
       )}
 
-      {/* 10. QR CODE MODAL */}
+      {/* 10. IN-PAGE SPEC PREVIEW MODAL (Zero External Redirects) */}
+      {activeModalCatalog && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-5 relative shadow-2xl overflow-hidden max-h-[90vh] overflow-y-auto">
+            <button
+              onClick={() => setActiveModalCatalog(null)}
+              className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-bold">
+                <FileText className="w-5 h-5" />
+              </div>
+              <div>
+                <span className="text-[10px] text-amber-400 font-bold uppercase tracking-wider block">{activeModalCatalog.categoryName}</span>
+                <h3 className="text-lg sm:text-xl font-bold text-white">{activeModalCatalog.title}</h3>
+              </div>
+            </div>
+
+            <div className="relative aspect-[16/9] rounded-xl overflow-hidden bg-slate-950 border border-slate-800">
+              <img
+                src={activeModalCatalog.image}
+                alt={activeModalCatalog.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute top-3 left-3 bg-slate-950/80 px-2.5 py-1 rounded text-xs font-mono text-amber-400 font-bold border border-slate-800">
+                {activeModalCatalog.code}
+              </div>
+            </div>
+
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              {activeModalCatalog.desc}
+            </p>
+
+            <div className="space-y-2">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">รายละเอียดสเปกทางวิศวกรรม:</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                {activeModalCatalog.specs.map((sp: string, idx: number) => (
+                  <div key={idx} className="bg-slate-950 p-2.5 rounded-lg border border-slate-800/80 flex items-center gap-2">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <span className="text-slate-200">{sp}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div>
+                <span className="text-[10px] text-slate-400 block">ราคาประเมินโครงการ</span>
+                <span className="text-xl font-black text-amber-400">฿{activeModalCatalog.price.toLocaleString()} /{activeModalCatalog.unit}</span>
+              </div>
+
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <button
+                  onClick={() => {
+                    const matchProd = products.find(p => p.id === activeModalCatalog.productId);
+                    if (matchProd) addToCart(matchProd, 1);
+                    setActiveModalCatalog(null);
+                  }}
+                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition"
+                >
+                  <Plus className="w-3.5 h-3.5" /> ใส่ตะกร้าสินค้านี้
+                </button>
+                <button
+                  onClick={() => setActiveModalCatalog(null)}
+                  className="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700 transition"
+                >
+                  ปิดหน้าต่าง
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* 11. QR CODE MODAL */}
       {showQrModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
           <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-6 text-center space-y-4 relative">
@@ -1978,45 +1977,6 @@ export default function SupperSurfaceSalesPage() {
             >
               <MessageCircle className="w-4 h-4" /> เปิด LINE บนอุปกรณ์นี้
             </a>
-          </div>
-        </div>
-      )}
-
-      {/* 11. NAMECARD MODAL */}
-      {showNamecardModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 text-center space-y-4 relative">
-            <button
-              onClick={() => setShowNamecardModal(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <h4 className="text-base font-bold text-white">นามบัตรทางการ FAMELINE PRODUCTS CO., LTD.</h4>
-            
-            <div className="bg-white p-2 rounded-xl shadow-lg">
-              <img
-                src="/images/suppersurface/namecard.jpg"
-                alt="นามบัตรทางการ เสาวลักษณ์ นุ่นหนู แอล Fameline"
-                className="w-full object-contain rounded-lg"
-              />
-            </div>
-
-            <div className="pt-2 flex justify-center gap-3">
-              <a
-                href={salePhoneCallUrl}
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs"
-              >
-                <PhoneCall className="w-3.5 h-3.5" /> โทร. {salePhone}
-              </a>
-              <button
-                onClick={() => setShowNamecardModal(false)}
-                className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-semibold"
-              >
-                ปิดหน้าต่าง
-              </button>
-            </div>
           </div>
         </div>
       )}

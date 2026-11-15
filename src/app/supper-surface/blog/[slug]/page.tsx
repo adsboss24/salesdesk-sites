@@ -21,6 +21,7 @@ import {
 import { getAllSupperSurfacePosts, getSupperSurfacePostBySlug } from '@/lib/supper-surface-posts';
 import StructuredData from '@/components/StructuredData';
 import { constructMetadata } from '@/utils/seo';
+import SocialShare from '@/components/blog/SocialShare';
 
 export const dynamic = 'force-dynamic';
 
@@ -222,7 +223,7 @@ export default async function SupperSurfaceArticlePage({ params }: Props) {
         </div>
 
         {/* Featured Image */}
-        <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-10 bg-slate-900 border border-slate-800 shadow-2xl">
+        <div className="relative aspect-[16/9] rounded-2xl overflow-hidden mb-6 bg-slate-900 border border-slate-800 shadow-2xl">
           <Image
             src={post.featuredImage}
             alt={post.imageAlt}
@@ -230,6 +231,18 @@ export default async function SupperSurfaceArticlePage({ params }: Props) {
             priority
             className="object-cover"
             sizes="(max-width: 896px) 100vw, 896px"
+          />
+        </div>
+
+        {/* Top Social Share (SEO Best Practice) */}
+        <div className="mb-8">
+          <SocialShare
+            url={postUrl}
+            title={post.title}
+            description={post.metaDescription}
+            theme="amber"
+            label="แชร์บทความสถาปัตยกรรมนี้"
+            sublabel="ส่งต่อความรู้มาตรฐานวัสดุปิดผิวให้ทีมงานและเพื่อนร่วมวงการ"
           />
         </div>
 
@@ -245,14 +258,33 @@ export default async function SupperSurfaceArticlePage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
-        {/* Author Quote Box */}
-        <div className="mt-12 bg-slate-900/80 border border-slate-800 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5">
-          <img
-            src="/images/suppersurface/namecard.jpg"
-            alt="นามบัตรคุณแอล Fameline"
-            className="w-32 h-auto rounded-lg object-contain bg-white p-1 shrink-0"
+        {/* Bottom Social Share */}
+        <div className="mt-12">
+          <SocialShare
+            url={postUrl}
+            title={post.title}
+            description={post.metaDescription}
+            theme="amber"
+            label="ประทับใจบทความนี้? แชร์ต่อเลย"
+            sublabel="ช่วยส่งต่อข้อมูลสเปกวิศวกรรมอาคารที่มีประโยชน์"
           />
-          <div className="space-y-1 text-center sm:text-left">
+        </div>
+
+        {/* Author Quote Box */}
+        <div className="mt-10 bg-slate-900/80 border border-slate-800 rounded-2xl p-6 flex flex-col sm:flex-row items-center gap-5">
+          <div className="relative w-36 h-28 rounded-xl overflow-hidden shrink-0 border border-amber-500/30 shadow-lg">
+            <Image
+              src="/images/suppersurface/hero-facade.jpg"
+              alt="งานสถาปัตยกรรมระดับพรีเมียม Fameline Products"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+            <span className="absolute bottom-1.5 left-2 right-2 text-[9px] font-bold text-amber-300 text-center uppercase tracking-wider">
+              FAMELINE MASTERPIECE
+            </span>
+          </div>
+          <div className="space-y-1 text-center sm:text-left flex-1">
             <div className="text-xs font-bold text-amber-400 uppercase tracking-wider">ติดต่อผู้เชี่ยวชาญผลิตภัณฑ์</div>
             <h4 className="text-base font-bold text-white">{post.author}</h4>
             <p className="text-xs text-slate-400 leading-relaxed">

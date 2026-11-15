@@ -29,10 +29,17 @@ import {
   Grid, 
   Check, 
   ArrowLeft,
+  ArrowRight,
   QrCode,
   UploadCloud,
   FileCheck,
-  AlertCircle
+  AlertCircle,
+  RefreshCw,
+  Calculator,
+  Calendar,
+  DollarSign,
+  HelpCircle,
+  CheckCircle
 } from 'lucide-react';
 import PremiumFooter from '@/components/Footer';
 import DemoBanner, { useDemoMode } from '@/components/DemoBanner';
@@ -68,6 +75,10 @@ export default function TandJBeddingEcommercePage() {
   const [checkoutStep, setCheckoutStep] = useState<'cart' | 'quote' | 'payment' | 'success'>('cart');
   const [copiedBank, setCopiedBank] = useState<boolean>(false);
   const [copiedPromptPay, setCopiedPromptPay] = useState<boolean>(false);
+
+  // Rental Estimator State
+  const [rentalRooms, setRentalRooms] = useState<{ twin: number; queen: number; king: number }>({ twin: 10, queen: 10, king: 10 });
+  const [rentalContract, setRentalContract] = useState<'3m' | '6m' | '19m_gold' | '24m_vip'>('19m_gold');
 
   // Selected variants state for items with options: [prodId]: { sizeIndex, fabricKey }
   const [selectedVariants, setSelectedVariants] = useState<{ [key: string]: { size: string; fabric: string; price: number } }>({
@@ -107,7 +118,7 @@ export default function TandJBeddingEcommercePage() {
       size: '19" x 29"',
       unit: 'ใบ',
       price: 440,
-      image: '/images/tandj/pillow-pair.jpg',
+      image: '/images/tandj/catalog/pillow-pair.jpg',
       badge: 'ขายดีอันดับ 1',
     },
     {
@@ -119,7 +130,7 @@ export default function TandJBeddingEcommercePage() {
       size: '21" x 35"',
       unit: 'ใบ',
       price: 470,
-      image: '/images/tandj/pillow.jpg',
+      image: '/images/tandj/catalog/pillow-single.jpg',
     },
     {
       id: 'pillowcase-standard',
@@ -135,7 +146,7 @@ export default function TandJBeddingEcommercePage() {
         { key: 'CVC 300T', label: 'ผ้า CVC 300T (ทนทาน ซักง่าย อยู่ทรงสวย)', price: 65 },
         { key: 'TC Easy care 250T', label: 'ผ้า TC Easy Care 250T (รีดง่าย ประหยัดงบ)', price: 50 },
       ],
-      image: '/images/tandj/pillowcase-insert.jpg',
+      image: '/images/tandj/catalog/pillowcase-standard.jpg',
     },
     {
       id: 'pillowcase-large',
@@ -151,7 +162,7 @@ export default function TandJBeddingEcommercePage() {
         { key: 'CVC 300T', label: 'ผ้า CVC 300T', price: 100 },
         { key: 'TC Easy care 250T', label: 'ผ้า TC Easy Care 250T', price: 60 },
       ],
-      image: '/images/tandj/pillow-case.jpg',
+      image: '/images/tandj/catalog/pillowcase-large.jpg',
     },
 
     // 2. ผ้าปูที่นอนปล่อยชาย
@@ -169,7 +180,7 @@ export default function TandJBeddingEcommercePage() {
         { key: 'CVC 300T', label: 'ผ้า CVC 300T (ทนทานสูง คุ้มค่าที่สุด)', price: 365 },
         { key: 'TC Easy care 250T', label: 'ผ้า TC Easy care 250T (ประหยัดงบเริ่มต้น)', price: 230 },
       ],
-      image: '/images/tandj/bedsheet-3.5.jpg',
+      image: '/images/tandj/catalog/bedsheet-3.5ft.jpg',
     },
     {
       id: 'bedsheet-5',
@@ -185,7 +196,7 @@ export default function TandJBeddingEcommercePage() {
         { key: 'CVC 300T', label: 'ผ้า CVC 300T', price: 410 },
         { key: 'TC Easy care 250T', label: 'ผ้า TC Easy care 250T', price: 260 },
       ],
-      image: '/images/tandj/bedsheet-5.jpg',
+      image: '/images/tandj/catalog/bedsheet-5ft.jpg',
     },
     {
       id: 'bedsheet-6',
@@ -201,7 +212,7 @@ export default function TandJBeddingEcommercePage() {
         { key: 'CVC 300T', label: 'ผ้า CVC 300T', price: 480 },
         { key: 'TC Easy care 250T', label: 'ผ้า TC Easy care 250T', price: 340 },
       ],
-      image: '/images/tandj/bedsheet-6.jpg',
+      image: '/images/tandj/catalog/bedsheet-6ft.jpg',
       badge: 'ยอดนิยมสำหรับโรงแรม',
     },
 
@@ -220,7 +231,7 @@ export default function TandJBeddingEcommercePage() {
         { key: 'CVC 300T', label: 'ผ้า CVC 300T', price: 630 },
         { key: 'TC Easy care 250T', label: 'ผ้า TC Easy care 250T', price: 420 },
       ],
-      image: '/images/tandj/duvet-cover-3.5.jpg',
+      image: '/images/tandj/catalog/duvet-cover-3.5ft.jpg',
     },
     {
       id: 'duvet-cover-5',
@@ -236,7 +247,7 @@ export default function TandJBeddingEcommercePage() {
         { key: 'CVC 300T', label: 'ผ้า CVC 300T', price: 770 },
         { key: 'TC Easy care 250T', label: 'ผ้า TC Easy care 250T', price: 510 },
       ],
-      image: '/images/tandj/duvet-cover-5.jpg',
+      image: '/images/tandj/catalog/duvet-cover-5ft.jpg',
     },
     {
       id: 'duvet-cover-6',
@@ -252,7 +263,7 @@ export default function TandJBeddingEcommercePage() {
         { key: 'CVC 300T', label: 'ผ้า CVC 300T', price: 800 },
         { key: 'TC Easy care 250T', label: 'ผ้า TC Easy care 250T', price: 560 },
       ],
-      image: '/images/tandj/duvet-cover-6.jpg',
+      image: '/images/tandj/catalog/duvet-cover-6ft.jpg',
     },
     {
       id: 'duvet-insert-3.5',
@@ -263,7 +274,7 @@ export default function TandJBeddingEcommercePage() {
       size: '70" x 90"',
       unit: 'ผืน',
       price: 540,
-      image: '/images/tandj/duvet-insert-3.5.jpg',
+      image: '/images/tandj/catalog/duvet-insert-3.5ft.jpg',
     },
     {
       id: 'duvet-insert-5',
@@ -274,7 +285,7 @@ export default function TandJBeddingEcommercePage() {
       size: '90" x 90"',
       unit: 'ผืน',
       price: 630,
-      image: '/images/tandj/duvet-insert-5.jpg',
+      image: '/images/tandj/catalog/duvet-insert-5ft.jpg',
     },
     {
       id: 'duvet-insert-6',
@@ -285,7 +296,7 @@ export default function TandJBeddingEcommercePage() {
       size: '100" x 90"',
       unit: 'ผืน',
       price: 650,
-      image: '/images/tandj/duvet-insert-6.jpg',
+      image: '/images/tandj/catalog/duvet-insert-6ft.jpg',
     },
 
     // 4. ผ้ารองกันเปื้อน & ท็อปเปอร์
@@ -298,7 +309,7 @@ export default function TandJBeddingEcommercePage() {
       size: '42" x 78"',
       unit: 'ผืน',
       price: 470,
-      image: '/images/tandj/protector-3.5.jpg',
+      image: '/images/tandj/catalog/protector-3.5ft.jpg',
     },
     {
       id: 'protector-5',
@@ -309,7 +320,7 @@ export default function TandJBeddingEcommercePage() {
       size: '60" x 78"',
       unit: 'ผืน',
       price: 660,
-      image: '/images/tandj/protector-5.jpg',
+      image: '/images/tandj/catalog/protector-5ft.jpg',
     },
     {
       id: 'protector-6',
@@ -320,7 +331,7 @@ export default function TandJBeddingEcommercePage() {
       size: '72" x 78"',
       unit: 'ผืน',
       price: 760,
-      image: '/images/tandj/protector-6.jpg',
+      image: '/images/tandj/catalog/protector-6ft.jpg',
       badge: 'แนะนำสำหรับโรงแรม',
     },
     {
@@ -332,7 +343,7 @@ export default function TandJBeddingEcommercePage() {
       size: '70" x 90" (เตียง 3.5 ฟุต)',
       unit: 'หลัง',
       price: 1830,
-      image: '/images/tandj/topper-promo.jpg',
+      image: '/images/tandj/catalog/topper-3.5ft.jpg',
     },
     {
       id: 'topper-5',
@@ -343,7 +354,7 @@ export default function TandJBeddingEcommercePage() {
       size: '90" x 90" (เตียง 5 ฟุต)',
       unit: 'หลัง',
       price: 2420,
-      image: '/images/tandj/topper-promo.jpg',
+      image: '/images/tandj/catalog/topper-5ft.jpg',
     },
     {
       id: 'topper-6',
@@ -354,7 +365,7 @@ export default function TandJBeddingEcommercePage() {
       size: '100" x 90" (เตียง 6 ฟุต)',
       unit: 'หลัง',
       price: 2590,
-      image: '/images/tandj/topper-promo.jpg',
+      image: '/images/tandj/catalog/topper-5ft.jpg',
       badge: 'ฟีลลิ่ง 5 ดาว',
     },
 
@@ -368,7 +379,7 @@ export default function TandJBeddingEcommercePage() {
       size: '12" x 12"',
       unit: 'ผืน',
       price: 20,
-      image: '/images/tandj/towel-face-1.6.jpg',
+      image: '/images/tandj/catalog/towel-face-1.6lbs.jpg',
     },
     {
       id: 'towel-hand-4',
@@ -379,7 +390,7 @@ export default function TandJBeddingEcommercePage() {
       size: '15" x 30"',
       unit: 'ผืน',
       price: 60,
-      image: '/images/tandj/towel-hand-4.jpg',
+      image: '/images/tandj/catalog/towel-hand-4lbs.jpg',
     },
     {
       id: 'towel-bath-12',
@@ -390,7 +401,7 @@ export default function TandJBeddingEcommercePage() {
       size: '27" x 54"',
       unit: 'ผืน',
       price: 150,
-      image: '/images/tandj/towel-bath-12.jpg',
+      image: '/images/tandj/catalog/towel-bath-12lbs.jpg',
     },
     {
       id: 'towel-bath-14',
@@ -401,7 +412,7 @@ export default function TandJBeddingEcommercePage() {
       size: '27" x 54"',
       unit: 'ผืน',
       price: 190,
-      image: '/images/tandj/towel-bath-14.jpg',
+      image: '/images/tandj/catalog/towel-bath-14lbs.jpg',
       badge: 'สเปกยอดนิยม',
     },
     {
@@ -413,7 +424,7 @@ export default function TandJBeddingEcommercePage() {
       size: '30" x 60"',
       unit: 'ผืน',
       price: 220,
-      image: '/images/tandj/towel-bath-16.jpg',
+      image: '/images/tandj/catalog/towel-bath-16lbs.jpg',
     },
     {
       id: 'towel-bath-18',
@@ -424,7 +435,7 @@ export default function TandJBeddingEcommercePage() {
       size: '30" x 60"',
       unit: 'ผืน',
       price: 300,
-      image: '/images/tandj/towel-bath-18.jpg',
+      image: '/images/tandj/catalog/towel-bath-18lbs.jpg',
     },
     {
       id: 'mat-bath-10.5',
@@ -435,7 +446,7 @@ export default function TandJBeddingEcommercePage() {
       size: '20" x 30"',
       unit: 'ผืน',
       price: 120,
-      image: '/images/tandj/mat-bath-10.5.jpg',
+      image: '/images/tandj/catalog/mat-bath-10.5lbs.jpg',
     },
     {
       id: 'mat-welcome-8',
@@ -446,7 +457,7 @@ export default function TandJBeddingEcommercePage() {
       size: '18" x 28"',
       unit: 'ผืน',
       price: 110,
-      image: '/images/tandj/mat-welcome-8.jpg',
+      image: '/images/tandj/catalog/mat-welcome-8lbs.jpg',
     },
     {
       id: 'towel-pool-25',
@@ -457,7 +468,7 @@ export default function TandJBeddingEcommercePage() {
       size: '35" x 70"',
       unit: 'ผืน',
       price: 390,
-      image: '/images/tandj/towel-pool-25.jpg',
+      image: '/images/tandj/catalog/towel-pool-25lbs.jpg',
       badge: 'สำหรับสระว่ายน้ำ',
     },
   ], []);
@@ -565,6 +576,50 @@ export default function TandJBeddingEcommercePage() {
     setCopiedPromptPay(true);
     setTimeout(() => setCopiedPromptPay(false), 2500);
   };
+
+  // Rental Calculations
+  const rentalRates = useMemo(() => {
+    switch (rentalContract) {
+      case '3m':
+        return { name: 'แพ็กเกจ 3 เดือน (ทดลอง)', depositPercent: 50, discount: 3, twin: 120, queen: 130, king: 140 };
+      case '6m':
+        return { name: 'แพ็กเกจ 6 เดือน', depositPercent: 40, discount: 5, twin: 100, queen: 110, king: 120 };
+      case '19m_gold':
+        return { name: 'แพ็กเกจ GOLD (19 เดือน)', depositPercent: 30, discount: 10, twin: 70, queen: 80, king: 90 };
+      case '24m_vip':
+        return { name: 'แพ็กเกจ VIP (20-24 เดือน)', depositPercent: 30, discount: 10, twin: 35, queen: 40, king: 45 };
+      default:
+        return { name: 'แพ็กเกจ GOLD', depositPercent: 30, discount: 10, twin: 70, queen: 80, king: 90 };
+    }
+  }, [rentalContract]);
+
+  const totalRentalBeds = useMemo(() => rentalRooms.twin + rentalRooms.queen + rentalRooms.king, [rentalRooms]);
+  const monthlyRentalTotal = useMemo(() => {
+    return (rentalRooms.twin * rentalRates.twin) + 
+           (rentalRooms.queen * rentalRates.queen) + 
+           (rentalRooms.king * rentalRates.king);
+  }, [rentalRooms, rentalRates]);
+
+  const buyEquivalentTotal = useMemo(() => {
+    return (rentalRooms.twin * 1060) + (rentalRooms.queen * 1260) + (rentalRooms.king * 1370);
+  }, [rentalRooms]);
+
+  const depositTotal = useMemo(() => {
+    return Math.round(buyEquivalentTotal * (rentalRates.depositPercent / 100));
+  }, [buyEquivalentTotal, rentalRates]);
+
+  const rentalLineMessage = encodeURIComponent(
+    `สวัสดีครับ สนใจขอใบเสนอราคา "บริการเช่าชุดเครื่องนอนโรงแรม" (${rentalRates.name})
+ขนาดเตียงที่ต้องการ:
+- เตียง Twin 3.5 ฟุต: ${rentalRooms.twin} เตียง (฿${rentalRates.twin}/ด.)
+- เตียง Queen 5 ฟุต: ${rentalRooms.queen} เตียง (฿${rentalRates.queen}/ด.)
+- เตียง King 6 ฟุต: ${rentalRooms.king} เตียง (฿${rentalRates.king}/ด.)
+รวมเตียงทั้งหมด: ${totalRentalBeds} เตียง
+ประมาณการค่าเช่ารวม: ฿${monthlyRentalTotal.toLocaleString()} บาท/เดือน
+(เทียบกับซื้อขาด ฿${buyEquivalentTotal.toLocaleString()} บาท)
+เงินมัดจำ (${rentalRates.depositPercent}% คืนเมื่อครบสัญญา): ฿${depositTotal.toLocaleString()} บาท
+รบกวนฝ่ายขาย บจก.ซัคเซสลอนดรี้ ติดต่อกลับเพื่อทำสัญญาและส่งใบเสนอราคาครับ`
+  );
 
   const handlePrint = () => {
     if (typeof window !== 'undefined') {
@@ -729,6 +784,7 @@ export default function TandJBeddingEcommercePage() {
           <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-100 no-scrollbar">
             {[
               { key: 'all', label: 'ทั้งหมด (28 รายการ)' },
+              { key: 'rental', label: '⭐ เช่าชุดเครื่องนอนโรงแรม (วันละ 3.-)', isSpecial: true },
               { key: 'pillow', label: 'หมอน & ปลอกหมอน' },
               { key: 'bedsheet', label: 'ผ้าปูที่นอนปล่อยชาย' },
               { key: 'duvet', label: 'ปลอกนวม & ไส้นวม' },
@@ -741,8 +797,12 @@ export default function TandJBeddingEcommercePage() {
                 onClick={() => setActiveCategory(tab.key)}
                 className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
                   activeCategory === tab.key
-                    ? 'bg-slate-900 text-white shadow-sm'
-                    : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                    ? tab.isSpecial
+                      ? 'bg-amber-400 text-slate-950 font-black shadow-md ring-2 ring-amber-300'
+                      : 'bg-slate-900 text-white shadow-sm'
+                    : tab.isSpecial
+                      ? 'bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100 font-bold'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
                 {tab.label}
@@ -756,19 +816,657 @@ export default function TandJBeddingEcommercePage() {
       {/* 4. MAIN CONTENT AREA: GRID OR TABLE */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         
-        {/* Active Filter Bar on Mobile */}
-        <div className="md:hidden mb-6">
-          <input
-            type="text"
-            placeholder="ค้นหาสินค้า..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-xs shadow-xs"
-          />
-        </div>
+        {/* Banner shown when browsing regular catalog */}
+        {activeCategory !== 'rental' && (
+          <div className="mb-8 p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950 text-white shadow-lg border border-amber-500/30 flex flex-col md:flex-row items-center justify-between gap-5">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-2xl bg-amber-400/20 border border-amber-400/40 flex items-center justify-center text-2xl shrink-0">
+                🏨
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-400 text-slate-950">
+                    โมเดลใหม่สำหรับโรงแรม
+                  </span>
+                  <span className="text-xs text-amber-200 font-semibold">เริ่มต้นเพียงวันละ 3 บาท / เตียง</span>
+                </div>
+                <h3 className="text-base sm:text-lg font-black text-white mt-1">
+                  บริการเช่าชุดเครื่องนอนโรงแรม 0 CAPEX ลงทุน 0 บาท • เปลี่ยนของใหม่ฟรีเมื่อชำรุด
+                </h3>
+                <p className="text-xs text-slate-300 line-clamp-1 mt-0.5">
+                  ช่วยเจ้าของโรงแรมประหยัดเงินสดหลักแสน ผ้าเปื้อนซักไม่ออกเคลมเปลี่ยนฟรี คืนเงินมัดจำเต็มจำนวน
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => setActiveCategory('rental')}
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 text-xs sm:text-sm font-black shadow-md transition-all whitespace-nowrap shrink-0 flex items-center gap-2 cursor-pointer"
+            >
+              <span>ดูแพ็กเกจ & คำนวณงบประมาณเช่า</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
 
-        {/* CASE A: GRID VIEW */}
-        {viewMode === 'grid' && (
+        {/* ============================================================ */}
+        {/* SPECIAL VIEW: HOTEL LINEN RENTAL HUB */}
+        {/* ============================================================ */}
+        {activeCategory === 'rental' && (
+          <div className="space-y-12 animate-fade-in">
+            
+            {/* 1. Hero Rental Header */}
+            <div className="rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-amber-950 text-white p-6 sm:p-10 border border-amber-500/30 shadow-xl relative overflow-hidden">
+              <div className="relative z-10 max-w-4xl space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/40 text-amber-300 text-xs font-bold">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  <span>SUCCESS LAUNDRY & HOTEL SUPPLY • LINEN RENTAL SERVICE</span>
+                </div>
+                
+                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">
+                  โมเดลเช่าชุดเครื่องนอนโรงแรม <br className="hidden sm:inline" />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-200 to-yellow-400">
+                    เริ่มต้นเพียงวันละ 3 บาท / เตียง
+                  </span>
+                </h1>
+
+                <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                  ทางเลือกใหม่ที่ดีที่สุดสำหรับ โรงแรม รีสอร์ท พูลวิลล่า และเซอร์วิสอพาร์ตเมนต์ 
+                  ไม่ต้องแบกรับต้นทุนซื้อผ้าก้อนโต (0 CAPEX) เคลมเปลี่ยนผ้าใหม่ฟรีทันทีเมื่อชำรุดหรือเปื้อนฝังแน่น 
+                  รักษาสภาพผ้าพร้อมรับแขกระดับ 90% ตลอดอายุสัญญา
+                </p>
+
+                <div className="pt-2 flex flex-wrap items-center gap-3">
+                  <a
+                    href={`https://line.me/ti/p/~@fhu6688s?text=${rentalLineMessage}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-sm shadow-lg flex items-center gap-2"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>ขอใบเสนอราคาเช่าผ่าน LINE</span>
+                  </a>
+                  <a
+                    href="tel:0864614614"
+                    className="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 backdrop-blur-xs flex items-center gap-2"
+                  >
+                    <PhoneCall className="w-4 h-4 text-amber-400" />
+                    <span>โทรปรึกษาฝ่ายขาย: 086-461-4614</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* 2. Three Pillars / Value Proposition */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 font-black text-xl">
+                  ฿0
+                </div>
+                <h3 className="text-base font-black text-slate-900">0 CAPEX ลงทุนเริ่มต้น 0 บาท</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  ไม่ต้องลงเงินก้อนหลักแสนสำหรับสต็อกผ้า เปลี่ยนค่าใช้จ่ายเป็น OPEX รายเดือน ลดความเสี่ยงทางการเงิน 
+                  และนำใบกำกับภาษีไปลดหย่อนภาษีนิติบุคคลได้ 100%
+                </p>
+              </div>
+
+              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600">
+                  <RefreshCw className="w-6 h-6" />
+                </div>
+                <h3 className="text-base font-black text-slate-900">เปลี่ยนผืนใหม่ฟรีเมื่อชำรุด</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  ผ้าเปื้อนคราบฝังแน่น ชำรุด ฉีกขาดจากการใช้งานปกติ ซัคเซสลอนดรี้เคลมเปลี่ยนผืนใหม่ให้ฟรีทันที 
+                  การันตีสภาพผ้าไม่ต่ำกว่า 90% ตลอดสัญญา ไม่ต้องเสียเงินซื้อเสริมเอง
+                </p>
+              </div>
+
+              <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs space-y-3">
+                <div className="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
+                  <Sparkles className="w-6 h-6" />
+                </div>
+                <h3 className="text-base font-black text-slate-900">เปลี่ยนใหม่ 100% ทุก 24 เดือน</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  เมื่ออยู่ครบสัญญา 20-24 เดือน รับชุดเครื่องนอนใหม่แกะกล่องยกเซ็ต 100% ฟรีทันที 
+                  พร้อมสิทธิพิเศษลดค่าเช่ารายเดือนลง 50% (เหลือเพียง ฿35 - ฿45/เดือน/ชุด)
+                </p>
+              </div>
+            </div>
+
+            {/* 3. Inclusions (1 Set contains) */}
+            <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 border border-slate-800">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-wider text-amber-400">SPECIFICATIONS</span>
+                  <h3 className="text-xl sm:text-2xl font-black text-white mt-1">ชุดเช่า 1 เซ็ต ประกอบด้วยอะไรบ้าง?</h3>
+                  <p className="text-xs text-slate-400 mt-1">
+                    มาตรฐานผ้า TC Easy Care 250T (ผ้าสีขาวเรียบ หรือ ลายริ้ว) ทนทานต่อการซักอุตสาหกรรม คืนตัวเร็ว รีดง่าย
+                  </p>
+                </div>
+                <div className="shrink-0 px-4 py-2 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-bold">
+                  พร้อมใช้งานระดับโรงแรม 4-5 ดาว
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6">
+                <div className="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/80 space-y-2">
+                  <div className="text-amber-400 font-mono text-2xl font-black">01</div>
+                  <h4 className="font-bold text-white text-sm">ปลอกหมอนหนุน (2 ใบ)</h4>
+                  <p className="text-xs text-slate-400">ขนาด 20" x 30" x 6" ลิ้นลึก 6 นิ้ว สวมใส่ง่าย ไม่หลุดจากหมอน</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/80 space-y-2">
+                  <div className="text-amber-400 font-mono text-2xl font-black">02</div>
+                  <h4 className="font-bold text-white text-sm">ผ้าปูที่นอนปล่อยชาย (1 ผืน)</h4>
+                  <p className="text-xs text-slate-400">ขนาด 80"x110" / 92"x110" / 110"x110" คลุมเตียงสวย สอดใต้ฟูกแน่นหนา</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/80 space-y-2">
+                  <div className="text-amber-400 font-mono text-2xl font-black">03</div>
+                  <h4 className="font-bold text-white text-sm">ปลอกผ้านวม (1 ผืน)</h4>
+                  <p className="text-xs text-slate-400">ขนาด 70"x90" / 90"x90" / 100"x90" มีเชือกผูกมุมด้านในยึดกับไส้นวม</p>
+                </div>
+              </div>
+            </div>
+
+            {/* 4. Three Bed Size Rates Cards */}
+            <div>
+              <div className="text-center max-w-xl mx-auto space-y-2 mb-8">
+                <span className="text-xs font-black uppercase tracking-wider text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
+                  MONTHLY RENTAL RATES
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-black text-slate-900">อัตราค่าเช่ารายเดือนแยกตามขนาดเตียง</h2>
+                <p className="text-xs text-slate-500">
+                  สัญญาเริ่มต้นแพ็กเกจ GOLD 19 เดือน (เฉลี่ยเริ่มต้นเพียงวันละ 2.33 - 3.00 บาทเท่านั้น)
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                {/* Twin 3.5' */}
+                <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm hover:shadow-xl transition flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-500 uppercase">เตียงเดี่ยว / Twin Bed</span>
+                      <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold text-[11px]">3.5 ฟุต</span>
+                    </div>
+                    <div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-4xl font-black text-slate-900">฿70</span>
+                        <span className="text-xs text-slate-500 font-bold">/ เดือน / ชุด</span>
+                      </div>
+                      <p className="text-[11px] text-emerald-600 font-bold mt-1">
+                        เฉลี่ยเพียง ฿2.33 บาท / วัน
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-100 space-y-2 text-xs text-slate-600">
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>ปลอกหมอน 2 ใบ + ผ้าปู 3.5' + ปลอกนวม 3.5'</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>ผ้า TC Easy Care 250 เส้นด้าย ขาว/ริ้ว</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-slate-400">
+                        <span>ราคาซื้อขาดปกติ: ฿1,060 / ชุด</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-6 mt-6 border-t border-slate-100">
+                    <button
+                      onClick={() => setRentalRooms(prev => ({ ...prev, twin: prev.twin + 5 }))}
+                      className="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition cursor-pointer"
+                    >
+                      + เพิ่ม 5 เตียงในเครื่องคำนวณ
+                    </button>
+                  </div>
+                </div>
+
+                {/* Queen 5' */}
+                <div className="bg-white rounded-3xl p-6 sm:p-7 border border-amber-300 ring-2 ring-amber-400/40 shadow-md hover:shadow-xl transition flex flex-col justify-between relative">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <span className="px-3 py-0.5 rounded-full bg-slate-900 text-amber-300 text-[10px] font-black uppercase tracking-wider shadow-sm">
+                      ยอดนิยมสำหรับโรงแรม
+                    </span>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-500 uppercase">เตียงควีน / Queen Bed</span>
+                      <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-bold text-[11px]">5 ฟุต</span>
+                    </div>
+                    <div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-4xl font-black text-slate-900">฿80</span>
+                        <span className="text-xs text-slate-500 font-bold">/ เดือน / ชุด</span>
+                      </div>
+                      <p className="text-[11px] text-emerald-600 font-bold mt-1">
+                        เฉลี่ยเพียง ฿2.66 บาท / วัน
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-100 space-y-2 text-xs text-slate-600">
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>ปลอกหมอน 2 ใบ + ผ้าปู 5' + ปลอกนวม 5'</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>ผ้า TC Easy Care 250 เส้นด้าย ขาว/ริ้ว</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-slate-400">
+                        <span>ราคาซื้อขาดปกติ: ฿1,260 / ชุด</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-6 mt-6 border-t border-slate-100">
+                    <button
+                      onClick={() => setRentalRooms(prev => ({ ...prev, queen: prev.queen + 5 }))}
+                      className="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition cursor-pointer"
+                    >
+                      + เพิ่ม 5 เตียงในเครื่องคำนวณ
+                    </button>
+                  </div>
+                </div>
+
+                {/* King 6' */}
+                <div className="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200 shadow-sm hover:shadow-xl transition flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-slate-500 uppercase">เตียงคิง / King Bed</span>
+                      <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-bold text-[11px]">6 ฟุต</span>
+                    </div>
+                    <div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-4xl font-black text-slate-900">฿90</span>
+                        <span className="text-xs text-slate-500 font-bold">/ เดือน / ชุด</span>
+                      </div>
+                      <p className="text-[11px] text-emerald-600 font-bold mt-1">
+                        เฉลี่ยเพียง ฿3.00 บาท / วัน
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-100 space-y-2 text-xs text-slate-600">
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>ปลอกหมอน 2 ใบ + ผ้าปู 6' + ปลอกนวม 6'</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>ผ้า TC Easy Care 250 เส้นด้าย ขาว/ริ้ว</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-slate-400">
+                        <span>ราคาซื้อขาดปกติ: ฿1,370 / ชุด</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-6 mt-6 border-t border-slate-100">
+                    <button
+                      onClick={() => setRentalRooms(prev => ({ ...prev, king: prev.king + 5 }))}
+                      className="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition cursor-pointer"
+                    >
+                      + เพิ่ม 5 เตียงในเครื่องคำนวณ
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            {/* 5. Interactive Rental Estimator & Comparison */}
+            <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-lg space-y-8">
+              <div className="border-b border-slate-100 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <Calculator className="w-5 h-5 text-amber-600" />
+                    <span className="text-xs font-black uppercase tracking-wider text-amber-600">
+                      HOTEL ESTIMATOR & ROI CALCULATOR
+                    </span>
+                  </div>
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">
+                    คำนวณงบประมาณเช่าชุดเครื่องนอนสำหรับโรงแรมของคุณ
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    ปรับจำนวนเตียงและเลือกระยะสัญญาเพื่อดูยอดค่าเช่า ยอดมัดจำ และการประหยัดกระแสเงินสด
+                  </p>
+                </div>
+
+                {/* Contract Tier Selector */}
+                <div className="flex items-center bg-slate-100 p-1 rounded-xl text-xs font-bold shrink-0">
+                  {[
+                    { key: '3m', label: '3 เดือน (ทดลอง)' },
+                    { key: '6m', label: '6 เดือน' },
+                    { key: '19m_gold', label: '19 เดือน (GOLD)' },
+                    { key: '24m_vip', label: '24 เดือน (VIP)' },
+                  ].map(tier => (
+                    <button
+                      key={tier.key}
+                      onClick={() => setRentalContract(tier.key as any)}
+                      className={`px-3 py-1.5 rounded-lg transition cursor-pointer ${
+                        rentalContract === tier.key
+                          ? 'bg-white text-slate-900 shadow-xs font-black'
+                          : 'text-slate-600 hover:text-slate-900'
+                      }`}
+                    >
+                      {tier.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Bed Counters */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                
+                {/* Twin Beds Counter */}
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-bold text-slate-900 text-sm">เตียง Twin (3.5 ฟุต)</h4>
+                      <p className="text-[11px] text-slate-500">฿{rentalRates.twin} / เตียง / เดือน</p>
+                    </div>
+                    <span className="text-xs font-black text-amber-700 bg-amber-100 px-2 py-0.5 rounded">
+                      3.5'
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between pt-2">
+                    <button
+                      onClick={() => setRentalRooms(prev => ({ ...prev, twin: Math.max(0, prev.twin - 5) }))}
+                      className="w-10 h-10 rounded-xl bg-white border border-slate-200 font-black text-slate-700 hover:bg-slate-100 flex items-center justify-center cursor-pointer"
+                    >
+                      -5
+                    </button>
+                    <div className="text-center">
+                      <input
+                        type="number"
+                        min="0"
+                        value={rentalRooms.twin}
+                        onChange={(e) => setRentalRooms(prev => ({ ...prev, twin: Math.max(0, parseInt(e.target.value) || 0) }))}
+                        className="w-20 text-center font-black text-2xl text-slate-900 bg-transparent focus:outline-hidden"
+                      />
+                      <span className="text-[10px] text-slate-400 block font-semibold">เตียง</span>
+                    </div>
+                    <button
+                      onClick={() => setRentalRooms(prev => ({ ...prev, twin: prev.twin + 5 }))}
+                      className="w-10 h-10 rounded-xl bg-white border border-slate-200 font-black text-slate-700 hover:bg-slate-100 flex items-center justify-center cursor-pointer"
+                    >
+                      +5
+                    </button>
+                  </div>
+                </div>
+
+                {/* Queen Beds Counter */}
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-bold text-slate-900 text-sm">เตียง Queen (5 ฟุต)</h4>
+                      <p className="text-[11px] text-slate-500">฿{rentalRates.queen} / เตียง / เดือน</p>
+                    </div>
+                    <span className="text-xs font-black text-amber-700 bg-amber-100 px-2 py-0.5 rounded">
+                      5'
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between pt-2">
+                    <button
+                      onClick={() => setRentalRooms(prev => ({ ...prev, queen: Math.max(0, prev.queen - 5) }))}
+                      className="w-10 h-10 rounded-xl bg-white border border-slate-200 font-black text-slate-700 hover:bg-slate-100 flex items-center justify-center cursor-pointer"
+                    >
+                      -5
+                    </button>
+                    <div className="text-center">
+                      <input
+                        type="number"
+                        min="0"
+                        value={rentalRooms.queen}
+                        onChange={(e) => setRentalRooms(prev => ({ ...prev, queen: Math.max(0, parseInt(e.target.value) || 0) }))}
+                        className="w-20 text-center font-black text-2xl text-slate-900 bg-transparent focus:outline-hidden"
+                      />
+                      <span className="text-[10px] text-slate-400 block font-semibold">เตียง</span>
+                    </div>
+                    <button
+                      onClick={() => setRentalRooms(prev => ({ ...prev, queen: prev.queen + 5 }))}
+                      className="w-10 h-10 rounded-xl bg-white border border-slate-200 font-black text-slate-700 hover:bg-slate-100 flex items-center justify-center cursor-pointer"
+                    >
+                      +5
+                    </button>
+                  </div>
+                </div>
+
+                {/* King Beds Counter */}
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="font-bold text-slate-900 text-sm">เตียง King (6 ฟุต)</h4>
+                      <p className="text-[11px] text-slate-500">฿{rentalRates.king} / เตียง / เดือน</p>
+                    </div>
+                    <span className="text-xs font-black text-amber-700 bg-amber-100 px-2 py-0.5 rounded">
+                      6'
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between pt-2">
+                    <button
+                      onClick={() => setRentalRooms(prev => ({ ...prev, king: Math.max(0, prev.king - 5) }))}
+                      className="w-10 h-10 rounded-xl bg-white border border-slate-200 font-black text-slate-700 hover:bg-slate-100 flex items-center justify-center cursor-pointer"
+                    >
+                      -5
+                    </button>
+                    <div className="text-center">
+                      <input
+                        type="number"
+                        min="0"
+                        value={rentalRooms.king}
+                        onChange={(e) => setRentalRooms(prev => ({ ...prev, king: Math.max(0, parseInt(e.target.value) || 0) }))}
+                        className="w-20 text-center font-black text-2xl text-slate-900 bg-transparent focus:outline-hidden"
+                      />
+                      <span className="text-[10px] text-slate-400 block font-semibold">เตียง</span>
+                    </div>
+                    <button
+                      onClick={() => setRentalRooms(prev => ({ ...prev, king: prev.king + 5 }))}
+                      className="w-10 h-10 rounded-xl bg-white border border-slate-200 font-black text-slate-700 hover:bg-slate-100 flex items-center justify-center cursor-pointer"
+                    >
+                      +5
+                    </button>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Calculation Summary Box */}
+              <div className="p-6 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900 to-amber-950 text-white space-y-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pb-6 border-b border-slate-800">
+                  <div>
+                    <span className="text-xs text-slate-400 font-bold block">จำนวนเตียงที่เลือก</span>
+                    <span className="text-3xl font-black text-white">{totalRentalBeds} เตียง</span>
+                    <span className="text-[11px] text-slate-400 block mt-0.5">
+                      (3.5': {rentalRooms.twin} | 5': {rentalRooms.queen} | 6': {rentalRooms.king})
+                    </span>
+                  </div>
+
+                  <div>
+                    <span className="text-xs text-amber-400 font-bold block">ค่าเช่ารายเดือนรวม</span>
+                    <span className="text-3xl font-black text-amber-300">
+                      ฿{monthlyRentalTotal.toLocaleString()}
+                    </span>
+                    <span className="text-[11px] text-slate-400 block mt-0.5">
+                      บาท / เดือน (หักค่าใช้จ่ายได้ 100%)
+                    </span>
+                  </div>
+
+                  <div>
+                    <span className="text-xs text-slate-400 font-bold block">เงินมัดจำประกันสัญญา ({rentalRates.depositPercent}%)</span>
+                    <span className="text-2xl font-black text-white">
+                      ฿{depositTotal.toLocaleString()}
+                    </span>
+                    <span className="text-[11px] text-emerald-400 block mt-0.5">
+                      ✓ คืนเงินเต็มจำนวนเมื่อครบสัญญา
+                    </span>
+                  </div>
+
+                  <div>
+                    <span className="text-xs text-slate-400 font-bold block">เทียบกับเงินลงทุนซื้อขาด</span>
+                    <span className="text-2xl font-bold text-slate-400 line-through">
+                      ฿{buyEquivalentTotal.toLocaleString()}
+                    </span>
+                    <span className="text-[11px] text-amber-300 font-bold block mt-0.5">
+                      ประหยัดเงินสดสำรอง ฿{(buyEquivalentTotal - depositTotal).toLocaleString()} บ.
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
+                  <div className="text-xs text-slate-300 space-y-1">
+                    <p className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <span>{rentalRates.name}: สิทธิประโยชน์รับส่วนลดซื้อสินค้าอื่นในเครือ {rentalRates.discount}%</span>
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <span>เคลมเปลี่ยนชุดใหม่ฟรีทันทีตลอดอายุสัญญาเมื่อผ้าชำรุดจากการใช้งานปกติ</span>
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-3 w-full sm:w-auto">
+                    <a
+                      href={`https://line.me/ti/p/~@fhu6688s?text=${rentalLineMessage}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 sm:flex-initial px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-sm shadow-md transition flex items-center justify-center gap-2"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      <span>ส่งใบเสนอราคาเข้า LINE OA</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            {/* 6. Comparison Table (ซื้อขาด VS เช่ากับเรา) */}
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+              <div className="text-center max-w-xl mx-auto space-y-1">
+                <span className="text-xs font-black uppercase tracking-wider text-slate-400">DECISION MATRIX</span>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900">
+                  เปรียบเทียบ: ซื้อขาดเอง VS บริการเช่ากับซัคเซสลอนดรี้
+                </h3>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs sm:text-sm text-left">
+                  <thead>
+                    <tr className="border-b border-slate-200">
+                      <th className="py-3 px-4 text-slate-500 font-bold">หัวข้อการเปรียบเทียบ</th>
+                      <th className="py-3 px-4 text-slate-600 font-bold bg-slate-50 w-1/3">ซื้อขาดเอง (CAPEX)</th>
+                      <th className="py-3 px-4 text-amber-900 font-black bg-amber-50 w-1/3 border-l-2 border-amber-400">
+                        บริการเช่าซัคเซสลอนดรี้ (OPEX)
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    <tr>
+                      <td className="py-3.5 px-4 font-bold text-slate-800">เงินลงทุนเริ่มต้น (CAPEX)</td>
+                      <td className="py-3.5 px-4 text-slate-600 bg-slate-50/50">จ่ายเงินก้อนหลักแสนถึงหลักล้านบาท</td>
+                      <td className="py-3.5 px-4 font-bold text-emerald-700 bg-amber-50/50 border-l-2 border-amber-400">
+                        0 บาท (จ่ายเพียงค่าเช่ารายเดือน + มัดจำได้คืน)
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-3.5 px-4 font-bold text-slate-800">กรณีผ้าเปื้อนฝังแน่น / ชำรุด</td>
+                      <td className="py-3.5 px-4 text-slate-600 bg-slate-50/50">ต้องตัดใจทิ้ง และควักเงินซื้อใหม่เอง</td>
+                      <td className="py-3.5 px-4 font-bold text-emerald-700 bg-amber-50/50 border-l-2 border-amber-400">
+                        เคลมเปลี่ยนผืนใหม่ให้ฟรีทันที ไม่มีค่าใช้จ่าย
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-3.5 px-4 font-bold text-slate-800">การควบคุมคุณภาพผ้า</td>
+                      <td className="py-3.5 px-4 text-slate-600 bg-slate-50/50">ผ้าเก่าเหลือง ขาดตามกาลเวลา เสียภาพลักษณ์</td>
+                      <td className="py-3.5 px-4 font-bold text-emerald-700 bg-amber-50/50 border-l-2 border-amber-400">
+                        การันตีสภาพผ้าพร้อมใช้ไม่ต่ำกว่า 90% ตลอดสัญญา
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-3.5 px-4 font-bold text-slate-800">เมื่อใช้งานครบ 24 เดือน</td>
+                      <td className="py-3.5 px-4 text-slate-600 bg-slate-50/50">ผ้าเริ่มหมดสภาพ ต้องลงทุนซื้อล็อตใหม่อีกรอบ</td>
+                      <td className="py-3.5 px-4 font-bold text-emerald-700 bg-amber-50/50 border-l-2 border-amber-400">
+                        เปลี่ยนผ้าใหม่ยกเซ็ต 100% ฟรี + ลดค่าเช่า 50%
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-3.5 px-4 font-bold text-slate-800">สิทธิประโยชน์ทางภาษี</td>
+                      <td className="py-3.5 px-4 text-slate-600 bg-slate-50/50">ทยอยตัดค่าเสื่อมราคาตามเกณฑ์</td>
+                      <td className="py-3.5 px-4 font-bold text-emerald-700 bg-amber-50/50 border-l-2 border-amber-400">
+                        นำใบกำกับภาษีค่าเช่าลงเป็นค่าใช้จ่ายบริษัทได้ 100%
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* 7. Official Rental Infographic Brochures */}
+            <div className="bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-200 space-y-6">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h3 className="text-lg font-black text-slate-900">เอกสารและโบรชัวร์โครงการเช่าทางการ</h3>
+                  <p className="text-xs text-slate-500">คลิกที่รูปเพื่อเปิดดูรายละเอียดและเงื่อนไขสัญญาฉบับเต็ม</p>
+                </div>
+                <div className="text-xs font-bold text-amber-800 bg-amber-100 px-3 py-1.5 rounded-xl self-start sm:self-auto">
+                  ออกโดย บริษัท ซัคเซสลอนดรี้ แอนด์ โฮเทลซัพพลายส์ จำกัด
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <a
+                  href="/images/tandj/catalog/rental-overview.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-xs hover:shadow-lg transition block"
+                >
+                  <div className="aspect-[4/3] overflow-hidden bg-slate-100 relative">
+                    <img
+                      src="/images/tandj/catalog/rental-overview.jpg"
+                      alt="โบรชัวร์บริการเช่าชุดเครื่องนอนโรงแรม ซัคเซสลอนดรี้"
+                      className="w-full h-full object-contain group-hover:scale-102 transition duration-300"
+                    />
+                  </div>
+                  <div className="p-4 bg-white border-t border-slate-100 flex items-center justify-between">
+                    <div>
+                      <span className="text-xs font-bold text-slate-900 block">โบรชัวร์ภาพรวมและเงื่อนไขบริการเช่า</span>
+                      <span className="text-[11px] text-slate-400">คลิกเพื่อดูภาพขนาดเต็ม</span>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-amber-600 transition" />
+                  </div>
+                </a>
+
+                <a
+                  href="/images/tandj/catalog/rental-packages.jpg"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group rounded-2xl overflow-hidden border border-slate-200 bg-white shadow-xs hover:shadow-lg transition block"
+                >
+                  <div className="aspect-[4/3] overflow-hidden bg-slate-100 relative">
+                    <img
+                      src="/images/tandj/catalog/rental-packages.jpg"
+                      alt="แพ็กเกจระยะสัญญาและอัตราค่าเช่า ซัคเซสลอนดรี้"
+                      className="w-full h-full object-contain group-hover:scale-102 transition duration-300"
+                    />
+                  </div>
+                  <div className="p-4 bg-white border-t border-slate-100 flex items-center justify-between">
+                    <div>
+                      <span className="text-xs font-bold text-slate-900 block">ตารางอัตราค่าเช่าและแพ็กเกจสัญญา 3/6/19/24 เดือน</span>
+                      <span className="text-[11px] text-slate-400">คลิกเพื่อดูภาพขนาดเต็ม</span>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-slate-400 group-hover:text-amber-600 transition" />
+                  </div>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        )}
+
+        {/* Regular Catalog Grid/Table is rendered when activeCategory !== 'rental' */}
+        {activeCategory !== 'rental' && viewMode === 'grid' && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredProducts.map((prod) => {
               const currentVariant = selectedVariants[prod.id];
@@ -884,7 +1582,7 @@ export default function TandJBeddingEcommercePage() {
         )}
 
         {/* CASE B: TABLE VIEW (Official Raw Spec & Price Sheet View) */}
-        {viewMode === 'table' && (
+        {activeCategory !== 'rental' && viewMode === 'table' && (
           <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
             <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
               <div>

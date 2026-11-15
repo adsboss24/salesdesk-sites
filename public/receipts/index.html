@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ระบบออกใบเสร็จรับเงิน SalesDesk AI Generator (E-Receipt)</title>
+  <title>ใบเสร็จรับเงิน - บริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด | SalesDesk AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,17 +19,17 @@
       font-family: 'Sarabun', sans-serif;
       background-color: #0b0f19;
       color: #0f172a;
-      padding: 24px 15px;
+      padding: 20px 15px;
       -webkit-font-smoothing: antialiased;
     }
 
     /* Top Control Bar */
     .top-toolbar {
-      max-width: 840px;
-      margin: 0 auto 16px auto;
+      max-width: 800px;
+      margin: 0 auto 14px auto;
       background: #1e293b;
-      padding: 14px 20px;
-      border-radius: 12px;
+      padding: 12px 18px;
+      border-radius: 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -38,7 +38,7 @@
     }
     .toolbar-title {
       color: #f8fafc;
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 700;
       display: flex;
       align-items: center;
@@ -49,10 +49,10 @@
       gap: 10px;
     }
     .btn {
-      padding: 9px 16px;
+      padding: 8px 15px;
       border-radius: 8px;
       font-weight: 600;
-      font-size: 13.5px;
+      font-size: 13px;
       font-family: 'Sarabun', sans-serif;
       cursor: pointer;
       display: inline-flex;
@@ -86,88 +86,72 @@
 
     /* Edit Panel Drawer */
     .edit-drawer {
-      max-width: 840px;
-      margin: 0 auto 18px auto;
+      max-width: 800px;
+      margin: 0 auto 16px auto;
       background: #1e293b;
-      padding: 22px 24px;
-      border-radius: 12px;
+      padding: 20px 22px;
+      border-radius: 10px;
       border: 1px solid #475569;
       box-shadow: 0 10px 25px rgba(0,0,0,0.4);
       display: none;
-      animation: slideDown 0.25s ease forwards;
-    }
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
     }
     .edit-drawer h3 {
       color: #38bdf8;
-      font-size: 16px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      font-size: 15px;
+      margin-bottom: 14px;
     }
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px 20px;
+      gap: 12px 18px;
     }
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 4px;
     }
     .form-group.full-width {
       grid-column: span 2;
     }
     .form-group label {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       color: #cbd5e1;
     }
-    .form-group input, .form-group textarea, .form-group select {
+    .form-group input, .form-group textarea {
       background: #0f172a;
       border: 1px solid #475569;
       color: #f8fafc;
-      padding: 9px 12px;
+      padding: 8px 10px;
       border-radius: 6px;
-      font-size: 13.5px;
+      font-size: 13px;
       font-family: 'Sarabun', sans-serif;
       outline: none;
     }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-      border-color: #38bdf8;
-      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
-    }
     .quick-pkg-btns {
       display: flex;
-      gap: 8px;
-      margin-top: 6px;
+      gap: 6px;
+      margin-top: 4px;
       flex-wrap: wrap;
     }
     .btn-chip {
       background: #334155;
       color: #e2e8f0;
-      padding: 4px 10px;
+      padding: 3px 9px;
       border-radius: 9999px;
-      font-size: 11.5px;
+      font-size: 11px;
       border: 1px solid #475569;
       cursor: pointer;
     }
-    .btn-chip:hover {
-      background: #475569;
-      border-color: #38bdf8;
-    }
 
-    /* Invoice Paper Container (Target for PDF) */
+    /* Precise A4 Page Fitting Box */
     #invoice-print-area {
-      max-width: 840px;
+      max-width: 790px;
       margin: 0 auto;
       background: #ffffff;
-      padding: 44px 48px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      padding: 30px 38px 24px 38px;
+      border-radius: 8px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
       position: relative;
     }
 
@@ -175,24 +159,24 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      border-bottom: 2px solid #e2e8f0;
-      padding-bottom: 18px;
-      margin-bottom: 22px;
+      border-bottom: 1.5px solid #e2e8f0;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
     }
     .company-brand {
-      max-width: 500px;
+      max-width: 480px;
     }
     .header-logo-banner {
-      height: 52px;
+      height: 42px;
       width: auto;
       object-fit: contain;
-      margin-bottom: 8px;
+      margin-bottom: 5px;
       display: block;
     }
     .company-brand p {
-      font-size: 13.5px;
+      font-size: 12.5px;
       color: #475569;
-      line-height: 1.55;
+      line-height: 1.45;
     }
     .company-brand p strong {
       color: #1e293b;
@@ -201,91 +185,91 @@
       text-align: right;
     }
     .doc-title {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 700;
       color: #0f172a;
-      margin-bottom: 4px;
+      line-height: 1.2;
     }
     .doc-subtitle {
-      font-size: 13px;
+      font-size: 11.5px;
       color: #64748b;
       font-weight: 600;
       letter-spacing: 0.5px;
-      margin-bottom: 8px;
+      margin-bottom: 5px;
     }
     .badge-paid {
       display: inline-block;
       background: #ecfdf5;
       color: #059669;
       border: 1px solid #a7f3d0;
-      padding: 4px 12px;
+      padding: 2px 10px;
       border-radius: 9999px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .info-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
-      margin-bottom: 22px;
+      gap: 14px;
+      margin-bottom: 14px;
     }
     .info-card {
       background: #f8fafc;
-      padding: 14px 18px;
-      border-radius: 8px;
+      padding: 10px 14px;
+      border-radius: 6px;
       border: 1px solid #f1f5f9;
     }
     .info-label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       color: #64748b;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }
-    .info-name {
-      font-size: 15px;
-      font-weight: 700;
-      color: #1e293b;
       margin-bottom: 4px;
     }
+    .info-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 2px;
+    }
     .info-detail {
-      font-size: 13px;
+      font-size: 12px;
       color: #475569;
-      line-height: 1.5;
+      line-height: 1.45;
     }
     .items-table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 18px;
+      margin-bottom: 12px;
     }
     .items-table th {
       background: #f8fafc;
       color: #475569;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       text-align: left;
-      padding: 10px 14px;
+      padding: 8px 12px;
       border-top: 1px solid #e2e8f0;
       border-bottom: 1px solid #e2e8f0;
     }
     .items-table td {
-      padding: 14px;
+      padding: 10px 12px;
       border-bottom: 1px solid #f1f5f9;
-      font-size: 14px;
+      font-size: 13px;
       color: #1e293b;
       vertical-align: top;
     }
     .items-table .item-desc {
       font-weight: 600;
       color: #0f172a;
-      margin-bottom: 4px;
+      margin-bottom: 2px;
     }
     .items-table .item-sub {
-      font-size: 12px;
+      font-size: 11.5px;
       color: #64748b;
-      line-height: 1.4;
+      line-height: 1.35;
       white-space: pre-line;
     }
     .text-center { text-align: center; }
@@ -293,42 +277,42 @@
     .summary-section {
       display: flex;
       justify-content: flex-end;
-      margin-bottom: 18px;
+      margin-bottom: 12px;
     }
     .summary-table {
-      width: 320px;
+      width: 300px;
     }
     .summary-row {
       display: flex;
       justify-content: space-between;
-      padding: 4px 0;
-      font-size: 14px;
+      padding: 2px 0;
+      font-size: 13px;
       color: #64748b;
     }
     .summary-row.total {
-      border-top: 2px solid #e2e8f0;
-      margin-top: 6px;
-      padding-top: 8px;
-      font-size: 18px;
+      border-top: 1.5px solid #e2e8f0;
+      margin-top: 4px;
+      padding-top: 6px;
+      font-size: 16px;
       font-weight: 700;
       color: #4f46e5;
     }
     .baht-text-card {
       background: #f8fafc;
-      padding: 10px 16px;
+      padding: 8px 14px;
       border-radius: 6px;
-      font-size: 13px;
+      font-size: 12px;
       color: #334155;
       font-weight: 500;
-      margin-bottom: 22px;
-      border-left: 4px solid #4f46e5;
+      margin-bottom: 14px;
+      border-left: 3px solid #4f46e5;
     }
     .signatures-row {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      gap: 16px;
-      margin-top: 20px;
-      padding-top: 18px;
+      gap: 12px;
+      margin-top: 14px;
+      padding-top: 12px;
       border-top: 1px dashed #cbd5e1;
       align-items: flex-end;
     }
@@ -337,7 +321,7 @@
       position: relative;
     }
     .sig-slot {
-      height: 85px;
+      height: 72px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -345,29 +329,29 @@
       position: relative;
     }
     .signature-svg {
-      width: 140px;
-      height: 50px;
+      width: 125px;
+      height: 44px;
       margin-bottom: -4px;
       z-index: 2;
     }
     .digital-cert-badge {
-      font-size: 9px;
+      font-size: 8.5px;
       color: #10b981;
       font-weight: 600;
       background: #ecfdf5;
       border: 1px solid #a7f3d0;
-      padding: 1px 6px;
-      border-radius: 4px;
-      margin-bottom: 3px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-bottom: 2px;
       display: inline-block;
       z-index: 2;
     }
     .stamp-container {
       position: absolute;
-      right: 0px;
-      top: -24px;
-      width: 135px;
-      height: 135px;
+      right: 2px;
+      top: -18px;
+      width: 110px;
+      height: 110px;
       pointer-events: none;
       z-index: 1;
       opacity: 0.92;
@@ -376,97 +360,105 @@
     .stamp-circle {
       width: 100%;
       height: 100%;
-      border: 3px double #b45309;
+      border: 2.5px double #b45309;
       border-radius: 50%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 6px;
+      padding: 4px;
       background: radial-gradient(circle, rgba(254, 243, 199, 0.55) 0%, rgba(255, 255, 255, 0) 70%);
       box-shadow: inset 0 0 0 1px rgba(180, 83, 9, 0.35);
     }
     .stamp-logo {
-      width: 52px;
-      height: 52px;
+      width: 42px;
+      height: 42px;
       object-fit: contain;
       filter: drop-shadow(0 1px 2px rgba(180, 83, 9, 0.3));
     }
     .stamp-text-top {
-      font-size: 8px;
-      font-weight: 800;
-      color: #b45309;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 2px;
-    }
-    .stamp-text-bottom {
-      font-size: 8px;
+      font-size: 7px;
       font-weight: 800;
       color: #b45309;
       letter-spacing: 0.8px;
       text-transform: uppercase;
-      margin-top: 2px;
+      margin-bottom: 1px;
+    }
+    .stamp-text-bottom {
+      font-size: 7px;
+      font-weight: 800;
+      color: #b45309;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      margin-top: 1px;
     }
     .sig-line {
       width: 100%;
-      max-width: 180px;
-      margin: 6px auto 6px auto;
+      max-width: 160px;
+      margin: 4px auto 4px auto;
       border-bottom: 1.5px solid #3b82f6;
     }
     .sig-name {
-      font-size: 13.5px;
+      font-size: 12.5px;
       font-weight: 700;
       color: #1e293b;
-      margin-top: 2px;
+      margin-top: 1px;
     }
     .sig-role {
-      font-size: 12px;
+      font-size: 11px;
       color: #64748b;
     }
     .qr-box {
       text-align: center;
       background: #f8fafc;
-      padding: 10px 12px;
-      border-radius: 8px;
+      padding: 6px 10px;
+      border-radius: 6px;
       border: 1px solid #e2e8f0;
     }
     .qr-img {
-      width: 82px;
-      height: 82px;
+      width: 66px;
+      height: 66px;
       display: block;
-      margin: 0 auto 5px auto;
-      border-radius: 6px;
+      margin: 0 auto 3px auto;
+      border-radius: 4px;
     }
     .qr-label {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       color: #059669;
     }
     .qr-sub {
-      font-size: 10px;
+      font-size: 9.5px;
       color: #64748b;
     }
     .footer-note {
       text-align: center;
-      margin-top: 22px;
-      font-size: 12px;
+      margin-top: 14px;
+      font-size: 11px;
       color: #94a3b8;
-      line-height: 1.5;
+      line-height: 1.4;
     }
 
+    @page {
+      size: A4 portrait;
+      margin: 8mm 10mm;
+    }
     @media print {
-      body {
-        background: #ffffff;
-        padding: 0;
+      html, body {
+        background: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        height: auto !important;
       }
       .top-toolbar, .edit-drawer {
         display: none !important;
       }
       #invoice-print-area {
-        box-shadow: none;
-        padding: 15px 20px;
-        max-width: 100%;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
       }
     }
   </style>
@@ -480,14 +472,14 @@
     </div>
     <div class="toolbar-actions">
       <button class="btn btn-edit" onclick="toggleEditDrawer()">⚙️ ปรับแต่งข้อมูลลูกค้า/ราคา</button>
-      <button class="btn btn-download-pdf" onclick="exportReceiptPDF()">⬇️ ดาวน์โหลด PDF ส่งให้ลูกค้า</button>
+      <button class="btn btn-download-pdf" onclick="exportReceiptPDF()">⬇️ ดาวน์โหลด PDF หน้าเดียว</button>
       <button class="btn btn-print" onclick="window.print()">🖨️ พิมพ์</button>
     </div>
   </div>
 
   <!-- Quick Edit Drawer -->
   <div class="edit-drawer" id="editDrawer">
-    <h3>⚙️ ปรับแต่งข้อมูลที่ต้องเปลี่ยนแปลงเฉพาะจุด (อัปเดตบนหน้าเอกสารทันที)</h3>
+    <h3>⚙️ ปรับแต่งข้อมูลที่ต้องเปลี่ยนแปลงเฉพาะจุด</h3>
     <div class="form-grid">
       <div class="form-group">
         <label>เลขที่เอกสาร (Receipt No.)</label>
@@ -533,7 +525,7 @@
       </div>
       <div class="form-group full-width">
         <label>รายละเอียดประกอบรายการ</label>
-        <textarea id="inputItemSub" rows="3" oninput="updateReceiptData()">• จัดทำหน้าเว็บเพจบริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด
+        <textarea id="inputItemSub" rows="2" oninput="updateReceiptData()">• จัดทำหน้าเว็บเพจบริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด
 • โครงสร้างมาตรฐาน โหลดไว รองรับมือถือ 100% พร้อมระบบแสดงแคตาล็อกสินค้า
 • ฟรีบริการโฮสติ้งความเร็วสูง และส่งมอบงานแก้ไขจนกว่าจะพึงพอใจ</textarea>
       </div>
@@ -548,7 +540,7 @@
     </div>
   </div>
 
-  <!-- Printable/Exportable Paper Container -->
+  <!-- Printable/Exportable Paper Container (Single Page A4 Guaranteed) -->
   <div id="invoice-print-area">
     <!-- Header -->
     <div class="header-row">
@@ -563,9 +555,9 @@
         <div class="doc-title">ใบเสร็จรับเงิน</div>
         <div class="doc-subtitle">RECEIPT (NON-VAT)</div>
         <span class="badge-paid">✓ ชำระเงินเรียบร้อยแล้ว</span>
-        <div style="font-size: 13px; color: #475569; margin-top: 4px;"><strong>เลขที่เอกสาร:</strong> <span id="dispReceiptNo">RE-20261115-001</span></div>
-        <div style="font-size: 13px; color: #475569;"><strong>วันที่:</strong> <span id="dispDate">15 พฤศจิกายน 2569</span></div>
-        <div style="font-size: 12px; color: #64748b;"><strong>อ้างอิงโอน:</strong> <span id="dispRefNo">261115112056</span></div>
+        <div style="font-size: 12.5px; color: #475569; margin-top: 3px;"><strong>เลขที่เอกสาร:</strong> <span id="dispReceiptNo">RE-20261115-001</span></div>
+        <div style="font-size: 12.5px; color: #475569;"><strong>วันที่:</strong> <span id="dispDate">15 พฤศจิกายน 2569</span></div>
+        <div style="font-size: 11.5px; color: #64748b;"><strong>อ้างอิงโอน:</strong> <span id="dispRefNo">261115112056</span></div>
       </div>
     </div>
 
@@ -583,7 +575,7 @@
       </div>
       <div class="info-card">
         <div class="info-label">รายละเอียดการชำระเงิน (Payment Method)</div>
-        <div class="info-detail" style="margin-top: 4px;">
+        <div class="info-detail" style="margin-top: 2px;">
           <strong>ช่องทางชำระ:</strong> <span id="dispPaymentMethod">โอนผ่านระบบธนาคารไทยพาณิชย์ (SCB)</span><br>
           <strong>เข้าบัญชี:</strong> ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน) KKP<br>
           <strong>เลขที่บัญชี:</strong> 2061291340 (มานพ ฤาชุตกุล)<br>
@@ -596,11 +588,11 @@
     <table class="items-table">
       <thead>
         <tr>
-          <th style="width: 50px;" class="text-center">ลำดับ</th>
+          <th style="width: 45px;" class="text-center">ลำดับ</th>
           <th>รายการ (Description)</th>
-          <th style="width: 80px;" class="text-center">จำนวน</th>
-          <th style="width: 140px;" class="text-right">ราคาต่อหน่วย</th>
-          <th style="width: 140px;" class="text-right">จำนวนเงิน (บาท)</th>
+          <th style="width: 75px;" class="text-center">จำนวน</th>
+          <th style="width: 130px;" class="text-right">ราคาต่อหน่วย</th>
+          <th style="width: 130px;" class="text-right">จำนวนเงิน (บาท)</th>
         </tr>
       </thead>
       <tbody>
@@ -767,7 +759,7 @@
       updateReceiptData();
     }
 
-    // Export direct PDF with html2pdf
+    // Export direct Single-Page A4 PDF
     function exportReceiptPDF() {
       const element = document.getElementById('invoice-print-area');
       const receiptNo = document.getElementById('dispReceiptNo').textContent.trim() || 'Receipt';
@@ -775,24 +767,25 @@
       const filename = `ใบเสร็จรับเงิน_${receiptNo}_${customerName}.pdf`;
 
       const opt = {
-        margin:       [10, 10, 10, 10],
+        margin:       [6, 8, 6, 8],
         filename:     filename,
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        html2canvas:  { scale: 2, useCORS: true, logging: false },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
       };
 
       const btn = event?.target;
       if (btn) {
-        btn.innerHTML = '⏳ กำลังสร้างไฟล์ PDF...';
+        btn.innerHTML = '⏳ กำลังสร้าง PDF หน้าเดียว...';
         btn.disabled = true;
       }
 
       html2pdf().set(opt).from(element).save().then(() => {
         if (btn) {
-          btn.innerHTML = '✅ ดาวน์โหลดสำเร็จ!';
+          btn.innerHTML = '✅ บันทึก PDF หน้าเดียวสำเร็จ!';
           setTimeout(() => {
-            btn.innerHTML = '⬇️ ดาวน์โหลด PDF ส่งให้ลูกค้า';
+            btn.innerHTML = '⬇️ ดาวน์โหลด PDF หน้าเดียว';
             btn.disabled = false;
           }, 2500);
         }
@@ -800,7 +793,7 @@
         console.error('PDF generation error:', err);
         window.print();
         if (btn) {
-          btn.innerHTML = '⬇️ ดาวน์โหลด PDF ส่งให้ลูกค้า';
+          btn.innerHTML = '⬇️ ดาวน์โหลด PDF หน้าเดียว';
           btn.disabled = false;
         }
       });

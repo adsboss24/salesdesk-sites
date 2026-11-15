@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ใบเสร็จรับเงิน - บริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด | SalesDesk AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background-color: #f1f5f9;
+      color: #0f172a;
+      padding: 30px 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .invoice-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 48px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      position: relative;
+    }
+    .print-actions {
+      max-width: 800px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      font-family: 'Sarabun', sans-serif;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      transition: all 0.2s ease;
+    }
+    .btn-primary {
+      background: #4f46e5;
+      color: #ffffff;
+    }
+    .btn-primary:hover {
+      background: #4338ca;
+    }
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #334155;
+    }
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 24px;
+      margin-bottom: 28px;
+    }
+    .company-brand h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #4f46e5;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+    .company-brand p {
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+    .doc-meta {
+      text-align: right;
+    }
+    .doc-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+    .doc-subtitle {
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .badge-paid {
+      display: inline-block;
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+    .info-card {
+      background: #f8fafc;
+      padding: 16px 20px;
+      border-radius: 8px;
+      border: 1px solid #f1f5f9;
+    }
+    .info-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .info-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+    .info-detail {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.5;
+    }
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+    }
+    .items-table th {
+      background: #f8fafc;
+      color: #475569;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: left;
+      padding: 12px 16px;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .items-table td {
+      padding: 16px;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 14px;
+      color: #1e293b;
+      vertical-align: top;
+    }
+    .items-table .item-desc {
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 4px;
+    }
+    .items-table .item-sub {
+      font-size: 12px;
+      color: #64748b;
+      line-height: 1.4;
+    }
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
+    .summary-section {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 32px;
+    }
+    .summary-table {
+      width: 320px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 14px;
+      color: #64748b;
+    }
+    .summary-row.total {
+      border-top: 2px solid #e2e8f0;
+      margin-top: 8px;
+      padding-top: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #4f46e5;
+    }
+    .baht-text-card {
+      background: #f8fafc;
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #334155;
+      font-weight: 500;
+      margin-bottom: 28px;
+      border-left: 4px solid #4f46e5;
+    }
+    .signatures-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px dashed #cbd5e1;
+    }
+    .sig-box {
+      text-align: center;
+    }
+    .sig-line {
+      width: 180px;
+      margin: 40px auto 8px auto;
+      border-bottom: 1px solid #94a3b8;
+    }
+    .sig-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+    }
+    .sig-role {
+      font-size: 12px;
+      color: #64748b;
+    }
+    .footer-note {
+      text-align: center;
+      margin-top: 36px;
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .print-actions {
+        display: none;
+      }
+      .invoice-container {
+        box-shadow: none;
+        padding: 20px;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="print-actions">
+    <div style="font-size: 14px; color: #64748b;">
+      📄 <strong>เอกสารทางการ:</strong> ออกโดย SalesDesk AI
+    </div>
+    <div style="display: flex; gap: 10px;">
+      <button class="btn btn-secondary" onclick="window.history.back()">← ย้อนกลับ</button>
+      <button class="btn btn-primary" onclick="window.print()">🖨️ พิมพ์ / บันทึกเป็น PDF</button>
+    </div>
+  </div>
+
+  <div class="invoice-container">
+    <!-- Header -->
+    <div class="header-row">
+      <div class="company-brand">
+        <h1>SalesDesk AI</h1>
+        <p><strong>ผู้ให้บริการ:</strong> SalesDesk AI Platform</p>
+        <p>ระบบสร้างเว็บไซต์ เซลเพจ และผู้ช่วย AI ปิดการขายอัจฉริยะ</p>
+        <p>โทร / LINE: @fhu6688s | เว็บไซต์: salesdesk-sites.vercel.app</p>
+      </div>
+      <div class="doc-meta">
+        <div class="doc-title">ใบเสร็จรับเงิน</div>
+        <div class="doc-subtitle">RECEIPT (NON-VAT)</div>
+        <span class="badge-paid">✓ ชำระเงินเรียบร้อยแล้ว</span>
+        <div style="font-size: 13px; color: #475569; margin-top: 4px;"><strong>เลขที่เอกสาร:</strong> RE-20261115-001</div>
+        <div style="font-size: 13px; color: #475569;"><strong>วันที่:</strong> 15 พฤศจิกายน 2569</div>
+        <div style="font-size: 12px; color: #64748b;"><strong>อ้างอิงโอน:</strong> 261115112056</div>
+      </div>
+    </div>
+
+    <!-- Client & Payment Info -->
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="info-label">ได้รับเงินจาก (Customer)</div>
+        <div class="info-name">บริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด</div>
+        <div class="info-detail">
+          <strong>ผู้ติดต่อ:</strong> คุณ Thor (tjbedding.salepagess)<br>
+          <strong>โทรศัพท์:</strong> 086-461-4614<br>
+          <strong>หมายเหตุ:</strong> ค่าจ้างทำเพจบริษัท
+        </div>
+      </div>
+      <div class="info-card">
+        <div class="info-label">รายละเอียดการชำระเงิน (Payment Method)</div>
+        <div class="info-detail" style="margin-top: 4px;">
+          <strong>ช่องทางชำระ:</strong> โอนผ่านระบบธนาคารไทยพาณิชย์ (SCB)<br>
+          <strong>เข้าบัญชี:</strong> ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน) KKP<br>
+          <strong>เลขที่บัญชี:</strong> 2061291340 (มานพ ฤาชุตกุล)<br>
+          <strong>วัน-เวลาที่ทำรายการ:</strong> 15/11/2026 เวลา 11:20:57 น.<br>
+          <strong>สถานะ:</strong> ยอดเงินเข้าบัญชีสมบูรณ์เรียบร้อย
+        </div>
+      </div>
+    </div>
+
+    <!-- Items Table -->
+    <table class="items-table">
+      <thead>
+        <tr>
+          <th style="width: 50px;" class="text-center">ลำดับ</th>
+          <th>รายการ (Description)</th>
+          <th style="width: 80px;" class="text-center">จำนวน</th>
+          <th style="width: 140px;" class="text-right">ราคาต่อหน่วย</th>
+          <th style="width: 140px;" class="text-right">จำนวนเงิน (บาท)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-center" style="color: #64748b;">1</td>
+          <td>
+            <div class="item-desc">บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)</div>
+            <div class="item-sub">
+              • จัดทำหน้าเว็บเพจบริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด<br>
+              • โครงสร้างมาตรฐาน โหลดไว รองรับมือถือ 100% พร้อมระบบแสดงแคตาล็อกสินค้า<br>
+              • ฟรีบริการโฮสติ้งความเร็วสูง และส่งมอบงานแก้ไขจนกว่าจะพึงพอใจ
+            </div>
+          </td>
+          <td class="text-center">1 งาน</td>
+          <td class="text-right">3,900.00</td>
+          <td class="text-right" style="font-weight: 600;">3,900.00</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Baht Text -->
+    <div class="baht-text-card">
+      <strong>จำนวนเงินรวมทั้งสิ้น (ตัวอักษร):</strong> สามพันเก้าร้อยบาทถ้วน
+    </div>
+
+    <!-- Summary -->
+    <div class="summary-section">
+      <div class="summary-table">
+        <div class="summary-row">
+          <span>รวมเป็นเงิน (Subtotal):</span>
+          <span style="font-weight: 600; color: #1e293b;">3,900.00 บาท</span>
+        </div>
+        <div class="summary-row">
+          <span>ภาษีมูลค่าเพิ่ม (VAT 0% / Non-Vat):</span>
+          <span>0.00 บาท</span>
+        </div>
+        <div class="summary-row total">
+          <span>ยอดเงินสุทธิ (Net Total):</span>
+          <span>3,900.00 บาท</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signatures -->
+    <div class="signatures-row">
+      <div class="sig-box">
+        <div class="sig-line"></div>
+        <div class="sig-name">คุณ Thor (ผู้สั่งซื้อ / ลูกค้า)</div>
+        <div class="sig-role">บจก. ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์</div>
+      </div>
+      <div class="sig-box">
+        <div class="sig-line" style="border-bottom: 1px solid #4f46e5;"></div>
+        <div class="sig-name">มานพ ฤาชุตกุล</div>
+        <div class="sig-role">ผู้รับเงิน / ผู้มีอำนาจลงนาม (SalesDesk AI)</div>
+      </div>
+    </div>
+
+    <!-- Footer Note -->
+    <div class="footer-note">
+      เอกสารฉบับนี้ออกโดยระบบคอมพิวเตอร์อัตโนมัติ SalesDesk AI Platform<br>
+      ขอบพระคุณที่ไว้วางใจเลือกใช้บริการจัดทำเว็บไซต์และเซลเพจกับเราครับ 🙏✨
+    </div>
+  </div>
+
+</body>
+</html>

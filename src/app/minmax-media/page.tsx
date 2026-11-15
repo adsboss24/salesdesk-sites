@@ -54,8 +54,6 @@ export default function MinMaxMediaSalepage() {
   const lineId = '@malakor';
   const fbPageUrl = 'https://www.facebook.com/MinmaxMediaAgency';
   const fbMessengerUrl = 'https://m.me/MinmaxMediaAgency';
-  const phoneConsult = '081-772-6444';
-  const phoneRaw = '0817726444';
 
   const articles = getAllMinMaxPosts();
 
@@ -374,13 +372,14 @@ export default function MinMaxMediaSalepage() {
 
           {/* Desktop Direct Contact Action */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <a
-              href={`tel:${phoneRaw}`}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-800 hover:border-emerald-500/40 font-semibold text-xs transition whitespace-nowrap"
+            <TrackableLineButton
+              href={lineUrl}
+              buttonName="header_line_official"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-emerald-300 border border-emerald-500/30 hover:border-emerald-400/60 font-semibold text-xs transition whitespace-nowrap"
             >
-              <PhoneCall className="w-3.5 h-3.5 text-emerald-400" />
-              <span>{phoneConsult}</span>
-            </a>
+              <LineIcon className="w-3.5 h-3.5 fill-emerald-400" />
+              <span>LINE: {lineId}</span>
+            </TrackableLineButton>
             <a
               href="#consult-form"
               className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-300 hover:from-emerald-300 hover:to-teal-300 text-slate-950 font-black text-xs shadow-lg shadow-emerald-500/20 transition active:scale-95 whitespace-nowrap"
@@ -1247,17 +1246,6 @@ export default function MinMaxMediaSalepage() {
                 ช่องทางติดต่อ MinMax Media
               </h4>
               <div className="space-y-2.5 text-xs">
-                <a
-                  href={`tel:${phoneRaw}`}
-                  className="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/40 text-slate-200 transition"
-                >
-                  <PhoneCall className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <div>
-                    <div className="text-[10px] text-slate-400">สายด่วนปรึกษากลยุทธ์</div>
-                    <div className="font-bold text-white">{phoneConsult}</div>
-                  </div>
-                </a>
-
                 <TrackableLineButton
                   href={lineUrl}
                   buttonName="footer_line_official"
@@ -1307,20 +1295,12 @@ export default function MinMaxMediaSalepage() {
 
       {/* 11. SALESDESK STANDARD FIXED MOBILE ACTION BAR (FLOATING STICKY CONVERSION BAR) */}
       <div className="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-[#04090d]/95 backdrop-blur-md border-t border-emerald-500/25 p-2.5 px-3 sm:px-4 shadow-2xl">
-        <div className="grid grid-cols-3 gap-2 max-w-md mx-auto">
-          <a
-            href={`tel:${phoneRaw}`}
-            className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs border border-slate-800 transition active:scale-95"
-          >
-            <PhoneCall className="w-4 h-4 text-emerald-400" />
-            <span>โทรด่วน</span>
-          </a>
-
+        <div className="grid grid-cols-2 gap-2.5 max-w-md mx-auto">
           <a
             href={fbMessengerUrl}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-blue-600/90 hover:bg-blue-600 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition active:scale-95"
+            className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-blue-600/90 hover:bg-blue-600 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition active:scale-95"
           >
             <FacebookIcon className="w-4 h-4 fill-white" />
             <span>ทักแชตเพจ</span>
@@ -1329,10 +1309,10 @@ export default function MinMaxMediaSalepage() {
           <TrackableLineButton
             href={lineUrl}
             buttonName="mobile_sticky_line"
-            className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-950 font-black text-xs shadow-lg shadow-emerald-500/30 transition active:scale-95"
+            className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-950 font-black text-xs shadow-lg shadow-emerald-500/30 transition active:scale-95"
           >
             <LineIcon className="w-4 h-4 fill-slate-950" />
-            <span>แอด LINE</span>
+            <span>แอด LINE {lineId}</span>
           </TrackableLineButton>
         </div>
       </div>

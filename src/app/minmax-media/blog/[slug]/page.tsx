@@ -134,8 +134,6 @@ export default async function MinMaxArticlePage({ params }: Props) {
     ],
   };
 
-  const phoneConsult = '081-772-6444';
-  const phoneRaw = '0817726444';
   const fbMessengerUrl = 'https://m.me/MinmaxMediaAgency';
   const lineUrl = 'https://line.me/R/ti/p/%40malakor';
 
@@ -155,12 +153,6 @@ export default async function MinMaxArticlePage({ params }: Props) {
           </Link>
 
           <div className="flex items-center gap-2">
-            <a
-              href={`tel:${phoneRaw}`}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-emerald-400 font-semibold hover:border-emerald-500/40 transition"
-            >
-              <PhoneCall className="w-3.5 h-3.5" /> {phoneConsult}
-            </a>
             <TrackableLineButton
               href={lineUrl}
               buttonName="article_header_line"
@@ -342,10 +334,12 @@ export default async function MinMaxArticlePage({ params }: Props) {
               ลงทะเบียนรับแผนกลยุทธ์ฟรี &rarr;
             </Link>
             <a
-              href={`tel:${phoneRaw}`}
-              className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2 hover:border-emerald-400/40"
+              href={fbMessengerUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-blue-600/90 hover:bg-blue-600 text-white font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2"
             >
-              <PhoneCall className="w-4 h-4 text-emerald-400" /> โทรสายตรง {phoneConsult}
+              <MessageCircle className="w-4 h-4" /> ทักแชต Facebook Page
             </a>
             <TrackableLineButton
               href={lineUrl}
@@ -360,19 +354,12 @@ export default async function MinMaxArticlePage({ params }: Props) {
 
       {/* SalesDesk Mobile Sticky Bar */}
       <div className="lg:hidden fixed bottom-0 inset-x-0 z-50 bg-[#04090d]/95 backdrop-blur-md border-t border-emerald-500/20 p-2.5 px-3 shadow-2xl">
-        <div className="grid grid-cols-3 gap-2 max-w-md mx-auto">
-          <a
-            href={`tel:${phoneRaw}`}
-            className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-slate-900 text-white font-bold text-xs border border-slate-700/80"
-          >
-            <PhoneCall className="w-4 h-4 text-emerald-400" />
-            <span>โทรด่วน</span>
-          </a>
+        <div className="grid grid-cols-2 gap-2.5 max-w-md mx-auto">
           <a
             href={fbMessengerUrl}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-blue-600 text-white font-bold text-xs"
+            className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-blue-600 text-white font-bold text-xs"
           >
             <MessageCircle className="w-4 h-4" />
             <span>ทักแชตเพจ</span>
@@ -380,9 +367,9 @@ export default async function MinMaxArticlePage({ params }: Props) {
           <TrackableLineButton
             href={lineUrl}
             buttonName="article_mobile_sticky_line"
-            className="flex items-center justify-center gap-1.5 py-3 px-2 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-black text-xs"
+            className="flex items-center justify-center gap-1.5 py-3 px-3 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 text-slate-950 font-black text-xs"
           >
-            <span>แอด LINE</span>
+            <span>แอด LINE @malakor</span>
           </TrackableLineButton>
         </div>
       </div>

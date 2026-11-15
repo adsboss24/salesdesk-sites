@@ -19,8 +19,6 @@ export default function MinMaxBlogIndexPage() {
   const posts = getAllMinMaxPosts();
   const siteUrl = 'https://sites.salesdesk-ai.com';
   const lineUrl = 'https://line.me/R/ti/p/%40malakor';
-  const phoneConsult = '081-772-6444';
-  const phoneRaw = '0817726444';
 
   const itemListSchema = {
     '@context': 'https://schema.org',
@@ -48,12 +46,6 @@ export default function MinMaxBlogIndexPage() {
             <span>กลับสู่หน้าหลัก MINMAX MEDIA</span>
           </Link>
           <div className="flex items-center gap-2.5">
-            <a
-              href={`tel:${phoneRaw}`}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-emerald-400 font-semibold"
-            >
-              <PhoneCall className="w-3.5 h-3.5" /> {phoneConsult}
-            </a>
             <TrackableLineButton
               href={lineUrl}
               buttonName="blog_index_header_line"

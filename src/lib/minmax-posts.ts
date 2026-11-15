@@ -128,7 +128,7 @@ export const minmaxPosts: MinMaxPost[] = [
       <h2>ปรึกษาการวางแคมเปญ Influencer & Performance Ads กับ MinMax Media</h2>
       <p>ไม่ว่าคุณจะมีงบประมาณเริ่มต้นสำหรับ SME หรือต้องการรันแคมเปญระดับประเทศ ทีมงาน <strong>MinMax Media Event Agency</strong> พร้อมดูแลตั้งแต่การคัดกรองอินฟลูเอนเซอร์ บรีฟงาน ตรวจสคริปต์ ไปจนถึงการยิงแอดวัดผลยอดขาย</p>
 
-      <p>ติดต่อขอรับคำปรึกษาและใบเสนอราคาฟรีได้ที่ <a href="/minmax-media#consult-form" class="text-emerald-400 font-bold underline hover:text-emerald-300">แบบฟอร์มขอรับคำปรึกษา MinMax Media</a> โทรสายตรง <a href="tel:0817726444" class="text-emerald-400 font-bold underline hover:text-emerald-300">081-772-6444</a> หรือทักไลน์ <a href="https://line.me/R/ti/p/%40malakor" target="_blank" rel="noreferrer" class="text-emerald-400 font-bold underline hover:text-emerald-300">LINE: @malakor</a></p>
+      <p>ติดต่อขอรับคำปรึกษาและใบเสนอราคาฟรีได้ที่ <a href="/minmax-media#consult-form" class="text-emerald-400 font-bold underline hover:text-emerald-300">แบบฟอร์มขอรับคำปรึกษา MinMax Media</a> หรือทักไลน์ <a href="https://line.me/R/ti/p/%40malakor" target="_blank" rel="noreferrer" class="text-emerald-400 font-bold underline hover:text-emerald-300">LINE: @malakor</a></p>
     `,
     featuredImage: '/images/covers/cover-cod-facebook-ads.jpg',
     imageAlt: 'กลยุทธ์ Influencer KOL KOC ผสาน Performance Ads เพิ่ม ROAS โดย MinMax Media',

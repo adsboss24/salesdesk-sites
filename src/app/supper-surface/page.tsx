@@ -1044,7 +1044,7 @@ ${cart.map((item, idx) => `${idx + 1}. ${item.name} (${item.code})\n   จำน
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-amber-500 selection:text-slate-950 pb-28 md:pb-16 w-full max-w-full overflow-x-hidden">
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-amber-500 selection:text-slate-950 pb-28 md:pb-16 w-full max-w-full overflow-x-clip">
       
       {/* GLOBAL TOAST NOTIFICATION */}
       {toastMessage && (

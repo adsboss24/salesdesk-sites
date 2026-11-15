@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import ClientArticlesSection from '@/components/ClientArticlesSection';
 import {
   HeartHandshake,
   ShieldCheck,
@@ -956,6 +957,11 @@ export default function NattananNursingCareSalepage() {
       </section>
 
       {/* 8. INTERACTIVE APPOINTMENT & CONTACT FORM */}
+      <ClientArticlesSection
+        clientSlug="nattanan-nursingcare"
+        brandName={BRAND_NAME}
+      />
+
       <section id="booking" className="py-16 md:py-24 bg-slate-100 border-t border-slate-200">
         <div id="contact" className="max-w-5xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">

@@ -32,6 +32,7 @@ import {
   Send
 } from 'lucide-react';
 import PremiumFooter from '@/components/Footer';
+import ClientArticlesSection from '@/components/ClientArticlesSection';
 
 export default function AmbulanceServiceSalepage() {
   // Lead Form & Estimator State
@@ -1518,6 +1519,12 @@ export default function AmbulanceServiceSalepage() {
           </div>
         </div>
       </section>
+
+      <ClientArticlesSection
+        clientSlug="ambulance-24hr"
+        brandName="ศูนย์รถพยาบาลเอกชนฉุกเฉิน 24 ชั่วโมง"
+        darkMode
+      />
 
       {/* 14. SALESDESK AI FOOTER */}
       <footer className="bg-slate-950 border-t border-slate-900 py-10 px-4 text-center">

@@ -317,19 +317,28 @@ function pickDistinctImage(
   return CURATED_BLOG_IMAGES[hash % CURATED_BLOG_IMAGES.length];
 }
 
-export function mergeWithRemotePosts(remotePosts: Partial<Post>[]): Post[] {
+export function mergeWithRemotePosts(
+  remotePosts: Array<Partial<Post> & { clientSlug?: string }>,
+  targetClient = 'salesdesk'
+): Post[] {
   const localBySlug = new Map(posts.map((p) => [p.slug, p]));
   const mergedMap = new Map<string, Post>();
 
-  // 1. Always keep our #1 Pillar Post at the very top
-  const pillarPost = localBySlug.get('outrank-competitors-google-first-page-ai-seo');
-  if (pillarPost) {
-    mergedMap.set(pillarPost.slug, pillarPost);
+  // 1. Always keep our #1 Pillar Post at the very top (for salesdesk main studio)
+  if (targetClient === 'salesdesk' || targetClient === 'all') {
+    const pillarPost = localBySlug.get('outrank-competitors-google-first-page-ai-seo');
+    if (pillarPost) {
+      mergedMap.set(pillarPost.slug, pillarPost);
+    }
   }
 
-  // 2. Add live remote posts from Supabase (sorted newest first)
+  // 2. Add live remote posts from Supabase (sorted newest first), strictly filtered by clientSlug
   for (const remote of remotePosts) {
     if (!remote.slug || !remote.title) continue;
+    const remoteClient = (remote.clientSlug || 'salesdesk').toLowerCase();
+    if (targetClient !== 'all' && remoteClient !== targetClient.toLowerCase()) {
+      continue;
+    }
     const existingLocal = localBySlug.get(remote.slug);
     const normalized: Post = {
       id: String(remote.id || existingLocal?.id || remote.slug),
@@ -374,15 +383,18 @@ export function mergeWithRemotePosts(remotePosts: Partial<Post>[]): Post[] {
   return Array.from(mergedMap.values());
 }
 
-export async function fetchAllLivePosts(): Promise<Post[]> {
+export async function fetchAllLivePosts(clientSlug = 'salesdesk'): Promise<Post[]> {
   try {
-    const res = await fetch('https://seo.salesdesk-ai.com/api/seo/posts?client=all', {
-      cache: 'no-store',
-    });
+    const res = await fetch(
+      `https://seo.salesdesk-ai.com/api/seo/posts?client=${encodeURIComponent(clientSlug)}`,
+      {
+        cache: 'no-store',
+      }
+    );
     if (res.ok) {
       const data = await res.json();
       if (data.success && Array.isArray(data.posts)) {
-        return mergeWithRemotePosts(data.posts);
+        return mergeWithRemotePosts(data.posts, clientSlug);
       }
     }
   } catch (err) {
@@ -392,7 +404,7 @@ export async function fetchAllLivePosts(): Promise<Post[]> {
 }
 
 export async function fetchLivePostBySlug(slug: string): Promise<Post | undefined> {
-  const all = await fetchAllLivePosts();
+  const all = await fetchAllLivePosts('all');
   return all.find((p) => p.slug === slug && p.published);
 }
 

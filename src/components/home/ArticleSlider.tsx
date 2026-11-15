@@ -29,11 +29,11 @@ export default function ArticleSlider({ posts: initialPosts }: ArticleSliderProp
 
   useEffect(() => {
     let active = true;
-    fetch('https://seo.salesdesk-ai.com/api/seo/posts?client=all', { cache: 'no-store' })
+    fetch('https://seo.salesdesk-ai.com/api/seo/posts?client=salesdesk', { cache: 'no-store' })
       .then((res) => res.json())
       .then((data) => {
         if (active && data?.success && Array.isArray(data.posts)) {
-          setPosts(mergeWithRemotePosts(data.posts));
+          setPosts(mergeWithRemotePosts(data.posts, 'salesdesk'));
         }
       })
       .catch(() => {
@@ -180,7 +180,7 @@ export default function ArticleSlider({ posts: initialPosts }: ArticleSliderProp
           {posts.map((post, idx) => (
             <article
               key={post.id}
-              className="group relative snap-start shrink-0 w-[86vw] sm:w-[380px] lg:w-[410px] bg-slate-900/70 border border-slate-800/80 hover:border-teal-500/50 rounded-2xl overflow-hidden transition-all duration-300 flex flex-col justify-between shadow-xl hover:shadow-2xl hover:shadow-teal-500/10 backdrop-blur-sm"
+              className="group relative cursor-pointer snap-start shrink-0 w-[86vw] sm:w-[380px] lg:w-[410px] bg-slate-900/70 border border-slate-800/80 hover:border-teal-500/50 rounded-2xl overflow-hidden transition-all duration-300 flex flex-col justify-between shadow-xl hover:shadow-2xl hover:shadow-teal-500/10 backdrop-blur-sm"
             >
               <div>
                 {/* 16:9 Image Preview with Hover Zoom */}
@@ -197,14 +197,14 @@ export default function ArticleSlider({ posts: initialPosts }: ArticleSliderProp
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
                   
                   {/* Category Badge Floating on Image */}
-                  <div className="absolute top-3 left-3 z-10">
+                  <div className="absolute top-3 left-3 z-10 pointer-events-none">
                     <span className="px-3 py-1 rounded-full text-[11px] font-bold bg-slate-950/85 backdrop-blur-md text-teal-300 border border-teal-500/30 shadow-md">
                       {post.category}
                     </span>
                   </div>
 
                   {/* Reading Time Pill */}
-                  <div className="absolute bottom-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950/80 backdrop-blur-sm text-[11px] font-medium text-slate-300 border border-slate-800">
+                  <div className="absolute bottom-3 right-3 z-10 pointer-events-none flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950/80 backdrop-blur-sm text-[11px] font-medium text-slate-300 border border-slate-800">
                     <Clock className="w-3 h-3 text-teal-400" />
                     <span>{post.readTime}</span>
                   </div>
@@ -224,9 +224,13 @@ export default function ArticleSlider({ posts: initialPosts }: ArticleSliderProp
                     </time>
                   </div>
 
-                  {/* Article Title */}
+                  {/* Article Title with Full-Card Stretched Link */}
                   <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-teal-300 transition-colors duration-200 line-clamp-2 leading-snug">
-                    <Link href={`/blog/${post.slug}`} className="focus:outline-none">
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="focus:outline-none after:absolute after:inset-0 after:z-20"
+                      aria-label={`อ่านบทความ ${post.title}`}
+                    >
                       {post.title}
                     </Link>
                   </h3>
@@ -250,14 +254,12 @@ export default function ArticleSlider({ posts: initialPosts }: ArticleSliderProp
                   </div>
                 </div>
 
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-400 hover:text-teal-300 group/link transition shrink-0"
-                  aria-label={`อ่านบทความ ${post.title}`}
+                <span
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-400 group-hover:text-teal-300 transition shrink-0"
                 >
                   <span>อ่านเจาะลึก</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
-                </Link>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </span>
               </div>
             </article>
           ))}

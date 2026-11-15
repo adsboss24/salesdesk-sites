@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import ClientArticlesSection from '@/components/ClientArticlesSection';
 import { 
   ShoppingCart, 
   Plus, 
@@ -168,7 +169,7 @@ export default function TandJBeddingEcommercePage() {
         { key: 'CVC 300T', label: 'ผ้า CVC 300T (ทนทานสูง คุ้มค่าที่สุด)', price: 365 },
         { key: 'TC Easy care 250T', label: 'ผ้า TC Easy care 250T (ประหยัดงบเริ่มต้น)', price: 230 },
       ],
-      image: '/images/tandj/bedsheet-promo.jpg',
+      image: '/images/tandj/bedsheet-3.5.jpg',
     },
     {
       id: 'bedsheet-5',
@@ -184,7 +185,7 @@ export default function TandJBeddingEcommercePage() {
         { key: 'CVC 300T', label: 'ผ้า CVC 300T', price: 410 },
         { key: 'TC Easy care 250T', label: 'ผ้า TC Easy care 250T', price: 260 },
       ],
-      image: '/images/tandj/bedsheet-sateen.jpg',
+      image: '/images/tandj/bedsheet-5.jpg',
     },
     {
       id: 'bedsheet-6',
@@ -200,7 +201,7 @@ export default function TandJBeddingEcommercePage() {
         { key: 'CVC 300T', label: 'ผ้า CVC 300T', price: 480 },
         { key: 'TC Easy care 250T', label: 'ผ้า TC Easy care 250T', price: 340 },
       ],
-      image: '/images/tandj/bedsheet.png',
+      image: '/images/tandj/bedsheet-6.jpg',
       badge: 'ยอดนิยมสำหรับโรงแรม',
     },
 
@@ -219,7 +220,7 @@ export default function TandJBeddingEcommercePage() {
         { key: 'CVC 300T', label: 'ผ้า CVC 300T', price: 630 },
         { key: 'TC Easy care 250T', label: 'ผ้า TC Easy care 250T', price: 420 },
       ],
-      image: '/images/tandj/duvet-set-promo.jpg',
+      image: '/images/tandj/duvet-cover-3.5.jpg',
     },
     {
       id: 'duvet-cover-5',
@@ -235,7 +236,7 @@ export default function TandJBeddingEcommercePage() {
         { key: 'CVC 300T', label: 'ผ้า CVC 300T', price: 770 },
         { key: 'TC Easy care 250T', label: 'ผ้า TC Easy care 250T', price: 510 },
       ],
-      image: '/images/tandj/duvet-cover.png',
+      image: '/images/tandj/duvet-cover-5.jpg',
     },
     {
       id: 'duvet-cover-6',
@@ -251,7 +252,7 @@ export default function TandJBeddingEcommercePage() {
         { key: 'CVC 300T', label: 'ผ้า CVC 300T', price: 800 },
         { key: 'TC Easy care 250T', label: 'ผ้า TC Easy care 250T', price: 560 },
       ],
-      image: '/images/tandj/duvet-set-promo.jpg',
+      image: '/images/tandj/duvet-cover-6.jpg',
     },
     {
       id: 'duvet-insert-3.5',
@@ -262,7 +263,7 @@ export default function TandJBeddingEcommercePage() {
       size: '70" x 90"',
       unit: 'ผืน',
       price: 540,
-      image: '/images/tandj/duvet-folded.jpg',
+      image: '/images/tandj/duvet-insert-3.5.jpg',
     },
     {
       id: 'duvet-insert-5',
@@ -273,7 +274,7 @@ export default function TandJBeddingEcommercePage() {
       size: '90" x 90"',
       unit: 'ผืน',
       price: 630,
-      image: '/images/tandj/duvet.jpg',
+      image: '/images/tandj/duvet-insert-5.jpg',
     },
     {
       id: 'duvet-insert-6',
@@ -284,7 +285,7 @@ export default function TandJBeddingEcommercePage() {
       size: '100" x 90"',
       unit: 'ผืน',
       price: 650,
-      image: '/images/tandj/duvet-folded.jpg',
+      image: '/images/tandj/duvet-insert-6.jpg',
     },
 
     // 4. ผ้ารองกันเปื้อน & ท็อปเปอร์
@@ -297,7 +298,7 @@ export default function TandJBeddingEcommercePage() {
       size: '42" x 78"',
       unit: 'ผืน',
       price: 470,
-      image: '/images/tandj/waterproof-protector.jpg',
+      image: '/images/tandj/protector-3.5.jpg',
     },
     {
       id: 'protector-5',
@@ -308,7 +309,7 @@ export default function TandJBeddingEcommercePage() {
       size: '60" x 78"',
       unit: 'ผืน',
       price: 660,
-      image: '/images/tandj/waterproof-protector.jpg',
+      image: '/images/tandj/protector-5.jpg',
     },
     {
       id: 'protector-6',
@@ -319,7 +320,7 @@ export default function TandJBeddingEcommercePage() {
       size: '72" x 78"',
       unit: 'ผืน',
       price: 760,
-      image: '/images/tandj/waterproof-protector.jpg',
+      image: '/images/tandj/protector-6.jpg',
       badge: 'แนะนำสำหรับโรงแรม',
     },
     {
@@ -1746,6 +1747,11 @@ export default function TandJBeddingEcommercePage() {
           </div>
         </div>
       )}
+
+      <ClientArticlesSection
+        clientSlug="tandj-bedding"
+        brandName="T&J Bedding (Success Laundry & Hotel Supply)"
+      />
 
       {/* 7. FOOTER */}
       <PremiumFooter />

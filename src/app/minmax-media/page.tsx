@@ -315,26 +315,22 @@ export default function MinMaxMediaSalepage() {
       <header className="fixed top-0 inset-x-0 z-50 bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/80 transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-[65px] flex items-center justify-between">
           {/* Logo & Agency Identity */}
-          <Link href="/minmax-media" className="flex items-center gap-3 group">
-            <div className="relative w-10 h-10 rounded-full overflow-hidden border border-amber-400/50 shadow-lg shadow-amber-500/20 group-hover:border-amber-400 transition">
-              <Image
-                src="/images/minmax/minmax-logo-round.png"
-                alt="MinMax Media Event Agency"
-                fill
-                className="object-cover"
-                priority
-              />
+          <Link href="/minmax-media" className="flex items-center gap-2.5 shrink-0 group">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-slate-200 via-white to-slate-400 p-[1.5px] shadow-lg shadow-white/10 shrink-0 group-hover:scale-105 transition">
+              <div className="w-full h-full rounded-full bg-slate-950 flex items-center justify-center">
+                <Star className="w-4 h-4 sm:w-5 sm:h-5 text-amber-400 fill-amber-400" />
+              </div>
             </div>
             <div>
-              <div className="flex items-center gap-1.5">
-                <span className="font-extrabold text-sm sm:text-base text-white tracking-wide group-hover:text-amber-400 transition">
-                  MINMAX MEDIA
+              <div className="flex items-center gap-2">
+                <span className="text-sm sm:text-lg font-black tracking-tight text-white leading-tight">
+                  MINMAX <span className="text-amber-400">MEDIA</span>
                 </span>
-                <span className="hidden sm:inline-block px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-400/20 text-amber-300 border border-amber-400/30">
+                <span className="hidden xl:inline-block bg-amber-400/20 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-400/30 whitespace-nowrap">
                   Marketing & Event Agency
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 font-medium line-clamp-1">
+              <p className="text-[11px] text-slate-400 truncate hidden sm:block">
                 รับทำการตลาดครบวงจร • พร้อมปั้นแบรนด์
               </p>
             </div>
@@ -462,12 +458,12 @@ export default function MinMaxMediaSalepage() {
         {/* Full-Bleed 16:9 Cinematic Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/minmax/hero-cinematic.jpg"
+            src="/images/minmax/hero-minimal-premium.jpg"
             alt="MINMAX MEDIA - รับทำการตลาดครบวงจร พร้อมปั้นแบรนด์ สไตล์ Auto Dealer 16:9"
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[75%_center] sm:object-[80%_center] lg:object-right brightness-110 contrast-[1.04]"
+            className="object-cover object-[75%_center] sm:object-[80%_center] lg:object-right brightness-105 contrast-[1.04]"
           />
 
           {/* Desktop Left Scrim: Gently protects text on the left 35% without darkening the visual subject */}
@@ -1017,13 +1013,10 @@ export default function MinMaxMediaSalepage() {
       <footer className="bg-slate-950 border-t border-slate-800 py-8 text-xs text-slate-500 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div className="flex items-center gap-3">
-            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-amber-400/30">
-              <Image
-                src="/images/minmax/minmax-logo-round.png"
-                alt="MinMax Media"
-                fill
-                className="object-cover"
-              />
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-slate-200 via-white to-slate-400 p-[1.5px] shrink-0">
+              <div className="w-full h-full rounded-full bg-slate-950 flex items-center justify-center">
+                <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
+              </div>
             </div>
             <div>
               <div className="text-slate-300 font-bold">MinMax Media Event Agency</div>

@@ -143,9 +143,9 @@ export default async function BlogListingPage() {
           {posts.map((post) => (
             <article 
               key={post.id}
-              className="group bg-slate-900/60 border border-slate-800 hover:border-teal-500/40 rounded-3xl overflow-hidden transition-all duration-300 flex flex-col justify-between shadow-xl"
+              className="group relative cursor-pointer bg-slate-900/60 border border-slate-800 hover:border-teal-500/40 rounded-3xl overflow-hidden transition-all duration-300 flex flex-col justify-between shadow-xl"
             >
-              <Link href={`/blog/${post.slug}`} className="block relative aspect-[16/9] w-full overflow-hidden bg-slate-800">
+              <div className="block relative aspect-[16/9] w-full overflow-hidden bg-slate-800">
                 <Image
                   src={post.featuredImage}
                   alt={post.imageAlt || post.title}
@@ -157,12 +157,12 @@ export default async function BlogListingPage() {
                 <div className="absolute top-3 left-3 bg-slate-950/85 backdrop-blur-md border border-teal-500/30 text-teal-300 text-[10px] font-bold px-3 py-1 rounded-full">
                   {post.category}
                 </div>
-              </Link>
+              </div>
 
               <div className="p-6 space-y-3 flex-1 flex flex-col justify-between">
                 <div className="space-y-2">
                   <h2 className="text-lg font-bold text-white group-hover:text-teal-300 transition line-clamp-2 leading-snug">
-                    <Link href={`/blog/${post.slug}`}>
+                    <Link href={`/blog/${post.slug}`} className="focus:outline-none after:absolute after:inset-0 after:z-20">
                       {post.title}
                     </Link>
                   </h2>
@@ -176,13 +176,12 @@ export default async function BlogListingPage() {
                     <Clock className="w-3.5 h-3.5 text-slate-500" />
                     <span>{post.readTime}</span>
                   </div>
-                  <Link 
-                    href={`/blog/${post.slug}`}
-                    className="inline-flex items-center gap-1 text-teal-400 hover:text-teal-300 font-bold transition"
+                  <span 
+                    className="inline-flex items-center gap-1 text-teal-400 group-hover:text-teal-300 font-bold transition"
                   >
                     <span>อ่านบทความ</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </Link>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </span>
                 </div>
               </div>
             </article>

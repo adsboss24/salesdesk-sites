@@ -1368,7 +1368,7 @@ export default function IceBenzTTCUbonSalepage() {
           {articles.map((article) => (
             <article
               key={article.id}
-              className="w-[86vw] sm:w-[380px] lg:w-[400px] shrink-0 snap-start group bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-amber-400/50 transition duration-300 shadow-xl flex flex-col justify-between"
+              className="relative cursor-pointer w-[86vw] sm:w-[380px] lg:w-[400px] shrink-0 snap-start group bg-slate-900/90 rounded-2xl overflow-hidden border border-slate-800 hover:border-amber-400/50 transition duration-300 shadow-xl flex flex-col justify-between"
             >
               <div>
                 {/* Cover Image with Zoom Effect */}
@@ -1404,7 +1404,10 @@ export default function IceBenzTTCUbonSalepage() {
                   </div>
 
                   <h3 className="text-base sm:text-lg font-bold text-white group-hover:text-amber-400 transition line-clamp-2 leading-snug">
-                    <Link href={`/ice-benz-ttc-ubon/blog/${article.slug}`}>
+                    <Link
+                      href={`/ice-benz-ttc-ubon/blog/${article.slug}`}
+                      className="focus:outline-none after:absolute after:inset-0 after:z-20"
+                    >
                       {article.title}
                     </Link>
                   </h3>
@@ -1417,13 +1420,12 @@ export default function IceBenzTTCUbonSalepage() {
 
               {/* Action Link Footer */}
               <div className="p-5 sm:p-6 pt-0">
-                <Link
-                  href={`/ice-benz-ttc-ubon/blog/${article.slug}`}
+                <span
                   className="w-full py-2.5 px-4 rounded-xl bg-slate-800/80 group-hover:bg-amber-400 group-hover:text-slate-950 text-amber-300 text-xs sm:text-sm font-bold text-center flex items-center justify-center gap-2 transition duration-200 border border-slate-700 group-hover:border-amber-400"
                 >
                   <span>อ่านบทความฉบับเต็ม</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition transform" />
-                </Link>
+                </span>
               </div>
             </article>
           ))}

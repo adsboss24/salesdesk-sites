@@ -6,7 +6,7 @@ export const metadata: Metadata = constructMetadata({
   description:
     'เอเจนซี่การตลาดและอีเวนต์ครบวงจร วางกลยุทธ์แบรนด์ โปรดักชั่นวิดีโอ กราฟิกดีไซน์ คอนเทนต์สร้างยอดขาย จัดหาอินฟลูเอนเซอร์ KOL/KOC ดูแลโซเชียลมีเดียทุกช่องทาง และวางกลยุทธ์แอดโฆษณาวัดผล ROI สูงสุด โดยทีมงานมืออาชีพ MinMax Media ติดต่อ LINE: @malakor',
   canonicalPath: '/minmax-media',
-  ogImage: '/images/minmax/hero-16-9.jpg',
+  ogImage: '/images/minmax/hero-minimal-premium.jpg',
   keywords: [
     'MinMax Media',
     'MinMax Media Event Agency',

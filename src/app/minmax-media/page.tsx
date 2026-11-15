@@ -102,6 +102,14 @@ export default function MinMaxMediaSalepage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 20);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // Structured Data Schema for Search Engines (LocalBusiness / Agency)
   const agencySchema = {
@@ -192,13 +200,19 @@ export default function MinMaxMediaSalepage() {
   const faqs = t.faqSection.items;
 
   return (
-    <div className="min-h-screen bg-[#04090d] text-slate-100 font-sans selection:bg-emerald-400 selection:text-slate-950 pb-28 sm:pb-32 lg:pb-0 relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#04090d] text-slate-100 font-sans selection:bg-emerald-400 selection:text-slate-950 pb-28 sm:pb-32 lg:pb-0 relative overflow-x-clip">
       {/* Schema Structured Data for SEO */}
       <StructuredData data={agencySchema} id="minmax-agency-schema" />
       <StructuredData data={articlesItemListSchema} id="minmax-articles-schema" />
 
-      {/* 1. MINIMAL PREMIUM FIXED HEADER (MINMAX EMERALD THEME) */}
-      <header className="fixed top-0 inset-x-0 z-50 bg-[#04090d]/90 backdrop-blur-xl border-b border-emerald-500/15 transition-all">
+      {/* 1. MINIMAL PREMIUM STICKY HEADER (MINMAX EMERALD THEME) */}
+      <header
+        className={`sticky top-0 z-50 w-full backdrop-blur-xl transition-all duration-300 ${
+          isScrolled
+            ? 'bg-[#04090d]/95 border-b border-emerald-500/25 shadow-xl shadow-emerald-950/40'
+            : 'bg-[#04090d]/85 border-b border-emerald-500/15'
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 sm:h-[68px] flex items-center justify-between">
           {/* Logo & Agency Identity */}
           <Link href="/minmax-media" className="flex items-center gap-3 shrink-0 group">
@@ -370,9 +384,6 @@ export default function MinMaxMediaSalepage() {
         )}
       </header>
 
-      {/* Header Fixed Flow Spacer */}
-      <div className="h-16 sm:h-[68px] w-full" />
-
       {/* 2. CINEMATIC HERO SECTION (UNIFIED FULL-BLEED 16:9 AUTO DEALER STYLE ON MOBILE & DESKTOP) */}
       <section className="relative min-h-[600px] sm:min-h-[660px] lg:min-h-[720px] flex flex-col justify-between overflow-hidden bg-[#04090d] text-white">
         {/* Full-Bleed 16:9 Minimal Premium Background */}
@@ -543,7 +554,7 @@ export default function MinMaxMediaSalepage() {
       </section>
 
       {/* 4. THE 6 CORE CAPABILITIES (MINIMAL PREMIUM GRID) */}
-      <section id="services" className="py-14 sm:py-24 bg-[#060d12] border-y border-emerald-500/10 relative z-10">
+      <section id="services" className="scroll-mt-20 py-14 sm:py-24 bg-[#060d12] border-y border-emerald-500/10 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-bold mb-3">
@@ -617,7 +628,7 @@ export default function MinMaxMediaSalepage() {
       </section>
 
       {/* 5. INDUSTRY CASE STUDIES & RESULTS (SOCIAL PROOF BEFORE PROCESS) */}
-      <section id="cases" className="py-14 sm:py-24 bg-[#04090d] relative z-10">
+      <section id="cases" className="scroll-mt-20 py-14 sm:py-24 bg-[#04090d] relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
             <span className="text-emerald-400 text-xs font-bold tracking-widest uppercase">
@@ -656,7 +667,7 @@ export default function MinMaxMediaSalepage() {
       </section>
 
       {/* 6. PROVEN 4-STEP WORKFLOW BLUEPRINT (LOGICAL CERTAINTY) */}
-      <section id="workflow" className="py-14 sm:py-20 bg-[#060d12] border-y border-emerald-500/10 relative z-10">
+      <section id="workflow" className="scroll-mt-20 py-14 sm:py-20 bg-[#060d12] border-y border-emerald-500/10 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
             <span className="text-emerald-400 text-xs font-bold tracking-widest uppercase">
@@ -692,7 +703,7 @@ export default function MinMaxMediaSalepage() {
       </section>
 
       {/* 7. SEO KNOWLEDGE HUB & BLOG ARTICLES (3 HIGH-IMPACT SEO ARTICLES) */}
-      <section id="articles" className="py-14 sm:py-24 bg-[#04090d] relative z-10">
+      <section id="articles" className="scroll-mt-20 py-14 sm:py-24 bg-[#04090d] relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 sm:mb-14">
             <div className="space-y-2 max-w-2xl">
@@ -772,7 +783,7 @@ export default function MinMaxMediaSalepage() {
       </section>
 
       {/* 8. FAQ ACCORDION SECTION (OBJECTION REMOVAL BEFORE THE ASK) */}
-      <section id="faq" className="py-14 sm:py-20 bg-[#060d12] border-y border-emerald-500/10 relative z-10">
+      <section id="faq" className="scroll-mt-20 py-14 sm:py-20 bg-[#060d12] border-y border-emerald-500/10 relative z-10">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="text-center max-w-xl mx-auto mb-10 sm:mb-14">
             <span className="text-emerald-400 text-xs font-bold tracking-widest uppercase">
@@ -818,7 +829,7 @@ export default function MinMaxMediaSalepage() {
       </section>
 
       {/* 9. INTERACTIVE VIP LEAD & CONSULTATION BOOKING FORM (CONVERSION CLIMAX) */}
-      <section id="consult-form" className="py-14 sm:py-20 bg-[#04090d] relative z-10">
+      <section id="consult-form" className="scroll-mt-20 py-14 sm:py-20 bg-[#04090d] relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
           <div className="rounded-3xl bg-[#091218] border border-emerald-500/30 p-6 sm:p-10 shadow-2xl shadow-emerald-950/40 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />

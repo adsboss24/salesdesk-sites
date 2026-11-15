@@ -71,6 +71,24 @@ export default function HomePage() {
 
   const projects = [
     {
+      id: 'supper-surface',
+      category: 'service',
+      tag: 'Architectural Cladding & Facade Specialist',
+      badgeColor: 'border-amber-400/40 text-amber-300',
+      title: 'SUPPER SURFACE',
+      subtitle: 'บจก. เฟมไลน์ โปร์ดักส์ (FAMELINE) ศูนย์รวมนวัตกรรมวัสดุปิดผิวสถาปัตยกรรมระดับไฮเอนด์',
+      desc: 'เซลเพจมาตรฐาน SalesDesk AI สำหรับ Supper Surface ผู้นำนวัตกรรมวัสดุปิดผิวสถาปัตยกรรม Facade หินวีเนียร์ MCM ดัดโค้งได้, ไม้เทียม WPC, ฝ้าอลูมิเนียม 85C/85F, ระแนงอลูมิเนียม Louver, คอมโพสิต DECO & ALTEX, และแผ่นไฟเบอร์ซีเมนต์ NICHIHA ญี่ปุ่น พร้อมระบบตะกร้า MiniMall Premium ขอใบเสนอราคา และชำระเงินในนามนิติบุคคลครบวงจร',
+      image: '/images/suppersurface/hero-cinematic.jpg',
+      url: '/supper-surface',
+      accentColor: 'hover:border-amber-400/50',
+      btnBg: 'bg-gradient-to-r from-amber-400 via-amber-500 to-yellow-400 hover:from-amber-500 hover:to-yellow-500 text-slate-950 font-bold',
+      features: [
+        'สถาปัตยกรรม Cinematic 16:9 ไร้ข้อความบดบังตัวอาคารและผิววัสดุบนมือถือ 100%',
+        'ระบบ MiniMall Premium ตะกร้าสินค้า, สลับดูการ์ด/ตารางสเปก, และดาวน์โหลดแคตตาล็อก 9 รายการ',
+        'ระบบออกใบเสนอราคาทางการ (Instant Quote) และชำระเงินโอนเข้า บจก. เฟมไลน์ โปร์ดักส์',
+      ],
+    },
+    {
       id: 'minmax-media',
       category: 'service',
       tag: 'Full-Service Marketing & Event Agency',

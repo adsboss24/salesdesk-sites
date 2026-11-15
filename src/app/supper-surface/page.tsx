@@ -34,7 +34,11 @@ import {
   BookOpen, 
   Clock, 
   Eye, 
-  BookCheck
+  BookCheck,
+  Menu,
+  ChevronLeft,
+  ChevronRight,
+  Maximize2
 } from 'lucide-react';
 import { getAllSupperSurfacePosts } from '@/lib/supper-surface-posts';
 
@@ -82,6 +86,7 @@ export default function SupperSurfaceSalesPage() {
   };
 
   // State
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
@@ -93,6 +98,8 @@ export default function SupperSurfaceSalesPage() {
 
   // In-Page Interactive E-Catalog Previewer State
   const [selectedCatalogId, setSelectedCatalogId] = useState<number>(1);
+  const [activeCatalogPage, setActiveCatalogPage] = useState<number>(1);
+  const [catalogViewerMode, setCatalogViewerMode] = useState<'native' | 'iframe'>('native');
   const [activeModalCatalog, setActiveModalCatalog] = useState<any | null>(null);
 
   // Estimator State
@@ -245,7 +252,7 @@ export default function SupperSurfaceSalesPage() {
     },
   ], []);
 
-  // 9 Interactive E-Catalogs (In-Page Spec Preview System)
+  // 9 Interactive E-Catalogs with Multi-Page Architectural Spec Engine
   const catalogsList = useMemo(() => [
     {
       id: 1,
@@ -259,6 +266,53 @@ export default function SupperSurfaceSalesPage() {
       productId: 'veneer-mcm-1',
       price: 1450,
       unit: 'ตร.ม.',
+      totalPages: 4,
+      pages: [
+        {
+          num: 1,
+          title: 'หน้า 1: นวัตกรรมดัดโค้ง & ดีไซน์พื้นผิว',
+          summary: 'ผลิตจากผงหินธรรมชาติผสาน Modified Clay Material (MCM) ให้ความยืดหยุ่นสูง ดัดโค้งรัศมีแคบได้โดยไม่แตกร้าว',
+          items: [
+            { label: 'ชนิดวัสดุ', val: 'Modified Clay Material (MCM) + Natural Stone Powder' },
+            { label: 'รัศมีดัดโค้งต่ำสุด', val: 'R = 20 ซม. (ดัดหุ้มเสากลมได้เรียบสนิท)' },
+            { label: 'ลักษณะพื้นผิว', val: 'หินทราเวอร์ทีน, หินแกรนิต, หินชนวนธรรมชาติ' },
+            { label: 'น้ำหนักเทียบเคียง', val: 'เบากว่าหินแกรนิตแท้ 80% ลดภาระโครงสร้างอาคาร' },
+          ]
+        },
+        {
+          num: 2,
+          title: 'หน้า 2: มิติขนาด & สเปกทางเทคนิค',
+          summary: 'ขนาดมาตรฐานสำหรับงาน Facade และงานตกแต่งผนังภายในอาคาร ลดเศษตัดต่อหน้างาน',
+          items: [
+            { label: 'ขนาดมาตรฐานแผ่น', val: '600 x 1200 มม. และ 1200 x 2400 มม.' },
+            { label: 'ความหนาแผ่น', val: '2.5 - 3.5 มม. (น้ำหนักเฉลี่ย 3.8 กก./ตร.ม.)' },
+            { label: 'ค่าการดูดซึมน้ำ', val: '< 0.5% ป้องกันการสะสมความชื้นและเชื้อรา' },
+            { label: 'การทนต่อแรงดึง', val: 'Tensile Strength > 1.2 MPa' },
+          ]
+        },
+        {
+          num: 3,
+          title: 'หน้า 3: คู่มือการติดตั้ง & กาวประสาน',
+          summary: 'ติดตั้งรวดเร็วบนผนังเบา ผนังปูนเดิม หรือโครงสมาร์ทบอร์ดโดยไม่ต้องทุบรื้อ',
+          items: [
+            { label: 'กาวที่แนะนำ', val: 'กาวโพลียูรีเทน (PU Glue) คุณภาพสูงเกรด Exterior' },
+            { label: 'รูปแบบการยาแนว', val: 'ชนชิดแบบไร้ร่อง หรือเว้นร่อง 3-5 มม. ใส่เส้นคิ้ว' },
+            { label: 'การตัดแต่งแผ่น', val: 'ใช้คัตเตอร์หรือลูกหมูตัดได้ง่าย ไร้ฝุ่นฟุ้งกระจาย' },
+            { label: 'ระยะเวลาเซ็ตตัว', val: 'ยึดเกาะแน่นหนาใน 24 ชั่วโมง' },
+          ]
+        },
+        {
+          num: 4,
+          title: 'หน้า 4: มาตรฐานความปลอดภัย & ใบรับรอง',
+          summary: 'ผ่านการทดสอบมาตรฐานความปลอดภัยสำหรับอาคารสูงและโครงการขนาดใหญ่',
+          items: [
+            { label: 'มาตรฐานทนไฟ', val: 'Non-combustible Class A2 ตามมาตรฐาน GB8624' },
+            { label: 'ความทนทานต่อแสง UV', val: 'ผ่านการทดสอบ Weathering Test > 2,000 ชม.' },
+            { label: 'การรับประกัน', val: 'รับประกันคุณภาพผลิตภัณฑ์ 10 ปี' },
+            { label: 'การรับรอง B2B', val: 'มีเอกสาร MSDS และผลทดสอบสถาบันชั้นนำครบถ้วน' },
+          ]
+        }
+      ]
     },
     {
       id: 2,
@@ -272,6 +326,53 @@ export default function SupperSurfaceSalesPage() {
       productId: 'wpc-cladding-1',
       price: 1250,
       unit: 'ตร.ม.',
+      totalPages: 4,
+      pages: [
+        {
+          num: 1,
+          title: 'หน้า 1: ภาพรวมไม้สังเคราะห์ WPC เกรดพรีเมียม',
+          summary: 'ผลิตจากผงไม้คัดพิเศษผสมโพลีเมอร์เกรดสูง ให้ความรู้สึกอบอุ่นเสมือนไม้ธรรมชาติแท้',
+          items: [
+            { label: 'ส่วนผสมหลัก', val: 'Wood Fiber 60% + HDPE 30% + UV Stabilizers 10%' },
+            { label: 'ลวดลายพื้นผิว', val: '3D Deep Embossed Wood Grain ลายเสี้ยนลึกไม่ลื่น' },
+            { label: 'การใช้งาน', val: 'ระเบียงภายนอก ผนังกรุเปลือกอาคาร ซุ้มทางเข้า' },
+            { label: 'สีมาตรฐาน', val: 'Teak (ไม้สัก), Walnut (ไม้วอลนัท), Ash Grey' },
+          ]
+        },
+        {
+          num: 2,
+          title: 'หน้า 2: สเปกหน้าตัด & ขนาดมิติ',
+          summary: 'โครงสร้างแบบรังผึ้ง Hollow Core แข็งแรงพิเศษ แต่น้ำหนักเบา ระบายความร้อนได้ดี',
+          items: [
+            { label: 'ขนาดหน้าตัด', val: 'หน้ากว้าง 150 มม. ความหนา 22 มม. ยาว 3.0 ม.' },
+            { label: 'น้ำหนักต่อเมตร', val: 'ประมาณ 2.4 กก./เมตรเส้นตรง' },
+            { label: 'การรับน้ำหนักจุด', val: 'Point Load Capacity > 400 กก./ตร.ม.' },
+            { label: 'อัตราการยืดหดตัว', val: 'ต่ำกว่าไม้ธรรมชาติ 5 เท่าเมื่อเจอความร้อน' },
+          ]
+        },
+        {
+          num: 3,
+          title: 'หน้า 3: ระบบคลิปล็อคซ่อนสกรู (Hidden Fastener)',
+          summary: 'ระบบคลิปสแตนเลส 304 ไม่เห็นหัวสกรูบนหน้าไม้ ปลอดสนิมตลอดอายุการใช้งาน',
+          items: [
+            { label: 'ระยะห่างตงรองรับ', val: 'ระยะ Span 30-35 ซม. เพื่อความแข็งแรงสูงสุด' },
+            { label: 'วัสดุคลิปล็อค', val: 'Stainless Steel Clip 304 ทนไอเกลือทะเล' },
+            { label: 'การระบายน้ำ', val: 'เว้นร่องระบายน้ำและอากาศตามธรรมชาติ 4-5 มม.' },
+            { label: 'การดูแลรักษา', val: 'ล้างด้วยน้ำสะอาด ไม่ต้องขัดเคลือบเงาหรือทาสีย้อม' },
+          ]
+        },
+        {
+          num: 4,
+          title: 'หน้า 4: การรับประกัน & สิ่งแวดล้อม',
+          summary: 'วัสดุสีเขียวเป็นมิตรต่อสิ่งแวดล้อม รีไซเคิลได้ 100% ไร้สารระเหยอันตราย',
+          items: [
+            { label: 'ความทนปลวกมอด', val: 'ปลวกและแมลงกัดเจาะไม่กิน 100%' },
+            { label: 'การต้านทานน้ำ', val: 'ไม่บวม ไม่ผุกร่อน แม้แช่อยู่ในน้ำท่วมขัง' },
+            { label: 'อายุการใช้งาน', val: '15-20 ปีขึ้นไป ทนทานทุกสภาพแดดฝน' },
+            { label: 'การรับรองโครงการ', val: 'เอกสารผลการทดสอบการรับน้ำหนักพร้อมวิศวกร' },
+          ]
+        }
+      ]
     },
     {
       id: 3,
@@ -285,6 +386,53 @@ export default function SupperSurfaceSalesPage() {
       productId: 'ceiling-85c',
       price: 980,
       unit: 'ตร.ม.',
+      totalPages: 4,
+      pages: [
+        {
+          num: 1,
+          title: 'หน้า 1: ระบบฝ้าอลูมิเนียมเส้นเรียบ 85 C',
+          summary: 'ดีไซน์แผ่นชิดแนบสนิท Snap-in สไตล์โมเดิร์น ไร้รอยต่อ ปลอดสนิมตลอดอายุการใช้งาน',
+          items: [
+            { label: 'ระบบโครงสร้าง', val: 'Carrier Snap-in System ล็อคแน่นไม่หลุดร่วง' },
+            { label: 'วัสดุแผ่นฝ้า', val: 'Alloy Aluminum Grade 3003/1100 หนา 0.5 - 0.7 มม.' },
+            { label: 'ผิวเคลือบสี', val: 'Polyester / PVDF Powder Coating ทนแดด UV' },
+            { label: 'การใช้งานยอดนิยม', val: 'ชายคาภายนอก, ปั๊มน้ำมัน, โรงพยาบาล, สถานีรถไฟฟ้า' },
+          ]
+        },
+        {
+          num: 2,
+          title: 'หน้า 2: มิติหน้าตัด & สเปกสั่งผลิต',
+          summary: 'สั่งตัดความยาวได้ตามหน้างานจริง ลดเศษเหลือทิ้ง ประหยัดต้นทุนโครงการ',
+          items: [
+            { label: 'หน้ากว้างแผ่น', val: '85 มม. ความสูงขอบ 15 มม.' },
+            { label: 'ความยาวสั่งตัด', val: 'สูงสุด 6.0 เมตร (สั่งผลิตตามหน้างานได้)' },
+            { label: 'น้ำหนักระบบรวม', val: 'ประมาณ 2.2 - 2.8 กก./ตร.ม.' },
+            { label: 'สีมาตรฐาน', val: 'ขาว (White), ดำ (Black), เงินเมทัลลิก, สีลายไม้' },
+          ]
+        },
+        {
+          num: 3,
+          title: 'หน้า 3: โครงคร่าว Carrier & การติดตั้ง',
+          summary: 'ระบบแขวน Rod M8 ผสานโครง Carrier เฉพาะรุ่น แข็งแรงทนทานต่อแรงลมปะทะ',
+          items: [
+            { label: 'โครง Carrier', val: 'Carrier 85C เหล็กชุบสังกะสีหนา 0.6 มม.' },
+            { label: 'ระยะห่าง Carrier', val: 'ระยะห่างไม่เกิน 1.0 - 1.2 เมตร' },
+            { label: 'ระบบซ่อมบำรุง', val: 'เปิดซ่อมงานระบบท่อและสายไฟเฉพาะแผ่นได้ง่าย' },
+            { label: 'การติดตั้งร่วม', val: 'เจาะใส่ Downlight, Smoke Detector, Air Diffuser ได้' },
+          ]
+        },
+        {
+          num: 4,
+          title: 'หน้า 4: การต้านทานลม & เอกสารรับรอง',
+          summary: 'ผ่านการทดสอบแรงลมพายุมาตรฐานวิศวกรรมสถาปัตยกรรมระดับสากล',
+          items: [
+            { label: 'การต้านทานแรงลม', val: 'Wind Load Resistance > 1.5 kPa' },
+            { label: 'มาตรฐานปลอดสนิม', val: 'Salt Spray Resistance > 1,000 ชม. ไร้สนิม' },
+            { label: 'ระดับความปลอดภัย', val: 'Class A Non-Combustible ไม่ติดไฟ ไร้ควันพิษ' },
+            { label: 'การรับประกันงาน', val: 'รับประกันสีเคลือบ 10 ปี' },
+          ]
+        }
+      ]
     },
     {
       id: 4,
@@ -298,6 +446,53 @@ export default function SupperSurfaceSalesPage() {
       productId: 'ceiling-85f',
       price: 1050,
       unit: 'ตร.ม.',
+      totalPages: 4,
+      pages: [
+        {
+          num: 1,
+          title: 'หน้า 1: ระบบฝ้าอลูมิเนียมเว้นร่อง 85 F',
+          summary: 'ร่องเว้นระยะ Reveal Joint 15 มม. สร้างเส้นสายมิติเงาสถาปัตยกรรมคมชัด',
+          items: [
+            { label: 'ดีไซน์ร่อง', val: 'หน้ากว้าง 85 มม. + ร่องเว้นระยะ Reveal 15 มม.' },
+            { label: 'การสร้างมิติ', val: 'รองรับแผ่นปิดร่องสีดำ (Black Joint Strip) เพิ่มความลึก' },
+            { label: 'กลุ่มอาคารเป้าหมาย', val: 'Lobby โรงแรม, อาคารสำนักงานเกรด A, ห้างสรรพสินค้า' },
+            { label: 'ความทันสมัย', val: 'ผสานรางไฟเส้น LED Linear Light ได้อย่างแนบเนียน' },
+          ]
+        },
+        {
+          num: 2,
+          title: 'หน้า 2: สเปกขนาด & มิติมุมมอง',
+          summary: 'ควบคุมคุณภาพความเรียบตรงทุกมิลลิเมตร ไร้คลื่นบนหน้าแผ่น',
+          items: [
+            { label: 'ระยะรวมต่อโมดูล', val: '100 มม. (85 มม. + ร่อง 15 มม.)' },
+            { label: 'ความหนาอลูมิเนียม', val: '0.6 - 0.7 มม. เกรดพิเศษต้านการโก่งงอ' },
+            { label: 'ความยาวสั่งทำ', val: 'สั่งตัดตามแบบสูงสุด 6 เมตร' },
+            { label: 'น้ำหนักเฉลี่ย', val: '2.5 กก./ตร.ม.' },
+          ]
+        },
+        {
+          num: 3,
+          title: 'หน้า 3: Carrier 85F & รายละเอียดติดตั้ง',
+          summary: 'โครงยึดล็อคแม่นยำด้วยเขี้ยว Carrier 85F จัดระยะร่องเท่ากันสม่ำเสมอทุกแนว',
+          items: [
+            { label: 'โครง Carrier', val: 'Custom 85F Carrier ล็อคสองข้างพร้อมร่องเว้น' },
+            { label: 'ระยะห่างแขวน', val: 'ระยะโครงไม่เกิน 1,200 มม.' },
+            { label: 'การดูดซับเสียง', val: 'สามารถเพิ่มแผ่นซับเสียง SoundTex ด้านหลังแผ่นได้' },
+            { label: 'การทำความสะอาด', val: 'เช็ดทำความสะอาดง่าย ไม่จับคราบฝุ่น' },
+          ]
+        },
+        {
+          num: 4,
+          title: 'หน้า 4: เอกสารสเปกโครงการ & ผลทดสอบ',
+          summary: 'เอกสารสเปกพร้อมยื่นประมูลงาน B2B และโครงการขนาดใหญ่',
+          items: [
+            { label: 'การทนไฟ', val: 'Class A2 ไม่ลามไฟ ไม่ติดไฟ' },
+            { label: 'การรับประกันสี', val: 'รับประกัน 10 ปี (Powder Coat) / 20 ปี (PVDF)' },
+            { label: 'การรองรับ B2B', val: 'มีเอกสารใบเสนอราคาและ Spec Sheet ครบถ้วน' },
+            { label: 'ทีมสนับสนุน', val: 'บริการถอดแบบ BOQ โดยวิศวกร Fameline' },
+          ]
+        }
+      ]
     },
     {
       id: 5,
@@ -311,6 +506,53 @@ export default function SupperSurfaceSalesPage() {
       productId: 'aluminum-louver',
       price: 1850,
       unit: 'ตร.ม.',
+      totalPages: 4,
+      pages: [
+        {
+          num: 1,
+          title: 'หน้า 1: ระแนงอลูมิเนียมบังแดด Facade Louver',
+          summary: 'ลดความร้อนจากแสงแดดเข้าสู่อาคารได้สูงสุด 40% ประหยัดพลังงานเครื่องปรับอากาศ',
+          items: [
+            { label: 'ฟังก์ชันหลัก', val: 'Solar Shading บังแดด + ระบายอากาศธรรมชาติ' },
+            { label: 'หน้าตัดยอดนิยม', val: 'กล่อง 25x50 มม., 50x100 มม., และทรงแอร์ฟอยล์' },
+            { label: 'ผิวสัมผัส', val: 'สีพาวเดอร์โค้ทสถาปัตยกรรม หรือลายไม้เสี้ยนธรรมชาติ' },
+            { label: 'โครงสร้างรับแรง', val: 'Subframe อลูมิเนียม น้ำหนักเบากว่าเหล็ก 65%' },
+          ]
+        },
+        {
+          num: 2,
+          title: 'หน้า 2: ตารางหน้าตัด & คุณสมบัติทางกล',
+          summary: 'ออกแบบความหนาผนังอลูมิเนียมให้ทนทานต่อแรงบิดและแรงลมพายุ',
+          items: [
+            { label: 'ความหนาเนื้อโลหะ', val: '1.2 - 2.0 มม. เสริมครีบรับแรงภายใน' },
+            { label: 'ความยาวมาตรฐาน', val: 'เส้นละ 6.0 เมตร' },
+            { label: 'ระยะห่างระแนง', val: 'ปรับองศาและระยะห่างได้ตามการคำนวณทิศแดด' },
+            { label: 'การป้องกันสนิม', val: 'อลูมิเนียม 6063-T5 ปลอดสนิมตลอดอายุการใช้งาน' },
+          ]
+        },
+        {
+          num: 3,
+          title: 'หน้า 3: การประกอบ & ฝาปิดหัวระแนง',
+          summary: 'ระบบฝาครอบหัวระแนง (End Cap) เก็บความเรียบร้อยสวยงาม ไร้คม',
+          items: [
+            { label: 'End Cap', val: 'ฝาปิดหัวระแนงสีตรงกับตัวเส้น แนบสนิท' },
+            { label: 'ขายึด Bracket', val: 'Bracket อลูมิเนียมหนา 3.0 มม. ยึดด้วยน็อตสแตนเลส' },
+            { label: 'การติดตั้งแนวนอน/แนวตั้ง', val: 'รองรับทั้งติดตั้งแนวนอน (Horizontal) และแนวตั้ง (Vertical)' },
+            { label: 'การรองรับงานรีโนเวท', val: 'ติดตั้งครอบอาคารเดิมเพื่อปรับลุคโมเดิร์นทันที' },
+          ]
+        },
+        {
+          num: 4,
+          title: 'หน้า 4: การประหยัดพลังงาน & มาตรฐานอาคารเขียว',
+          summary: 'ช่วยสะสมคะแนนมาตรฐานอาคารเขียว TREES / LEED สำหรับอาคารยุคใหม่',
+          items: [
+            { label: 'ประสิทธิภาพบังแดด', val: 'Shading Coefficient ดีเยี่ยม ลดความร้อนถ่ายเท' },
+            { label: 'มาตรฐานความแข็งแรง', val: 'ผ่านการคำนวณตามมาตรฐานวิศวกรรมสถาน (วสท.)' },
+            { label: 'การรับประกันสี', val: 'รับประกัน 10 - 15 ปี' },
+            { label: 'บริการทีมงาน', val: 'คำนวณแสงเงาและมุมตกกระทบโดยทีมสถาปนิก' },
+          ]
+        }
+      ]
     },
     {
       id: 6,
@@ -324,6 +566,53 @@ export default function SupperSurfaceSalesPage() {
       productId: 'composite-deco-roof',
       price: 1100,
       unit: 'ตร.ม.',
+      totalPages: 4,
+      pages: [
+        {
+          num: 1,
+          title: 'หน้า 1: นวัตกรรมคอมโพสิต DECO หลังคา & กันสาด',
+          summary: 'ออกแบบสำหรับงานหลังคาไร้รอยต่อ ป้องกันน้ำรั่วซึมและลดเสียงกระทบจากเม็ดฝน',
+          items: [
+            { label: 'โครงสร้างแผ่น', val: 'อลูมิเนียมประกบไส้กลาง PE/FR หนา 4 มม.' },
+            { label: 'ความหนาอลูมิเนียม', val: '0.4 - 0.5 มม. หน้า-หลัง แข็งแรงพิเศษ' },
+            { label: 'การขึ้นรูปกล่อง', val: 'พับขึ้นรูปขอบ 4 ด้าน (Tray Panel) กันน้ำ 100%' },
+            { label: 'การลดเสียงฝน', val: 'ไส้กลางหนาแน่นช่วยซับเสียงฝนตกกระทบได้ดีเยี่ยม' },
+          ]
+        },
+        {
+          num: 2,
+          title: 'หน้า 2: สเปกขนาดแผ่น & การพับขึ้นรูป',
+          summary: 'พื้นผิวเรียบตึง ไม่เกิดคลื่นระลอกคลื่น (No Oil Canning)',
+          items: [
+            { label: 'ขนาดมาตรฐานแผ่น', val: '1250 x 2440 มม. และ 1500 x 3000 มม.' },
+            { label: 'ความหนารวม', val: '4 มม. (น้ำหนัก 5.5 กก./ตร.ม.)' },
+            { label: 'รัศมีพับ V-Groove', val: 'เซาะร่อง 90/135 องศา พับขึ้นรูปกล่องคมกริบ' },
+            { label: 'ความลาดเอียงแนะนำ', val: 'สโลปหลังคาขั้นต่ำ 3 - 5 องศาเพื่อระบายน้ำ' },
+          ]
+        },
+        {
+          num: 3,
+          title: 'หน้า 3: รายละเอียดรอยต่อ & การยาแนวซิลิโคน',
+          summary: 'ระบบรอยต่อกันน้ำแบบ Double Seal ป้องกันน้ำซึมเข้าโครงสร้างเหล็ก',
+          items: [
+            { label: 'Backer Rod & Sealant', val: 'ใส่โฟม Backer Rod + ซิลิโคนเกรด Weatherseal' },
+            { label: 'รางระบายน้ำซ่อน', val: 'เชื่อมต่อรางสแตนเลสซ่อนภายในโครงหลังคา' },
+            { label: 'การรับแรงลมดูด', val: 'ยึดด้วย Bracket อลูมิเนียมทนแรงลมยกหลังคา' },
+            { label: 'การบำรุงรักษา', val: 'น้ำฝนชะล้างฝุ่นออกได้ง่าย ไม่ทิ้งคราบน้ำ' },
+          ]
+        },
+        {
+          num: 4,
+          title: 'หน้า 4: การรับประกัน & มาตรฐานวิศวกรรม',
+          summary: 'มั่นใจได้ในมาตรฐานความปลอดภัยสำหรับอาคารสำนักงานและโชว์รูม',
+          items: [
+            { label: 'การรับประกันสีเคลือบ', val: 'รับประกัน 10 ปีเต็ม ไม่ลอกร่อน' },
+            { label: 'ความทนต่อความร้อน', val: 'สะท้อนรังสี UV และทนความร้อนหลังคาได้สูง' },
+            { label: 'การป้องกันการรั่วซึม', val: 'ผ่านการทดสอบแรงดันน้ำหน้างานจริง' },
+            { label: 'เอกสารประกอบ', val: 'มี Shop Drawing และ Installation Manual' },
+          ]
+        }
+      ]
     },
     {
       id: 7,
@@ -337,6 +626,53 @@ export default function SupperSurfaceSalesPage() {
       productId: 'composite-deco-facade',
       price: 950,
       unit: 'ตร.ม.',
+      totalPages: 4,
+      pages: [
+        {
+          num: 1,
+          title: 'หน้า 1: แผ่นคอมโพสิต DECO สำหรับผนังและอาคาร',
+          summary: 'เฉดสีสดใส ผิวสัมผัสเนียนเรียบ ทางเลือกยอดนิยมอันดับ 1 สำหรับโชว์รูมและป้ายสัญลักษณ์',
+          items: [
+            { label: 'ความหนารวม', val: '4 มม. (ผิวอลูมิเนียม 0.3 - 0.5 มม.)' },
+            { label: 'เฉดสีที่มีจำหน่าย', val: 'มากกว่า 50 เฉดสี (Solid, Metallic, Sparkling)' },
+            { label: 'ความยืดหยุ่นในการขึ้นรูป', val: 'ตัด ฉลุลาย CNC พับกล่อง และดัดโค้งได้ง่าย' },
+            { label: 'ความคุ้มค่าโครงการ', val: 'งบประมาณเข้าถึงง่าย ควบคุมต้นทุนได้ยอดเยี่ยม' },
+          ]
+        },
+        {
+          num: 2,
+          title: 'หน้า 2: สเปกทางกายภาพ & ความแข็งแรง',
+          summary: 'ผลิตด้วยเทคโนโลยีรีดประกบต่อเนื่อง Continuous Hot Lamination แรงยึดเกาะสูง',
+          items: [
+            { label: 'แรงลอกติดผิว (Peel Strength)', val: '> 9 N/mm แผ่นไม่แยกชั้นตลอดอายุ' },
+            { label: 'น้ำหนักเฉลี่ย', val: 'ประมาณ 4.8 - 5.2 กก./ตร.ม.' },
+            { label: 'การทนกรด-ด่าง', val: 'ทนทานต่อมลพิษในอากาศและฝนกรดในเมืองหลวง' },
+            { label: 'ฟิล์มป้องกันหน้าแผ่น', val: 'ฟิล์มกันรอย UV Protection ลอกง่ายหลังติดตั้ง' },
+          ]
+        },
+        {
+          num: 3,
+          title: 'หน้า 3: เทคนิคการเซาะร่อง CNC & งานป้าย',
+          summary: 'รองรับงานฉลุลาย Facade ตึก และงานตกแต่งป้ายไฟโฆษณาแบรนด์ชั้นนำ',
+          items: [
+            { label: 'การเซาะร่องพับ', val: 'เซาะร่องเหลือไส้กลาง 0.5 มม. พับฉาก 90 องศา' },
+            { label: 'การฉลุลายตกแต่ง', val: 'ฉลุลวดลายสถาปัตยกรรมด้วยเครื่อง CNC แม่นยำ' },
+            { label: 'โครงสร้างรับหลังแผ่น', val: 'แปโครงกัลวาไนซ์ หรืออลูมิเนียมกล่อง 1x2 นิ้ว' },
+            { label: 'การยึดน็อต Rivet', val: 'ยึดด้วยรีเวทอลูมิเนียม หรือสกรูหัวแบน' },
+          ]
+        },
+        {
+          num: 4,
+          title: 'หน้า 4: การรับประกัน & บริการสเปก',
+          summary: 'รับประกันคุณภาพผลิตภัณฑ์โดย บจก. เฟมไลน์ โปร์ดักส์',
+          items: [
+            { label: 'รับประกันสีเคลือบ', val: '10 ปี ไม่ซีดจางเป็นด่าง' },
+            { label: 'บริการส่งตัวอย่างสี', val: 'ส่งชิ้นตัวอย่างสีจริงถึงมือผู้ออกแบบฟรี' },
+            { label: 'การสั่งผลิตสีพิเศษ', val: 'รองรับการผสมสี Corporate Identity (CI แบรนด์)' },
+            { label: 'การจัดส่ง', val: 'สต็อกพร้อมส่งในกรุงเทพฯ และปริมณฑล' },
+          ]
+        }
+      ]
     },
     {
       id: 8,
@@ -350,6 +686,53 @@ export default function SupperSurfaceSalesPage() {
       productId: 'composite-altex',
       price: 1650,
       unit: 'ตร.ม.',
+      totalPages: 4,
+      pages: [
+        {
+          num: 1,
+          title: 'หน้า 1: นวัตกรรมคอมโพสิตทนไฟ ALTEX FR',
+          summary: 'สำหรับอาคารสูงและเมกะโปรเจกต์ที่ต้องการความปลอดภัยด้านอัคคีภัยระดับสูงสุด',
+          items: [
+            { label: 'ไส้กลางทนไฟ', val: 'Mineral-filled Core สารหน่วงไฟอนินทรีย์ Class A2' },
+            { label: 'การไม่ติดไฟ', val: 'ไม่ติดไฟ ไม่หยด ไม่ลามไฟ และไร้ควันพิษ' },
+            { label: 'สีเคลือบระดับพรีเมียม', val: 'Kynar 500 PVDF 70% Fluorocarbon Coating' },
+            { label: 'การใช้งาน', val: 'สนามบิน, โรงพยาบาล, อาคารสูงเกิน 23 เมตร' },
+          ]
+        },
+        {
+          num: 2,
+          title: 'หน้า 2: มาตรฐานการทดสอบ ASTM & EN13501',
+          summary: 'ผ่านการทดสอบการลามไฟจากสถาบันชั้นนำระดับสากล',
+          items: [
+            { label: 'มาตรฐานยุโรป EN 13501-1', val: 'Class A2 - s1, d0 (ความปลอดภัยสูงสุด)' },
+            { label: 'มาตรฐานอเมริกา ASTM E84', val: 'Flame Spread Index = 0, Smoke Index < 10' },
+            { label: 'ความหนาอลูมิเนียม', val: '0.50 มม. หน้า-หลัง แข็งแรงระดับโครงสร้าง' },
+            { label: 'ขนาดสั่งผลิต', val: 'กว้าง 1250/1500 มม. ความยาวสั่งตัดพิเศษถึง 6 ม.' },
+          ]
+        },
+        {
+          num: 3,
+          title: 'หน้า 3: ความทนทานต่อสภาพอากาศ 20 ปี+',
+          summary: 'ทนต่อแสงแดดเมืองร้อน รังสีอัลตราไวโอเลต และไอเกลือทะเลชายฝั่ง',
+          items: [
+            { label: 'การทดสอบทนกรดมลพิษ', val: 'ASTM D1308 ไม่ทำปฏิกิริยากับสารเคมี' },
+            { label: 'การทดสอบไอเกลือทะเล', val: 'Salt Spray Test > 4,000 ชั่วโมง ไร้สนิม' },
+            { label: 'ความคงตัวของเฉดสี', val: 'Delta E < 5 ตลอดระยะเวลา 20 ปี' },
+            { label: 'การทำความสะอาด', val: 'เทคโนโลยีเคลือบสาร Hydrophilic ทำความสะอาดง่าย' },
+          ]
+        },
+        {
+          num: 4,
+          title: 'หน้า 4: เอกสารยื่นโครงการ & ใบรับรอง B2B',
+          summary: 'เอกสารประกอบการยื่นสเปกครบชุด พร้อมผลทดสอบรับรองจากวิศวกร',
+          items: [
+            { label: 'หนังสือรับรองมาตรฐาน', val: 'Test Certificate จากสถาบันจุฬาฯ และสถาบันสากล' },
+            { label: 'การรับประกันสินค้า', val: 'รับประกันยาวนาน 15 - 20 ปี' },
+            { label: 'การบริการถอดแบบ', val: 'ถอดแบบและร่วมประชุมสเปกกับที่ปรึกษาโครงการ' },
+            { label: 'ผู้จัดจำหน่ายอย่างเป็นทางการ', val: 'บจก. เฟมไลน์ โปร์ดักส์' },
+          ]
+        }
+      ]
     },
     {
       id: 9,
@@ -363,12 +746,64 @@ export default function SupperSurfaceSalesPage() {
       productId: 'nichiha-japan',
       price: 2150,
       unit: 'ตร.ม.',
+      totalPages: 4,
+      pages: [
+        {
+          num: 1,
+          title: 'หน้า 1: นวัตกรรม NICHIHA อันดับ 1 จากญี่ปุ่น',
+          summary: 'แผ่นผนังไฟเบอร์ซีเมนต์นำเข้าจากประเทศญี่ปุ่น ผสานนวัตกรรม MicroGuard ทำความสะอาดตัวเอง',
+          items: [
+            { label: 'เทคโนโลยี MicroGuard', val: 'คราบสกปรกถูกสลายด้วยแสงแดด และชะล้างออกเองเมื่อฝนตก' },
+            { label: 'ผิวสัมผัส 3 มิติ', val: 'ลวดลายหินธรรมชาติ ลายไม้ และปูนเปลือยลึกสมจริง' },
+            { label: 'การเคลือบสี Platinum Coat', val: 'สีคงทนยาวนาน ไม่ซีดจาง รับประกันสี 15 ปี' },
+            { label: 'ความหนาแผ่น', val: '16 มม. ป้องกันความร้อนและเสียงเข้าสู่อาคาร' },
+          ]
+        },
+        {
+          num: 2,
+          title: 'หน้า 2: มิติขนาด & ระบบคลิปล็อคซ่อนสกรู',
+          summary: 'ติดตั้งด้วยคลิปพิเศษ ไม่ต้องเจาะทะลุหน้าแผ่น ป้องกันการรั่วซึมได้ 100%',
+          items: [
+            { label: 'ขนาดแผ่นมาตรฐาน', val: 'ความกว้าง 455 มม. ความยาว 3030 มม.' },
+            { label: 'น้ำหนักต่อแผ่น', val: 'ประมาณ 24 กก./แผ่น (16-18 กก./ตร.ม.)' },
+            { label: 'ระบบคลิปยึด', val: 'NICHIHA Clip System ซ่อนหัวสกรูเรียบเนียน' },
+            { label: 'รอยต่อระหว่างแผ่น', val: 'ระบบร่องลิ้น Shiplap Joint แนบสนิท' },
+          ]
+        },
+        {
+          num: 3,
+          title: 'หน้า 3: ฉนวนกันความร้อน & การป้องกันเสียง',
+          summary: 'สร้างเกราะป้องกันอาคารแบบ Ventilated Rain-Screen System ระบายความชื้นได้ตลอดเวลา',
+          items: [
+            { label: 'การกันเสียง (Sound Insulation)', val: 'ลดเสียงรบกวนภายนอกได้ถึง 35-40 dB' },
+            { label: 'ฉนวนกันความร้อน', val: 'มีช่องว่างระบายอากาศด้านหลังแผ่น ลดความร้อนสะสม' },
+            { label: 'การทนต่อแผ่นดินไหว', val: 'ระบบคลิปให้ตัวได้ ไม่แตกร้าวเมื่ออาคารสั่นไหว' },
+            { label: 'การติดตั้งบนโครงสร้าง', val: 'ติดตั้งได้ทั้งบนโครงสร้างไม้ เหล็ก และผนังปูน' },
+          ]
+        },
+        {
+          num: 4,
+          title: 'หน้า 4: เอกสารรับรองมาตรฐานญี่ปุ่น & B2B',
+          summary: 'ผ่านมาตรฐาน JIS (Japanese Industrial Standards) สูงสุดในประเทศญี่ปุ่น',
+          items: [
+            { label: 'มาตรฐาน JIS A 5422', val: 'ผ่านการทดสอบความทนทานต่อสภาพอากาศหนาวและร้อนจัด' },
+            { label: 'มาตรฐานไม่ติดไฟ', val: 'Non-combustible Material ได้รับการรับรองจากกระทรวงญี่ปุ่น' },
+            { label: 'การรับประกัน', val: 'รับประกันคุณภาพผลิตภัณฑ์ยาวนาน 15 ปี' },
+            { label: 'ตัวแทนจำหน่าย', val: 'บจก. เฟมไลน์ โปร์ดักส์ (FAMELINE)' },
+          ]
+        }
+      ]
     },
   ], []);
 
   const activeCatalog = useMemo(() => {
     return catalogsList.find((c) => c.id === selectedCatalogId) || catalogsList[0];
   }, [catalogsList, selectedCatalogId]);
+
+  const handleSelectCatalog = (id: number) => {
+    setSelectedCatalogId(id);
+    setActiveCatalogPage(1);
+  };
 
   // Filter products
   const filteredProducts = useMemo(() => {
@@ -466,49 +901,49 @@ export default function SupperSurfaceSalesPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-amber-500 selection:text-slate-950 pb-28 md:pb-16 w-full max-w-full overflow-x-hidden">
       
-      {/* 1. UNIFIED SLEEK STICKY MENU (Airy, Non-Cramped UI) */}
-      <header className="sticky top-0 z-50 bg-slate-950/85 backdrop-blur-xl border-b border-slate-800/80 transition-all duration-300 shadow-xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-4">
+      {/* 1. UNIFIED MINIMAL STICKY MENU (Clean, Non-wrapping UI + Mobile Hamburger) */}
+      <header className="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/80 transition-all duration-300 shadow-xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
           
           {/* Brand Identity */}
-          <Link href="/supper-surface" className="flex items-center gap-3 group shrink-0">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
+          <Link href="/supper-surface" className="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-300 flex items-center justify-center text-slate-950 font-black shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
               <Layers className="w-5 h-5 text-slate-950" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <span className="text-base sm:text-lg font-black tracking-tight text-white leading-none">
+                <span className="text-sm sm:text-base md:text-lg font-black tracking-tight text-white leading-none">
                   SUPPER SURFACE
                 </span>
-                <span className="text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1.5 py-0.5 rounded font-bold uppercase">
+                <span className="text-[9px] sm:text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-1.5 py-0.5 rounded font-bold uppercase">
                   FAMELINE
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 font-medium tracking-wider hidden sm:block">
+              <p className="text-[10px] sm:text-[11px] text-slate-400 font-medium tracking-wider hidden sm:block">
                 ผู้นำนวัตกรรมวัสดุปิดผิวสถาปัตยกรรม
               </p>
             </div>
           </Link>
 
-          {/* Desktop Navigation (Airy & Well-spaced) */}
-          <nav className="hidden xl:flex items-center gap-7 text-xs sm:text-sm font-medium text-slate-300">
-            <a href="#hero" className="hover:text-amber-400 transition">หน้าแรก</a>
-            <a href="#innovations" className="hover:text-amber-400 transition">จุดเด่นนวัตกรรม</a>
-            <a href="#minimall-catalog" className="hover:text-amber-400 transition">MiniMall แคตตาล็อก</a>
-            <a href="#live-anyflip" className="hover:text-amber-400 transition flex items-center gap-1">
-              <BookCheck className="w-3.5 h-3.5 text-amber-400" />
-              <span>Live AnyFlip</span>
+          {/* Desktop Minimal Navigation (Clean, Non-wrapping Single Line) */}
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-7 text-xs font-semibold text-slate-300">
+            <a href="#hero" className="hover:text-amber-400 transition whitespace-nowrap">หน้าแรก</a>
+            <a href="#innovations" className="hover:text-amber-400 transition whitespace-nowrap">นวัตกรรม</a>
+            <a href="#minimall-catalog" className="hover:text-amber-400 transition whitespace-nowrap">แคตตาล็อก</a>
+            <a href="#live-anyflip" className="hover:text-amber-400 transition whitespace-nowrap flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+              <span>Live E-Book</span>
             </a>
-            <a href="#estimator" className="hover:text-amber-400 transition">คำนวณพื้นที่</a>
-            <a href="#articles" className="hover:text-amber-400 transition">บทความ SEO</a>
-            <a href="#contact-sales" className="hover:text-amber-400 transition">ติดต่อคุณแอล</a>
+            <a href="#estimator" className="hover:text-amber-400 transition whitespace-nowrap">คำนวณพื้นที่</a>
+            <a href="#articles" className="hover:text-amber-400 transition whitespace-nowrap">บทความ</a>
+            <a href="#contact-sales" className="hover:text-amber-400 transition whitespace-nowrap">ติดต่อเรา</a>
           </nav>
 
-          {/* Action Area */}
+          {/* Action Area & Mobile Hamburger */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <a 
               href={salePhoneCallUrl} 
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/40 text-slate-200 text-xs font-semibold transition"
+              className="hidden xl:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/40 text-slate-200 text-xs font-semibold transition"
             >
               <PhoneCall className="w-3.5 h-3.5 text-amber-400" /> 
               <span>{salePhone}</span>
@@ -521,7 +956,7 @@ export default function SupperSurfaceSalesPage() {
               className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 text-xs font-bold transition shadow-sm"
             >
               <MessageCircle className="w-3.5 h-3.5" /> 
-              <span>แอดไลน์ฝ่ายขาย</span>
+              <span>LINE ฝ่ายขาย</span>
             </a>
 
             {/* Cart Trigger */}
@@ -530,47 +965,179 @@ export default function SupperSurfaceSalesPage() {
                 setIsCartOpen(true);
                 setCheckoutStep('cart');
               }}
-              className="relative inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs sm:text-sm shadow-md shadow-amber-500/20 transition active:scale-95"
+              className="relative inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs sm:text-sm shadow-md shadow-amber-500/20 transition active:scale-95"
             >
               <ShoppingCart className="w-4 h-4 text-slate-950" />
-              <span>ตะกร้า</span>
+              <span className="hidden xs:inline">ตะกร้า</span>
               {totalItemCount > 0 && (
                 <span className="w-5 h-5 rounded-full bg-slate-950 text-amber-400 text-xs font-extrabold flex items-center justify-center animate-pulse">
                   {totalItemCount}
                 </span>
               )}
             </button>
+
+            {/* Mobile Hamburger Trigger */}
+            <button
+              onClick={() => setIsMobileNavOpen(true)}
+              className="lg:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-amber-500/40 transition active:scale-95"
+              aria-label="เปิดเมนูนำทาง"
+            >
+              <Menu className="w-5 h-5 text-amber-400" />
+            </button>
           </div>
         </div>
       </header>
 
-      {/* 2. CINEMATIC HERO SECTION (Unobstructed 16:9 Facade - Card Removed) */}
-      <section id="hero" className="relative min-h-[90vh] sm:min-h-[640px] lg:min-h-[720px] flex flex-col justify-center overflow-hidden bg-slate-950 text-white">
+      {/* 1.1 MOBILE NAVIGATION DRAWER (Slide-over) */}
+      {isMobileNavOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-slate-950/85 backdrop-blur-sm transition-opacity"
+            onClick={() => setIsMobileNavOpen(false)}
+          />
+
+          {/* Drawer Body */}
+          <div className="fixed inset-y-0 right-0 w-full max-w-xs bg-slate-950 border-l border-slate-800 p-6 flex flex-col justify-between shadow-2xl z-10 animate-in slide-in-from-right duration-300">
+            <div className="space-y-6">
+              
+              {/* Drawer Header */}
+              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950 font-black">
+                    <Layers className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-white">SUPPER SURFACE</div>
+                    <div className="text-[10px] text-amber-400 font-semibold">FAMELINE GROUP</div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setIsMobileNavOpen(false)}
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-900 transition"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Navigation Links */}
+              <nav className="flex flex-col space-y-1 text-sm font-medium text-slate-200">
+                <a 
+                  href="#hero" 
+                  onClick={() => setIsMobileNavOpen(false)}
+                  className="px-3.5 py-2.5 rounded-xl hover:bg-slate-900 hover:text-amber-400 transition flex items-center justify-between"
+                >
+                  <span>หน้าแรก</span>
+                  <ArrowRight className="w-4 h-4 text-slate-600" />
+                </a>
+                <a 
+                  href="#innovations" 
+                  onClick={() => setIsMobileNavOpen(false)}
+                  className="px-3.5 py-2.5 rounded-xl hover:bg-slate-900 hover:text-amber-400 transition flex items-center justify-between"
+                >
+                  <span>จุดเด่นนวัตกรรม</span>
+                  <ArrowRight className="w-4 h-4 text-slate-600" />
+                </a>
+                <a 
+                  href="#minimall-catalog" 
+                  onClick={() => setIsMobileNavOpen(false)}
+                  className="px-3.5 py-2.5 rounded-xl hover:bg-slate-900 hover:text-amber-400 transition flex items-center justify-between"
+                >
+                  <span>MiniMall แคตตาล็อก</span>
+                  <span className="text-[10px] bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded font-bold">9 รายการ</span>
+                </a>
+                <a 
+                  href="#live-anyflip" 
+                  onClick={() => setIsMobileNavOpen(false)}
+                  className="px-3.5 py-2.5 rounded-xl hover:bg-slate-900 hover:text-amber-400 transition flex items-center justify-between"
+                >
+                  <span className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                    <span>Live E-Book แคตตาล็อก</span>
+                  </span>
+                  <ArrowRight className="w-4 h-4 text-slate-600" />
+                </a>
+                <a 
+                  href="#estimator" 
+                  onClick={() => setIsMobileNavOpen(false)}
+                  className="px-3.5 py-2.5 rounded-xl hover:bg-slate-900 hover:text-amber-400 transition flex items-center justify-between"
+                >
+                  <span>คำนวณพื้นที่ & งบประมาณ</span>
+                  <ArrowRight className="w-4 h-4 text-slate-600" />
+                </a>
+                <a 
+                  href="#articles" 
+                  onClick={() => setIsMobileNavOpen(false)}
+                  className="px-3.5 py-2.5 rounded-xl hover:bg-slate-900 hover:text-amber-400 transition flex items-center justify-between"
+                >
+                  <span>คลังบทความสถาปัตยกรรม (SEO)</span>
+                  <ArrowRight className="w-4 h-4 text-slate-600" />
+                </a>
+                <a 
+                  href="#contact-sales" 
+                  onClick={() => setIsMobileNavOpen(false)}
+                  className="px-3.5 py-2.5 rounded-xl hover:bg-slate-900 hover:text-amber-400 transition flex items-center justify-between"
+                >
+                  <span>ติดต่อคุณแอล (ฝ่ายขาย)</span>
+                  <ArrowRight className="w-4 h-4 text-slate-600" />
+                </a>
+              </nav>
+
+            </div>
+
+            {/* Drawer Bottom Actions */}
+            <div className="space-y-3 pt-6 border-t border-slate-800">
+              <a
+                href={salePhoneCallUrl}
+                className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white font-bold text-xs"
+              >
+                <PhoneCall className="w-4 h-4 text-amber-400" />
+                <span>โทรสายตรง: {salePhone}</span>
+              </a>
+              <a
+                href={lineUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span>แอดไลน์ฝ่ายขาย (@0661685157)</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* 2. CINEMATIC HERO SECTION (Sites.SalesDesk Architectural Aesthetic - Open Breathing Room) */}
+      <section id="hero" className="relative min-h-[82vh] sm:min-h-[640px] lg:min-h-[720px] flex flex-col justify-between sm:justify-center overflow-hidden bg-slate-950 text-white">
         
         {/* Full-Bleed 16:9 Cinematic Background Image */}
         <div className="absolute inset-0 z-0">
           <img
             src="/images/suppersurface/hero-cinematic.jpg"
             alt="Supper Surface by Fameline นวัตกรรมวัสดุปิดผิวสถาปัตยกรรม Facade หินวีเนียร์ MCM ฝ้า ระแนง คอมโพสิต นิชิฮะ"
-            className="w-full h-full object-cover object-[70%_center] lg:object-right brightness-105 contrast-[1.03] transition-all duration-700"
+            className="w-full h-full object-cover object-[75%_center] sm:object-center brightness-105 contrast-[1.04] transition-all duration-700"
           />
           
           {/* Desktop Left Scrim: Darkens left side for text readability while leaving right 50% totally open */}
-          <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 via-48% to-transparent" />
+          <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 via-48% to-transparent" />
           
-          {/* Mobile Scrim: Top & Bottom soft fades */}
-          <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-slate-950/95 via-slate-950/50 via-30% to-transparent" />
-          <div className="lg:hidden absolute bottom-0 inset-x-0 h-72 bg-gradient-to-t from-slate-950 via-slate-950/90 via-60% to-transparent" />
+          {/* Mobile Scrim (Sites.SalesDesk AI Signature): Clean top header shadow & sleek bottom CTA fade, leaving middle 50% open for the architectural masterpiece */}
+          <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/20 via-35% to-transparent" />
+          <div className="lg:hidden absolute bottom-0 inset-x-0 h-64 bg-gradient-to-t from-slate-950 via-slate-950/90 via-55% to-transparent" />
           <div className="hidden lg:block absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-slate-950 to-transparent" />
         </div>
 
         {/* Hero Content Container (Clean Negative Space, 100% Grand Unobstructed View) */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20 relative z-10 w-full">
-          <div className="max-w-2xl lg:max-w-3xl space-y-4 sm:space-y-6 text-center lg:text-left">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 sm:pt-16 pb-12 sm:pb-20 relative z-10 w-full flex-1 flex flex-col justify-between sm:justify-center">
+          
+          {/* Top/Center Text Block */}
+          <div className="max-w-2xl lg:max-w-3xl space-y-3.5 sm:space-y-6 text-center sm:text-left">
             
             {/* Authority Badge */}
-            <div className="inline-flex items-center gap-2 bg-slate-950/80 border border-amber-500/40 text-amber-300 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold backdrop-blur-md shadow-lg shadow-slate-950/60">
-              <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+            <div className="inline-flex items-center gap-2 bg-slate-950/80 border border-amber-500/40 text-amber-300 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold backdrop-blur-md shadow-lg shadow-slate-950/60">
+              <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 shrink-0" />
               <span>ผู้นำนวัตกรรมวัสดุปิดผิวสถาปัตยกรรม • FAMELINE GROUP</span>
             </div>
 
@@ -582,15 +1149,15 @@ export default function SupperSurfaceSalesPage() {
               </span>
             </h1>
 
-            {/* Subheadline */}
-            <p className="text-sm sm:text-base md:text-lg text-slate-200 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)] max-w-2xl">
+            {/* Subheadline (Clean on Mobile, avoids cluttering the photo) */}
+            <p className="text-xs sm:text-base md:text-lg text-slate-200 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)] max-w-2xl line-clamp-3 sm:line-clamp-none">
               ศูนย์รวมนวัตกรรมวัสดุ Facade, <strong>หินวีเนียร์ MCM ยืดหยุ่นดัดโค้งได้</strong>, ไม้เทียม WPC, 
               ฝ้าอลูมิเนียม 85C/85F, ระแนงอลูมิเนียม Louver, คอมโพสิต <strong>DECO & ALTEX</strong>, 
               และแผ่นไฟเบอร์ซีเมนต์ <strong>NICHIHA ญี่ปุ่น</strong> มาตรฐานโปรเจกต์ระดับประเทศ
             </p>
 
             {/* CTAs */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3">
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-2.5 sm:gap-3">
               <a
                 href="#minimall-catalog"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm sm:text-base shadow-lg shadow-amber-500/25 transition active:scale-95"
@@ -608,26 +1175,33 @@ export default function SupperSurfaceSalesPage() {
               </a>
             </div>
 
-            {/* Trust Metrics Bar */}
-            <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 text-left max-w-2xl">
-              <div className="bg-slate-900/75 border border-slate-800 rounded-xl p-3 backdrop-blur-md">
-                <div className="text-amber-400 font-extrabold text-lg sm:text-xl">30+ ปี</div>
-                <div className="text-[11px] text-slate-400">ประสบการณ์ Fameline</div>
-              </div>
-              <div className="bg-slate-900/75 border border-slate-800 rounded-xl p-3 backdrop-blur-md">
-                <div className="text-amber-400 font-extrabold text-lg sm:text-xl">2,500+</div>
-                <div className="text-[11px] text-slate-400">โครงการระดับประเทศ</div>
-              </div>
-              <div className="bg-slate-900/75 border border-slate-800 rounded-xl p-3 backdrop-blur-md">
-                <div className="text-amber-400 font-extrabold text-lg sm:text-xl">FR Class A2</div>
-                <div className="text-[11px] text-slate-400">มาตรฐานทนไฟสากล</div>
-              </div>
-              <div className="bg-slate-900/75 border border-slate-800 rounded-xl p-3 backdrop-blur-md">
-                <div className="text-amber-400 font-extrabold text-lg sm:text-xl">100% B2B</div>
-                <div className="text-[11px] text-slate-400">ใบเสนอราคา & ชำระในนาม บจก.</div>
-              </div>
-            </div>
+          </div>
 
+        </div>
+      </section>
+
+      {/* 2.1 DEDICATED AUTHORITY PROOF BAR (Positioned Below Hero for Max Breathing Room) */}
+      <section className="relative z-10 -mt-6 sm:-mt-8 max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="bg-slate-900/95 border border-slate-800/90 rounded-2xl p-4 sm:p-5 backdrop-blur-xl shadow-2xl grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 divide-y sm:divide-y-0 divide-slate-800 sm:divide-x divide-slate-800">
+          <div className="pt-2 sm:pt-0 sm:px-3 text-left">
+            <div className="text-amber-400 font-black text-xl sm:text-2xl">30+ ปี</div>
+            <div className="text-xs text-slate-300 font-medium">ประสบการณ์ระดับประเทศ</div>
+            <div className="text-[11px] text-slate-500">บจก. เฟมไลน์ โปร์ดักส์</div>
+          </div>
+          <div className="pt-2 sm:pt-0 sm:px-3 text-left">
+            <div className="text-amber-400 font-black text-xl sm:text-2xl">2,500+</div>
+            <div className="text-xs text-slate-300 font-medium">โครงการชั้นนำทั่วไทย</div>
+            <div className="text-[11px] text-slate-500">อาคารสูง ห้างสรรพสินค้า โชว์รูม</div>
+          </div>
+          <div className="pt-2 sm:pt-0 sm:px-3 text-left">
+            <div className="text-amber-400 font-black text-xl sm:text-2xl">FR Class A2</div>
+            <div className="text-xs text-slate-300 font-medium">มาตรฐานทนไฟสากล</div>
+            <div className="text-[11px] text-slate-500">ผ่านการทดสอบ ASTM / BS / ISO</div>
+          </div>
+          <div className="pt-2 sm:pt-0 sm:px-3 text-left">
+            <div className="text-amber-400 font-black text-xl sm:text-2xl">100% B2B</div>
+            <div className="text-xs text-slate-300 font-medium">ใบเสนอราคา & ชำระในนาม บจก.</div>
+            <div className="text-[11px] text-slate-500">ออกใบกำกับภาษีเต็มรูปแบบ</div>
           </div>
         </div>
       </section>
@@ -651,7 +1225,7 @@ export default function SupperSurfaceSalesPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             {/* Pillar 1 */}
-            <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 hover:border-amber-500/40 transition space-y-4">
+            <div className="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 hover:border-amber-500/40 transition space-y-4 shadow-xl">
               <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
                 <Compass className="w-6 h-6" />
               </div>
@@ -666,7 +1240,7 @@ export default function SupperSurfaceSalesPage() {
             </div>
 
             {/* Pillar 2 */}
-            <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 hover:border-amber-500/40 transition space-y-4">
+            <div className="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 hover:border-amber-500/40 transition space-y-4 shadow-xl">
               <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
                 <ShieldCheck className="w-6 h-6" />
               </div>
@@ -681,7 +1255,7 @@ export default function SupperSurfaceSalesPage() {
             </div>
 
             {/* Pillar 3 */}
-            <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 hover:border-amber-500/40 transition space-y-4">
+            <div className="bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 hover:border-amber-500/40 transition space-y-4 shadow-xl">
               <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
                 <Sparkles className="w-6 h-6" />
               </div>
@@ -700,7 +1274,7 @@ export default function SupperSurfaceSalesPage() {
         </div>
       </section>
 
-      {/* 4. MINIMALL PREMIUM CATALOG & INTERACTIVE CART SYSTEM */}
+      {/* 4. MINIMALL PREMIUM CATALOG & INTERACTIVE CART SYSTEM (Floating 3D Luxury Cards) */}
       <section id="minimall-catalog" className="py-16 md:py-24 bg-slate-950 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           
@@ -818,13 +1392,16 @@ export default function SupperSurfaceSalesPage() {
               </button>
             </div>
           ) : viewMode === 'grid' ? (
-            /* GRID VIEW */
+            /* GRID VIEW (Floating 3D Premium Cards: Elevated Dual-Tone Slate Gradient + Accent Highlight) */
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProducts.map((product) => (
                 <div
                   key={product.id}
-                  className="bg-slate-900/70 border border-slate-800 rounded-2xl overflow-hidden hover:border-amber-500/50 transition-all duration-300 flex flex-col justify-between group shadow-xl hover:shadow-amber-500/5"
+                  className="group relative bg-gradient-to-b from-slate-900 via-slate-900/95 to-slate-950 border border-slate-700/60 hover:border-amber-400/60 rounded-2xl overflow-hidden transition-all duration-300 flex flex-col justify-between shadow-[0_16px_36px_-6px_rgba(0,0,0,0.85)] hover:shadow-[0_24px_50px_-8px_rgba(245,158,11,0.2)] hover:-translate-y-2"
                 >
+                  {/* Top Specular Glow Line for Luxury Feel */}
+                  <div className="absolute inset-x-0 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-amber-500/40 to-transparent group-hover:via-amber-400 transition" />
+
                   {/* Image Container */}
                   <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
                     <img
@@ -832,10 +1409,10 @@ export default function SupperSurfaceSalesPage() {
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-85" />
                     
                     {/* Badge */}
-                    <div className="absolute top-3 left-3 bg-slate-950/80 border border-amber-500/30 text-amber-300 px-2.5 py-1 rounded-lg text-[11px] font-bold backdrop-blur-md">
+                    <div className="absolute top-3 left-3 bg-slate-950/85 border border-amber-500/40 text-amber-300 px-2.5 py-1 rounded-lg text-[11px] font-bold backdrop-blur-md shadow-md">
                       {product.badge}
                     </div>
 
@@ -845,7 +1422,7 @@ export default function SupperSurfaceSalesPage() {
                         const matchCat = catalogsList.find(c => c.productId === product.id) || catalogsList[0];
                         setActiveModalCatalog(matchCat);
                       }}
-                      className="absolute top-3 right-3 bg-slate-900/80 hover:bg-amber-500 text-slate-300 hover:text-slate-950 p-2 rounded-lg text-xs backdrop-blur-md transition shadow flex items-center gap-1"
+                      className="absolute top-3 right-3 bg-slate-900/85 hover:bg-amber-500 text-slate-300 hover:text-slate-950 p-2 rounded-lg text-xs backdrop-blur-md transition shadow-md flex items-center gap-1.5 border border-slate-700/80"
                       title="พรีวิวสเปกแคตตาล็อก"
                     >
                       <Eye className="w-3.5 h-3.5" />
@@ -854,10 +1431,10 @@ export default function SupperSurfaceSalesPage() {
 
                     {/* Code & Unit */}
                     <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-slate-300 font-mono">
-                      <span className="bg-slate-900/90 px-2 py-0.5 rounded border border-slate-800 text-amber-400 font-bold">
+                      <span className="bg-slate-950/95 px-2 py-0.5 rounded border border-slate-800 text-amber-400 font-bold shadow">
                         {product.code}
                       </span>
-                      <span className="bg-slate-900/90 px-2 py-0.5 rounded border border-slate-800 text-slate-300">
+                      <span className="bg-slate-950/95 px-2 py-0.5 rounded border border-slate-800 text-slate-300 shadow">
                         หน่วย: {product.unit}
                       </span>
                     </div>
@@ -876,7 +1453,8 @@ export default function SupperSurfaceSalesPage() {
                         {product.spec}
                       </p>
                       
-                      <div className="mt-3 text-xs text-slate-300 bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/80 space-y-1">
+                      {/* Contrasting Dark Inner Plate */}
+                      <div className="mt-3 text-xs text-slate-300 bg-slate-950/90 p-3 rounded-xl border border-slate-800/90 shadow-inner space-y-1">
                         <div className="text-slate-400 font-medium">สเปก & ขนาด:</div>
                         <div className="font-semibold text-white">{product.size}</div>
                       </div>
@@ -908,7 +1486,7 @@ export default function SupperSurfaceSalesPage() {
                             const matchCat = catalogsList.find(c => c.productId === product.id) || catalogsList[0];
                             setActiveModalCatalog(matchCat);
                           }}
-                          className="p-2.5 rounded-xl border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition"
+                          className="p-2.5 rounded-xl border border-slate-700 hover:border-amber-400 text-slate-300 hover:text-white transition bg-slate-950/80"
                           title="พรีวิวสเปกแคตตาล็อกบนหน้าเว็บ"
                         >
                           <FileText className="w-4 h-4" />
@@ -930,9 +1508,9 @@ export default function SupperSurfaceSalesPage() {
             </div>
           ) : (
             /* TABLE SPEC COMPARISON VIEW */
-            <div className="overflow-x-auto bg-slate-900/60 border border-slate-800 rounded-2xl">
+            <div className="overflow-x-auto bg-slate-900/90 border border-slate-700/60 rounded-2xl shadow-xl">
               <table className="w-full text-left text-xs sm:text-sm">
-                <thead className="bg-slate-950/80 text-slate-400 text-[11px] uppercase border-b border-slate-800">
+                <thead className="bg-slate-950/90 text-slate-400 text-[11px] uppercase border-b border-slate-800">
                   <tr>
                     <th className="p-3.5">รหัส / รูปภาพ</th>
                     <th className="p-3.5">ชื่อผลิตภัณฑ์ & สเปก</th>
@@ -944,13 +1522,13 @@ export default function SupperSurfaceSalesPage() {
                 </thead>
                 <tbody className="divide-y divide-slate-800/60 text-slate-300">
                   {filteredProducts.map((product) => (
-                    <tr key={product.id} className="hover:bg-slate-900/50 transition">
+                    <tr key={product.id} className="hover:bg-slate-800/50 transition">
                       <td className="p-3.5">
                         <div className="flex items-center gap-3">
                           <img
                             src={product.image}
                             alt={product.name}
-                            className="w-12 h-12 rounded-lg object-cover bg-slate-950 shrink-0 border border-slate-800"
+                            className="w-12 h-12 rounded-lg object-cover bg-slate-950 shrink-0 border border-slate-800 shadow"
                           />
                           <div>
                             <span className="font-mono text-xs font-bold text-amber-400 block">{product.code}</span>
@@ -997,28 +1575,28 @@ export default function SupperSurfaceSalesPage() {
         </div>
       </section>
 
-      {/* 5. LIVE ANYFLIP E-BOOK & IN-PAGE SPEC PREVIEW SECTION */}
+      {/* 5. LIVE E-BOOK & IN-PAGE ARCHITECTURAL SPEC PREVIEW (Mobile-Flawless Flipbook Engine) */}
       <section id="live-anyflip" className="py-16 md:py-24 bg-slate-900/40 border-y border-slate-900 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           
-          <div className="text-center max-w-3xl mx-auto space-y-3 mb-10">
+          <div className="text-center max-w-3xl mx-auto space-y-3 mb-8">
             <span className="text-xs font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3.5 py-1 rounded-full">
-              Live AnyFlip Interactive E-Book
+              Interactive E-Book Spec Preview
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
               พรีวิวแคตตาล็อกสเปกออนไลน์ ฉบับสมบูรณ์ (บนหน้าเว็บทันที)
             </h2>
             <p className="text-xs sm:text-sm text-slate-400">
-              เปิดอ่านแบบจำลอง 3D Flipbook และตรวจสอบสเปกวิศวกรรมได้ทันทีบนหน้านี้ ไม่ต้องกดดาวน์โหลดหรือสลับไปหน้าอื่น
+              เปิดอ่านแบบจำลองแคตตาล็อกสเปกวิศวกรรมได้ทันทีบนหน้านี้ ทั้งบนมือถือและคอมพิวเตอร์ ไม่ส่งออกไปนอกเว็บไซต์
             </p>
           </div>
 
           {/* 9 Catalogs Selector Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 scrollbar-thin">
+          <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 scrollbar-thin">
             {catalogsList.map((cat) => (
               <button
                 key={cat.id}
-                onClick={() => setSelectedCatalogId(cat.id)}
+                onClick={() => handleSelectCatalog(cat.id)}
                 className={`px-3.5 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition flex items-center gap-2 border ${
                   selectedCatalogId === cat.id
                     ? 'bg-amber-500 text-slate-950 border-amber-500 font-bold shadow-lg shadow-amber-500/20'
@@ -1031,24 +1609,49 @@ export default function SupperSurfaceSalesPage() {
           </div>
 
           {/* In-Page Interactive Showcase Box */}
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl p-5 sm:p-8 shadow-2xl space-y-6">
+          <div className="bg-slate-950 border border-slate-800/90 rounded-3xl p-4 sm:p-8 shadow-2xl space-y-6">
             
+            {/* Catalog Info Header */}
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-slate-800">
               <div>
                 <div className="inline-flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-wider mb-1">
                   <span>{activeCatalog.categoryName}</span> • <span className="font-mono">{activeCatalog.code}</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-white">{activeCatalog.title}</h3>
+                <h3 className="text-lg sm:text-2xl font-black text-white">{activeCatalog.title}</h3>
                 <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">{activeCatalog.desc}</p>
               </div>
 
-              <div className="flex items-center gap-3 shrink-0">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3 shrink-0">
+                {/* Desktop Toggle: Native In-Page Reader vs AnyFlip Cloud Reader */}
+                <div className="hidden sm:inline-flex bg-slate-900 border border-slate-800 rounded-xl p-1 text-xs">
+                  <button
+                    onClick={() => setCatalogViewerMode('native')}
+                    className={`px-3 py-1.5 rounded-lg font-bold transition ${
+                      catalogViewerMode === 'native'
+                        ? 'bg-amber-500 text-slate-950'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    📖 E-Book จำลองบนเว็บ
+                  </button>
+                  <button
+                    onClick={() => setCatalogViewerMode('iframe')}
+                    className={`px-3 py-1.5 rounded-lg font-bold transition ${
+                      catalogViewerMode === 'iframe'
+                        ? 'bg-amber-500 text-slate-950'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    🌐 AnyFlip 3D iFrame
+                  </button>
+                </div>
+
                 <button
                   onClick={() => {
                     const matchProd = products.find(p => p.id === activeCatalog.productId);
                     if (matchProd) addToCart(matchProd, 1);
                   }}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-bold text-xs sm:text-sm shadow-md transition active:scale-95"
+                  className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-bold text-xs sm:text-sm shadow-md transition active:scale-95"
                 >
                   <Plus className="w-4 h-4" />
                   <span>ใส่ตะกร้า (฿{activeCatalog.price.toLocaleString()} /{activeCatalog.unit})</span>
@@ -1057,29 +1660,160 @@ export default function SupperSurfaceSalesPage() {
             </div>
 
             {/* Spec Highlights Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 text-xs">
               {activeCatalog.specs.map((sp: string, idx: number) => (
-                <div key={idx} className="bg-slate-900/80 border border-slate-800 rounded-xl p-3 flex items-start gap-2">
+                <div key={idx} className="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 sm:p-3 flex items-start gap-2 shadow-sm">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                  <span className="text-slate-200 font-medium">{sp}</span>
+                  <span className="text-slate-200 font-medium text-[11px] sm:text-xs">{sp}</span>
                 </div>
               ))}
             </div>
 
-            {/* Live AnyFlip Embedded Reader */}
-            <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl">
-              <iframe
-                src={activeCatalog.iframeUrl}
-                className="w-full h-full border-0"
-                allowFullScreen
-                title={activeCatalog.title}
-              />
-            </div>
+            {/* INTERACTIVE IN-PAGE FLIPBOOK VIEWER (Guaranteed 100% Mobile & Desktop Support) */}
+            {catalogViewerMode === 'native' ? (
+              <div className="space-y-4">
+                
+                {/* Book Spread Canvas */}
+                <div className="relative bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-8 shadow-2xl overflow-hidden">
+                  
+                  {/* Subtle Book Spine Center Lighting */}
+                  <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-8 bg-gradient-to-r from-transparent via-black/40 to-transparent pointer-events-none hidden md:block" />
 
-            <div className="flex items-center justify-between text-[11px] text-slate-500 pt-2">
-              <span>* รองรับการเปิดอ่านบนมือถือและแท็บเล็ต หมุนหน้าจอแนวนอนเพื่ออ่านแบบ 2 หน้าคู่</span>
-              <span className="text-amber-400 font-semibold">Supper Surface Official E-Book Catalog</span>
-            </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                    
+                    {/* Left Spread: High-Res Spec Graphic & Visual */}
+                    <div className="relative aspect-[16/11] rounded-xl overflow-hidden bg-slate-950 border border-slate-800/90 shadow-xl group">
+                      <img
+                        src={activeCatalog.image}
+                        alt={activeCatalog.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-85" />
+                      
+                      <div className="absolute top-3 left-3 bg-slate-950/90 border border-amber-500/40 text-amber-300 px-2.5 py-1 rounded text-xs font-mono font-bold">
+                        {activeCatalog.code}
+                      </div>
+
+                      <div className="absolute bottom-3 left-3 right-3 text-xs text-white">
+                        <div className="font-bold text-amber-400">{activeCatalog.title}</div>
+                        <div className="text-[11px] text-slate-300">เอกสารสเปกวิศวกรรมสถาปัตยกรรมฉบับทางการ</div>
+                      </div>
+                    </div>
+
+                    {/* Right Spread: Interactive Spec Data Page */}
+                    <div className="space-y-4 flex flex-col justify-between">
+                      {(() => {
+                        const curPage = activeCatalog.pages?.[activeCatalogPage - 1] || activeCatalog.pages?.[0];
+                        return (
+                          <div className="space-y-4">
+                            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                              <div>
+                                <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">
+                                  {activeCatalog.categoryName} • SPEC SHEET
+                                </span>
+                                <h4 className="text-base sm:text-lg font-bold text-white">
+                                  {curPage?.title}
+                                </h4>
+                              </div>
+                              <span className="text-xs font-mono bg-slate-900 border border-slate-800 px-2.5 py-1 rounded-lg text-slate-300 font-bold">
+                                หน้า {activeCatalogPage} / {activeCatalog.totalPages || 4}
+                              </span>
+                            </div>
+
+                            <p className="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800/80">
+                              {curPage?.summary}
+                            </p>
+
+                            <div className="grid grid-cols-1 gap-2 text-xs">
+                              {curPage?.items.map((row: any, rIdx: number) => (
+                                <div key={rIdx} className="bg-slate-950/80 p-2.5 rounded-lg border border-slate-800/80 flex items-center justify-between gap-3">
+                                  <span className="text-slate-400 text-[11px] font-medium">{row.label}:</span>
+                                  <span className="text-white font-semibold text-[11px] text-right">{row.val}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })()}
+
+                      {/* Flip Controllers Bar */}
+                      <div className="pt-4 border-t border-slate-800 flex items-center justify-between gap-3">
+                        <button
+                          onClick={() => setActiveCatalogPage(prev => Math.max(1, prev - 1))}
+                          disabled={activeCatalogPage <= 1}
+                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-400 disabled:opacity-40 text-xs font-semibold text-slate-200 transition"
+                        >
+                          <ChevronLeft className="w-4 h-4 text-amber-400" />
+                          <span>หน้าก่อนหน้า</span>
+                        </button>
+
+                        {/* Page Pill Indicators */}
+                        <div className="flex items-center gap-1.5">
+                          {[1, 2, 3, 4].map((pNum) => (
+                            <button
+                              key={pNum}
+                              onClick={() => setActiveCatalogPage(pNum)}
+                              className={`w-7 h-7 rounded-lg text-xs font-mono font-bold transition ${
+                                activeCatalogPage === pNum
+                                  ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
+                                  : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-white'
+                              }`}
+                            >
+                              {pNum}
+                            </button>
+                          ))}
+                        </div>
+
+                        <button
+                          onClick={() => setActiveCatalogPage(prev => Math.min(activeCatalog.totalPages || 4, prev + 1))}
+                          disabled={activeCatalogPage >= (activeCatalog.totalPages || 4)}
+                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-400 disabled:opacity-40 text-xs font-semibold text-slate-200 transition"
+                        >
+                          <span>หน้าถัดไป</span>
+                          <ChevronRight className="w-4 h-4 text-amber-400" />
+                        </button>
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* Mobile Quick Flip Selector */}
+                <div className="flex items-center justify-between text-[11px] text-slate-400 px-1">
+                  <span>💡 แตะปุ่มเลขหน้า 1-4 เพื่อสลับดูหัวข้อสเปก ขนาด การติดตั้ง และใบรับรอง</span>
+                  <button
+                    onClick={() => setActiveModalCatalog(activeCatalog)}
+                    className="text-amber-400 hover:underline font-bold inline-flex items-center gap-1"
+                  >
+                    <Maximize2 className="w-3.5 h-3.5" />
+                    <span>ขยายพรีวิวแบบเต็มจอ</span>
+                  </button>
+                </div>
+
+              </div>
+            ) : (
+              /* AnyFlip 3D iFrame Viewer (For Desktop or when explicitly selected) */
+              <div className="space-y-3">
+                <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl">
+                  <iframe
+                    src={activeCatalog.iframeUrl}
+                    className="w-full h-full border-0"
+                    allowFullScreen
+                    title={activeCatalog.title}
+                  />
+                </div>
+                <div className="flex items-center justify-between text-[11px] text-slate-500">
+                  <span>* สามารถกดสลับกลับเป็น "E-Book จำลองบนเว็บ" ได้ตลอดเวลาเพื่อการเปิดที่รวดเร็วยิ่งขึ้น</span>
+                  <button
+                    onClick={() => setCatalogViewerMode('native')}
+                    className="text-amber-400 hover:underline font-semibold"
+                  >
+                    สลับกลับเป็น E-Book บนเว็บ
+                  </button>
+                </div>
+              </div>
+            )}
 
           </div>
 
@@ -1237,7 +1971,7 @@ export default function SupperSurfaceSalesPage() {
             {getAllSupperSurfacePosts().map((post) => (
               <article
                 key={post.id}
-                className="bg-slate-900/60 border border-slate-800 rounded-2xl overflow-hidden hover:border-amber-500/50 transition duration-300 flex flex-col justify-between group shadow-xl"
+                className="bg-gradient-to-b from-slate-900 via-slate-900/90 to-slate-950 border border-slate-800 rounded-2xl overflow-hidden hover:border-amber-500/50 transition duration-300 flex flex-col justify-between group shadow-xl hover:-translate-y-1.5"
               >
                 <div>
                   <Link href={`/supper-surface/blog/${post.slug}`} className="block relative aspect-[16/10] overflow-hidden bg-slate-950">
@@ -1292,7 +2026,7 @@ export default function SupperSurfaceSalesPage() {
       <section id="contact-sales" className="py-16 md:py-24 bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           
-          <div className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl">
+          <div className="bg-gradient-to-b from-slate-900 via-slate-900/90 to-slate-950 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               
               {/* Left Column: Premium Architectural Showcase Photo */}
@@ -1497,7 +2231,7 @@ export default function SupperSurfaceSalesPage() {
                       {cart.map((item) => (
                         <div
                           key={item.id}
-                          className="bg-slate-950 border border-slate-800 rounded-xl p-3.5 flex items-center justify-between gap-3"
+                          className="bg-slate-950 border border-slate-800 rounded-xl p-3.5 flex items-center justify-between gap-3 shadow"
                         >
                           <img
                             src={item.image}
@@ -1543,7 +2277,7 @@ export default function SupperSurfaceSalesPage() {
                       ))}
 
                       {/* Total Breakdown */}
-                      <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
+                      <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs shadow-inner">
                         <div className="flex justify-between text-slate-400">
                           <span>ยอดรวมก่อนภาษี:</span>
                           <span className="font-semibold text-white">฿{subtotal.toLocaleString()}</span>
@@ -1752,7 +2486,7 @@ export default function SupperSurfaceSalesPage() {
                   </div>
 
                   {/* Total to Pay */}
-                  <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center">
+                  <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 flex justify-between items-center shadow-inner">
                     <span className="text-xs text-slate-400">ยอดที่ต้องชำระสุทธิ (รวม VAT 7%):</span>
                     <span className="text-xl font-black text-amber-400">฿{grandTotal.toLocaleString()}</span>
                   </div>

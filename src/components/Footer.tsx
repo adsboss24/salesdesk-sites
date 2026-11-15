@@ -10,11 +10,8 @@ import {
   MessageCircle, 
   Mail, 
   ShieldCheck, 
-  Cpu, 
   Globe,
-  Clock,
-  Layers,
-  CheckCircle2
+  Clock
 } from 'lucide-react';
 
 export default function PremiumFooter() {
@@ -30,7 +27,7 @@ export default function PremiumFooter() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 sm:gap-12 items-start">
           
-          {/* Column 1: Brand & Architecture Standards (Image 3 moved here) */}
+          {/* Column 1: Brand & Studio Vision */}
           <div className="md:col-span-1 lg:col-span-4 space-y-5">
             <div className="flex items-center gap-3">
               <Image 
@@ -54,40 +51,6 @@ export default function PremiumFooter() {
               สตูดิโอออกแบบเว็บไซต์และเซลเพจสไตล์ Cinematic ปิดการขายด้วยหลักจิตวิทยาขั้นสูง 
               ผสานเทคโนโลยี AI อัจฉริยะ สถาปัตยกรรม 16:9 ไม่บังภาพบนมือถือ พร้อมระบบวัดผล Conversion Tracking ครบวงจร
             </p>
-
-            {/* BLOCK IMAGE 3: Architecture & Ad Tech Standards (Moved to Column 1) */}
-            <div className="pt-4 border-t border-slate-800/80 space-y-3">
-              <h4 className="text-sm font-bold text-white tracking-wide uppercase flex items-center gap-2">
-                <Cpu className="w-4 h-4 text-teal-400" />
-                <span>มาตรฐานสถาปัตยกรรม & แอด</span>
-              </h4>
-              <ul className="space-y-2 text-xs text-slate-400">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span className="text-emerald-300 font-semibold">Technical SEO & Schema ติดหน้า 1 Google</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
-                  <span>ด้วยเทคโนโลยี AI โหลดไว 0.8 วิ</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
-                  <span>Google Tag Manager & GA4 เต็มระบบ</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
-                  <span>Meta Pixel + Conversions API (CAPI)</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
-                  <span>TikTok Pixel & LINE Tag Integration</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0" />
-                  <span>Custom Events ดัก Retargeting ทุกปุ่ม</span>
-                </li>
-              </ul>
-            </div>
           </div>
 
           {/* Column 2: Headquarters & Corporate Info (Image 2 moved to replace Image 3) */}

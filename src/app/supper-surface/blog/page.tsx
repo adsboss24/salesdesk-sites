@@ -19,7 +19,7 @@ export default function SupperSurfaceBlogIndexPage() {
   const siteUrl = 'https://sites.salesdesk-ai.com';
   const salePhone = '066-168-5157';
   const salePhoneCallUrl = 'tel:0661685157';
-  const lineUrl = 'https://line.me/ti/p/~0661685157';
+  const lineUrl = 'https://line.me/ti/p/8LzX_47dFe';
 
   const itemListSchema = {
     '@context': 'https://schema.org',

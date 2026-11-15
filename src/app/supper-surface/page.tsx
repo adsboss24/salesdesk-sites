@@ -38,7 +38,9 @@ import {
   Menu,
   ChevronLeft,
   ChevronRight,
-  Maximize2
+  Maximize2,
+  Copy,
+  Loader2
 } from 'lucide-react';
 import { getAllSupperSurfacePosts } from '@/lib/supper-surface-posts';
 
@@ -71,7 +73,9 @@ export default function SupperSurfaceSalesPage() {
   const salePhoneCallUrl = 'tel:0661685157';
   const saleEmail = 'sovaluck@fameline.com';
   const facebookPageUrl = 'https://www.facebook.com/suppersurface';
-  const lineUrl = 'https://line.me/ti/p/~0661685157';
+  
+  // Official Verified LINE Account from QR Code
+  const lineUrl = 'https://line.me/ti/p/8LzX_47dFe';
 
   // Bank Account Information (Used inside Cart Drawer)
   const scbAccount = {
@@ -95,11 +99,12 @@ export default function SupperSurfaceSalesPage() {
   const [checkoutStep, setCheckoutStep] = useState<'cart' | 'quote' | 'payment' | 'success'>('cart');
   const [copiedBank, setCopiedBank] = useState<string | null>(null);
   const [showQrModal, setShowQrModal] = useState<boolean>(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isSubmittingLead, setIsSubmittingLead] = useState<boolean>(false);
 
-  // In-Page Interactive E-Catalog Previewer State
+  // In-Page Interactive E-Catalog Lookbook State (100% Native, Zero External iFrame)
   const [selectedCatalogId, setSelectedCatalogId] = useState<number>(1);
   const [activeCatalogPage, setActiveCatalogPage] = useState<number>(1);
-  const [catalogViewerMode, setCatalogViewerMode] = useState<'native' | 'iframe'>('native');
   const [activeModalCatalog, setActiveModalCatalog] = useState<any | null>(null);
 
   // Estimator State
@@ -121,6 +126,11 @@ export default function SupperSurfaceSalesPage() {
     transferBank: 'SCB',
     transferTime: '',
   });
+
+  const showToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => setToastMessage(null), 4000);
+  };
 
   // Product Master Data
   const products = useMemo(() => [
@@ -252,15 +262,15 @@ export default function SupperSurfaceSalesPage() {
     },
   ], []);
 
-  // 9 Interactive E-Catalogs with Multi-Page Architectural Spec Engine
+  // 9 Complete Native In-Page Interactive E-Catalogs & Lookbooks
   const catalogsList = useMemo(() => [
     {
       id: 1,
       title: '1. หินวีเนียร์ Veneer & MCM (Flexible Stone)',
       code: 'SS-MCM-CAT',
       categoryName: 'หินวีเนียร์ & MCM',
-      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
       image: '/images/suppersurface/mcm-stone.jpg',
+      galleryImage: '/images/suppersurface/stone-veneer.jpg',
       desc: 'นวัตกรรมหินแผ่นบางยืดหยุ่นดัดโค้งได้ หนา 2-4 มม. น้ำหนักเบากว่าหินจริง 80% ปิดผิวเสากลม ผนังโค้ง และ Facade โมเดิร์น ไม่ลามไฟ',
       specs: ['ความหนา 2 - 4 มม.', 'ขนาดแผ่น 60x120 ซม. / 120x240 ซม.', 'น้ำหนัก 3.5 - 5.5 กก./ตร.ม.', 'ติดตั้งด้วยกาว PU ทับผนังเดิมได้'],
       productId: 'veneer-mcm-1',
@@ -319,8 +329,8 @@ export default function SupperSurfaceSalesPage() {
       title: '2. ไม้สังเคราะห์ WPC (Wood Plastic Composite)',
       code: 'SS-WPC-CAT',
       categoryName: 'ไม้สังเคราะห์ WPC',
-      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
       image: '/images/suppersurface/wpc-wood.jpg',
+      galleryImage: '/images/suppersurface/hero-facade.jpg',
       desc: 'ไม้เทียมสังเคราะห์เกรดภายนอก-ภายใน ผิวสัมผัสลายเสี้ยนไม้ธรรมชาติ ทนปลวก ทนชื้น 100% ไม่ผุ ไม่โก่งงอ สีคงทนยาวนาน',
       specs: ['หน้ากว้าง 15 ซม. ยาว 3.0 ม.', 'ความหนา 22 มม.', 'ระบบคลิปล็อคซ่อนหัวสกรู', 'ทนแดด ทน UV ไม่ต้องทาสีซ้ำ'],
       productId: 'wpc-cladding-1',
@@ -379,8 +389,8 @@ export default function SupperSurfaceSalesPage() {
       title: '3. ฝ้าอลูมิเนียม 85 C (Linear Ceiling System)',
       code: 'SS-85C-CAT',
       categoryName: 'ฝ้าอลูมิเนียม',
-      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
       image: '/images/suppersurface/ceiling-85c.jpg',
+      galleryImage: '/images/suppersurface/aluminum-ceiling.jpg',
       desc: 'ระบบฝ้าเพดานอลูมิเนียมเส้นยาวแบบล็อคเรียบชิด Snap-in รอยต่อแนบสนิท ปลอดสนิมตลอดชีพ ทนทานต่อแรงลม ชายคา และปั๊มน้ำมัน',
       specs: ['หน้ากว้าง 85 มม. ความยาวสั่งตัดตามขนาด', 'อลูมิเนียมเกรด A ปลอดสนิม 100%', 'ทนทานต่อไอเกลือทะเลและความชื้น', 'ระบบโครง Carrier แข็งแรงพิเศษ'],
       productId: 'ceiling-85c',
@@ -439,8 +449,8 @@ export default function SupperSurfaceSalesPage() {
       title: '4. ฝ้าอลูมิเนียม 85 F (Linear Ceiling with Joint)',
       code: 'SS-85F-CAT',
       categoryName: 'ฝ้าอลูมิเนียม',
-      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
       image: '/images/suppersurface/ceiling-85f.jpg',
+      galleryImage: '/images/suppersurface/ceiling-85c.jpg',
       desc: 'ระบบฝ้าเพดานอลูมิเนียมเว้นร่อง 15 มม. สร้างมิติเส้นสายของเงาสไตล์โมเดิร์น เหมาะสำหรับล็อบบี้และโถงอาคารสูง',
       specs: ['หน้ากว้าง 85 มม. ร่อง 15 มม.', 'สั่งตัดตามความยาวหน้างาน', 'เคลือบสี Polyester / PVDF ทนทาน', 'ติดตั้งร่วมกับโคมไฟ Linear Light ได้ลงตัว'],
       productId: 'ceiling-85f',
@@ -499,8 +509,8 @@ export default function SupperSurfaceSalesPage() {
       title: '5. ระแนงอลูมิเนียม (Architectural Louver System)',
       code: 'SS-LV-CAT',
       categoryName: 'ระแนงอลูมิเนียม',
-      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
       image: '/images/suppersurface/louver-modern.jpg',
+      galleryImage: '/images/suppersurface/hero-cinematic.jpg',
       desc: 'ระแนงบังแดดและเปลือกอาคารอลูมิเนียมระบายอากาศ ลดความร้อนเข้าสู่ตัวอาคาร โครงสร้างน้ำหนักเบา ไม่เป็นภาระอาคาร',
       specs: ['หน้าตัด 25x50, 50x100 มม.', 'ความยาวเส้นมาตรฐาน 6.0 ม.', 'สี Powder Coat หรือลายไม้', 'ต้านทานแรงลมพายุมาตรฐานวิศวกรรม'],
       productId: 'aluminum-louver',
@@ -559,8 +569,8 @@ export default function SupperSurfaceSalesPage() {
       title: '6. อลูมิเนียมคอมโพสิต DECO งานหลังคา (Roof & Canopy)',
       code: 'SS-DECO-R-CAT',
       categoryName: 'คอมโพสิตหลังคา',
-      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
       image: '/images/suppersurface/deco-roof.jpg',
+      galleryImage: '/images/suppersurface/composite-deco.jpg',
       desc: 'คอมโพสิตเกรดพิเศษสำหรับงานหลังคา กันสาด และชายคา ดัดพับขึ้นรูปขอบกล่องกันน้ำ ป้องกันการรั่วซึมได้ 100%',
       specs: ['ขนาด 1250 x 2440 มม. หนา 4 มม.', 'ผิวเรียบตึง No Oil Canning', 'รางระบายน้ำซ่อนภายใน', 'ลดเสียงฝนตกกระทบ'],
       productId: 'composite-deco-roof',
@@ -619,8 +629,8 @@ export default function SupperSurfaceSalesPage() {
       title: '7. อลูมิเนียมคอมโพสิต DECO งานผนังและ Facade',
       code: 'SS-DECO-F-CAT',
       categoryName: 'คอมโพสิตผนัง',
-      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
       image: '/images/suppersurface/composite-deco.jpg',
+      galleryImage: '/images/suppersurface/hero-facade.jpg',
       desc: 'แผ่นคอมโพสิตตกแต่งผนังภายนอก-ภายใน ผิวเคลือบสม่ำเสมอกว่า 50 เฉดสี ตัด พับ ดัด ฉลุลายได้ง่าย คุ้มค่างบประมาณ',
       specs: ['ขนาด 1250 x 2440 มม. หนา 4 มม.', 'อลูมิเนียม 0.3 - 0.5 มม.', 'มีให้เลือกกว่า 50 เฉดสี', 'รับประกันสีเคลือบ 10 ปี'],
       productId: 'composite-deco-facade',
@@ -679,8 +689,8 @@ export default function SupperSurfaceSalesPage() {
       title: '8. อลูมิเนียมคอมโพสิต ALTEX (FR Grade Class A2/B1)',
       code: 'SS-ALTEX-CAT',
       categoryName: 'คอมโพสิตทนไฟ FR',
-      iframeUrl: 'https://anyflip.com/bookcase/xfyfc',
       image: '/images/suppersurface/composite-altex.jpg',
+      galleryImage: '/images/suppersurface/composite-deco.jpg',
       desc: 'สเปกระดับเมกะโปรเจกต์ ไส้กลางกันไฟลาม Class A2/B1 เคลือบสี Kynar 500 PVDF ทนแดด ทน UV ยาวนาน 20 ปี ผ่านมาตรฐาน ASTM',
       specs: ['กว้าง 1250/1500 มม. สั่งผลิตยาวพิเศษ', 'ไส้ทนไฟ FR Class A2 / B1', 'สีเคลือบ PVDF Kynar 500', 'เอกสารรับรองมาตรฐานอาคารสูงครบ'],
       productId: 'composite-altex',
@@ -739,8 +749,8 @@ export default function SupperSurfaceSalesPage() {
       title: '9. แผ่นไฟเบอร์ซีเมนต์นิชิฮะ (NICHIHA Japan MicroGuard)',
       code: 'SS-NICHIHA-CAT',
       categoryName: 'NICHIHA ญี่ปุ่น',
-      iframeUrl: 'https://online.anyflip.com/wbgdd/uqhl/mobile/index.html',
       image: '/images/suppersurface/nichiha-cement.jpg',
+      galleryImage: '/images/suppersurface/hero-facade.jpg',
       desc: 'แบรนด์อันดับ 1 จากญี่ปุ่น เทคโนโลยี MicroGuard ทำความสะอาดตัวเองด้วยน้ำฝน ระบบคลิปล็อคซ่อนหัวสกรู ลวดลาย 3D สมจริง',
       specs: ['ขนาด 455 x 3030 มม. หนา 16 มม.', 'เทคโนโลยีนาโน MicroGuard Self-Cleaning', 'ระบบคลิปล็อค ไร้รอยเจาะหน้าแผ่น', 'ฉนวนกันความร้อนและเสียงระดับสูง'],
       productId: 'nichiha-japan',
@@ -844,6 +854,7 @@ export default function SupperSurfaceSalesPage() {
     });
     setIsCartOpen(true);
     setCheckoutStep('cart');
+    showToast(`เพิ่ม "${product.name}" ลงในตะกร้าแล้ว`);
   };
 
   const updateQuantity = (id: string, delta: number) => {
@@ -877,6 +888,7 @@ export default function SupperSurfaceSalesPage() {
   const handleCopy = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     setCopiedBank(label);
+    showToast('คัดลอกเลขที่บัญชีเรียบร้อยแล้ว');
     setTimeout(() => setCopiedBank(null), 2500);
   };
 
@@ -898,9 +910,122 @@ export default function SupperSurfaceSalesPage() {
     return `QT-FL-${dateStr}-889`;
   }, []);
 
+  // Format Quotation Text for Clipboard & LINE
+  const generateQuotationSummaryText = () => {
+    return `📄 ใบเสนอราคาทางการ (QUOTATION)
+เลขที่: ${quoteRef}
+วันที่: ${new Date().toLocaleDateString('th-TH')}
+----------------------------------
+เรียน: ${customerInfo.businessName || customerInfo.name || 'ลูกค้าโครงการ Fameline'}
+ผู้ติดต่อ: ${customerInfo.name || '-'}
+โทรศัพท์: ${customerInfo.phone || '-'}
+เลขประจำตัวผู้เสียภาษี: ${customerInfo.taxId || '-'}
+สถานที่จัดส่ง/โครงการ: ${customerInfo.projectLocation || '-'}
+----------------------------------
+รายการสินค้า:
+${cart.map((item, idx) => `${idx + 1}. ${item.name} (${item.code})\n   จำนวน: ${item.quantity} ${item.unit} x ฿${item.unitPrice.toLocaleString()} = ฿${(item.unitPrice * item.quantity).toLocaleString()}`).join('\n')}
+----------------------------------
+ยอดรวมก่อน VAT: ฿${subtotal.toLocaleString()}
+ภาษีมูลค่าเพิ่ม (VAT 7%): ฿${vat.toLocaleString()}
+💰 ยอดรวมสุทธิทั้งสิ้น: ฿${grandTotal.toLocaleString()} บาท
+----------------------------------
+บจก. เฟมไลน์ โปร์ดักส์ (Supper Surface)
+ติดต่อคุณแอล (เสาวลักษณ์ นุ่นหนู) โทร. 066-168-5157`;
+  };
+
+  // 1. Submit Quotation to API & Handoff to Khun L's LINE
+  const handleSendQuotationToLine = async () => {
+    setIsSubmittingLead(true);
+    const quoteSummary = generateQuotationSummaryText();
+
+    // 1. Copy formatted quote to clipboard for instant pasting into LINE
+    try {
+      await navigator.clipboard.writeText(quoteSummary);
+      showToast('คัดลอกใบเสนอราคาแล้ว! พร้อมกดวาง (Paste) ใน LINE คุณแอลได้ทันที');
+    } catch (err) {
+      console.error('Clipboard copy failed:', err);
+    }
+
+    // 2. Dispatch to /api/leads so it logs in database and webhook
+    try {
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: customerInfo.name || 'ลูกค้าโครงการ (ขอใบเสนอราคา)',
+          phone: customerInfo.phone || '-',
+          modelInterest: cart.map(c => `${c.name} (${c.quantity} ${c.unit})`).join(', '),
+          serviceType: 'ขอใบเสนอราคาทางการ (Quotation Request)',
+          location: customerInfo.projectLocation,
+          notes: `บริษัท: ${customerInfo.businessName || '-'}, เลขประจำตัวผู้เสียภาษี: ${customerInfo.taxId || '-'}, เลขที่ใบเสนอราคา: ${quoteRef}, ยอดรวมสุทธิ: ฿${grandTotal.toLocaleString()}`,
+          pageSource: 'Supper Surface (บจก. เฟมไลน์ โปร์ดักส์)',
+        }),
+      });
+    } catch (err) {
+      console.error('Lead submission error:', err);
+    } finally {
+      setIsSubmittingLead(false);
+    }
+
+    // 3. Open Khun L's verified LINE account directly
+    window.open(lineUrl, '_blank');
+    setCheckoutStep('success');
+  };
+
+  // 2. Confirm Payment & Handoff to Khun L's LINE
+  const handleConfirmPayment = async () => {
+    setIsSubmittingLead(true);
+    const paymentSummary = `💰 แจ้งชำระเงินค่าสินค้า (บจก. เฟมไลน์ โปร์ดักส์)
+เลขที่อ้างอิง: ${quoteRef}
+----------------------------------
+ผู้โอน/บริษัท: ${customerInfo.businessName || customerInfo.name || 'ลูกค้าโครงการ'}
+เบอร์โทรศัพท์: ${customerInfo.phone || '-'}
+โอนเข้าบัญชี: ธนาคาร${customerInfo.transferBank === 'SCB' ? 'ไทยพาณิชย์ 154-3-00307-6' : 'กสิกรไทย 421-2-13883-0'}
+ยอดเงินที่ชำระ: ฿${grandTotal.toLocaleString()} บาท (รวม VAT 7%)
+----------------------------------
+***กรณีโอนเงินชำระค่าสินค้าแล้วไม่สามารถเปลี่ยนแปลงหรือคืนสินค้าได้***
+โอนเข้าบัญชี บจก. เฟมไลน์ โปร์ดักส์ เรียบร้อยแล้ว`;
+
+    try {
+      await navigator.clipboard.writeText(paymentSummary);
+      showToast('คัดลอกข้อมูลการแจ้งชำระเงินแล้ว! พร้อมส่งหลักฐานให้คุณแอลใน LINE');
+    } catch (err) {}
+
+    try {
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fullName: customerInfo.name || 'ลูกค้าแจ้งชำระเงิน',
+          phone: customerInfo.phone || '-',
+          modelInterest: cart.map(c => `${c.name} (${c.quantity} ${c.unit})`).join(', '),
+          serviceType: 'แจ้งชำระเงินเข้าบัญชีบริษัท (Payment Confirmation)',
+          location: customerInfo.projectLocation,
+          notes: `บริษัท: ${customerInfo.businessName || '-'}, ธนาคารที่โอน: ${customerInfo.transferBank}, ยอดเงิน: ฿${grandTotal.toLocaleString()}`,
+          pageSource: 'Supper Surface (บจก. เฟมไลน์ โปร์ดักส์)',
+        }),
+      });
+    } catch (err) {
+      console.error('Lead submission error:', err);
+    } finally {
+      setIsSubmittingLead(false);
+    }
+
+    window.open(lineUrl, '_blank');
+    setCheckoutStep('success');
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-amber-500 selection:text-slate-950 pb-28 md:pb-16 w-full max-w-full overflow-x-hidden">
       
+      {/* GLOBAL TOAST NOTIFICATION */}
+      {toastMessage && (
+        <div className="fixed top-20 right-4 sm:right-6 z-50 bg-amber-500 text-slate-950 px-4 py-2.5 rounded-xl shadow-2xl font-bold text-xs flex items-center gap-2 animate-in fade-in slide-in-from-top-4 duration-300">
+          <CheckCircle2 className="w-4 h-4 text-slate-950 shrink-0" />
+          <span>{toastMessage}</span>
+        </div>
+      )}
+
       {/* 1. UNIFIED MINIMAL STICKY MENU (Clean, Non-wrapping UI + Mobile Hamburger) */}
       <header className="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/80 transition-all duration-300 shadow-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
@@ -932,7 +1057,7 @@ export default function SupperSurfaceSalesPage() {
             <a href="#minimall-catalog" className="hover:text-amber-400 transition whitespace-nowrap">แคตตาล็อก</a>
             <a href="#live-anyflip" className="hover:text-amber-400 transition whitespace-nowrap flex items-center gap-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-              <span>Live E-Book</span>
+              <span>Lookbook สเปก</span>
             </a>
             <a href="#estimator" className="hover:text-amber-400 transition whitespace-nowrap">คำนวณพื้นที่</a>
             <a href="#articles" className="hover:text-amber-400 transition whitespace-nowrap">บทความ</a>
@@ -956,7 +1081,7 @@ export default function SupperSurfaceSalesPage() {
               className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 text-xs font-bold transition shadow-sm"
             >
               <MessageCircle className="w-3.5 h-3.5" /> 
-              <span>LINE ฝ่ายขาย</span>
+              <span>LINE คุณแอล</span>
             </a>
 
             {/* Cart Trigger */}
@@ -1053,7 +1178,7 @@ export default function SupperSurfaceSalesPage() {
                 >
                   <span className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-                    <span>Live E-Book แคตตาล็อก</span>
+                    <span>Lookbook สเปก E-Book</span>
                   </span>
                   <ArrowRight className="w-4 h-4 text-slate-600" />
                 </a>
@@ -1101,7 +1226,7 @@ export default function SupperSurfaceSalesPage() {
                 className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>แอดไลน์ฝ่ายขาย (@0661685157)</span>
+                <span>แอด LINE คุณแอลโดยตรง</span>
               </a>
             </div>
 
@@ -1575,19 +1700,19 @@ export default function SupperSurfaceSalesPage() {
         </div>
       </section>
 
-      {/* 5. LIVE E-BOOK & IN-PAGE ARCHITECTURAL SPEC PREVIEW (Mobile-Flawless Flipbook Engine) */}
+      {/* 5. NATIVE IN-PAGE ARCHITECTURAL SPEC LOOKBOOK & E-BOOK (Zero Third-Party iFrame, 100% Reliable) */}
       <section id="live-anyflip" className="py-16 md:py-24 bg-slate-900/40 border-y border-slate-900 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           
           <div className="text-center max-w-3xl mx-auto space-y-3 mb-8">
             <span className="text-xs font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 border border-amber-500/20 px-3.5 py-1 rounded-full">
-              Interactive E-Book Spec Preview
+              Fameline Native Spec Lookbook & E-Catalog
             </span>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
               พรีวิวแคตตาล็อกสเปกออนไลน์ ฉบับสมบูรณ์ (บนหน้าเว็บทันที)
             </h2>
             <p className="text-xs sm:text-sm text-slate-400">
-              เปิดอ่านแบบจำลองแคตตาล็อกสเปกวิศวกรรมได้ทันทีบนหน้านี้ ทั้งบนมือถือและคอมพิวเตอร์ ไม่ส่งออกไปนอกเว็บไซต์
+              เปิดอ่านคู่มือสเปกสถาปัตยกรรมและวิศวกรรมได้ทันทีบนหน้านี้ ทั้งบนมือถือและคอมพิวเตอร์ โหลดไว 0.1s ไม่หลุดออกนอกเว็บไซต์
             </p>
           </div>
 
@@ -1622,29 +1747,13 @@ export default function SupperSurfaceSalesPage() {
               </div>
 
               <div className="flex flex-wrap items-center gap-2 sm:gap-3 shrink-0">
-                {/* Desktop Toggle: Native In-Page Reader vs AnyFlip Cloud Reader */}
-                <div className="hidden sm:inline-flex bg-slate-900 border border-slate-800 rounded-xl p-1 text-xs">
-                  <button
-                    onClick={() => setCatalogViewerMode('native')}
-                    className={`px-3 py-1.5 rounded-lg font-bold transition ${
-                      catalogViewerMode === 'native'
-                        ? 'bg-amber-500 text-slate-950'
-                        : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    📖 E-Book จำลองบนเว็บ
-                  </button>
-                  <button
-                    onClick={() => setCatalogViewerMode('iframe')}
-                    className={`px-3 py-1.5 rounded-lg font-bold transition ${
-                      catalogViewerMode === 'iframe'
-                        ? 'bg-amber-500 text-slate-950'
-                        : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    🌐 AnyFlip 3D iFrame
-                  </button>
-                </div>
+                <button
+                  onClick={() => setActiveModalCatalog(activeCatalog)}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-amber-400 text-slate-200 text-xs font-semibold transition"
+                >
+                  <Maximize2 className="w-3.5 h-3.5 text-amber-400" />
+                  <span>ขยายดูสเปกเต็มจอ</span>
+                </button>
 
                 <button
                   onClick={() => {
@@ -1669,151 +1778,172 @@ export default function SupperSurfaceSalesPage() {
               ))}
             </div>
 
-            {/* INTERACTIVE IN-PAGE FLIPBOOK VIEWER (Guaranteed 100% Mobile & Desktop Support) */}
-            {catalogViewerMode === 'native' ? (
-              <div className="space-y-4">
+            {/* INTERACTIVE IN-PAGE FLIPBOOK VIEWER */}
+            <div className="space-y-4">
+              
+              {/* Quick Jump Spec Page Navigation Tabs */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                {[
+                  { num: 1, label: '1. ดีไซน์ & สถาปัตยกรรม' },
+                  { num: 2, label: '2. ขนาด & มิติวิศวกรรม' },
+                  { num: 3, label: '3. การติดตั้ง & รอยต่อ' },
+                  { num: 4, label: '4. มาตรฐานทนไฟ & Cer' },
+                ].map((tab) => (
+                  <button
+                    key={tab.num}
+                    onClick={() => setActiveCatalogPage(tab.num)}
+                    className={`py-2 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 border ${
+                      activeCatalogPage === tab.num
+                        ? 'bg-amber-500 text-slate-950 border-amber-500 shadow-md shadow-amber-500/20'
+                        : 'bg-slate-900/80 text-slate-400 border-slate-800 hover:text-white hover:bg-slate-850'
+                    }`}
+                  >
+                    <span>{tab.label}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Book Spread Canvas */}
+              <div className="relative bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-8 shadow-2xl overflow-hidden">
                 
-                {/* Book Spread Canvas */}
-                <div className="relative bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-8 shadow-2xl overflow-hidden">
+                {/* Subtle Book Spine Center Lighting */}
+                <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-8 bg-gradient-to-r from-transparent via-black/40 to-transparent pointer-events-none hidden md:block" />
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                   
-                  {/* Subtle Book Spine Center Lighting */}
-                  <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-8 bg-gradient-to-r from-transparent via-black/40 to-transparent pointer-events-none hidden md:block" />
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                  {/* Left Spread: High-Res Spec Graphic & Visual */}
+                  <div className="relative aspect-[16/11] rounded-xl overflow-hidden bg-slate-950 border border-slate-800/90 shadow-xl group">
+                    <img
+                      src={activeCatalogPage === 1 ? activeCatalog.image : (activeCatalog.galleryImage || activeCatalog.image)}
+                      alt={activeCatalog.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-85" />
                     
-                    {/* Left Spread: High-Res Spec Graphic & Visual */}
-                    <div className="relative aspect-[16/11] rounded-xl overflow-hidden bg-slate-950 border border-slate-800/90 shadow-xl group">
-                      <img
-                        src={activeCatalog.image}
-                        alt={activeCatalog.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-85" />
-                      
-                      <div className="absolute top-3 left-3 bg-slate-950/90 border border-amber-500/40 text-amber-300 px-2.5 py-1 rounded text-xs font-mono font-bold">
-                        {activeCatalog.code}
-                      </div>
-
-                      <div className="absolute bottom-3 left-3 right-3 text-xs text-white">
-                        <div className="font-bold text-amber-400">{activeCatalog.title}</div>
-                        <div className="text-[11px] text-slate-300">เอกสารสเปกวิศวกรรมสถาปัตยกรรมฉบับทางการ</div>
-                      </div>
+                    <div className="absolute top-3 left-3 bg-slate-950/90 border border-amber-500/40 text-amber-300 px-2.5 py-1 rounded text-xs font-mono font-bold">
+                      {activeCatalog.code}
                     </div>
 
-                    {/* Right Spread: Interactive Spec Data Page */}
-                    <div className="space-y-4 flex flex-col justify-between">
-                      {(() => {
-                        const curPage = activeCatalog.pages?.[activeCatalogPage - 1] || activeCatalog.pages?.[0];
-                        return (
-                          <div className="space-y-4">
-                            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                              <div>
-                                <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">
-                                  {activeCatalog.categoryName} • SPEC SHEET
-                                </span>
-                                <h4 className="text-base sm:text-lg font-bold text-white">
-                                  {curPage?.title}
-                                </h4>
-                              </div>
-                              <span className="text-xs font-mono bg-slate-900 border border-slate-800 px-2.5 py-1 rounded-lg text-slate-300 font-bold">
-                                หน้า {activeCatalogPage} / {activeCatalog.totalPages || 4}
+                    <div className="absolute bottom-3 left-3 right-3 text-xs text-white">
+                      <div className="font-bold text-amber-400">{activeCatalog.title}</div>
+                      <div className="text-[11px] text-slate-300">เอกสารสเปกวิศวกรรมสถาปัตยกรรมฉบับทางการ Fameline</div>
+                    </div>
+                  </div>
+
+                  {/* Right Spread: Interactive Spec Data Page */}
+                  <div className="space-y-4 flex flex-col justify-between">
+                    {(() => {
+                      const curPage = activeCatalog.pages?.[activeCatalogPage - 1] || activeCatalog.pages?.[0];
+                      return (
+                        <div className="space-y-4">
+                          <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                            <div>
+                              <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">
+                                {activeCatalog.categoryName} • SPEC SHEET
                               </span>
+                              <h4 className="text-base sm:text-lg font-bold text-white">
+                                {curPage?.title}
+                              </h4>
                             </div>
-
-                            <p className="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800/80">
-                              {curPage?.summary}
-                            </p>
-
-                            <div className="grid grid-cols-1 gap-2 text-xs">
-                              {curPage?.items.map((row: any, rIdx: number) => (
-                                <div key={rIdx} className="bg-slate-950/80 p-2.5 rounded-lg border border-slate-800/80 flex items-center justify-between gap-3">
-                                  <span className="text-slate-400 text-[11px] font-medium">{row.label}:</span>
-                                  <span className="text-white font-semibold text-[11px] text-right">{row.val}</span>
-                                </div>
-                              ))}
-                            </div>
+                            <span className="text-xs font-mono bg-slate-900 border border-slate-800 px-2.5 py-1 rounded-lg text-slate-300 font-bold">
+                              หน้า {activeCatalogPage} / {activeCatalog.totalPages || 4}
+                            </span>
                           </div>
-                        );
-                      })()}
 
-                      {/* Flip Controllers Bar */}
-                      <div className="pt-4 border-t border-slate-800 flex items-center justify-between gap-3">
-                        <button
-                          onClick={() => setActiveCatalogPage(prev => Math.max(1, prev - 1))}
-                          disabled={activeCatalogPage <= 1}
-                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-400 disabled:opacity-40 text-xs font-semibold text-slate-200 transition"
-                        >
-                          <ChevronLeft className="w-4 h-4 text-amber-400" />
-                          <span>หน้าก่อนหน้า</span>
-                        </button>
+                          <p className="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3 rounded-xl border border-slate-800/80">
+                            {curPage?.summary}
+                          </p>
 
-                        {/* Page Pill Indicators */}
-                        <div className="flex items-center gap-1.5">
-                          {[1, 2, 3, 4].map((pNum) => (
-                            <button
-                              key={pNum}
-                              onClick={() => setActiveCatalogPage(pNum)}
-                              className={`w-7 h-7 rounded-lg text-xs font-mono font-bold transition ${
-                                activeCatalogPage === pNum
-                                  ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
-                                  : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-white'
-                              }`}
-                            >
-                              {pNum}
-                            </button>
-                          ))}
+                          <div className="grid grid-cols-1 gap-2 text-xs">
+                            {curPage?.items.map((row: any, rIdx: number) => (
+                              <div key={rIdx} className="bg-slate-950/80 p-2.5 rounded-lg border border-slate-800/80 flex items-center justify-between gap-3">
+                                <span className="text-slate-400 text-[11px] font-medium">{row.label}:</span>
+                                <span className="text-white font-semibold text-[11px] text-right">{row.val}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
+                      );
+                    })()}
 
-                        <button
-                          onClick={() => setActiveCatalogPage(prev => Math.min(activeCatalog.totalPages || 4, prev + 1))}
-                          disabled={activeCatalogPage >= (activeCatalog.totalPages || 4)}
-                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-400 disabled:opacity-40 text-xs font-semibold text-slate-200 transition"
-                        >
-                          <span>หน้าถัดไป</span>
-                          <ChevronRight className="w-4 h-4 text-amber-400" />
-                        </button>
+                    {/* Flip Controllers Bar */}
+                    <div className="pt-4 border-t border-slate-800 flex items-center justify-between gap-3">
+                      <button
+                        onClick={() => setActiveCatalogPage(prev => Math.max(1, prev - 1))}
+                        disabled={activeCatalogPage <= 1}
+                        className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-400 disabled:opacity-40 text-xs font-semibold text-slate-200 transition"
+                      >
+                        <ChevronLeft className="w-4 h-4 text-amber-400" />
+                        <span>หน้าก่อนหน้า</span>
+                      </button>
+
+                      {/* Page Pill Indicators */}
+                      <div className="flex items-center gap-1.5">
+                        {[1, 2, 3, 4].map((pNum) => (
+                          <button
+                            key={pNum}
+                            onClick={() => setActiveCatalogPage(pNum)}
+                            className={`w-7 h-7 rounded-lg text-xs font-mono font-bold transition ${
+                              activeCatalogPage === pNum
+                                ? 'bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20'
+                                : 'bg-slate-900 text-slate-400 border border-slate-800 hover:text-white'
+                            }`}
+                          >
+                            {pNum}
+                          </button>
+                        ))}
                       </div>
 
+                      <button
+                        onClick={() => setActiveCatalogPage(prev => Math.min(activeCatalog.totalPages || 4, prev + 1))}
+                        disabled={activeCatalogPage >= (activeCatalog.totalPages || 4)}
+                        className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-400 disabled:opacity-40 text-xs font-semibold text-slate-200 transition"
+                      >
+                        <span>หน้าถัดไป</span>
+                        <ChevronRight className="w-4 h-4 text-amber-400" />
+                      </button>
                     </div>
 
                   </div>
-                </div>
 
-                {/* Mobile Quick Flip Selector */}
-                <div className="flex items-center justify-between text-[11px] text-slate-400 px-1">
-                  <span>💡 แตะปุ่มเลขหน้า 1-4 เพื่อสลับดูหัวข้อสเปก ขนาด การติดตั้ง และใบรับรอง</span>
-                  <button
-                    onClick={() => setActiveModalCatalog(activeCatalog)}
-                    className="text-amber-400 hover:underline font-bold inline-flex items-center gap-1"
-                  >
-                    <Maximize2 className="w-3.5 h-3.5" />
-                    <span>ขยายพรีวิวแบบเต็มจอ</span>
-                  </button>
-                </div>
-
-              </div>
-            ) : (
-              /* AnyFlip 3D iFrame Viewer (For Desktop or when explicitly selected) */
-              <div className="space-y-3">
-                <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-2xl">
-                  <iframe
-                    src={activeCatalog.iframeUrl}
-                    className="w-full h-full border-0"
-                    allowFullScreen
-                    title={activeCatalog.title}
-                  />
-                </div>
-                <div className="flex items-center justify-between text-[11px] text-slate-500">
-                  <span>* สามารถกดสลับกลับเป็น "E-Book จำลองบนเว็บ" ได้ตลอดเวลาเพื่อการเปิดที่รวดเร็วยิ่งขึ้น</span>
-                  <button
-                    onClick={() => setCatalogViewerMode('native')}
-                    className="text-amber-400 hover:underline font-semibold"
-                  >
-                    สลับกลับเป็น E-Book บนเว็บ
-                  </button>
                 </div>
               </div>
-            )}
+
+              {/* In-Book Direct Actions */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-900/60 p-3.5 rounded-2xl border border-slate-800/80">
+                <div className="text-xs text-slate-400 text-center sm:text-left">
+                  💡 กำลังดู: <strong className="text-amber-400">{activeCatalog.title}</strong> (฿{activeCatalog.price.toLocaleString()} /{activeCatalog.unit})
+                </div>
+
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <a
+                    href={lineUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => {
+                      navigator.clipboard.writeText(`สนใจสอบถามสเปกแคตตาล็อก: ${activeCatalog.title} (${activeCatalog.code}) ราคาประเมิน ฿${activeCatalog.price.toLocaleString()}/${activeCatalog.unit}`);
+                      showToast('คัดลอกชื่อสเปกแล้ว พร้อมแชทคุยกับคุณแอลใน LINE');
+                    }}
+                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500 text-emerald-300 hover:text-slate-950 font-bold text-xs transition"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5" />
+                    <span>สอบถามสเปกนี้ผ่าน LINE</span>
+                  </a>
+
+                  <button
+                    onClick={() => {
+                      const matchProd = products.find(p => p.id === activeCatalog.productId);
+                      if (matchProd) addToCart(matchProd, 1);
+                    }}
+                    className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition shadow"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    <span>ใส่ตะกร้าสินค้านี้</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
 
           </div>
 
@@ -1925,13 +2055,17 @@ export default function SupperSurfaceSalesPage() {
                 </button>
                 
                 <a
-                  href={`https://line.me/ti/p/~0661685157?text=${encodeURIComponent(`สวัสดีค่ะคุณแอล สนใจประเมินราคา ${estimatorResult.product.name} พื้นที่ประมาณ ${estimatorArea} ตร.ม. (รวมเผื่อเป็น ${estimatorResult.effectiveArea} ตร.ม.) ยอดประมาณ ฿${estimatorResult.estimatedCost.toLocaleString()} ขอใบเสนอราคาและคำแนะนำค่ะ`)}`}
+                  href={lineUrl}
                   target="_blank"
                   rel="noreferrer"
+                  onClick={() => {
+                    navigator.clipboard.writeText(`สวัสดีค่ะคุณแอล สนใจประเมินราคา ${estimatorResult.product.name} พื้นที่ประมาณ ${estimatorArea} ตร.ม. (รวมเผื่อเป็น ${estimatorResult.effectiveArea} ตร.ม.) ยอดประมาณ ฿${estimatorResult.estimatedCost.toLocaleString()} ขอใบเสนอราคาและคำแนะนำค่ะ`);
+                    showToast('คัดลอกผลคำนวณแล้ว พร้อมส่งเข้า LINE คุณแอล');
+                  }}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs sm:text-sm transition"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span>ส่งผลคำนวณเข้า LINE</span>
+                  <span>ส่งผลคำนวณเข้า LINE คุณแอล</span>
                 </a>
               </div>
             </div>
@@ -2022,7 +2156,7 @@ export default function SupperSurfaceSalesPage() {
         </div>
       </section>
 
-      {/* 8. SALE EXECUTIVE & PREMIUM ARCHITECTURAL MASTERPIECE (Replaced Namecard with Premium Image) */}
+      {/* 8. SALE EXECUTIVE & PREMIUM ARCHITECTURAL MASTERPIECE */}
       <section id="contact-sales" className="py-16 md:py-24 bg-slate-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           
@@ -2144,7 +2278,7 @@ export default function SupperSurfaceSalesPage() {
         </div>
       </section>
 
-      {/* 9. MINIMALL CART & CHECKOUT SLIDE-OUT DRAWER (Houses B2B Payment & Slip Upload) */}
+      {/* 9. MINIMALL CART & CHECKOUT SLIDE-OUT DRAWER (Full Working Quotation & Lead Dispatch) */}
       {isCartOpen && (
         <div className="fixed inset-0 z-50 flex justify-end">
           {/* Backdrop */}
@@ -2407,7 +2541,7 @@ export default function SupperSurfaceSalesPage() {
                 </div>
               )}
 
-              {/* STEP 3: COMPANY PAYMENT & SLIP UPLOAD (Moved Here Exclusively) */}
+              {/* STEP 3: COMPANY PAYMENT & SLIP UPLOAD */}
               {checkoutStep === 'payment' && (
                 <div className="space-y-4">
                   {/* CRITICAL WARNING BANNER */}
@@ -2515,13 +2649,21 @@ export default function SupperSurfaceSalesPage() {
                   </p>
                   <div className="pt-2 flex flex-col gap-2">
                     <a
-                      href={`https://line.me/ti/p/~0661685157?text=${encodeURIComponent(`สวัสดีค่ะคุณแอล ส่งคำสั่งซื้อ/ขอใบเสนอราคาจากหน้าเว็บ Supper Surface เลขที่ ${quoteRef} ยอดรวม ฿${grandTotal.toLocaleString()} ค่ะ`)}`}
+                      href={lineUrl}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs"
                     >
-                      <MessageCircle className="w-4 h-4" /> ส่งหลักฐานเข้า LINE คุณแอลทันที
+                      <MessageCircle className="w-4 h-4" /> แชทคุยกับคุณแอลใน LINE ทันที
                     </a>
+
+                    <a
+                      href={salePhoneCallUrl}
+                      className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs"
+                    >
+                      <PhoneCall className="w-4 h-4 text-amber-400" /> โทรสายตรงคุณแอล: {salePhone}
+                    </a>
+
                     <button
                       onClick={() => {
                         setCart([]);
@@ -2563,34 +2705,55 @@ export default function SupperSurfaceSalesPage() {
                 )}
 
                 {checkoutStep === 'quote' && (
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => window.print()}
-                      className="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300"
-                      title="พิมพ์ใบเสนอราคา"
-                    >
-                      <Printer className="w-4 h-4" />
-                    </button>
-                    <a
-                      href={`https://line.me/ti/p/~0661685157?text=${encodeURIComponent(`ขอใบเสนอราคาทางการจากเว็บ Supper Surface By Fameline\nเลขที่: ${quoteRef}\nผู้ติดต่อ: ${customerInfo.name || '-'}\nบริษัท: ${customerInfo.businessName || '-'}\nเบอร์โทร: ${customerInfo.phone || '-'}\nยอดรวมทั้งสิ้น: ฿${grandTotal.toLocaleString()}`)}`}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex-1 inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs transition"
-                    >
-                      <MessageCircle className="w-4 h-4" />
-                      <span>ส่งใบเสนอราคานี้เข้า LINE คุณแอล</span>
-                    </a>
+                  <div className="space-y-2">
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => window.print()}
+                        className="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300"
+                        title="พิมพ์ใบเสนอราคา"
+                      >
+                        <Printer className="w-4 h-4" />
+                      </button>
+
+                      <button
+                        onClick={handleSendQuotationToLine}
+                        disabled={isSubmittingLead}
+                        className="flex-1 inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 disabled:opacity-50 text-slate-950 font-bold text-xs transition shadow"
+                      >
+                        {isSubmittingLead ? (
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                        ) : (
+                          <MessageCircle className="w-4 h-4" />
+                        )}
+                        <span>ส่งใบเสนอราคานี้เข้า LINE คุณแอล</span>
+                      </button>
+                    </div>
+
+                    <p className="text-[10px] text-center text-slate-400">
+                      * ระบบจะบันทึกข้อมูลเข้าฐานข้อมูลและคัดลอกสรุปใบเสนอราคาเข้า Clipboard ให้คุณกดวางใน LINE ได้ทันที
+                    </p>
                   </div>
                 )}
 
                 {checkoutStep === 'payment' && (
-                  <button
-                    onClick={() => setCheckoutStep('success')}
-                    className="w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 text-slate-950 font-bold text-xs sm:text-sm shadow-md transition"
-                  >
-                    <CheckCircle2 className="w-4 h-4" />
-                    <span>ยืนยันการแจ้งชำระเงิน</span>
-                  </button>
+                  <div className="space-y-2">
+                    <button
+                      onClick={handleConfirmPayment}
+                      disabled={isSubmittingLead}
+                      className="w-full inline-flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 disabled:opacity-50 text-slate-950 font-bold text-xs sm:text-sm shadow-md transition"
+                    >
+                      {isSubmittingLead ? (
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                      ) : (
+                        <CheckCircle2 className="w-4 h-4" />
+                      )}
+                      <span>ยืนยันการแจ้งชำระเงิน & แจ้งคุณแอล</span>
+                    </button>
+
+                    <p className="text-[10px] text-center text-slate-400">
+                      * ยืนยันข้อมูลไปยังระบบของบริษัท และนำส่งหลักฐานต่อไปยัง LINE ฝ่ายขาย
+                    </p>
+                  </div>
                 )}
               </div>
             )}
@@ -2677,10 +2840,10 @@ export default function SupperSurfaceSalesPage() {
         </div>
       )}
 
-      {/* 11. QR CODE MODAL */}
+      {/* 11. VERIFIED LINE QR CODE MODAL */}
       {showQrModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-6 text-center space-y-4 relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-sm">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-6 text-center space-y-4 relative shadow-2xl">
             <button
               onClick={() => setShowQrModal(false)}
               className="absolute top-4 right-4 text-slate-400 hover:text-white"
@@ -2688,13 +2851,14 @@ export default function SupperSurfaceSalesPage() {
               <X className="w-5 h-5" />
             </button>
 
-            <h4 className="text-base font-bold text-white">LINE QR Code ฝ่ายขายโครงการ</h4>
+            <h4 className="text-base font-bold text-white">LINE Official ฝ่ายขายโครงการ</h4>
             <p className="text-xs text-amber-400 font-medium">คุณแอล (เสาวลักษณ์ นุ่นหนู) โทร. 066-168-5157</p>
 
-            <div className="bg-white p-3 rounded-xl inline-block shadow-lg">
+            {/* Official LINE QR Code with High-Quality Framing */}
+            <div className="bg-white p-3 rounded-2xl inline-block shadow-xl border-4 border-amber-500/30">
               <img
                 src="/images/suppersurface/line-qr.jpg"
-                alt="LINE QR Code คุณแอล Fameline"
+                alt="LINE QR Code คุณแอล Fameline (https://line.me/ti/p/8LzX_47dFe)"
                 className="w-56 h-56 object-contain"
               />
             </div>
@@ -2703,14 +2867,23 @@ export default function SupperSurfaceSalesPage() {
               เปิดแอป LINE แล้วสแกน หรือกดปุ่มด้านล่างเพื่อแอดเพื่อนได้ทันที
             </p>
 
-            <a
-              href={lineUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs"
-            >
-              <MessageCircle className="w-4 h-4" /> เปิด LINE บนอุปกรณ์นี้
-            </a>
+            <div className="flex flex-col gap-2">
+              <a
+                href={lineUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs shadow-lg active:scale-95 transition"
+              >
+                <MessageCircle className="w-4 h-4" /> แอด LINE คุณแอล (เปิดผ่านแอป)
+              </a>
+
+              <a
+                href={salePhoneCallUrl}
+                className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition"
+              >
+                <PhoneCall className="w-3.5 h-3.5 text-amber-400" /> โทรหาคุณแอล: {salePhone}
+              </a>
+            </div>
           </div>
         </div>
       )}

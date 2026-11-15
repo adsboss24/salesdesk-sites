@@ -80,7 +80,7 @@ export default async function SupperSurfaceArticlePage({ params }: Props) {
   const postUrl = `${siteUrl}/supper-surface/blog/${post.slug}`;
   const salePhone = '066-168-5157';
   const salePhoneCallUrl = 'tel:0661685157';
-  const lineUrl = 'https://line.me/ti/p/~0661685157';
+  const lineUrl = 'https://line.me/ti/p/8LzX_47dFe';
 
   // JSON-LD: Article Schema
   const articleSchema = {

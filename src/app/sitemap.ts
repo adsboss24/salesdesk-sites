@@ -2,6 +2,7 @@ import { MetadataRoute } from 'next';
 import { fetchAllLivePosts } from '@/lib/posts';
 import { getAllBenzPosts } from '@/lib/benz-posts';
 import { getAllMinMaxPosts } from '@/lib/minmax-posts';
+import { getAllSupperSurfacePosts } from '@/lib/supper-surface-posts';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://sites.salesdesk-ai.com';
@@ -51,6 +52,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${baseUrl}/supper-surface`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/supper-surface/blog`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.85,
@@ -119,5 +126,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.85,
   }));
 
-  return [...staticRoutes, ...showcaseRoutes, ...blogRoutes, ...benzBlogRoutes, ...minmaxBlogRoutes];
+  const supperSurfacePosts = getAllSupperSurfacePosts();
+  const supperSurfaceBlogRoutes: MetadataRoute.Sitemap = supperSurfacePosts.map((post) => ({
+    url: `${baseUrl}/supper-surface/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt || post.publishedAt),
+    changeFrequency: 'weekly',
+    priority: 0.85,
+  }));
+
+  return [...staticRoutes, ...showcaseRoutes, ...blogRoutes, ...benzBlogRoutes, ...minmaxBlogRoutes, ...supperSurfaceBlogRoutes];
 }

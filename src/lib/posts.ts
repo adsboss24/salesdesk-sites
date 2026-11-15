@@ -324,15 +324,7 @@ export function mergeWithRemotePosts(
   const localBySlug = new Map(posts.map((p) => [p.slug, p]));
   const mergedMap = new Map<string, Post>();
 
-  // 1. Always keep our #1 Pillar Post at the very top (for salesdesk main studio)
-  if (targetClient === 'salesdesk' || targetClient === 'all') {
-    const pillarPost = localBySlug.get('outrank-competitors-google-first-page-ai-seo');
-    if (pillarPost) {
-      mergedMap.set(pillarPost.slug, pillarPost);
-    }
-  }
-
-  // 2. Add live remote posts from Supabase (sorted newest first), strictly filtered by clientSlug
+  // 1. Add live remote posts from Supabase (sorted newest first), strictly filtered by clientSlug
   for (const remote of remotePosts) {
     if (!remote.slug || !remote.title) continue;
     const remoteClient = (remote.clientSlug || 'salesdesk').toLowerCase();
@@ -373,14 +365,22 @@ export function mergeWithRemotePosts(
     }
   }
 
-  // 3. Append any remaining local posts
+  // 2. Append any remaining local posts
   for (const local of posts) {
     if (local.published && !mergedMap.has(local.slug)) {
       mergedMap.set(local.slug, local);
     }
   }
 
-  return Array.from(mergedMap.values());
+  // 3. Sort strictly by latest published/updated date descending (Newest first on the left)
+  const result = Array.from(mergedMap.values());
+  result.sort((a, b) => {
+    const timeA = new Date(a.publishedAt || a.updatedAt || 0).getTime();
+    const timeB = new Date(b.publishedAt || b.updatedAt || 0).getTime();
+    return timeB - timeA;
+  });
+
+  return result;
 }
 
 export async function fetchAllLivePosts(clientSlug = 'salesdesk'): Promise<Post[]> {
@@ -414,7 +414,13 @@ export async function fetchLiveRelatedPosts(currentSlug: string, limit = 2): Pro
 }
 
 export function getAllPosts(): Post[] {
-  return posts.filter((p) => p.published);
+  return [...posts]
+    .filter((p) => p.published)
+    .sort((a, b) => {
+      const timeA = new Date(a.publishedAt || a.updatedAt || 0).getTime();
+      const timeB = new Date(b.publishedAt || b.updatedAt || 0).getTime();
+      return timeB - timeA;
+    });
 }
 
 export function getPostBySlug(slug: string): Post | undefined {

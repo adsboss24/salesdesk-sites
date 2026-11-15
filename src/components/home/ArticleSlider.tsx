@@ -21,7 +21,15 @@ interface ArticleSliderProps {
 }
 
 export default function ArticleSlider({ posts: initialPosts }: ArticleSliderProps) {
-  const [posts, setPosts] = useState<Post[]>(initialPosts);
+  const sortedInitial = React.useMemo(() => {
+    return [...initialPosts].sort((a, b) => {
+      const timeA = new Date(a.publishedAt || a.updatedAt || 0).getTime();
+      const timeB = new Date(b.publishedAt || b.updatedAt || 0).getTime();
+      return timeB - timeA;
+    });
+  }, [initialPosts]);
+
+  const [posts, setPosts] = useState<Post[]>(sortedInitial);
   const sliderRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -33,7 +41,8 @@ export default function ArticleSlider({ posts: initialPosts }: ArticleSliderProp
       .then((res) => res.json())
       .then((data) => {
         if (active && data?.success && Array.isArray(data.posts)) {
-          setPosts(mergeWithRemotePosts(data.posts, 'salesdesk'));
+          const merged = mergeWithRemotePosts(data.posts, 'salesdesk');
+          setPosts(merged);
         }
       })
       .catch(() => {

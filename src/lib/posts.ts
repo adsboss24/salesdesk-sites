@@ -220,6 +220,7 @@ export const posts: Post[] = [
 ];
 
 const CURATED_BLOG_IMAGES = [
+  '/images/covers/cover-auto-closing-salepage.jpg',
   '/images/covers/cover-salepage-psychology.jpg',
   '/images/covers/cover-cod-facebook-ads.jpg',
   '/images/covers/cover-technical-seo-schema.jpg',
@@ -240,15 +241,21 @@ function pickDistinctImage(
   if (slug === 'outrank-competitors-google-first-page-ai-seo') {
     return '/images/seo-google-rank1-hero.jpg';
   }
+
+  if (
+    slug === 'auto-closing-sales-page-service' ||
+    slug.includes('auto-closing') ||
+    (title && (title.includes('เลิกเผาเงิน') || title.includes('ปิดการขายอัตโนมัติ 24 ชม.')))
+  ) {
+    return '/images/covers/cover-auto-closing-salepage.jpg';
+  }
+
+  // Preserve permanent local curated static images
   if (
     rawImage &&
-    (rawImage.includes('/api/seo/cover') ||
-      rawImage.startsWith('/images/covers/') ||
-      rawImage.startsWith('/images/benz/'))
+    (rawImage.startsWith('/images/covers/') || rawImage.startsWith('/images/benz/'))
   ) {
-    return rawImage.startsWith('/api/seo/cover')
-      ? `https://seo.salesdesk-ai.com${rawImage}`
-      : rawImage;
+    return rawImage;
   }
 
   const combined = `${title || ''} ${focusKeyword || ''} ${category || ''} ${slug}`.toLowerCase();

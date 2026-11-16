@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800;900&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    width: 2500px;
+    height: 1686px;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 30%, #162c4a 0%, #0a1626 65%, #050c17 100%);
+    font-family: 'Prompt', -apple-system, BlinkMacSystemFont, "Sukhumvit Set", sans-serif;
+    color: #ffffff;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .card {
+    position: relative;
+    background: linear-gradient(180deg, rgba(18, 36, 62, 0.94) 0%, rgba(10, 22, 38, 0.98) 100%);
+    border: 2.5px solid rgba(218, 178, 85, 0.45);
+    border-radius: 28px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+  }
+
+  .card.highlight {
+    border: 3px solid rgba(250, 225, 140, 0.8);
+    box-shadow: 0 16px 45px rgba(218, 178, 85, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  .card-top {
+    height: 400px;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-top-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  .card-top-boxed {
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 20, 36, 0.85);
+    border: 2px solid rgba(218, 178, 85, 0.3);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px;
+  }
+
+  .badge {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 24px;
+    border-radius: 16px;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    z-index: 10;
+    white-space: nowrap;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  }
+
+  .badge-gold {
+    background: linear-gradient(135deg, #f5de84 0%, #dab255 100%);
+    color: #0a1626;
+  }
+
+  .badge-coral {
+    background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+    color: #ffffff;
+  }
+
+  .badge-emerald {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+  }
+
+  .badge-green {
+    background: linear-gradient(135deg, #06c755 0%, #049e43 100%);
+    color: #ffffff;
+  }
+
+  .card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-top: 16px;
+  }
+
+  .brand-sub {
+    font-size: 22px;
+    font-weight: 600;
+    color: #dab255;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+
+  .title {
+    font-size: 50px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-bottom: 6px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .subtitle {
+    font-size: 29px;
+    font-weight: 600;
+    color: #f3e5ab;
+    line-height: 1.35;
+    margin-bottom: 6px;
+  }
+
+  .subtitle.emerald {
+    color: #6ee7b7;
+  }
+
+  .detail {
+    font-size: 23px;
+    font-weight: 400;
+    color: #94a3b8;
+    line-height: 1.3;
+  }
+
+  .cta-btn {
+    width: 510px;
+    height: 74px;
+    border-radius: 37px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 16px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  .cta-navy {
+    background: linear-gradient(180deg, #162f52 0%, #0d1e36 100%);
+    border: 2px solid #dab255;
+    color: #ffffff;
+  }
+
+  .cta-gold {
+    background: linear-gradient(135deg, #f7e396 0%, #dab255 100%);
+    border: 2px solid #ffffff;
+    color: #0a1626;
+  }
+
+  .cta-emerald {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    color: #ffffff;
+  }
+
+  .cta-green {
+    background: linear-gradient(135deg, #06c755 0%, #059e44 100%);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    color: #ffffff;
+  }
+
+  /* Centerpiece Emblem */
+  .emblem-wrapper {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .emblem-halo {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(218, 178, 85, 0.35) 0%, rgba(218, 178, 85, 0) 70%);
+  }
+
+  .emblem-ring {
+    position: absolute;
+    width: 330px;
+    height: 330px;
+    border-radius: 50%;
+    border: 4px solid #f5de84;
+    box-shadow: 0 0 30px rgba(218, 178, 85, 0.5), inset 0 0 15px rgba(218, 178, 85, 0.4);
+  }
+
+  .emblem-img {
+    width: 310px;
+    height: 310px;
+    border-radius: 50%;
+    object-fit: contain;
+    z-index: 2;
+  }
+
+  /* Stars Rating Pill */
+  .stars-pill {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 22, 38, 0.9);
+    border: 1.5px solid #dab255;
+    border-radius: 16px;
+    padding: 6px 24px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    z-index: 10;
+  }
+
+  .star-svg {
+    width: 28px;
+    height: 28px;
+    fill: #f5de84;
+  }
+
+  /* 3-Step Process in Card 4 */
+  .steps-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 45px 30px 15px 30px;
+    position: relative;
+  }
+
+  .step-line {
+    position: absolute;
+    left: 58px;
+    top: 85px;
+    bottom: 55px;
+    width: 4px;
+    background: rgba(218, 178, 85, 0.4);
+  }
+
+  .step-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .step-circle {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f5de84 0%, #dab255 100%);
+    color: #0a1626;
+    font-size: 30px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 2px solid #ffffff;
+    flex-shrink: 0;
+  }
+
+  .step-text {
+    text-align: left;
+  }
+
+  .step-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+
+  .step-desc {
+    font-size: 22px;
+    font-weight: 400;
+    color: #94a3b8;
+    margin-top: 2px;
+  }
+
+  /* Card 5 Payment Slip Graphic */
+  .slip-box {
+    position: relative;
+    width: 290px;
+    height: 200px;
+    background: #f8fafc;
+    border-radius: 18px;
+    border: 2px solid #10b981;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+  }
+
+  .slip-head {
+    width: 100%;
+    height: 34px;
+    background: #0f243d;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+  }
+
+  .slip-head-text {
+    font-size: 16px;
+    font-weight: 700;
+    color: #f5de84;
+    letter-spacing: 1px;
+  }
+
+  .slip-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 4px 0 4px;
+  }
+
+  .slip-line {
+    height: 7px;
+    border-radius: 4px;
+    background: #cbd5e1;
+  }
+
+  .slip-verified-badge {
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border: 4px solid #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.5);
+  }
+
+  .check-svg {
+    width: 42px;
+    height: 42px;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Card 6 LINE Admin Graphic */
+  .line-bubble-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .line-speech-bubble {
+    position: relative;
+    width: 140px;
+    height: 120px;
+    background: linear-gradient(135deg, #06c755 0%, #049e43 100%);
+    border-radius: 60px;
+    border: 4px solid #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(6, 199, 85, 0.4);
+  }
+
+  .line-speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -14px;
+    left: 32px;
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 18px solid #06c755;
+  }
+
+  .line-bubble-text {
+    font-size: 38px;
+    font-weight: 900;
+    color: #ffffff;
+    letter-spacing: 1px;
+  }
+
+  .hotline-pill {
+    margin-top: 25px;
+    background: rgba(16, 36, 62, 0.9);
+    border: 2px solid #dab255;
+    border-radius: 16px;
+    padding: 8px 26px;
+    font-size: 32px;
+    font-weight: 800;
+    color: #f5de84;
+    letter-spacing: 0.5px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  }
+
+</style>
+</head>
+<body>
+
+  <!-- CARD 1: แคตาล็อกผ้าปูที่นอน / สินค้าเด่น -->
+  <div class="card">
+    <div class="card-top">
+      <img class="card-top-bg-img" src="file:///Users/manopluechutakul/Projects/salesdesk-sites/public/images/tandj/bedsheet-sateen.jpg" alt="ผ้าปูที่นอน">
+      <div class="badge badge-gold">BEST SELLER • มาตรฐานโรงแรม 5 ดาว</div>
+    </div>
+    <div class="card-content">
+      <div class="title">แคตาล็อกผ้าปูที่นอน</div>
+      <div class="subtitle">สินค้าเด่น • สเปกโรงแรม 5 ดาว</div>
+      <div class="detail">ผ้าปูที่นอน • ปลอกผ้านวม • ท็อปเปอร์ • ผ้าขนหนู</div>
+      <div class="cta-btn cta-navy">เลือกดูแคตาล็อกทั้งหมด &rsaquo;</div>
+    </div>
+  </div>
+
+  <!-- CARD 2: โปรโมชั่นพิเศษ (Centerpiece) -->
+  <div class="card highlight">
+    <div class="card-top">
+      <div class="card-top-boxed">
+        <div class="badge badge-coral">SPECIAL OFFER • ส่วนลดโครงการ B2B</div>
+        <div class="emblem-wrapper">
+          <div class="emblem-halo"></div>
+          <div class="emblem-ring"></div>
+          <img class="emblem-img" src="file:///Users/manopluechutakul/Projects/salesdesk-sites/public/images/tandj/success-emblem.png" alt="SUCCESS Emblem">
+        </div>
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="brand-sub">บจก.ซัคเซสลอนดรี้ แอนด์ โฮเทลซัพพลายส์</div>
+      <div class="title">โปรโมชั่นพิเศษ</div>
+      <div class="subtitle">เซ็ตสุดคุ้ม • สั่งผลิตราคาส่งเริ่มต้น 5 ชุด</div>
+      <div class="detail">บริการเช่าซักครบวงจร เริ่มต้นเพียง 499.-/เดือน</div>
+      <div class="cta-btn cta-gold">รับสิทธิ์โปรโมชั่นทันที &rsaquo;</div>
+    </div>
+  </div>
+
+  <!-- CARD 3: รีวิวผลงาน / หน้าร้าน -->
+  <div class="card">
+    <div class="card-top">
+      <img class="card-top-bg-img" src="file:///Users/manopluechutakul/Projects/salesdesk-sites/public/images/tandj/room-slider.jpeg" alt="รีวิวผลงาน">
+      <div class="badge badge-gold">HOTEL SHOWCASE • รีวิวจริง 100%</div>
+      <div class="stars-pill">
+        <svg class="star-svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="star-svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="star-svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="star-svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="star-svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="title">รีวิวผลงาน / หน้าร้าน</div>
+      <div class="subtitle">โรงแรม รีสอร์ต &amp; พูลวิลล่าชั้นนำทั่วไทย</div>
+      <div class="detail">รีวิวจากผู้ประกอบการจริง พร้อมภาพส่งมอบหน้างาน</div>
+      <div class="cta-btn cta-navy">ชมภาพผลงานส่งมอบจริง &rsaquo;</div>
+    </div>
+  </div>
+
+  <!-- CARD 4: วิธีการสั่งซื้อ / บัญชีโอนเงิน -->
+  <div class="card">
+    <div class="card-top">
+      <div class="card-top-boxed">
+        <div class="badge badge-gold">ORDER GUIDE • 3 ขั้นตอนง่าย</div>
+        <div class="steps-container">
+          <div class="step-line"></div>
+          <div class="step-item">
+            <div class="step-circle">1</div>
+            <div class="step-text">
+              <div class="step-title">เลือกสินค้า / แจ้งสเปกที่ต้องการ</div>
+              <div class="step-desc">เลือกไซส์ผ้าปู ท็อปเปอร์ ปลอกผ้านวม หรือแพ็กเกจเช่า</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">2</div>
+            <div class="step-text">
+              <div class="step-title">ยืนยันใบเสนอราคา &amp; ชำระเงิน</div>
+              <div class="step-desc">โอนเข้าบัญชี บจก.ซัคเซสฯ ออกใบกำกับภาษีได้</div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-circle">3</div>
+            <div class="step-text">
+              <div class="step-title">แพ็กสินค้าและจัดส่งด่วนทั่วไทย</div>
+              <div class="step-desc">มีบริการส่งถึงโรงแรม พร้อมรับประกันคุณภาพสินค้า</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="title">วิธีการสั่งซื้อ / บัญชีโอนเงิน</div>
+      <div class="subtitle">ขั้นตอนสั่งซื้อ • เลขบัญชีบริษัท ซัคเซสฯ</div>
+      <div class="detail">รองรับชำระผ่านธนาคาร ออกใบเสร็จรับเงินถูกต้อง</div>
+      <div class="cta-btn cta-navy">ดูวิธีสั่งซื้อ &amp; เลขบัญชี &rsaquo;</div>
+    </div>
+  </div>
+
+  <!-- CARD 5: แจ้งชำระเงิน -->
+  <div class="card">
+    <div class="card-top">
+      <div class="card-top-boxed">
+        <div class="badge badge-emerald">FAST CONFIRM • อนุมัติไว</div>
+        <div class="slip-box">
+          <div class="slip-head">
+            <span class="slip-head-text">PAYMENT VERIFICATION</span>
+            <span class="slip-head-text">SCB / BBL</span>
+          </div>
+          <div class="slip-body">
+            <div class="slip-line" style="width: 80%;"></div>
+            <div class="slip-line" style="width: 65%;"></div>
+            <div class="slip-line" style="width: 90%;"></div>
+            <div class="slip-line" style="width: 50%;"></div>
+          </div>
+          <div class="slip-verified-badge">
+            <svg class="check-svg" viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="title">แจ้งชำระเงิน</div>
+      <div class="subtitle emerald">แนบสลิปเพื่อยืนยันคำสั่งซื้อทันที</div>
+      <div class="detail">ระบบตรวจสอบสลิป รวดเร็ว ถูกต้อง ปลอดภัย 100%</div>
+      <div class="cta-btn cta-emerald">คลิกแจ้งสลิปโอนเงิน &rsaquo;</div>
+    </div>
+  </div>
+
+  <!-- CARD 6: ติดต่อฝ่ายขาย / แอดมิน -->
+  <div class="card">
+    <div class="card-top">
+      <div class="card-top-boxed">
+        <div class="badge badge-green">24/7 SUPPORT • ปรึกษาฟรี</div>
+        <div class="line-bubble-box">
+          <div class="line-speech-bubble">
+            <span class="line-bubble-text">LINE</span>
+          </div>
+          <div class="hotline-pill">HOTLINE: 086-461-4614</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="title">ติดต่อฝ่ายขาย / แอดมิน</div>
+      <div class="subtitle">สอบถามราคา • ขอใบเสนอราคาด่วน</div>
+      <div class="detail">โทร: 086-461-4614 • LINE OA: @fhu6688s</div>
+      <div class="cta-btn cta-green">ทักแชทคุยกับแอดมิน &rsaquo;</div>
+    </div>
+  </div>
+
+</body>
+</html>

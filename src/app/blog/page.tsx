@@ -5,7 +5,7 @@ import { Calendar, Clock, ArrowRight, Sparkles, BookOpen } from 'lucide-react';
 import PremiumFooter from '@/components/Footer';
 import { fetchAllLivePosts } from '@/lib/posts';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 const siteUrl = 'https://sites.salesdesk-ai.com';
 

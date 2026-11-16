@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 export interface Post {
   id: string;
   slug: string;
@@ -383,14 +385,20 @@ export function mergeWithRemotePosts(
   return result;
 }
 
-export async function fetchAllLivePosts(clientSlug = 'salesdesk'): Promise<Post[]> {
+export const fetchAllLivePosts = cache(async (clientSlug = 'salesdesk'): Promise<Post[]> => {
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+
     const res = await fetch(
       `https://seo.salesdesk-ai.com/api/seo/posts?client=${encodeURIComponent(clientSlug)}`,
       {
-        cache: 'no-store',
+        next: { revalidate: 60 },
+        signal: controller.signal,
       }
     );
+    clearTimeout(timeoutId);
+
     if (res.ok) {
       const data = await res.json();
       if (data.success && Array.isArray(data.posts)) {
@@ -398,10 +406,10 @@ export async function fetchAllLivePosts(clientSlug = 'salesdesk'): Promise<Post[
       }
     }
   } catch (err) {
-    console.warn('Fallback to local posts:', err);
+    console.warn('Fallback to local posts (or timeout):', err);
   }
   return getAllPosts();
-}
+});
 
 export async function fetchLivePostBySlug(slug: string): Promise<Post | undefined> {
   const all = await fetchAllLivePosts('all');

@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 export interface BenzPost {
   id: string;
   slug: string;
@@ -251,11 +253,17 @@ export function mergeWithRemoteBenzPosts(remotePosts: Partial<BenzPost>[]): Benz
   return Array.from(merged.values());
 }
 
-export async function fetchAllLiveBenzPosts(): Promise<BenzPost[]> {
+export const fetchAllLiveBenzPosts = cache(async (): Promise<BenzPost[]> => {
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+
     const res = await fetch('https://seo.salesdesk-ai.com/api/seo/posts?client=ice-benz-ttc-ubon', {
-      cache: 'no-store',
+      next: { revalidate: 60 },
+      signal: controller.signal,
     });
+    clearTimeout(timeoutId);
+
     if (res.ok) {
       const data = await res.json();
       if (data.success && Array.isArray(data.posts)) {
@@ -266,7 +274,7 @@ export async function fetchAllLiveBenzPosts(): Promise<BenzPost[]> {
     // Fallback to local
   }
   return getAllBenzPosts();
-}
+});
 
 export async function fetchLiveBenzPostBySlug(slug: string): Promise<BenzPost | undefined> {
   const all = await fetchAllLiveBenzPosts();

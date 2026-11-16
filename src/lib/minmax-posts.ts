@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 export interface MinMaxPost {
   id: string;
   slug: string;
@@ -192,11 +194,17 @@ export function mergeWithRemoteMinMaxPosts(remoteRaw: Record<string, unknown>[])
   return [...remotePosts, ...localRest];
 }
 
-export async function fetchAllLiveMinMaxPosts(): Promise<MinMaxPost[]> {
+export const fetchAllLiveMinMaxPosts = cache(async (): Promise<MinMaxPost[]> => {
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+
     const res = await fetch('https://seo.salesdesk-ai.com/api/seo/posts?client=minmax-media', {
-      cache: 'no-store',
+      next: { revalidate: 60 },
+      signal: controller.signal,
     });
+    clearTimeout(timeoutId);
+
     if (res.ok) {
       const data = await res.json();
       if (data?.success && Array.isArray(data.posts) && data.posts.length > 0) {
@@ -207,18 +215,26 @@ export async function fetchAllLiveMinMaxPosts(): Promise<MinMaxPost[]> {
     // Fallback to local posts
   }
   return getAllMinMaxPosts();
-}
+});
 
-export async function fetchLiveMinMaxPostBySlug(slug: string): Promise<MinMaxPost | undefined> {
+export const fetchLiveMinMaxPostBySlug = cache(async (slug: string): Promise<MinMaxPost | undefined> => {
   const decoded = decodeURIComponent(slug);
   const localMatch = getMinMaxPostBySlug(decoded);
   if (localMatch) return localMatch;
 
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3500);
+
     const res = await fetch(
       `https://seo.salesdesk-ai.com/api/seo/posts?slug=${encodeURIComponent(decoded)}`,
-      { cache: 'no-store' }
+      {
+        next: { revalidate: 60 },
+        signal: controller.signal,
+      }
     );
+    clearTimeout(timeoutId);
+
     if (res.ok) {
       const data = await res.json();
       if (data?.success && data.post) {
@@ -229,4 +245,4 @@ export async function fetchLiveMinMaxPostBySlug(slug: string): Promise<MinMaxPos
     // Fallback
   }
   return undefined;
-}
+});

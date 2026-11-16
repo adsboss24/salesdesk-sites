@@ -19,7 +19,7 @@ import StructuredData from '@/components/StructuredData';
 import { constructMetadata } from '@/utils/seo';
 import TrackableLineButton from '@/components/TrackableLineButton';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 interface Props {
   params: Promise<{ slug: string }>;

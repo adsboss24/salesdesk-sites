@@ -8,7 +8,7 @@ import SocialShare from '@/components/blog/SocialShare';
 import PremiumFooter from '@/components/Footer';
 import { fetchLivePostBySlug, getAllPosts } from '@/lib/posts';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 interface Props {
   params: Promise<{ slug: string }>;

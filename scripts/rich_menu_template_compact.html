@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600;700;800;900&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    width: 2500px;
+    height: 843px;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 30%, #162c4a 0%, #0a1626 65%, #050c17 100%);
+    font-family: 'Prompt', -apple-system, BlinkMacSystemFont, "Sukhumvit Set", sans-serif;
+    color: #ffffff;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .card {
+    position: relative;
+    background: linear-gradient(180deg, rgba(18, 36, 62, 0.94) 0%, rgba(10, 22, 38, 0.98) 100%);
+    border: 2.5px solid rgba(218, 178, 85, 0.45);
+    border-radius: 28px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    overflow: hidden;
+  }
+
+  .card.highlight {
+    border: 3px solid rgba(250, 225, 140, 0.8);
+    box-shadow: 0 16px 45px rgba(218, 178, 85, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+
+  .card-top {
+    height: 380px;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-top-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+  }
+
+  .card-top-boxed {
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 20, 36, 0.85);
+    border: 2px solid rgba(218, 178, 85, 0.3);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px;
+  }
+
+  .badge {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 8px 24px;
+    border-radius: 16px;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    z-index: 10;
+    white-space: nowrap;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  }
+
+  .badge-gold {
+    background: linear-gradient(135deg, #f5de84 0%, #dab255 100%);
+    color: #0a1626;
+  }
+
+  .badge-coral {
+    background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+    color: #ffffff;
+  }
+
+  .badge-green {
+    background: linear-gradient(135deg, #06c755 0%, #049e43 100%);
+    color: #ffffff;
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  .brand-sub {
+    font-size: 22px;
+    font-weight: 600;
+    color: #dab255;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+
+  .title {
+    font-size: 46px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.25;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    font-size: 26px;
+    font-weight: 600;
+    color: #f3e5ab;
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .detail {
+    font-size: 22px;
+    font-weight: 400;
+    color: #94a3b8;
+  }
+
+  .cta-btn {
+    width: 500px;
+    height: 70px;
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 14px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  .cta-navy {
+    background: linear-gradient(180deg, #162f52 0%, #0d1e36 100%);
+    border: 2px solid #dab255;
+    color: #ffffff;
+  }
+
+  .cta-gold {
+    background: linear-gradient(135deg, #f7e396 0%, #dab255 100%);
+    border: 2px solid #ffffff;
+    color: #0a1626;
+  }
+
+  .cta-green {
+    background: linear-gradient(135deg, #06c755 0%, #059e44 100%);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    color: #ffffff;
+  }
+
+  .emblem-img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: contain;
+    margin-top: 15px;
+  }
+
+  .hotline-pill {
+    margin-top: 15px;
+    background: rgba(16, 36, 62, 0.9);
+    border: 2px solid #dab255;
+    border-radius: 14px;
+    padding: 6px 22px;
+    font-size: 28px;
+    font-weight: 800;
+    color: #f5de84;
+  }
+</style>
+</head>
+<body>
+
+  <!-- CARD 1: แคตาล็อกสินค้า / โปรโมชั่น -->
+  <div class="card">
+    <div class="card-top">
+      <img class="card-top-bg-img" src="file:///Users/manopluechutakul/Projects/salesdesk-sites/public/images/tandj/bedsheet-sateen.jpg" alt="ผ้าปูที่นอน">
+      <div class="badge badge-gold">HOT PRODUCTS • สเปก 5 ดาว</div>
+    </div>
+    <div class="card-content">
+      <div class="title">แคตาล็อกสินค้า &amp; โปรโมชั่น</div>
+      <div class="subtitle">ผ้าปูที่นอน • ปลอกผ้านวม • ท็อปเปอร์</div>
+      <div class="detail">สั่งผลิตราคาส่ง B2B หรือบริการเช่าซักครบวงจร</div>
+      <div class="cta-btn cta-navy">เลือกดูสินค้าทั้งหมด &rsaquo;</div>
+    </div>
+  </div>
+
+  <!-- CARD 2: ตราสัญลักษณ์ & สั่งซื้อ / ชำระเงิน -->
+  <div class="card highlight">
+    <div class="card-top">
+      <div class="card-top-boxed">
+        <div class="badge badge-coral">EASY ORDER • 3 ขั้นตอน</div>
+        <img class="emblem-img" src="file:///Users/manopluechutakul/Projects/salesdesk-sites/public/images/tandj/success-emblem.png" alt="SUCCESS">
+      </div>
+    </div>
+    <div class="card-content">
+      <div class="brand-sub">บจก.ซัคเซสลอนดรี้ แอนด์ โฮเทลซัพพลายส์</div>
+      <div class="title">วิธีสั่งซื้อ &amp; แจ้งชำระเงิน</div>
+      <div class="subtitle">สั่งซื้อสะดวก • แนบสลิปอนุมัติไว</div>
+      <div class="detail">ออกใบกำกับภาษี &amp; ใบเสร็จรับเงินถูกต้อง</div>
+      <div class="cta-btn cta-gold">แจ้งชำระเงิน &amp; วิธีสั่งซื้อ &rsaquo;</div>
+    </div>
+  </div>
+
+  <!-- CARD 3: ติดต่อฝ่ายขาย / รีวิวผลงาน -->
+  <div class="card">
+    <div class="card-top">
+      <img class="card-top-bg-img" src="file:///Users/manopluechutakul/Projects/salesdesk-sites/public/images/tandj/room-slider.jpeg" alt="ติดต่อเรา">
+      <div class="badge badge-green">24/7 SUPPORT • ปรึกษาฟรี</div>
+    </div>
+    <div class="card-content">
+      <div class="title">ติดต่อฝ่ายขาย / แอดมิน</div>
+      <div class="subtitle">โทร: 086-461-4614 (ตอบกลับไว)</div>
+      <div class="detail">ปรึกษาผู้เชี่ยวชาญ &amp; ขอใบเสนอราคาด่วน</div>
+      <div class="cta-btn cta-green">ทักแชทคุยกับแอดมิน &rsaquo;</div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -62,10 +62,11 @@ export default function TandJBeddingEcommercePage() {
   const clientPhone = '086-461-4614';
   const phoneDisplay = '086-461-4614';
   const phoneCallUrl = 'tel:0864614614';
-  const lineUrl = 'https://line.me/ti/p/~@fhu6688s';
+  const lineUrl = 'https://lin.ee/PT6N6eS';
+  const lineId = '@974nuzsh';
 
   const getLineShareUrl = (text: string) => {
-    return `https://line.me/ti/p/~@fhu6688s?text=${encodeURIComponent(text)}`;
+    return `https://line.me/ti/p/~@974nuzsh?text=${encodeURIComponent(text)}`;
   };
 
   // State
@@ -2551,15 +2552,28 @@ export default function TandJBeddingEcommercePage() {
                 </div>
                 <div>
                   <span className="block text-slate-500 text-[11px] font-medium">LINE Official Account:</span>
-                  <a
-                    href="https://line.me/ti/p/~@fhu6688s"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-emerald-400 font-bold hover:underline transition text-sm flex items-center gap-1.5"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>@fhu6688s (มี @ นำหน้า)</span>
-                  </a>
+                  <div className="flex items-center gap-3 mt-1">
+                    <a
+                      href={lineUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-emerald-400 font-bold hover:underline transition text-sm flex items-center gap-1.5"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      <span>{lineId} (มี @ นำหน้า)</span>
+                    </a>
+                  </div>
+                  <div className="mt-2 flex items-center gap-2.5 bg-slate-950/80 p-2 rounded-xl border border-slate-800">
+                    <img
+                      src="/images/tandj/line-oa-qr.png"
+                      alt="LINE Official Account QR Code"
+                      className="w-14 h-14 rounded-lg bg-white p-1"
+                    />
+                    <div className="text-[11px] text-slate-400 leading-tight">
+                      <span className="font-semibold text-white block">สแกนเพิ่มเพื่อนใน LINE</span>
+                      <span>หรือคลิกปุ่มเพื่อคุยกับแอดมิน</span>
+                    </div>
+                  </div>
                 </div>
                 <div className="pt-2 border-t border-slate-800 text-[11px] text-slate-400">
                   <span>เวลาทำการ: จันทร์ - เสาร์ 08:30 - 17:30 น. (ฝ่ายขายและบริการหลังการขาย)</span>

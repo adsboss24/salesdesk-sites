@@ -630,6 +630,49 @@ export default function TandJBeddingEcommercePage() {
     }
   };
 
+  // Automated Webhook Order & Quotation Dispatcher
+  const [isSubmittingOrder, setIsSubmittingOrder] = useState<boolean>(false);
+
+  const submitOrderWebhook = async (type: 'purchase' | 'quotation' | 'rental') => {
+    try {
+      setIsSubmittingOrder(true);
+      await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderType: type,
+          quotationNumber,
+          customerInfo: {
+            name: customerInfo.name || (type === 'rental' ? 'ลูกค้าโรงแรม (ขอข้อมูลบริการเช่า)' : 'ผู้ติดต่อโครงการ'),
+            phone: customerInfo.phone || '086-461-4614',
+            businessName: customerInfo.businessName || '',
+            taxId: customerInfo.taxId || '',
+            address: customerInfo.address || '',
+            notes: customerInfo.notes || '',
+          },
+          items: cart,
+          rentalDetails: type === 'rental' ? {
+            contractTier: rentalRates.name,
+            twinRooms: rentalRooms.twin,
+            queenRooms: rentalRooms.queen,
+            kingRooms: rentalRooms.king,
+            totalBeds: totalRentalBeds,
+            monthlyTotal: monthlyRentalTotal,
+            depositTotal: depositTotal,
+            buyEquivalentTotal: buyEquivalentTotal,
+          } : undefined,
+          totalItemCount: type === 'rental' ? totalRentalBeds : totalItemCount,
+          grandTotal: type === 'rental' ? monthlyRentalTotal : grandTotal,
+          pageSource: 'tandj-bedding',
+        }),
+      });
+    } catch (err) {
+      console.error('Order dispatch error:', err);
+    } finally {
+      setIsSubmittingOrder(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#FDFDFD] text-slate-800 font-sans selection:bg-blue-900 selection:text-white pb-24 md:pb-12 w-full max-w-full overflow-x-hidden">
       
@@ -880,6 +923,7 @@ export default function TandJBeddingEcommercePage() {
                     href={`https://line.me/ti/p/~@fhu6688s?text=${rentalLineMessage}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => submitOrderWebhook('rental')}
                     className="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-sm shadow-lg flex items-center gap-2"
                   >
                     <MessageCircle className="w-4 h-4" />
@@ -1331,6 +1375,7 @@ export default function TandJBeddingEcommercePage() {
                       href={`https://line.me/ti/p/~@fhu6688s?text=${rentalLineMessage}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => submitOrderWebhook('rental')}
                       className="flex-1 sm:flex-initial px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-sm shadow-md transition flex items-center justify-center gap-2"
                     >
                       <MessageCircle className="w-4 h-4" />
@@ -2150,6 +2195,7 @@ export default function TandJBeddingEcommercePage() {
                       )}
                       target="_blank"
                       rel="noreferrer"
+                      onClick={() => submitOrderWebhook('quotation')}
                       className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition"
                     >
                       <MessageCircle className="w-4 h-4" />
@@ -2356,17 +2402,28 @@ export default function TandJBeddingEcommercePage() {
                   <div className="space-y-3">
                     <button
                       type="button"
-                      onClick={() => {
+                      disabled={isSubmittingOrder}
+                      onClick={async () => {
                         if (!customerInfo.name || !customerInfo.phone) {
                           alert('กรุณากรอกชื่อและเบอร์โทรศัพท์สำหรับจัดส่งสินค้าครับ');
                           return;
                         }
+                        await submitOrderWebhook('purchase');
                         setCheckoutStep('success');
                       }}
-                      className="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 font-bold text-sm shadow-xl flex items-center justify-center gap-2 transition cursor-pointer"
+                      className="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 disabled:opacity-60 text-amber-300 font-bold text-sm shadow-xl flex items-center justify-center gap-2 transition cursor-pointer"
                     >
-                      <FileCheck className="w-5 h-5 text-amber-400" />
-                      <span>ยืนยันการแจ้งชำระเงิน</span>
+                      {isSubmittingOrder ? (
+                        <>
+                          <RefreshCw className="w-5 h-5 text-amber-400 animate-spin" />
+                          <span>กำลังบันทึกและส่งข้อมูลเข้าระบบ...</span>
+                        </>
+                      ) : (
+                        <>
+                          <FileCheck className="w-5 h-5 text-amber-400" />
+                          <span>ยืนยันการแจ้งชำระเงิน</span>
+                        </>
+                      )}
                     </button>
 
                     <a
@@ -2375,6 +2432,7 @@ export default function TandJBeddingEcommercePage() {
                       )}
                       target="_blank"
                       rel="noreferrer"
+                      onClick={() => submitOrderWebhook('purchase')}
                       className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition"
                     >
                       <MessageCircle className="w-4 h-4" />

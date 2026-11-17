@@ -78,7 +78,7 @@ export const metadata: Metadata = {
   },
   verification: {
     other: {
-      'facebook-domain-verification': 'ip57r3oxy6r7xn39uqdv8gw1f2vra0',
+      'facebook-domain-verification': '7kdqf79g3x9l7dodl4t596vkb8usz5',
     },
   },
 };

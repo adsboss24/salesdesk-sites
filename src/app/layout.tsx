@@ -76,6 +76,11 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  verification: {
+    other: {
+      'facebook-domain-verification': 'ip57r3oxy6r7xn39uqdv8gw1f2vra0',
+    },
+  },
 };
 
 export default function RootLayout({

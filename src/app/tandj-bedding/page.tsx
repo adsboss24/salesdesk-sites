@@ -920,7 +920,7 @@ export default function TandJBeddingEcommercePage() {
 
                 <div className="pt-2 flex flex-wrap items-center gap-3">
                   <a
-                    href={`https://line.me/ti/p/~@fhu6688s?text=${rentalLineMessage}`}
+                    href={`https://line.me/ti/p/~@974nuzsh?text=${rentalLineMessage}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => submitOrderWebhook('rental')}
@@ -1372,7 +1372,7 @@ export default function TandJBeddingEcommercePage() {
 
                   <div className="flex items-center gap-3 w-full sm:w-auto">
                     <a
-                      href={`https://line.me/ti/p/~@fhu6688s?text=${rentalLineMessage}`}
+                      href={`https://line.me/ti/p/~@974nuzsh?text=${rentalLineMessage}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => submitOrderWebhook('rental')}

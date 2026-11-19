@@ -66,7 +66,7 @@ export default function TandJBeddingEcommercePage() {
   const lineId = '@974nuzsh';
 
   const getLineShareUrl = (text: string) => {
-    return `https://line.me/ti/p/~@974nuzsh?text=${encodeURIComponent(text)}`;
+    return `https://line.me/R/oaMessage/%40974nuzsh/?${encodeURIComponent(text)}`;
   };
 
   // State
@@ -78,6 +78,8 @@ export default function TandJBeddingEcommercePage() {
   const [checkoutStep, setCheckoutStep] = useState<'cart' | 'quote' | 'payment' | 'success'>('cart');
   const [copiedBank, setCopiedBank] = useState<boolean>(false);
   const [copiedPromptPay, setCopiedPromptPay] = useState<boolean>(false);
+  const [copiedQuoteText, setCopiedQuoteText] = useState<boolean>(false);
+  const [copiedRentalText, setCopiedRentalText] = useState<boolean>(false);
 
   // Rental Estimator State
   const [rentalRooms, setRentalRooms] = useState<{ twin: number; queen: number; king: number }>({ twin: 10, queen: 10, king: 10 });
@@ -611,18 +613,106 @@ export default function TandJBeddingEcommercePage() {
     return Math.round(buyEquivalentTotal * (rentalRates.depositPercent / 100));
   }, [buyEquivalentTotal, rentalRates]);
 
-  const rentalLineMessage = encodeURIComponent(
-    `สวัสดีครับ สนใจขอใบเสนอราคา "บริการเช่าชุดเครื่องนอนโรงแรม" (${rentalRates.name})
-ขนาดเตียงที่ต้องการ:
+  // Full Itemized Quotation Message for LINE
+  const fullQuotationMessage = useMemo(() => {
+    const itemsList = cart.length > 0 
+      ? cart.map((item, idx) => {
+          const fabricStr = item.fabric ? ` [${item.fabric}]` : '';
+          const sizeStr = item.size ? ` (${item.size})` : '';
+          return `${idx + 1}. ${item.name}${fabricStr}${sizeStr}\n   จำนวน: ${item.quantity} ${item.unit} x ฿${item.unitPrice.toLocaleString()} = ฿${(item.unitPrice * item.quantity).toLocaleString()} บาท`;
+        }).join('\n')
+      : 'ไม่มีรายการสินค้า';
+
+    const customerDetails = [
+      customerInfo.name ? `ผู้ติดต่อ: ${customerInfo.name}` : '',
+      customerInfo.businessName ? `โรงแรม/โครงการ: ${customerInfo.businessName}` : '',
+      customerInfo.phone ? `เบอร์โทรศัพท์: ${customerInfo.phone}` : '',
+      customerInfo.address ? `ที่อยู่จัดส่ง: ${customerInfo.address}` : '',
+      customerInfo.taxId ? `เลขประจำตัวผู้เสียภาษี: ${customerInfo.taxId}` : '',
+      customerInfo.notes ? `หมายเหตุเพิ่มเติม: ${customerInfo.notes}` : '',
+    ].filter(Boolean).join('\n');
+
+    return `สวัสดีครับ ขอส่งใบเสนอราคา บจก.ซัคเซสลอนดรี้ แอนด์ โฮเทลซัพพลายส์
+เลขที่เอกสาร: ${quotationNumber}
+${customerDetails ? `\n--- ข้อมูลผู้ติดต่อ/จัดส่ง ---\n${customerDetails}\n` : ''}
+--- รายการสินค้า (${totalItemCount} ชิ้น) ---
+${itemsList}
+
+ยอดรวมสินค้า: ฿${subtotal.toLocaleString()} บาท
+ค่าจัดส่ง: ${estimatedShipping === 0 ? 'ฟรี (ส่งฟรีทั่วไทยยอด 10,000+)' : `฿${estimatedShipping.toLocaleString()} บาท`}
+ยอดรวมสุทธิทั้งสิ้น: ฿${grandTotal.toLocaleString()} บาท
+
+รบกวนฝ่ายขาย บจก.ซัคเซสลอนดรี้ ตรวจสอบและยืนยันออเดอร์ให้ด้วยครับ`;
+  }, [cart, quotationNumber, customerInfo, totalItemCount, subtotal, estimatedShipping, grandTotal]);
+
+  // Full Rental Inquiry Message for LINE
+  const fullRentalMessage = useMemo(() => {
+    const customerDetails = [
+      customerInfo.name ? `ผู้ติดต่อ: ${customerInfo.name}` : '',
+      customerInfo.businessName ? `โรงแรม/โครงการ: ${customerInfo.businessName}` : '',
+      customerInfo.phone ? `เบอร์โทร: ${customerInfo.phone}` : '',
+    ].filter(Boolean).join('\n');
+
+    return `สวัสดีครับ สนใจขอใบเสนอราคา "บริการเช่าชุดเครื่องนอนโรงแรม"
+แพ็กเกจ: ${rentalRates.name}
+${customerDetails ? `${customerDetails}\n` : ''}
+รายละเอียดจำนวนเตียง:
 - เตียง Twin 3.5 ฟุต: ${rentalRooms.twin} เตียง (฿${rentalRates.twin}/ด.)
 - เตียง Queen 5 ฟุต: ${rentalRooms.queen} เตียง (฿${rentalRates.queen}/ด.)
 - เตียง King 6 ฟุต: ${rentalRooms.king} เตียง (฿${rentalRates.king}/ด.)
 รวมเตียงทั้งหมด: ${totalRentalBeds} เตียง
+
 ประมาณการค่าเช่ารวม: ฿${monthlyRentalTotal.toLocaleString()} บาท/เดือน
 (เทียบกับซื้อขาด ฿${buyEquivalentTotal.toLocaleString()} บาท)
 เงินมัดจำ (${rentalRates.depositPercent}% คืนเมื่อครบสัญญา): ฿${depositTotal.toLocaleString()} บาท
-รบกวนฝ่ายขาย บจก.ซัคเซสลอนดรี้ ติดต่อกลับเพื่อทำสัญญาและส่งใบเสนอราคาครับ`
-  );
+
+สิทธิประโยชน์: เคลมเปลี่ยนผ้าใหม่ฟรีตลอดสัญญา / ส่วนลดสินค้าอื่น ${rentalRates.discount}%
+รบกวนฝ่ายขาย บจก.ซัคเซสลอนดรี้ ติดต่อกลับเพื่อทำสัญญาและส่งใบเสนอราคาครับ`;
+  }, [rentalRates, customerInfo, rentalRooms, totalRentalBeds, monthlyRentalTotal, buyEquivalentTotal, depositTotal]);
+
+  const handleSendQuotationToLine = async () => {
+    try {
+      if (typeof navigator !== 'undefined' && navigator.clipboard) {
+        await navigator.clipboard.writeText(fullQuotationMessage);
+        setCopiedQuoteText(true);
+        setTimeout(() => setCopiedQuoteText(false), 4000);
+      }
+    } catch (e) {
+      console.warn('Clipboard write failed:', e);
+    }
+    submitOrderWebhook('quotation');
+    const targetUrl = getLineShareUrl(fullQuotationMessage);
+    if (typeof window !== 'undefined') {
+      window.open(targetUrl, '_blank');
+    }
+  };
+
+  const handleCopyQuotationOnly = () => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(fullQuotationMessage);
+      setCopiedQuoteText(true);
+      setTimeout(() => setCopiedQuoteText(false), 4000);
+    }
+  };
+
+  const handleSendRentalToLine = async () => {
+    try {
+      if (typeof navigator !== 'undefined' && navigator.clipboard) {
+        await navigator.clipboard.writeText(fullRentalMessage);
+        setCopiedRentalText(true);
+        setTimeout(() => setCopiedRentalText(false), 4000);
+      }
+    } catch (e) {
+      console.warn('Clipboard write failed:', e);
+    }
+    submitOrderWebhook('rental');
+    const targetUrl = getLineShareUrl(fullRentalMessage);
+    if (typeof window !== 'undefined') {
+      window.open(targetUrl, '_blank');
+    }
+  };
+
+  const rentalLineMessage = encodeURIComponent(fullRentalMessage);
 
   const handlePrint = () => {
     if (typeof window !== 'undefined') {
@@ -919,16 +1009,13 @@ export default function TandJBeddingEcommercePage() {
                 </p>
 
                 <div className="pt-2 flex flex-wrap items-center gap-3">
-                  <a
-                    href={`https://line.me/ti/p/~@974nuzsh?text=${rentalLineMessage}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => submitOrderWebhook('rental')}
-                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-sm shadow-lg flex items-center gap-2"
+                  <button
+                    onClick={handleSendRentalToLine}
+                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-sm shadow-lg flex items-center gap-2 cursor-pointer transition hover:shadow-emerald-500/20"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    <span>ขอใบเสนอราคาเช่าผ่าน LINE</span>
-                  </a>
+                    <span>{copiedRentalText ? '✅ คัดลอก & กำลังเปิด LINE...' : 'ขอใบเสนอราคาเช่าผ่าน LINE'}</span>
+                  </button>
                   <a
                     href="tel:0864614614"
                     className="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 backdrop-blur-xs flex items-center gap-2"
@@ -1370,17 +1457,14 @@ export default function TandJBeddingEcommercePage() {
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-3 w-full sm:w-auto">
-                    <a
-                      href={`https://line.me/ti/p/~@974nuzsh?text=${rentalLineMessage}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => submitOrderWebhook('rental')}
-                      className="flex-1 sm:flex-initial px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-sm shadow-md transition flex items-center justify-center gap-2"
+                  <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+                    <button
+                      onClick={handleSendRentalToLine}
+                      className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-black text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <MessageCircle className="w-4 h-4" />
-                      <span>ส่งใบเสนอราคาเข้า LINE OA</span>
-                    </a>
+                      <span>{copiedRentalText ? '✅ คัดลอก & กำลังเปิด LINE...' : 'ส่งใบเสนอราคาเข้า LINE OA'}</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -2189,18 +2273,28 @@ export default function TandJBeddingEcommercePage() {
 
                   {/* Quote Actions */}
                   <div className="space-y-3 pt-2">
-                    <a
-                      href={getLineShareUrl(
-                        `สวัสดีครับ ขอส่งใบเสนอราคา บจก.ซัคเซสลอนดรี้ เลขที่ ${quotationNumber} ของ ${customerInfo.businessName || 'โครงการ'} จำนวน ${totalItemCount} ชิ้น ยอดรวม ฿${grandTotal.toLocaleString()} บาทครับ`
-                      )}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={() => submitOrderWebhook('quotation')}
-                      className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition"
+                    {copiedQuoteText && (
+                      <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-emerald-800 text-xs font-medium flex items-center gap-2 animate-in fade-in">
+                        <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span>คัดลอกรายการสินค้าทั้งหมดลงคลิปบอร์ดแล้ว! หาก LINE ไม่แสดงข้อความอัตโนมัติ สามารถกด "วาง (Paste)" ในแชทได้ทันทีครับ</span>
+                      </div>
+                    )}
+
+                    <button
+                      onClick={handleSendQuotationToLine}
+                      className="w-full py-3.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md flex items-center justify-center gap-2 transition cursor-pointer"
                     >
-                      <MessageCircle className="w-4 h-4" />
-                      <span>ส่งใบเสนอราคานี้เข้า LINE OA เพื่อยืนยันคำสั่งซื้อ</span>
-                    </a>
+                      <MessageCircle className="w-5 h-5" />
+                      <span>{copiedQuoteText ? '✅ คัดลอกแล้ว & กำลังเปิด LINE OA' : 'ส่งใบเสนอราคานี้เข้า LINE OA เพื่อยืนยันคำสั่งซื้อ'}</span>
+                    </button>
+
+                    <button
+                      onClick={handleCopyQuotationOnly}
+                      className="w-full py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs flex items-center justify-center gap-2 transition cursor-pointer border border-slate-200"
+                    >
+                      <Copy className="w-4 h-4 text-slate-500" />
+                      <span>{copiedQuoteText ? '✅ คัดลอกรายการเรียบร้อยแล้ว' : '📋 คัดลอกข้อความรายการทั้งหมด (สำหรับวางในแชท)'}</span>
+                    </button>
 
                     <div className="grid grid-cols-2 gap-2">
                       <button
@@ -2432,7 +2526,12 @@ export default function TandJBeddingEcommercePage() {
                       )}
                       target="_blank"
                       rel="noreferrer"
-                      onClick={() => submitOrderWebhook('purchase')}
+                      onClick={() => {
+                        if (typeof navigator !== 'undefined' && navigator.clipboard) {
+                          navigator.clipboard.writeText(`สวัสดีครับ ขอแจ้งโอนเงิน บจก.ซัคเซสลอนดรี้ สำหรับ ${customerInfo.name || 'ลูกค้า'} ยอดเงิน ฿${grandTotal.toLocaleString()} บาท พร้อมส่งสลิปครับ`);
+                        }
+                        submitOrderWebhook('purchase');
+                      }}
                       className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition"
                     >
                       <MessageCircle className="w-4 h-4" />
@@ -2478,6 +2577,11 @@ export default function TandJBeddingEcommercePage() {
                       )}
                       target="_blank"
                       rel="noreferrer"
+                      onClick={() => {
+                        if (typeof navigator !== 'undefined' && navigator.clipboard) {
+                          navigator.clipboard.writeText(`สวัสดีครับ ตรวจสอบรายการสั่งซื้อ บจก.ซัคเซสลอนดรี้ อ้างอิง ${quotationNumber} ยอด ฿${grandTotal.toLocaleString()} บาทครับ`);
+                        }
+                      }}
                       className="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md flex items-center justify-center gap-2 transition"
                     >
                       <MessageCircle className="w-4 h-4" />

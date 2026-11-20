@@ -168,7 +168,6 @@ function buildLineFlexMessage(data: OrderSubmissionPayload) {
             color: '#FBBF24',
             weight: 'bold',
             size: 'xxs',
-            letterSpacing: '1px',
           },
           {
             type: 'text',
@@ -373,7 +372,7 @@ export async function POST(request: Request) {
         });
 
         const lineJson = await lineResponse.json().catch(() => ({}));
-        linePushResult = { status: lineResponse.status, data: lineJson };
+        linePushResult = { status: lineResponse.status, ok: lineResponse.ok, data: lineJson };
         console.log('[LINE PUSH RESULT]', linePushResult);
       } catch (lineErr) {
         console.error('[LINE PUSH ERROR]', lineErr);
@@ -405,7 +404,7 @@ export async function POST(request: Request) {
         quotationNumber: payload.quotationNumber,
         grandTotal: payload.grandTotal,
         customerName: payload.customerInfo.name,
-        lineNotified: Boolean(lineChannelAccessToken && lineTargetId),
+        lineNotified: Boolean(linePushResult?.ok),
       },
     });
   } catch (error) {

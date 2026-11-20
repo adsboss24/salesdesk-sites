@@ -39,7 +39,6 @@ function buildLineLeadFlexMessage(data: LeadSubmission) {
             color: '#14B8A6',
             weight: 'bold',
             size: 'xxs',
-            letterSpacing: '1px',
           },
           {
             type: 'text',

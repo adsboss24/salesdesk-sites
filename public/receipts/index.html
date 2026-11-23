@@ -8,19 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- html2pdf.js for instant single-page PDF export -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
-    window.addEventListener('DOMContentLoaded', () => {
-      const params = new URLSearchParams(window.location.search);
-      const typeParam = params.get('type') || params.get('doc');
-      if (typeParam) {
-        switchDocumentType(typeParam.toUpperCase());
-      }
-      if (params.get('thor') !== null) {
-        setThorQuotation();
-      }
-    });
-
-  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     * {
       box-sizing: border-box;
@@ -946,9 +934,10 @@
   <div class="edit-drawer" id="editDrawer">
     <h3>
       <span>⚙️ กรอกข้อมูลครั้งเดียว — คำนวณหักมัดจำและคงเหลืออัตโนมัติ</span>
-      <div style="display: flex; gap: 8px;">
-        <button class="btn-chip" style="background: #0284c7; color: #ffffff; font-weight: 700;" onclick="saveCurrentDocumentToHistory(false)">💾 บันทึกเอกสารนี้</button>
-        <button class="btn-chip" style="background: #475569;" onclick="toggleEditDrawer()">✕ ปิดฟอร์ม</button>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <button type="button" class="btn-chip" style="background: #334155; color: #cbd5e1;" onclick="resetToStandardDefaults()">🔄 ล้างฟอร์มเริ่มต้น</button>
+        <button type="button" class="btn-chip" style="background: #0284c7; color: #ffffff; font-weight: 700;" onclick="saveCurrentDocumentToHistory(false)">💾 บันทึกเอกสารนี้</button>
+        <button type="button" class="btn-chip" style="background: #475569;" onclick="toggleEditDrawer()">✕ ปิดฟอร์ม</button>
       </div>
     </h3>
     <div class="form-grid">
@@ -967,35 +956,38 @@
           <option value="ยืนยันราคา 7 วัน">7 วัน (มาตรฐานทั่วไป)</option>
           <option value="ยืนยันราคา 15 วัน">15 วัน (โครงการใหญ่ B2B)</option>
           <option value="ยืนยันราคา 24 ชั่วโมง">24 ชั่วโมง (Flash Offer)</option>
-          <option value="กำหนดชำระภายใน 16 พ.ย. 2569">ภายใน 16 พ.ย. 2569 (ตรงกับวันพรุ่งนี้)</option>
+          <option value="กำหนดชำระภายใน 3 วันทำการ">ภายใน 3 วันทำการ</option>
         </select>
       </div>
       <div class="form-group">
         <label>ชื่อลูกค้า / นิติบุคคล (Customer Name)</label>
-        <input type="text" id="inputCustomerName" value="บริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด" oninput="updateReceiptData()">
+        <input type="text" id="inputCustomerName" value="" placeholder="เช่น บริษัท ตัวอย่าง จำกัด หรือ คุณสมชาย ใจดี" oninput="updateReceiptData()">
       </div>
       <div class="form-group">
         <label>ผู้ติดต่อ / ชื่อเล่น</label>
-        <input type="text" id="inputContactPerson" value="คุณ Thor (tjbedding.salepagess)" oninput="updateReceiptData()">
+        <input type="text" id="inputContactPerson" value="" placeholder="เช่น คุณสมชาย (ผู้จัดการฝ่ายจัดซื้อ)" oninput="updateReceiptData()">
       </div>
       <div class="form-group">
         <label>เบอร์โทรศัพท์ลูกค้า</label>
-        <input type="text" id="inputPhone" value="086-461-4614" oninput="updateReceiptData()">
+        <input type="text" id="inputPhone" value="" placeholder="เช่น 081-234-5678" oninput="updateReceiptData()">
       </div>
       <div class="form-group">
         <label>ที่อยู่ลูกค้า / เลขผู้เสียภาษี (ถ้ามี)</label>
-        <input type="text" id="inputAddress" value="" placeholder="ระบุที่อยู่ หรือเลขประจำตัวผู้เสียภาษี" oninput="updateReceiptData()">
+        <input type="text" id="inputAddress" value="" placeholder="ระบุที่อยู่ หรือเลขประจำตัวผู้เสียภาษี (ถ้ามี)" oninput="updateReceiptData()">
       </div>
       <div class="form-group full-width">
-        <label>เลือกแพ็กเกจราคาด่วน (หรือพิมพ์เองด้านล่าง)</label>
+        <label style="display: flex; justify-content: space-between; align-items: center;">
+          <span>เลือกแพ็กเกจราคาด่วน (คลิกเพื่อเปลี่ยนรายการอัตโนมัติ)</span>
+          <span style="font-size: 11px; color: #94a3b8; font-weight: 400;">คลิกเพื่ออัปเดตราคาและรายละเอียดทันที</span>
+        </label>
         <div class="quick-pkg-btns">
-          <button type="button" class="btn-chip" style="background: #2563eb; color: #ffffff; font-weight: 700;" onclick="setThorQuotation()">★ เซ็ตอัป LINE OA + Rich Menu 6 ช่อง (฿990)</button>
-          
           <button type="button" class="btn-chip" onclick="setQuickPackage('Starter Salepage (รายเดือน)', 490, '• จัดทำหน้าเว็บเซลเพจมาตรฐานความเร็วสูง\n• ค่าบริการระบบรายเดือน ฿490/ด.')">⚡ Starter รายเดือน (฿490)</button>
           <button type="button" class="btn-chip" onclick="setQuickPackage('Starter Salepage (ซื้อขาด)', 2990, '• จัดทำหน้าเว็บเซลเพจโครงสร้างมาตรฐาน โหลดไว รองรับมือถือ 100%\n• จ่ายครั้งเดียวจบ ฟรีโฮสติ้งตลอดชีพ')">🎯 Starter ซื้อขาด (฿2,990)</button>
-          <button type="button" class="btn-chip" onclick="setQuickPackage('บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)', 3900, '• จัดทำหน้าเว็บเพจบริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด\n• โครงสร้างมาตรฐาน โหลดไว รองรับมือถือ 100% พร้อมระบบแสดงแคตาล็อกสินค้า\n• ฟรีบริการโฮสติ้งความเร็วสูง และส่งมอบงานแก้ไขจนกว่าจะพึงพอใจ')">⭐ เพจบริษัท ซัคเซส ลอนดรี้ (฿3,900)</button>
+          <button type="button" class="btn-chip" style="background: #0284c7; color: #ffffff; font-weight: 700;" onclick="setQuickPackage('บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)', 3900, '• ออกแบบและจัดทำหน้าเว็บความเร็วสูงระดับพรีเมียม รองรับมือถือ 100%\n• เชื่อมต่อระบบรับออเดอร์เข้า LINE OA อัตโนมัติ\n• ฟรีบริการติดตั้ง Hosting และ Domain ตลอดอายุสัญญา')">⭐ เว็บไซต์พรีเมียม (฿3,900)</button>
           <button type="button" class="btn-chip" onclick="setQuickPackage('Professional Business (ซื้อขาด)', 4990, '• จัดทำเว็บไซต์ระดับโปรแบบหลายหน้า (Multi-page) ออกแบบ Cinematic พรีเมียม\n• เชื่อมต่อ Meta Pixel / LINE Tag / TikTok Pixel ครบวงจร')">💎 Pro Business (฿4,990)</button>
-          <button type="button" class="btn-chip" onclick="setQuickPackage('LINE OA ผู้ช่วย AI ปิดการขาย (Starter)', 990, '• ติดตั้งระบบ AI น้องเซลส์ช่วยตอบแชตอัตโนมัติ 24 ชม. โควตา 1,500 ข้อความ/ด.')">🤖 LINE OA AI (฿990)</button>
+          <button type="button" class="btn-chip" onclick="setQuickPackage('Enterprise Full-Scale Solution', 9900, '• ระบบเว็บไซต์ธุรกิจเต็มรูปแบบ + เซ็ตอัป Landing Page & Funnel ปิดการขาย\n• ระบบแคตาล็อกสินค้า/บริการ พร้อมระบบจัดการข้อมูลหลังบ้าน')">🚀 Enterprise (฿9,900)</button>
+          <button type="button" class="btn-chip" onclick="setQuickPackage('เซ็ตอัป LINE OA & ออกแบบ Rich Menu 6 ช่อง', 1500, '• บริการเซ็ตอัประบบ LINE Official Account เชิงธุรกิจตามมาตรฐาน\n• ออกแบบกราฟิก Rich Menu พรีเมียม 6 ช่อง คุมโทนแบรนด์\n• ตั้งค่าข้อความทักทายและระบบตอบกลับอัตโนมัติ')">💬 LINE OA + Rich Menu (฿1,500)</button>
+          <button type="button" class="btn-chip" onclick="setQuickPackage('AI น้องเซลส์ปิดการขายอัตโนมัติ 24 ชม.', 2500, '• ติดตั้งระบบ AI Chatbot ผู้ช่วยตอบคำถามและปิดการขาย 24 ชม.\n• เทรนข้อมูลสินค้าและโปรโมชันเฉพาะแบรนด์ของคุณ')">🤖 AI ปิดการขาย (฿2,500)</button>
         </div>
       </div>
       <!-- Multi-Item Manager Section -->
@@ -1007,7 +999,7 @@
         <button type="button" class="btn-add-item" onclick="addNewItem()">➕ เพิ่มรายการ</button>
       </div>
 
-      <div class="items-container" id="itemsContainer">
+      <div class="items-container" id="itemsListContainer">
         <!-- Rendered dynamically by renderItemsDrawer() -->
       </div>
 
@@ -1133,13 +1125,13 @@
     <!-- Client & Payment Info -->
     <div class="info-grid">
       <div class="info-card">
-        <div class="info-label" id="dispClientCardLabel">ได้รับเงินมัดจำจาก (CUSTOMER)</div>
-        <div class="info-name" id="dispCustomerName">บริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด</div>
+        <div class="info-label" id="dispClientCardLabel">เรียน (ATTN TO)</div>
+        <div class="info-name" id="dispCustomerName">ชื่อลูกค้า / นิติบุคคล</div>
         <div class="info-detail">
-          <strong>ผู้ติดต่อ:</strong> <span id="dispContactPerson">คุณ Thor</span><br>
-          <strong>โทรศัพท์:</strong> <span id="dispPhone">086-461-4614</span><br>
+          <strong>ผู้ติดต่อ:</strong> <span id="dispContactPerson">-</span><br>
+          <strong>โทรศัพท์:</strong> <span id="dispPhone">-</span><br>
           <span id="dispAddressRow" style="display: none;"><strong>ที่อยู่:</strong> <span id="dispAddress">-</span><br></span>
-          <strong>หมายเหตุ:</strong> ค่าจ้างทำเพจบริษัท
+          <strong>หมายเหตุ:</strong> <span id="dispOrderNote">ค่าบริการจัดทำระบบและพัฒนาเว็บไซต์</span>
         </div>
       </div>
       <div class="info-card">
@@ -1210,9 +1202,9 @@
           <!-- Space reserved for customer signature -->
         </div>
         <div class="sig-line customer"></div>
-        <div class="sig-name" id="dispCustomerSignName">คุณ Thor (tjbedding.salepagess)</div>
+        <div class="sig-name" id="dispCustomerSignName">ผู้มีอำนาจลงนาม</div>
         <div class="sig-title" id="dispCustomerSignTitle">ผู้สั่งซื้อ / ผู้มีอำนาจลงนาม</div>
-        <div class="sig-role" id="dispCustomerSignRole">บริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด</div>
+        <div class="sig-role" id="dispCustomerSignRole">ลูกค้า / ผู้ว่าจ้าง</div>
       </div>
 
       <!-- 2. Official Receiver Signature (Clean Handwritten Signature - No Stamp) -->
@@ -1240,7 +1232,36 @@
   </div>
 
   <script>
-    let currentDocType = 'DEPOSIT';
+    let currentDocType = 'QUOTATION';
+
+    // Standard Default Invoice Items
+    let invoiceItems = [
+      {
+        id: 1,
+        title: 'บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)',
+        sub: '• ออกแบบและจัดทำหน้าเว็บความเร็วสูงระดับพรีเมียม รองรับมือถือ 100%\n• เชื่อมต่อระบบรับออเดอร์เข้า LINE OA อัตโนมัติ\n• ฟรีบริการติดตั้ง Hosting และ Domain ตลอดอายุสัญญา',
+        qty: 1,
+        qtyUnit: 'งาน',
+        price: 3900
+      }
+    ];
+
+    function getTodayThaiDate() {
+      const months = ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'];
+      const now = new Date();
+      const d = now.getDate();
+      const m = months[now.getMonth()];
+      const y = now.getFullYear() + 543;
+      return `${d} ${m} ${y}`;
+    }
+
+    function getAutoReceiptNo(prefix = 'QT') {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      return `${prefix}-${y}${m}${d}-001`;
+    }
 
     // Bank Presets
     const BANK_PRESETS = {
@@ -1399,8 +1420,11 @@
 
     // Dynamic Multi-Item Drawer Management
     function renderItemsDrawer() {
-      const container = document.getElementById('itemsListContainer');
+      const container = document.getElementById('itemsListContainer') || document.getElementById('itemsContainer');
       if (!container) return;
+
+      const countBadge = document.getElementById('dispItemCountBadge');
+      if (countBadge) countBadge.textContent = `${invoiceItems.length} รายการ`;
 
       container.innerHTML = invoiceItems.map((item, index) => `
         <div class="item-card" data-id="${item.id}">
@@ -1515,9 +1539,9 @@
 
       document.getElementById('dispReceiptNo').textContent = receiptNo;
       document.getElementById('dispDate').textContent = date;
-      document.getElementById('dispCustomerName').textContent = customerName;
-      document.getElementById('dispContactPerson').textContent = contactPerson;
-      document.getElementById('dispPhone').textContent = phone;
+      document.getElementById('dispCustomerName').textContent = customerName.trim() || 'ชื่อลูกค้า / นิติบุคคล';
+      document.getElementById('dispContactPerson').textContent = contactPerson.trim() || '-';
+      document.getElementById('dispPhone').textContent = phone.trim() || '-';
 
       const addressRow = document.getElementById('dispAddressRow');
       if (address.trim()) {
@@ -1579,10 +1603,10 @@
         const valBadge = document.getElementById('inputValidityDays')?.value || 'ยืนยันราคาพิเศษ 3 วัน';
         const badgeEl = document.getElementById('dispBadge'); if (badgeEl) badgeEl.textContent = valBadge;
       }
-      document.getElementById('dispCustomerSignName').textContent = contactPerson;
+      document.getElementById('dispCustomerSignName').textContent = contactPerson.trim() || 'ผู้มีอำนาจลงนาม';
       const signTitleEl = document.getElementById('dispCustomerSignTitle');
       if (signTitleEl) signTitleEl.textContent = 'ผู้สั่งซื้อ / ผู้มีอำนาจลงนาม';
-      document.getElementById('dispCustomerSignRole').textContent = customerName;
+      document.getElementById('dispCustomerSignRole').textContent = customerName.trim() || 'ลูกค้า / ผู้ว่าจ้าง';
 
       // Dynamic Payment Bank Account on Document Print Area
       const bank = BANK_PRESETS[currentBankKey] || BANK_PRESETS.KKP;
@@ -1598,45 +1622,61 @@
       }
     }
 
-    function setThorQuotation() {
+    function resetToStandardDefaults() {
       switchDocumentType('QUOTATION');
-      document.getElementById('inputReceiptNo').value = 'QT-20261115-001';
-      document.getElementById('inputCustomerName').value = 'บริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด';
-      document.getElementById('inputContactPerson').value = 'คุณ Thor (tjbedding.salepagess)';
-      document.getElementById('inputPhone').value = '086-461-4614';
+      const todayFormatted = getTodayThaiDate();
+      const autoReceiptNo = getAutoReceiptNo('QT');
+      
+      document.getElementById('inputReceiptNo').value = autoReceiptNo;
+      document.getElementById('inputDate').value = todayFormatted;
+      document.getElementById('inputCustomerName').value = '';
+      document.getElementById('inputContactPerson').value = '';
+      document.getElementById('inputPhone').value = '';
       document.getElementById('inputAddress').value = '';
+      if (document.getElementById('inputValidityDays')) {
+        document.getElementById('inputValidityDays').value = 'ยืนยันราคาพิเศษ 3 วัน';
+      }
 
       invoiceItems = [
         {
           id: 1,
-          title: 'บริการเซ็ตอัป LINE OA & ออกแบบ Rich Menu พรีเมียม 6 ช่อง',
-          sub: 'รายการบริการ:\n1. บริการเซ็ตอัประบบ LINE Official Account เชิงธุรกิจตามมาตรฐาน\n2. ออกแบบกราฟิก Rich Menu พรีเมียม 6 ช่อง (โทนสีและสไตล์เข้าชุดกับหน้าเว็บ)\n3. ตั้งค่าระบบข้อความต้อนรับอัตโนมัติ (Greeting Message) และระบบตอบคำถามเบื้องต้น\n4. เชื่อมต่อระบบรับคำสั่งซื้อจากเซลเพจตรงเข้า LINE OA\n\n- ราคาปกติ: 2,500 บาท\n- ส่วนลดพิเศษสำหรับลูกค้าทำเว็บไซต์: -1,510 บาท\n- ยอดสุทธิที่ต้องชำระ: 990.00 บาทถ้วน',
+          title: 'บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)',
+          sub: '• ออกแบบและจัดทำหน้าเว็บความเร็วสูงระดับพรีเมียม รองรับมือถือ 100%\n• เชื่อมต่อระบบรับออเดอร์เข้า LINE OA อัตโนมัติ\n• ฟรีบริการติดตั้ง Hosting และ Domain ตลอดอายุสัญญา',
           qty: 1,
           qtyUnit: 'งาน',
-          price: 990
+          price: 3900
         }
       ];
       renderItemsDrawer();
 
       selectBankPreset('KKP');
-      document.getElementById('inputRefNo').value = 'ภายใน 16 พ.ย. 2569';
-      document.getElementById('inputValidityDays').value = 'ยืนยันราคาพิเศษ 3 วัน';
-      calcDepositPercent(100);
+      generateAutoTxnId();
+      calcDepositPercent(50);
+      updateReceiptData();
+      showToast('🔄 ล้างข้อมูลเป็นค่าเริ่มต้นมาตรฐานเรียบร้อยแล้ว');
     }
 
     function setQuickPackage(title, price, sub) {
-      if (invoiceItems.length === 1 && (invoiceItems[0].title === 'บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)' || invoiceItems[0].price === 3900)) {
+      if (invoiceItems.length === 1) {
         invoiceItems[0].title = title;
         invoiceItems[0].price = price;
         invoiceItems[0].sub = sub;
         invoiceItems[0].qty = 1;
         invoiceItems[0].qtyUnit = 'งาน';
       } else {
-        addNewItem(title, price, sub);
-        return;
+        invoiceItems.push({
+          id: Date.now(),
+          title: title,
+          price: price,
+          qty: 1,
+          qtyUnit: 'งาน',
+          sub: sub
+        });
       }
       renderItemsDrawer();
+      updateReceiptData();
       calcDepositPercent(50);
+      showToast(`⚡ เลือกแพ็กเกจ "${title}" เรียบร้อยแล้ว`);
     }
 
     // ==========================================
@@ -1942,14 +1982,31 @@
     updateHistoryBadge();
   
     window.addEventListener('DOMContentLoaded', () => {
+      // Auto-set dynamic date and receipt ID if default
+      const dateEl = document.getElementById('inputDate');
+      if (dateEl && (!dateEl.value || dateEl.value.includes('2569'))) {
+        dateEl.value = getTodayThaiDate();
+      }
+      const noEl = document.getElementById('inputReceiptNo');
+      if (noEl && (!noEl.value || noEl.value === 'DP-20261115-001' || noEl.value === 'QT-20261115-001')) {
+        noEl.value = getAutoReceiptNo(currentDocType || 'QT');
+      }
+      const refEl = document.getElementById('inputRefNo');
+      if (refEl && (!refEl.value || refEl.value.includes('16 พ.ย.'))) {
+        generateAutoTxnId();
+      }
+
+      renderItemsDrawer();
+      updateReceiptData();
       updateHistoryBadge();
+
       const params = new URLSearchParams(window.location.search);
       const typeParam = params.get('type') || params.get('doc');
       if (typeParam) {
         switchDocumentType(typeParam.toUpperCase());
       }
-      if (params.get('thor') !== null) {
-        setThorQuotation();
+      if (params.get('reset') !== null) {
+        resetToStandardDefaults();
       }
     });
 

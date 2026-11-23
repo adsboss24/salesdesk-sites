@@ -316,6 +316,29 @@
       flex-direction: column;
       gap: 10px;
       position: relative;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .item-card.active-target {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 1px #0284c7, 0 4px 12px rgba(2, 132, 199, 0.25);
+    }
+    .item-card-select-pkg {
+      background: #1e293b;
+      color: #38bdf8;
+      border: 1px solid #0284c7;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.15s;
+    }
+    .item-card-select-pkg:hover, .item-card-select-pkg:focus {
+      background: #0f172a;
+      border-color: #38bdf8;
+      color: #7dd3fc;
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.3);
     }
     .item-card-header {
       display: flex;
@@ -1046,14 +1069,11 @@
             <label style="font-weight: 700; color: #f8fafc; font-size: 13.5px; margin-bottom: 2px;">⚡ เลือกแพ็กเกจและบริการด่วน (คลิกเพื่อใส่ข้อมูล — ปรับเปลี่ยนราคาได้อิสระ)</label>
             <div style="font-size: 11.5px; color: #94a3b8;">สามารถตั้งราคาได้เองตามสถานการณ์ตลาด หรือเลือกคลิกเพื่อเพิ่มบริการต่อท้ายได้ทันที</div>
           </div>
-          <div style="display: flex; gap: 8px; align-items: center; background: #0f172a; padding: 4px 10px; border-radius: 6px; border: 1px solid #334155;">
-            <span style="font-size: 11px; color: #94a3b8; font-weight: 600;">เมื่อคลิก:</span>
-            <label style="font-size: 11.5px; color: #cbd5e1; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 600;">
-              <input type="radio" name="quickPkgMode" id="radioModeReplace" value="replace" checked onchange="toggleQuickPkgMode('replace')"> แทนที่รายการ 1
-            </label>
-            <label style="font-size: 11.5px; color: #34d399; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 700;">
-              <input type="radio" name="quickPkgMode" id="radioModeAppend" value="append" onchange="toggleQuickPkgMode('append')"> ➕ เพิ่มต่อท้าย
-            </label>
+          <div style="display: flex; gap: 8px; align-items: center; background: #0f172a; padding: 4px 10px; border-radius: 6px; border: 1px solid #334155; flex-wrap: wrap;">
+            <span style="font-size: 11.5px; color: #94a3b8; font-weight: 600;">🎯 เมื่อคลิกแพ็กเกจ ให้ใส่ข้อมูลลงใน:</span>
+            <select id="quickPkgTargetSelect" onchange="handleQuickPkgTargetSelect(this.value)" style="background: #1e293b; color: #38bdf8; border: 1px solid #0284c7; border-radius: 5px; padding: 3px 8px; font-size: 11.5px; font-weight: 600; cursor: pointer; outline: none;">
+              <!-- Populated dynamically by updateQuickPkgTargetSelect() -->
+            </select>
           </div>
         </div>
 
@@ -1373,6 +1393,7 @@
   <script>
     let currentDocType = 'QUOTATION';
     let quickPkgMode = 'replace'; // 'replace' or 'append'
+    let activeTargetItemId = 1; // ID of the currently focused/selected item card
     let overallDiscountType = 'percent'; // 'percent' or 'amount'
     let overallDiscountValue = 0;
 
@@ -1709,12 +1730,67 @@
     }
 
     // Dynamic Multi-Item Drawer Management
+    function updateQuickPkgTargetSelect() {
+      const select = document.getElementById('quickPkgTargetSelect');
+      if (!select) return;
+
+      if (!activeTargetItemId || !invoiceItems.some(it => it.id === activeTargetItemId)) {
+        activeTargetItemId = invoiceItems[invoiceItems.length - 1]?.id || null;
+      }
+
+      let options = '';
+      invoiceItems.forEach((item, idx) => {
+        const itemNum = idx + 1;
+        const shortTitle = (item.title || 'บริการเสริม').trim();
+        const displayTitle = shortTitle.length > 22 ? shortTitle.substring(0, 20) + '...' : shortTitle;
+        const isSelected = (item.id === activeTargetItemId) ? 'selected' : '';
+        options += `<option value="${item.id}" ${isSelected}>รายการที่ ${itemNum}: ${escapeHtml(displayTitle)}</option>`;
+      });
+      options += `<option value="__new__" ${quickPkgMode === 'append' ? 'selected' : ''}>➕ เพิ่มต่อท้ายเป็นรายการใหม่</option>`;
+      select.innerHTML = options;
+    }
+
+    function handleQuickPkgTargetSelect(val) {
+      if (val === '__new__') {
+        quickPkgMode = 'append';
+      } else {
+        quickPkgMode = 'replace';
+        activeTargetItemId = Number(val);
+      }
+      renderItemsDrawer();
+    }
+
+    function setActiveTargetItem(id) {
+      activeTargetItemId = Number(id);
+      quickPkgMode = 'replace';
+      const select = document.getElementById('quickPkgTargetSelect');
+      if (select && select.value !== String(activeTargetItemId)) {
+        select.value = String(activeTargetItemId);
+      }
+      document.querySelectorAll('.item-card').forEach(card => {
+        const cardId = Number(card.getAttribute('data-id'));
+        if (cardId === activeTargetItemId) {
+          card.classList.add('active-target');
+          const pill = card.querySelector('.target-active-pill');
+          if (pill) pill.style.display = 'inline-block';
+        } else {
+          card.classList.remove('active-target');
+          const pill = card.querySelector('.target-active-pill');
+          if (pill) pill.style.display = 'none';
+        }
+      });
+    }
+
     function renderItemsDrawer() {
       const container = document.getElementById('itemsListContainer') || document.getElementById('itemsContainer');
       if (!container) return;
 
       const countBadge = document.getElementById('dispItemCountBadge');
       if (countBadge) countBadge.textContent = `${invoiceItems.length} รายการ`;
+
+      if (!activeTargetItemId || !invoiceItems.some(it => it.id === activeTargetItemId)) {
+        activeTargetItemId = invoiceItems[invoiceItems.length - 1]?.id || null;
+      }
 
       container.innerHTML = invoiceItems.map((item, index) => {
         const qty = parseFloat(item.qty) || 0;
@@ -1723,63 +1799,89 @@
         const itemGross = qty * price;
         const itemDiscount = itemGross * (discPct / 100);
         const itemNet = Math.max(0, itemGross - itemDiscount);
+        const isTarget = (item.id === activeTargetItemId);
 
         return `
-        <div class="item-card" data-id="${item.id}">
+        <div class="item-card ${isTarget ? 'active-target' : ''}" data-id="${item.id}" onclick="setActiveTargetItem(${item.id})">
           <div class="item-card-header">
-            <div style="display: flex; align-items: center; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
               <span class="item-card-badge">รายการที่ ${index + 1}</span>
-              ${discPct > 0 ? `<span style="font-size: 11px; background: #991b1b; color: #fecaca; padding: 1px 6px; border-radius: 4px; font-weight: 700;">ลด ${discPct}%</span>` : ''}
+              <span class="item-disc-badge" style="font-size: 11px; background: #991b1b; color: #fecaca; padding: 1px 6px; border-radius: 4px; font-weight: 700; display: ${discPct > 0 ? 'inline-block' : 'none'};">ลด ${discPct}%</span>
+              <span class="target-active-pill" style="font-size: 10.5px; background: #0369a1; color: #e0f2fe; padding: 1px 7px; border-radius: 4px; font-weight: 600; display: ${isTarget ? 'inline-block' : 'none'};">🎯 เป้าหมายคลิก</span>
             </div>
-            ${invoiceItems.length > 1 ? `<button type="button" class="btn-remove-item" onclick="removeItem(${item.id})">🗑️ ลบรายการ</button>` : ''}
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;" onclick="event.stopPropagation()">
+              <select class="item-card-select-pkg" onchange="applyQuickPackageToItem(${item.id}, this.value); this.value='';" title="เลือกแพ็กเกจหรือบริการด่วนลงในรายการนี้">
+                <option value="">⚡ เลือกแพ็กเกจ/บริการลงในรายการนี้...</option>
+                <optgroup label="🖥️ หมวดแพ็กเกจหลัก (Main Solution)">
+                  <option value="starter_monthly">⚡ Starter Salepage (รายเดือน)</option>
+                  <option value="starter_lifetime">🎯 Starter Salepage (ซื้อขาด)</option>
+                  <option value="premium_site">⭐ เว็บไซต์พรีเมียม (SalesDesk Sites)</option>
+                  <option value="pro_business">💎 Professional Business (Multi-page)</option>
+                  <option value="enterprise_solution">🚀 Enterprise Full-Scale Solution</option>
+                </optgroup>
+                <optgroup label="🚀 หมวดบริการเสริม & การตลาดดิจิทัล">
+                  <option value="seo_articles_3">📝 บทความ SEO ติดปีก Google (3 บทความ)</option>
+                  <option value="webhook_line_alert">⚡ ระบบ Webhook Form Alert เข้า LINE ทันที</option>
+                  <option value="line_oa_richmenu">💬 เซ็ตอัป LINE OA & Rich Menu 6 ช่อง</option>
+                  <option value="ai_sales_bot">🤖 AI น้องเซลส์ปิดการขายอัตโนมัติ 24 ชม.</option>
+                  <option value="pixel_capi_tracking">📊 ติดตั้ง Tracking Pixel & CAPI</option>
+                  <option value="speed_boost_90">🚀 Speed Boost ปรับเว็บโหลดไว Mobile 90+</option>
+                  <option value="monthly_maintenance">🛡️ ดูแลระบบความปลอดภัย & Backup รายเดือน</option>
+                  <option value="graphic_banner_set">🎨 ชุดภาพกราฟิกแบนเนอร์และภาพสินค้า (5 ชิ้น)</option>
+                </optgroup>
+              </select>
+              ${invoiceItems.length > 1 ? `<button type="button" class="btn-remove-item" onclick="removeItem(${item.id})">🗑️ ลบ</button>` : ''}
+            </div>
           </div>
           <div class="item-card-grid">
             <div class="form-group" style="grid-column: 1 / -1;">
               <label>ชื่อรายการสินค้า/บริการ</label>
-              <input type="text" value="${escapeHtml(item.title)}" oninput="updateItemField(${item.id}, 'title', this.value)">
+              <input type="text" value="${escapeHtml(item.title)}" onfocus="setActiveTargetItem(${item.id})" oninput="updateItemField(${item.id}, 'title', this.value)">
             </div>
             <div class="form-group">
               <label>ราคาต่อหน่วย (บาท)</label>
-              <input type="number" data-field="price" value="${item.price}" oninput="updateItemField(${item.id}, 'price', this.value)">
+              <input type="number" data-field="price" value="${item.price}" onfocus="setActiveTargetItem(${item.id})" oninput="updateItemField(${item.id}, 'price', this.value)">
               <div class="quick-price-bar">
                 <span style="font-size: 10px; color: #94a3b8;">ราคาด่วน:</span>
-                <button type="button" class="btn-micro-chip" onclick="updateItemField(${item.id}, 'price', 990)">990</button>
-                <button type="button" class="btn-micro-chip" onclick="updateItemField(${item.id}, 'price', 1500)">1.5k</button>
-                <button type="button" class="btn-micro-chip" onclick="updateItemField(${item.id}, 'price', 2900)">2.9k</button>
-                <button type="button" class="btn-micro-chip" onclick="updateItemField(${item.id}, 'price', 3900)">3.9k</button>
-                <button type="button" class="btn-micro-chip" onclick="updateItemField(${item.id}, 'price', 4990)">4.9k</button>
-                <button type="button" class="btn-micro-chip" onclick="updateItemField(${item.id}, 'price', 9900)">9.9k</button>
+                <button type="button" class="btn-micro-chip" onclick="setActiveTargetItem(${item.id}); updateItemField(${item.id}, 'price', 990)">990</button>
+                <button type="button" class="btn-micro-chip" onclick="setActiveTargetItem(${item.id}); updateItemField(${item.id}, 'price', 1500)">1.5k</button>
+                <button type="button" class="btn-micro-chip" onclick="setActiveTargetItem(${item.id}); updateItemField(${item.id}, 'price', 2900)">2.9k</button>
+                <button type="button" class="btn-micro-chip" onclick="setActiveTargetItem(${item.id}); updateItemField(${item.id}, 'price', 3900)">3.9k</button>
+                <button type="button" class="btn-micro-chip" onclick="setActiveTargetItem(${item.id}); updateItemField(${item.id}, 'price', 4990)">4.9k</button>
+                <button type="button" class="btn-micro-chip" onclick="setActiveTargetItem(${item.id}); updateItemField(${item.id}, 'price', 9900)">9.9k</button>
               </div>
             </div>
             <div class="form-group">
               <label>จำนวน</label>
-              <input type="number" min="1" step="1" value="${item.qty}" oninput="updateItemField(${item.id}, 'qty', this.value)">
+              <input type="number" min="1" step="1" value="${item.qty}" onfocus="setActiveTargetItem(${item.id})" oninput="updateItemField(${item.id}, 'qty', this.value)">
             </div>
             <div class="form-group">
               <label>หน่วยนับ</label>
-              <input type="text" value="${escapeHtml(item.qtyUnit || 'งาน')}" placeholder="เช่น งาน, ชุด, เดือน" oninput="updateItemField(${item.id}, 'qtyUnit', this.value)">
+              <input type="text" value="${escapeHtml(item.qtyUnit || 'งาน')}" placeholder="เช่น งาน, ชุด, เดือน" onfocus="setActiveTargetItem(${item.id})" oninput="updateItemField(${item.id}, 'qtyUnit', this.value)">
             </div>
             <div class="form-group">
               <label style="color: #f59e0b;">ส่วนลด (%):</label>
-              <input type="number" min="0" max="100" step="1" value="${item.discountPercent || 0}" placeholder="0" oninput="updateItemField(${item.id}, 'discountPercent', this.value)" style="border-color: #d97706;">
+              <input type="number" min="0" max="100" step="1" value="${item.discountPercent || 0}" placeholder="0" onfocus="setActiveTargetItem(${item.id})" oninput="updateItemField(${item.id}, 'discountPercent', this.value)" style="border-color: #d97706;">
             </div>
             <div class="form-group">
               <label>รวมเป็นเงินสุทธิ (บาท)</label>
-              <input type="text" readonly value="${itemNet.toLocaleString('th-TH', { minimumFractionDigits: 2 })}" style="background: #1e293b; color: #38bdf8; font-weight: 700;">
+              <input type="text" readonly data-field="netTotal" value="${itemNet.toLocaleString('th-TH', { minimumFractionDigits: 2 })}" style="background: #1e293b; color: #38bdf8; font-weight: 700;">
             </div>
             <div class="form-group" style="grid-column: 1 / -1;">
               <label>รายละเอียดประกอบรายการ (หัวข้อย่อย/ฟีเจอร์)</label>
-              <textarea rows="2" oninput="updateItemField(${item.id}, 'sub', this.value)">${escapeHtml(item.sub || '')}</textarea>
+              <textarea rows="2" onfocus="setActiveTargetItem(${item.id})" oninput="updateItemField(${item.id}, 'sub', this.value)">${escapeHtml(item.sub || '')}</textarea>
             </div>
           </div>
         </div>
         `;
       }).join('');
+
+      updateQuickPkgTargetSelect();
     }
 
     function addNewItem(defaultTitle = 'บริการเสริมพิเศษ (Add-on Feature)', defaultPrice = 1000, defaultSub = '• รายละเอียดบริการเสริมตามที่ตกลง') {
       const newId = Date.now();
-      invoiceItems.push({
+      const newItem = {
         id: newId,
         title: defaultTitle,
         price: defaultPrice,
@@ -1787,15 +1889,30 @@
         qtyUnit: 'งาน',
         sub: defaultSub,
         discountPercent: 0
-      });
+      };
+      invoiceItems.push(newItem);
+      activeTargetItemId = newId; // Target this newly added item automatically!
+      quickPkgMode = 'replace';
       renderItemsDrawer();
       updateReceiptData();
-      showToast('➕ เพิ่มรายการใหม่เรียบร้อยแล้ว');
+      showToast(`➕ เพิ่มรายการที่ ${invoiceItems.length} เรียบร้อยแล้ว (สามารถเลือกบริการด่วนได้ทันที)`);
+
+      setTimeout(() => {
+        const card = document.querySelector(`.item-card[data-id="${newId}"]`);
+        if (card) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          const titleInput = card.querySelector('input[type="text"]');
+          if (titleInput) titleInput.focus();
+        }
+      }, 100);
     }
 
     function removeItem(id) {
       if (invoiceItems.length <= 1) return;
       invoiceItems = invoiceItems.filter(item => item.id !== id);
+      if (activeTargetItemId === id) {
+        activeTargetItemId = invoiceItems[invoiceItems.length - 1]?.id || null;
+      }
       renderItemsDrawer();
       updateReceiptData();
       showToast('🗑️ ลบรายการเรียบร้อยแล้ว');
@@ -1804,12 +1921,45 @@
     function updateItemField(id, field, value) {
       const item = invoiceItems.find(it => it.id === id);
       if (!item) return;
+
       if (field === 'price' || field === 'qty' || field === 'discountPercent') {
         item[field] = parseFloat(value) || 0;
       } else {
         item[field] = value;
       }
-      renderItemsDrawer();
+
+      // Live update DOM of this specific card without wiping out inputs
+      const card = document.querySelector(`.item-card[data-id="${id}"]`);
+      if (card) {
+        const qty = parseFloat(item.qty) || 0;
+        const price = parseFloat(item.price) || 0;
+        const discPct = Math.min(100, Math.max(0, parseFloat(item.discountPercent) || 0));
+        const itemGross = qty * price;
+        const itemNet = Math.max(0, itemGross * (1 - (discPct / 100)));
+
+        const netInput = card.querySelector('input[data-field="netTotal"]');
+        if (netInput) {
+          netInput.value = itemNet.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        if (field === 'price') {
+          const priceInput = card.querySelector('input[data-field="price"]');
+          if (priceInput && priceInput.value != item.price) {
+            priceInput.value = item.price;
+          }
+        }
+
+        const discBadge = card.querySelector('.item-disc-badge');
+        if (discBadge) {
+          if (discPct > 0) {
+            discBadge.style.display = 'inline-block';
+            discBadge.textContent = `ลด ${discPct}%`;
+          } else {
+            discBadge.style.display = 'none';
+          }
+        }
+      }
+
       updateReceiptData();
     }
 
@@ -1875,25 +2025,56 @@
 
     function toggleQuickPkgMode(mode) {
       quickPkgMode = mode;
-      const modeText = mode === 'replace' ? 'แทนที่รายการที่ 1' : '➕ เพิ่มต่อท้ายเป็นรายการใหม่';
+      const modeText = mode === 'replace' ? 'แทนที่รายการที่เลือก' : '➕ เพิ่มต่อท้ายเป็นรายการใหม่';
       showToast(`⚙️ ปรับโหมดคลิกแพ็กเกจ: ${modeText}`);
+    }
+
+    function applyQuickPackageToItem(itemId, pkgKey) {
+      if (!pkgKey) return;
+      const pkg = QUICK_PACKAGES_DICT[pkgKey];
+      if (!pkg) return;
+
+      const item = invoiceItems.find(it => it.id === Number(itemId));
+      if (!item) return;
+
+      item.title = pkg.title;
+      item.price = pkg.suggestedPrice;
+      item.qty = 1;
+      item.qtyUnit = pkg.qtyUnit || 'งาน';
+      item.sub = pkg.sub;
+      activeTargetItemId = item.id;
+      quickPkgMode = 'replace';
+
+      renderItemsDrawer();
+      updateReceiptData();
+      calcDepositPercent(50);
+
+      const targetIdx = invoiceItems.findIndex(it => it.id === item.id);
+      showToast(`⚡ ปรับเป็น "${pkg.title}" ในรายการที่ ${targetIdx + 1} สำเร็จ!`);
+
+      setTimeout(() => {
+        const card = document.querySelector(`.item-card[data-id="${item.id}"]`);
+        if (card) {
+          const priceInput = card.querySelector('input[data-field="price"]');
+          if (priceInput) {
+            priceInput.focus();
+            priceInput.select();
+          }
+        }
+      }, 100);
     }
 
     function handleQuickPackageClick(pkgKey) {
       const pkg = QUICK_PACKAGES_DICT[pkgKey];
       if (!pkg) return;
 
+      const targetSelect = document.getElementById('quickPkgTargetSelect');
+      const targetVal = targetSelect ? targetSelect.value : (quickPkgMode === 'append' ? '__new__' : activeTargetItemId);
+
       let targetItem;
-      if (quickPkgMode === 'replace' && invoiceItems.length > 0) {
-        invoiceItems[0].title = pkg.title;
-        invoiceItems[0].price = pkg.suggestedPrice;
-        invoiceItems[0].qty = 1;
-        invoiceItems[0].qtyUnit = pkg.qtyUnit || 'งาน';
-        invoiceItems[0].sub = pkg.sub;
-        targetItem = invoiceItems[0];
-      } else {
+      if (targetVal === '__new__' || quickPkgMode === 'append') {
         const newId = Date.now();
-        const newItem = {
+        targetItem = {
           id: newId,
           title: pkg.title,
           price: pkg.suggestedPrice,
@@ -1902,21 +2083,57 @@
           sub: pkg.sub,
           discountPercent: 0
         };
-        invoiceItems.push(newItem);
-        targetItem = newItem;
+        invoiceItems.push(targetItem);
+        activeTargetItemId = newId;
+        quickPkgMode = 'replace';
+      } else {
+        const targetId = Number(targetVal) || activeTargetItemId;
+        let found = invoiceItems.find(it => it.id === targetId);
+        if (!found) {
+          found = invoiceItems[invoiceItems.length - 1] || invoiceItems[0];
+        }
+        if (found) {
+          found.title = pkg.title;
+          found.price = pkg.suggestedPrice;
+          found.qty = 1;
+          found.qtyUnit = pkg.qtyUnit || 'งาน';
+          found.sub = pkg.sub;
+          targetItem = found;
+          activeTargetItemId = found.id;
+        } else {
+          const newId = Date.now();
+          targetItem = {
+            id: newId,
+            title: pkg.title,
+            price: pkg.suggestedPrice,
+            qty: 1,
+            qtyUnit: pkg.qtyUnit || 'งาน',
+            sub: pkg.sub,
+            discountPercent: 0
+          };
+          invoiceItems.push(targetItem);
+          activeTargetItemId = newId;
+        }
       }
 
       renderItemsDrawer();
       updateReceiptData();
       calcDepositPercent(50);
-      showToast(`⚡ เลือก "${pkg.title}" สำเร็จ! สามารถปรับราคาได้ทันที`);
 
-      // Focus on the price field
+      const targetIdx = invoiceItems.findIndex(it => it.id === targetItem.id);
+      const targetLabel = targetIdx >= 0 ? `รายการที่ ${targetIdx + 1}` : 'รายการ';
+      showToast(`⚡ เลือก "${pkg.title}" ลงใน ${targetLabel} สำเร็จ! สามารถปรับราคาได้ทันที`);
+
+      // Focus on the price field of the targeted item
       setTimeout(() => {
-        const priceInput = document.querySelector(`.item-card[data-id="${targetItem.id}"] input[data-field="price"]`);
-        if (priceInput) {
-          priceInput.focus();
-          priceInput.select();
+        const card = document.querySelector(`.item-card[data-id="${targetItem.id}"]`);
+        if (card) {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          const priceInput = card.querySelector('input[data-field="price"]');
+          if (priceInput) {
+            priceInput.focus();
+            priceInput.select();
+          }
         }
       }, 100);
     }
@@ -2092,6 +2309,7 @@
       }
 
       setOverallDiscount(0, 'percent');
+      activeTargetItemId = 1;
 
       invoiceItems = [
         {
@@ -2309,6 +2527,7 @@
       // Restore invoice items
       if (Array.isArray(doc.items) && doc.items.length > 0) {
         invoiceItems = JSON.parse(JSON.stringify(doc.items));
+        activeTargetItemId = invoiceItems[0]?.id || 1;
       }
 
       renderItemsDrawer();

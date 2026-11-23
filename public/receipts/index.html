@@ -229,6 +229,107 @@
       color: #ffffff;
     }
 
+    /* Multi-Item Management in Drawer */
+    .items-manager-header {
+      grid-column: span 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 6px;
+      padding-top: 14px;
+      border-top: 1px dashed #334155;
+    }
+    .btn-add-item {
+      background: #059669;
+      color: #ffffff;
+      border: 1px solid #10b981;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+    .btn-add-item:hover {
+      background: #10b981;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
+    }
+    .items-container {
+      grid-column: span 2;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .item-card {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+    .item-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1e293b;
+      padding-bottom: 6px;
+    }
+    .item-card-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: #38bdf8;
+      background: #1e293b;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid #0284c7;
+    }
+    .btn-remove-item {
+      background: #7f1d1d;
+      color: #fca5a5;
+      border: 1px solid #ef4444;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-remove-item:hover {
+      background: #ef4444;
+      color: #ffffff;
+    }
+    .item-card-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.2fr;
+      gap: 10px;
+    }
+    @media (max-width: 640px) {
+      .item-card-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .total-calc-banner {
+      grid-column: span 2;
+      background: #1e293b;
+      border: 1px solid #3b82f6;
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #ffffff;
+      font-weight: 700;
+    }
+    .total-calc-banner .value {
+      color: #60a5fa;
+      font-size: 16px;
+    }
+
     /* Precise A4 Page Fitting Box (Target for PDF) */
     #invoice-print-area {
       max-width: 790px;
@@ -684,13 +785,24 @@
           <button type="button" class="btn-chip" onclick="setQuickPackage('LINE OA ผู้ช่วย AI ปิดการขาย (Starter)', 990, '• ติดตั้งระบบ AI น้องเซลส์ช่วยตอบแชตอัตโนมัติ 24 ชม. โควตา 1,500 ข้อความ/ด.')">🤖 LINE OA AI (฿990)</button>
         </div>
       </div>
-      <div class="form-group">
-        <label>ชื่อรายการสินค้า/บริการ</label>
-        <input type="text" id="inputItemTitle" value="บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)" oninput="updateReceiptData()">
+      <!-- Multi-Item Manager Section -->
+      <div class="items-manager-header">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 14px; font-weight: 700; color: #f8fafc;">📦 รายการสินค้า / บริการ (Items List)</span>
+          <span class="btn-chip" id="dispItemCountBadge">1 รายการ</span>
+        </div>
+        <button type="button" class="btn-add-item" onclick="addNewItem()">➕ เพิ่มรายการ</button>
       </div>
-      <div class="form-group">
-        <label>ราคาทั้งหมดตามใบเสนอราคา (บาท)</label>
-        <input type="number" id="inputTotalAmount" value="3900" oninput="updateReceiptData()">
+
+      <div class="items-container" id="itemsContainer">
+        <!-- Rendered dynamically by renderItemsDrawer() -->
+      </div>
+
+      <!-- Total Amount Banner -->
+      <div class="total-calc-banner">
+        <span>ราคาทั้งหมดตามใบเสนอราคา (คำนวณอัตโนมัติ):</span>
+        <span class="value" id="dispDrawerTotalAmount">฿3,900.00 บาท</span>
+        <input type="hidden" id="inputTotalAmount" value="3900">
       </div>
 
       <!-- Deposit Calculator Helper -->
@@ -714,13 +826,6 @@
             <input type="text" id="inputRemainingAmount" value="1900.00" readonly style="background: #1e293b; color: #f87171; font-weight: 700;">
           </div>
         </div>
-      </div>
-
-      <div class="form-group full-width">
-        <label>รายละเอียดประกอบรายการ</label>
-        <textarea id="inputItemSub" rows="2" oninput="updateReceiptData()">• จัดทำหน้าเว็บเพจบริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด
-• โครงสร้างมาตรฐาน โหลดไว รองรับมือถือ 100% พร้อมระบบแสดงแคตาล็อกสินค้า
-• ฟรีบริการโฮสติ้งความเร็วสูง และส่งมอบงานแก้ไขจนกว่าจะพึงพอใจ</textarea>
       </div>
       <div class="form-group">
         <label id="lblPaymentMethod">ช่องทางชำระเงิน</label>
@@ -795,24 +900,13 @@
         <tr>
           <th style="width: 45px;" class="text-center">ลำดับ</th>
           <th>รายการ (Description)</th>
-          <th style="width: 75px;" class="text-center">จำนวน</th>
-          <th style="width: 130px;" class="text-right">ราคารวมโครงการ</th>
+          <th style="width: 85px;" class="text-center">จำนวน</th>
+          <th style="width: 120px;" class="text-right">ราคาต่อหน่วย</th>
           <th style="width: 130px;" class="text-right" id="dispColAmountHeader">จำนวนเงิน (บาท)</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td class="text-center" style="color: #64748b;">1</td>
-          <td>
-            <div class="item-desc" id="dispItemTitle">บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)</div>
-            <div class="item-sub" id="dispItemSub">• จัดทำหน้าเว็บเพจบริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด
-• โครงสร้างมาตรฐาน โหลดไว รองรับมือถือ 100% พร้อมระบบแสดงแคตาล็อกสินค้า
-• ฟรีบริการโฮสติ้งความเร็วสูง และส่งมอบงานแก้ไขจนกว่าจะพึงพอใจ</div>
-          </td>
-          <td class="text-center">1 งาน</td>
-          <td class="text-right" id="dispTotalContractPrice">3,900.00</td>
-          <td class="text-right" style="font-weight: 600;" id="dispItemTotal">3,900.00</td>
-        </tr>
+      <tbody id="dispItemsTableBody">
+        <!-- Rendered dynamically by updateReceiptData() -->
       </tbody>
     </table>
 
@@ -1002,6 +1096,117 @@
       return text + 'บาทถ้วน';
     }
 
+    let invoiceItems = [
+      {
+        id: 1,
+        title: 'บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)',
+        sub: '• จัดทำหน้าเว็บเพจบริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด\n• โครงสร้างมาตรฐาน โหลดไว รองรับมือถือ 100% พร้อมระบบแสดงแคตาล็อกสินค้า\n• ฟรีบริการโฮสติ้งความเร็วสูง และส่งมอบงานแก้ไขจนกว่าจะพึงพอใจ',
+        qty: 1,
+        qtyUnit: 'งาน',
+        price: 3900
+      }
+    ];
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function escapeAttr(text) {
+      if (!text) return '';
+      return String(text).replace(/"/g, '&quot;');
+    }
+
+    function renderItemsDrawer() {
+      const container = document.getElementById('itemsContainer');
+      const badge = document.getElementById('dispItemCountBadge');
+      if (badge) badge.textContent = `${invoiceItems.length} รายการ`;
+
+      if (!container) return;
+      container.innerHTML = invoiceItems.map((item, idx) => {
+        const itemSubtotal = (parseFloat(item.qty) || 0) * (parseFloat(item.price) || 0);
+        const fmtSubtotal = itemSubtotal.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const canDelete = invoiceItems.length > 1;
+
+        return `
+          <div class="item-card" data-idx="${idx}">
+            <div class="item-card-header">
+              <span class="item-card-badge">รายการที่ ${idx + 1}</span>
+              ${canDelete ? `<button type="button" class="btn-remove-item" onclick="removeItem(${idx})">🗑️ ลบรายการ</button>` : ''}
+            </div>
+            <div class="form-group" style="margin: 0;">
+              <label style="font-size: 11px;">ชื่อรายการสินค้า / บริการ</label>
+              <input type="text" value="${escapeAttr(item.title)}" oninput="updateItemField(${idx}, 'title', this.value)" placeholder="เช่น บริการจัดทำเว็บไซต์">
+            </div>
+            <div class="item-card-grid">
+              <div class="form-group" style="margin: 0;">
+                <label style="font-size: 11px;">ราคาต่อหน่วย (บาท)</label>
+                <input type="number" value="${item.price}" oninput="updateItemField(${idx}, 'price', parseFloat(this.value) || 0)">
+              </div>
+              <div class="form-group" style="margin: 0;">
+                <label style="font-size: 11px;">จำนวน</label>
+                <input type="number" value="${item.qty}" min="1" step="1" oninput="updateItemField(${idx}, 'qty', parseFloat(this.value) || 0)">
+              </div>
+              <div class="form-group" style="margin: 0;">
+                <label style="font-size: 11px;">หน่วยนับ</label>
+                <input type="text" value="${escapeAttr(item.qtyUnit || 'งาน')}" oninput="updateItemField(${idx}, 'qtyUnit', this.value)" placeholder="งาน / เดือน / ชิ้น">
+              </div>
+              <div class="form-group" style="margin: 0;">
+                <label style="font-size: 11px;">รวม (บาท)</label>
+                <input type="text" value="฿${fmtSubtotal}" disabled style="background: #1e293b; color: #38bdf8; font-weight: 700; border-color: #334155;">
+              </div>
+            </div>
+            <div class="form-group" style="margin: 0;">
+              <label style="font-size: 11px;">รายละเอียดประกอบรายการ (หัวข้อย่อย)</label>
+              <textarea rows="2" oninput="updateItemField(${idx}, 'sub', this.value)" placeholder="• รายละเอียดรายการ...">${escapeHtml(item.sub)}</textarea>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function addNewItem(title = 'บริการเพิ่มเติม', price = 990, sub = '• รายละเอียดบริการเพิ่มเติม') {
+      invoiceItems.push({
+        id: Date.now(),
+        title: title,
+        sub: sub,
+        qty: 1,
+        qtyUnit: 'งาน',
+        price: price
+      });
+      renderItemsDrawer();
+      updateReceiptData();
+    }
+
+    function removeItem(idx) {
+      if (invoiceItems.length <= 1) return;
+      invoiceItems.splice(idx, 1);
+      renderItemsDrawer();
+      updateReceiptData();
+    }
+
+    function updateItemField(idx, field, val) {
+      if (invoiceItems[idx]) {
+        invoiceItems[idx][field] = val;
+        if (field === 'price' || field === 'qty') {
+          const card = document.querySelector(`.item-card[data-idx="${idx}"]`);
+          if (card) {
+            const subtotal = (parseFloat(invoiceItems[idx].qty) || 0) * (parseFloat(invoiceItems[idx].price) || 0);
+            const subInputs = card.querySelectorAll('.item-card-grid input');
+            if (subInputs && subInputs[3]) {
+              subInputs[3].value = `฿${subtotal.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            }
+          }
+        }
+        updateReceiptData();
+      }
+    }
+
     function calcDepositPercent(percent) {
       const total = parseFloat(document.getElementById('inputTotalAmount').value) || 0;
       const deposit = Math.round((total * percent) / 100);
@@ -1016,15 +1221,31 @@
       const contactPerson = document.getElementById('inputContactPerson').value;
       const phone = document.getElementById('inputPhone').value;
       const address = document.getElementById('inputAddress').value;
-      const itemTitle = document.getElementById('inputItemTitle').value;
-      const itemSub = document.getElementById('inputItemSub').value;
-      const totalAmount = parseFloat(document.getElementById('inputTotalAmount').value) || 0;
-      const depositAmount = parseFloat(document.getElementById('inputDepositAmount').value) || 0;
       const paymentMethod = document.getElementById('inputPaymentMethod').value;
       const refNo = document.getElementById('inputRefNo').value;
 
+      // Calculate total amount from all invoiceItems
+      let totalAmount = 0;
+      invoiceItems.forEach(item => {
+        const qty = parseFloat(item.qty) || 0;
+        const price = parseFloat(item.price) || 0;
+        totalAmount += (qty * price);
+      });
+
+      // Update hidden input and banner in drawer
+      const inputTotalEl = document.getElementById('inputTotalAmount');
+      if (inputTotalEl) inputTotalEl.value = totalAmount;
+      const dispDrawerTotalEl = document.getElementById('dispDrawerTotalAmount');
+      if (dispDrawerTotalEl) {
+        dispDrawerTotalEl.textContent = `฿${totalAmount.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} บาท`;
+      }
+
+      const depositAmount = parseFloat(document.getElementById('inputDepositAmount').value) || 0;
       const remainingAmount = Math.max(0, totalAmount - depositAmount);
-      document.getElementById('inputRemainingAmount').value = remainingAmount.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' บาท';
+      const remainingInput = document.getElementById('inputRemainingAmount');
+      if (remainingInput) {
+        remainingInput.value = remainingAmount.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' บาท';
+      }
 
       document.getElementById('dispReceiptNo').textContent = receiptNo;
       document.getElementById('dispDate').textContent = date;
@@ -1040,24 +1261,45 @@
         addressRow.style.display = 'none';
       }
 
-      document.getElementById('dispItemTitle').textContent = itemTitle;
-      document.getElementById('dispItemSub').textContent = itemSub;
+      // Render document items table rows dynamically
+      const tableBody = document.getElementById('dispItemsTableBody');
+      if (tableBody) {
+        tableBody.innerHTML = invoiceItems.map((item, idx) => {
+          const qty = parseFloat(item.qty) || 0;
+          const price = parseFloat(item.price) || 0;
+          const subtotal = qty * price;
+          const fmtPrice = price.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          const fmtSubtotal = subtotal.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          const unitStr = item.qtyUnit ? `${qty} ${item.qtyUnit}` : `${qty}`;
+          const formattedSub = escapeHtml(item.sub || '').replace(/\n/g, '<br>');
+
+          return `
+            <tr>
+              <td class="text-center" style="color: #64748b;">${idx + 1}</td>
+              <td>
+                <div class="item-desc">${escapeHtml(item.title || '')}</div>
+                ${item.sub ? `<div class="item-sub">${formattedSub}</div>` : ''}
+              </td>
+              <td class="text-center">${unitStr}</td>
+              <td class="text-right">${fmtPrice}</td>
+              <td class="text-right" style="font-weight: 600;">${fmtSubtotal}</td>
+            </tr>
+          `;
+        }).join('');
+      }
 
       const fmtTotal = totalAmount.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       const fmtDeposit = depositAmount.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       const fmtRemaining = remainingAmount.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-      document.getElementById('dispTotalContractPrice').textContent = fmtTotal;
       document.getElementById('dispSummaryTotalProject').textContent = fmtTotal + ' บาท';
       document.getElementById('dispSummaryDeposit').textContent = '-' + fmtDeposit + ' บาท';
       document.getElementById('dispSummaryRemaining').textContent = fmtRemaining + ' บาท';
 
       if (currentDocType === 'DEPOSIT') {
-        document.getElementById('dispItemTotal').textContent = fmtDeposit;
         document.getElementById('dispNetTotal').textContent = fmtDeposit + ' บาท';
         document.getElementById('dispBahtText').textContent = numberToThaiBaht(depositAmount);
       } else {
-        document.getElementById('dispItemTotal').textContent = fmtTotal;
         document.getElementById('dispNetTotal').textContent = fmtTotal + ' บาท';
         document.getElementById('dispBahtText').textContent = numberToThaiBaht(totalAmount);
       }
@@ -1077,28 +1319,45 @@
       document.getElementById('dispCustomerSignRole').textContent = customerName;
     }
 
-        function setThorQuotation() {
+    function setThorQuotation() {
       switchDocumentType('QUOTATION');
       document.getElementById('inputReceiptNo').value = 'QT-20261115-001';
       document.getElementById('inputCustomerName').value = 'บริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด';
       document.getElementById('inputContactPerson').value = 'คุณ Thor (tjbedding.salepagess)';
       document.getElementById('inputPhone').value = '086-461-4614';
-      document.getElementById('inputItemTitle').value = 'บริการเซ็ตอัป LINE OA & ออกแบบ Rich Menu พรีเมียม 6 ช่อง';
-      document.getElementById('inputTotalAmount').value = 990;
-      document.getElementById('inputDepositAmount').value = 990;
-      document.getElementById('inputItemSub').value = 'รายการบริการ:\n1. บริการเซ็ตอัประบบ LINE Official Account เชิงธุรกิจตามมาตรฐาน\n2. ออกแบบกราฟิก Rich Menu พรีเมียม 6 ช่อง (โทนสีและสไตล์เข้าชุดกับหน้าเว็บ)\n3. ตั้งค่าระบบข้อความต้อนรับอัตโนมัติ (Greeting Message) และระบบตอบคำถามเบื้องต้น\n4. เชื่อมต่อระบบรับคำสั่งซื้อจากเซลเพจตรงเข้า LINE OA\n\n- ราคาปกติ: 2,500 บาท\n- ส่วนลดพิเศษสำหรับลูกค้าทำเว็บไซต์: -1,510 บาท\n- ยอดสุทธิที่ต้องชำระ: 990.00 บาทถ้วน';
+      document.getElementById('inputAddress').value = '';
+      
+      invoiceItems = [
+        {
+          id: 1,
+          title: 'บริการเซ็ตอัป LINE OA & ออกแบบ Rich Menu พรีเมียม 6 ช่อง',
+          sub: 'รายการบริการ:\n1. บริการเซ็ตอัประบบ LINE Official Account เชิงธุรกิจตามมาตรฐาน\n2. ออกแบบกราฟิก Rich Menu พรีเมียม 6 ช่อง (โทนสีและสไตล์เข้าชุดกับหน้าเว็บ)\n3. ตั้งค่าระบบข้อความต้อนรับอัตโนมัติ (Greeting Message) และระบบตอบคำถามเบื้องต้น\n4. เชื่อมต่อระบบรับคำสั่งซื้อจากเซลเพจตรงเข้า LINE OA\n\n- ราคาปกติ: 2,500 บาท\n- ส่วนลดพิเศษสำหรับลูกค้าทำเว็บไซต์: -1,510 บาท\n- ยอดสุทธิที่ต้องชำระ: 990.00 บาทถ้วน',
+          qty: 1,
+          qtyUnit: 'งาน',
+          price: 990
+        }
+      ];
+      renderItemsDrawer();
+
       document.getElementById('inputPaymentMethod').value = 'โอนผ่านบัญชีธนาคาร เกียรตินาคินภัทร (KKP) เลขที่ 2061291340';
       document.getElementById('inputRefNo').value = 'ภายใน 16 พ.ย. 2569';
       document.getElementById('inputValidityDays').value = 'ยืนยันราคาพิเศษ 3 วัน';
-      updateReceiptData();
+      calcDepositPercent(100);
     }
 
     function setQuickPackage(title, price, sub) {
-      document.getElementById('inputItemTitle').value = title;
-      document.getElementById('inputTotalAmount').value = price;
-      document.getElementById('inputDepositAmount').value = Math.round(price * 0.5);
-      document.getElementById('inputItemSub').value = sub;
-      updateReceiptData();
+      if (invoiceItems.length === 1 && (invoiceItems[0].title === 'บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)' || invoiceItems[0].price === 3900)) {
+        invoiceItems[0].title = title;
+        invoiceItems[0].price = price;
+        invoiceItems[0].sub = sub;
+        invoiceItems[0].qty = 1;
+        invoiceItems[0].qtyUnit = 'งาน';
+      } else {
+        addNewItem(title, price, sub);
+        return;
+      }
+      renderItemsDrawer();
+      calcDepositPercent(50);
     }
 
     // Export direct Single-Page A4 PDF with Safe Short LINE Filename
@@ -1146,6 +1405,7 @@
     }
 
     // Initialize on load
+    renderItemsDrawer();
     updateReceiptData();
   
     window.addEventListener('DOMContentLoaded', () => {

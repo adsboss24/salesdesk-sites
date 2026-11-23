@@ -1234,6 +1234,73 @@
   <script>
     let currentDocType = 'QUOTATION';
 
+    // HTML Escaping Helper
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Number to Thai Baht Text Converter
+    function numberToThaiBaht(number) {
+      if (isNaN(number) || number === null || number === '') return '';
+      number = Number(number);
+      if (number === 0) return 'ศูนย์บาทถ้วน';
+
+      const thaiDigits = ['ศูนย์', 'หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า', 'หก', 'เจ็ด', 'แปด', 'เก้า'];
+      const thaiUnits = ['', 'สิบ', 'ร้อย', 'พัน', 'หมื่น', 'แสน', 'ล้าน'];
+
+      function convertGroup(nStr) {
+        let result = '';
+        const len = nStr.length;
+        const numVal = parseInt(nStr, 10);
+        for (let i = 0; i < len; i++) {
+          const digit = parseInt(nStr.charAt(i), 10);
+          const unit = thaiUnits[len - i - 1];
+          if (digit !== 0) {
+            if (len - i === 2 && digit === 1) {
+              result += 'สิบ';
+            } else if (len - i === 2 && digit === 2) {
+              result += 'ยี่สิบ';
+            } else if (len - i === 1 && digit === 1 && numVal > 1) {
+              result += 'เอ็ด';
+            } else {
+              result += thaiDigits[digit] + unit;
+            }
+          }
+        }
+        return result;
+      }
+
+      const numStr = number.toFixed(2);
+      const [intPart, decPart] = numStr.split('.');
+
+      let bahtStr = '';
+      if (intPart.length > 6) {
+        const millionGroup = intPart.slice(0, intPart.length - 6);
+        const lowerGroup = intPart.slice(intPart.length - 6);
+        bahtStr = convertGroup(millionGroup) + 'ล้าน' + convertGroup(lowerGroup);
+      } else {
+        bahtStr = convertGroup(intPart);
+      }
+
+      if (!bahtStr) bahtStr = 'ศูนย์';
+      bahtStr += 'บาท';
+
+      if (decPart === '00' || !decPart) {
+        bahtStr += 'ถ้วน';
+      } else {
+        const satang = convertGroup(decPart);
+        bahtStr += satang + 'สตางค์';
+      }
+
+      return bahtStr;
+    }
+
     // Standard Default Invoice Items
     let invoiceItems = [
       {
@@ -1657,21 +1724,21 @@
     }
 
     function setQuickPackage(title, price, sub) {
-      if (invoiceItems.length === 1) {
-        invoiceItems[0].title = title;
-        invoiceItems[0].price = price;
-        invoiceItems[0].sub = sub;
-        invoiceItems[0].qty = 1;
-        invoiceItems[0].qtyUnit = 'งาน';
-      } else {
-        invoiceItems.push({
+      if (!invoiceItems || invoiceItems.length === 0) {
+        invoiceItems = [{
           id: Date.now(),
           title: title,
           price: price,
           qty: 1,
           qtyUnit: 'งาน',
           sub: sub
-        });
+        }];
+      } else {
+        invoiceItems[0].title = title;
+        invoiceItems[0].price = price;
+        invoiceItems[0].sub = sub;
+        invoiceItems[0].qty = 1;
+        invoiceItems[0].qtyUnit = 'งาน';
       }
       renderItemsDrawer();
       updateReceiptData();

@@ -708,7 +708,7 @@ export default function IceBenzTTCUbonSalepage() {
               </div>
 
               {/* Action Buttons */}
-              <div className="p-5 sm:p-6 pt-0">
+              <div className="p-5 sm:p-6 pt-0 space-y-2">
                 <a
                   href="#booking-form"
                   onClick={() =>
@@ -721,10 +721,62 @@ export default function IceBenzTTCUbonSalepage() {
                 >
                   ขอใบเสนอราคา / นัดทดลองขับ
                 </a>
+                {car.id === 'smart-ev' && (
+                  <Link
+                    href="/ice-benz-ttc-ubon/blog/smart-ev-brabus-electric-suv-guide"
+                    className="w-full py-2 px-3 rounded-xl bg-slate-800/80 hover:bg-slate-800 text-amber-300 hover:text-amber-200 border border-slate-700 hover:border-amber-400/40 text-xs font-semibold text-center flex items-center justify-center gap-1.5 transition"
+                  >
+                    <FileText className="w-3.5 h-3.5 text-amber-400" />
+                    <span>ดูเอกสาร 1-Page Summary & รีวิว</span>
+                  </Link>
+                )}
               </div>
             </div>
           ))}
         </div>
+
+        {/* Official smart Product 1-Page Summary Embed if smart tab is active */}
+        {activeCarTab === 'smart' && (
+          <div className="mt-8 p-4 sm:p-6 rounded-2xl bg-slate-900/90 border border-amber-400/30 shadow-2xl animate-in fade-in duration-300">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-xl bg-amber-400/10 border border-amber-400/30 text-amber-400">
+                  <FileText className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-sm sm:text-base font-bold text-white">
+                    smart Product 1-Page Summary
+                  </h4>
+                  <p className="text-xs text-slate-400">
+                    เอกสารสรุปสเปกและผลิตภัณฑ์ทางการจาก Thonburi Group
+                  </p>
+                </div>
+              </div>
+              <a
+                href="https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=83d25e4c-97af-43a1-ad12-ee24b7438e70"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 text-xs font-semibold border border-slate-700 transition self-start sm:self-auto"
+              >
+                <span>เปิดเอกสารฉบับเต็ม</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+
+            <div className="relative w-full aspect-video sm:aspect-[16/9] max-h-[540px] rounded-xl overflow-hidden border border-slate-800 bg-slate-950">
+              <iframe
+                src="https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=83d25e4c-97af-43a1-ad12-ee24b7438e70"
+                width="100%"
+                height="100%"
+                className="w-full h-full border-0"
+                frameBorder="0"
+                scrolling="no"
+                allowFullScreen
+                title="0_smart product 1-page summary"
+              />
+            </div>
+          </div>
+        )}
       </section>
 
       {/* 4. CORE EXCELLENCE & WHY CHOOSE ICE LUXURY AUTO */}

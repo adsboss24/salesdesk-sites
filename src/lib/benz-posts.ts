@@ -130,6 +130,12 @@ export const benzPosts: BenzPost[] = [
       <h2>ราคาจำหน่ายและแคมเปญพิเศษประจำเดือน</h2>
       <p>smart #1 และ smart #3 เปิดราคาจำหน่ายเริ่มต้นเพียง 1.399 - 1.849 ล้านบาท (สำหรับรุ่น BRABUS) พร้อมข้อเสนอฟรี Home Charger ติดตั้งถึงบ้าน ประกันภัยชั้น 1 และการรับประกันคุณภาพตัวรถและแบตเตอรี่นานสูงสุด 8 ปี หรือ 160,000 กม.</p>
 
+      <h2>เอกสารทางการ: smart Product 1-Page Summary</h2>
+      <p>สรุปข้อมูลผลิตภัณฑ์ จุดเด่น สเปกทางเทคนิค และรายละเอียดสำคัญของ smart EV โดย Thonburi Group:</p>
+      <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 my-6 shadow-2xl bg-slate-900">
+        <iframe src="https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=83d25e4c-97af-43a1-ad12-ee24b7438e70" width="100%" height="100%" class="w-full h-full border-0" frameborder="0" scrolling="no" allowfullscreen title="0_smart product 1-page summary"></iframe>
+      </div>
+
       <p>สัมผัสตัวจริงและจองคิวทดลองขับกับคุณไอซ์ได้ทันทีที่ <a href="/ice-benz-ttc-ubon#booking-form" class="text-amber-400 font-bold underline hover:text-amber-300">ฟอร์มจองสิทธิ์ทดลองขับ ICE LUXURY AUTO</a></p>
     `,
     featuredImage: '/images/benz/smart-real.jpg',

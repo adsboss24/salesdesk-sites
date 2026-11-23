@@ -330,6 +330,213 @@
       font-size: 16px;
     }
 
+    /* Bank Preset Selection */
+    .btn-bank-preset {
+      background: #0f172a;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: left;
+      line-height: 1.35;
+      flex: 1;
+      min-width: 220px;
+    }
+    .btn-bank-preset:hover {
+      background: #1e293b;
+      color: #ffffff;
+      border-color: #64748b;
+    }
+    .btn-bank-preset.active {
+      background: #064e3b;
+      color: #6ee7b7;
+      border: 1px solid #10b981;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
+    }
+    .btn-bank-preset.scb-active {
+      background: #3b0764;
+      color: #c084fc;
+      border: 1px solid #9333ea;
+      box-shadow: 0 0 12px rgba(147, 51, 234, 0.35);
+    }
+
+    /* History Modal & Cards */
+    .history-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .history-modal-content {
+      background: #0b1120;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 760px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+      animation: modalFadeIn 0.2s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-12px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .history-modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .history-modal-toolbar {
+      padding: 12px 20px;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      background: #0f172a;
+    }
+    .history-modal-toolbar input {
+      flex: 1;
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #ffffff;
+      padding: 7px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    .history-modal-toolbar input:focus {
+      outline: none;
+      border-color: #38bdf8;
+    }
+    .btn-danger-outline {
+      background: transparent;
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-danger-outline:hover {
+      background: #7f1d1d;
+      color: #ffffff;
+    }
+    .history-list-container {
+      padding: 16px 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+    .history-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.15s;
+    }
+    .history-card:hover {
+      border-color: #3b82f6;
+      background: #131d31;
+    }
+    .history-card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .history-card-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .history-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .history-badge.quotation { background: #1e3a8a; color: #93c5fd; border: 1px solid #2563eb; }
+    .history-badge.deposit { background: #78350f; color: #fde68a; border: 1px solid #d97706; }
+    .history-badge.receipt { background: #064e3b; color: #6ee7b7; border: 1px solid #059669; }
+    .history-card-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-load-history {
+      background: #0284c7;
+      color: #ffffff;
+      border: 1px solid #38bdf8;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-load-history:hover {
+      background: #0369a1;
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+    }
+    .btn-del-history {
+      background: #7f1d1d;
+      color: #fca5a5;
+      border: 1px solid #ef4444;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-del-history:hover {
+      background: #ef4444;
+      color: #ffffff;
+    }
+
+    /* Toast Notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #38bdf8;
+      border: 1px solid #0284c7;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: toastIn 0.25s ease-out;
+    }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* Precise A4 Page Fitting Box (Target for PDF) */
     #invoice-print-area {
       max-width: 790px;
@@ -713,6 +920,9 @@
       <span>📄 ระบบจัดการเอกสารการขาย SalesDesk AI</span>
     </div>
     <div class="toolbar-actions">
+      <button class="btn" style="background: #1e293b; color: #f1f5f9; border: 1px solid #475569;" onclick="toggleHistoryModal()">
+        📜 ประวัติเอกสาร (<span id="historyCountBadge">0</span>)
+      </button>
       <button class="btn btn-edit" onclick="toggleEditDrawer()">⚙️ ปรับแต่งข้อมูลลูกค้า/ราคา</button>
       <button class="btn btn-download-pdf" onclick="exportReceiptPDF()">⬇️ ดาวน์โหลด PDF ส่งใน LINE</button>
       <button class="btn btn-print" onclick="window.print()">🖨️ พิมพ์</button>
@@ -736,7 +946,10 @@
   <div class="edit-drawer" id="editDrawer">
     <h3>
       <span>⚙️ กรอกข้อมูลครั้งเดียว — คำนวณหักมัดจำและคงเหลืออัตโนมัติ</span>
-      <button class="btn-chip" style="background: #475569;" onclick="toggleEditDrawer()">✕ ปิดฟอร์ม</button>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn-chip" style="background: #0284c7; color: #ffffff; font-weight: 700;" onclick="saveCurrentDocumentToHistory(false)">💾 บันทึกเอกสารนี้</button>
+        <button class="btn-chip" style="background: #475569;" onclick="toggleEditDrawer()">✕ ปิดฟอร์ม</button>
+      </div>
     </h3>
     <div class="form-grid">
       <div class="form-group">
@@ -827,16 +1040,62 @@
           </div>
         </div>
       </div>
+      <!-- Bank Account Selection Presets -->
+      <div class="form-group" style="grid-column: 1 / -1;">
+        <label style="color: #38bdf8; font-weight: 700; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+          <span>🏦 เลือกบัญชีธนาคารสำหรับชำระเงิน (Bank Account Selector)</span>
+          <span style="font-size: 11.5px; color: #94a3b8; font-weight: 400;">คลิกเลือกเพื่อเปลี่ยนบัญชีในเอกสารทันที</span>
+        </label>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button type="button" class="btn-bank-preset active" id="btnBankKKP" onclick="selectBankPreset('KKP')">
+            <div style="font-size: 13px; font-weight: 700; color: #34d399;">🟢 ธ.เกียรตินาคินภัทร จำกัด (มหาชน) KKP</div>
+            <div style="font-size: 12.5px; margin-top: 2px;">เลขที่บัญชี: <strong style="font-family: monospace; font-size: 14px; letter-spacing: 0.5px; color: #ffffff;">2061291340</strong></div>
+            <div style="font-size: 11.5px; opacity: 0.85;">ชื่อบัญชี: มานพ ฤาชุตกุล</div>
+          </button>
+          <button type="button" class="btn-bank-preset" id="btnBankSCB" onclick="selectBankPreset('SCB')">
+            <div style="font-size: 13px; font-weight: 700; color: #c084fc;">🟣 ธ.ไทยพาณิชย์ จำกัด (มหาชน) SCB</div>
+            <div style="font-size: 12.5px; margin-top: 2px;">เลขที่บัญชี: <strong style="font-family: monospace; font-size: 14px; letter-spacing: 0.5px; color: #ffffff;">0472673099</strong></div>
+            <div style="font-size: 11.5px; opacity: 0.85;">ชื่อบัญชี: มานพ ฤาชุตกุล</div>
+          </button>
+        </div>
+      </div>
+
       <div class="form-group">
-        <label id="lblPaymentMethod">ช่องทางชำระเงิน</label>
-        <input type="text" id="inputPaymentMethod" value="โอนผ่านระบบธนาคารไทยพาณิชย์ (SCB)" oninput="updateReceiptData()">
+        <label id="lblPaymentMethod">ช่องทางชำระเงิน / ธนาคารที่เลือก</label>
+        <input type="text" id="inputPaymentMethod" value="โอนผ่านบัญชีธนาคาร เกียรตินาคินภัทร (KKP) เลขที่ 2061291340" oninput="updateReceiptData()">
       </div>
       <div class="form-group">
-        <label id="lblRefNo">รหัสอ้างอิงรายการโอน / วันหมดอายุ</label>
-        <input type="text" id="inputRefNo" value="261115112056" oninput="updateReceiptData()">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+          <label id="lblRefNo" style="margin: 0;">รหัสอ้างอิงธุรกรรม / กำหนดชำระ</label>
+          <button type="button" class="btn-chip" style="background: #2563eb; padding: 2px 8px; font-size: 11px; font-weight: 700;" onclick="generateAutoTxnId()">🔄 สุ่มเลขธุรกรรมใหม่</button>
+        </div>
+        <input type="text" id="inputRefNo" value="TXN-20261123-8492" oninput="updateReceiptData()">
       </div>
     </div>
   </div>
+
+  <!-- History Modal Overlay -->
+  <div class="history-modal-overlay" id="historyModal" style="display: none;" onclick="if(event.target===this) toggleHistoryModal()">
+    <div class="history-modal-content">
+      <div class="history-modal-header">
+        <div style="font-size: 16px; font-weight: 800; color: #f8fafc; display: flex; align-items: center; gap: 8px;">
+          <span>📜 ประวัติการออกเอกสาร (Document History)</span>
+          <span id="historyModalCount" style="font-size: 12px; background: #1e3a8a; color: #93c5fd; padding: 2px 8px; border-radius: 9999px;">0 รายการ</span>
+        </div>
+        <button class="btn-chip" style="background: #334155; color: #fff;" onclick="toggleHistoryModal()">✕ ปิด</button>
+      </div>
+      <div class="history-modal-toolbar">
+        <input type="text" id="historySearchInput" placeholder="🔍 ค้นหาเลขที่เอกสาร, ชื่อลูกค้า, หรือเบอร์โทร..." oninput="filterHistoryList()">
+        <button class="btn-danger-outline" onclick="clearAllHistory()">🗑️ ล้างทั้งหมด</button>
+      </div>
+      <div class="history-list-container" id="historyListContainer">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-msg" id="receiptToast" style="display: none;"></div>
 
   <!-- Printable/Exportable Paper Container (Guaranteed 1-Page A4) -->
   <div id="invoice-print-area">
@@ -983,6 +1242,75 @@
   <script>
     let currentDocType = 'DEPOSIT';
 
+    // Bank Presets
+    const BANK_PRESETS = {
+      KKP: {
+        key: 'KKP',
+        name: 'ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน) KKP',
+        shortName: 'เกียรตินาคินภัทร (KKP)',
+        accountNo: '2061291340',
+        accountName: 'มานพ ฤาชุตกุล',
+        methodText: 'โอนผ่านบัญชีธนาคาร เกียรตินาคินภัทร (KKP) เลขที่ 2061291340'
+      },
+      SCB: {
+        key: 'SCB',
+        name: 'ธนาคารไทยพาณิชย์ จำกัด (มหาชน) SCB',
+        shortName: 'ไทยพาณิชย์ (SCB)',
+        accountNo: '0472673099',
+        accountName: 'มานพ ฤาชุตกุล',
+        methodText: 'โอนผ่านบัญชีธนาคาร ไทยพาณิชย์ (SCB) เลขที่ 0472673099'
+      }
+    };
+    let currentBankKey = 'KKP';
+
+    function selectBankPreset(key) {
+      currentBankKey = key;
+      const bank = BANK_PRESETS[key] || BANK_PRESETS.KKP;
+      
+      const btnKKP = document.getElementById('btnBankKKP');
+      const btnSCB = document.getElementById('btnBankSCB');
+      if (btnKKP && btnSCB) {
+        if (key === 'KKP') {
+          btnKKP.className = 'btn-bank-preset active';
+          btnSCB.className = 'btn-bank-preset';
+        } else {
+          btnKKP.className = 'btn-bank-preset';
+          btnSCB.className = 'btn-bank-preset scb-active';
+        }
+      }
+
+      const inputMethod = document.getElementById('inputPaymentMethod');
+      if (inputMethod) {
+        inputMethod.value = bank.methodText;
+      }
+
+      updateReceiptData();
+      showToast(`🏦 เลือกบัญชี ${bank.shortName} เรียบร้อยแล้ว`);
+    }
+
+    function generateAutoTxnId() {
+      const now = new Date();
+      const yyyy = String(now.getFullYear());
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      const rand = Math.floor(1000 + Math.random() * 9000);
+      
+      let newRef = '';
+      if (currentDocType === 'QUOTATION') {
+        const valBadge = document.getElementById('inputValidityDays')?.value || '3 วัน';
+        newRef = `กำหนดชำระภายใน ${valBadge}`;
+      } else {
+        newRef = `TXN-${yyyy}${mm}${dd}-${rand}`;
+      }
+      
+      const inputRef = document.getElementById('inputRefNo');
+      if (inputRef) {
+        inputRef.value = newRef;
+        updateReceiptData();
+        showToast(`🔄 สุ่มเลขธุรกรรมใหม่: ${newRef}`);
+      }
+    }
+
     function switchDocumentType(type) {
       currentDocType = type;
       document.getElementById('tabQuotation').classList.remove('active');
@@ -994,7 +1322,6 @@
       const badgeEl = document.getElementById('dispBadge');
       const clientLabel = document.getElementById('dispClientCardLabel');
       const payLabel = document.getElementById('dispPaymentCardLabel');
-      const payBody = document.getElementById('dispPaymentCardBody');
       const receiverRole = document.getElementById('dispReceiverRole');
       const footerNote = document.getElementById('dispFooterNote');
       const netTotalLabel = document.getElementById('dispNetTotalLabel');
@@ -1012,7 +1339,6 @@
         badgeEl.textContent = document.getElementById('inputValidityDays')?.value || 'ยืนยันราคาพิเศษ 3 วัน';
         clientLabel.textContent = 'เรียน (ATTN TO)';
         payLabel.textContent = 'เงื่อนไขการชำระเงิน (PAYMENT TERMS)';
-        payBody.innerHTML = '<strong>การชำระเงิน:</strong> ชำระมัดจำเพื่อเริ่มงาน หรือชำระเต็มจำนวน<br><strong>ธนาคาร:</strong> เกียรตินาคินภัทร (KKP) เลขที่ 2061291340<br><strong>ชื่อบัญชี:</strong> มานพ ฤาชุตกุล<br><strong>กำหนดส่งมอบงาน:</strong> 24–48 ชม. หลังได้รับข้อมูล';
         receiverRole.textContent = 'ผู้ออกใบเสนอราคา (SalesDesk AI)';
         footerNote.innerHTML = 'เอกสารใบเสนอราคานี้ออกโดยระบบคอมพิวเตอร์ SalesDesk AI Platform<br>หากต้องการสั่งซื้อ สามารถติดต่อกลับทางแชต LINE OA ได้ทันทีครับ ';
         netTotalLabel.textContent = 'ยอดรวมสุทธิทั้งสิ้น:';
@@ -1031,7 +1357,6 @@
         badgeEl.textContent = 'รับชำระเงินมัดจำแล้ว';
         clientLabel.textContent = 'ได้รับเงินมัดจำจาก (CUSTOMER)';
         payLabel.textContent = 'รายละเอียดการชำระมัดจำ (DEPOSIT DETAILS)';
-        payBody.innerHTML = '<strong>ช่องทางชำระ:</strong> ' + document.getElementById('inputPaymentMethod').value + '<br><strong>เข้าบัญชี:</strong> ธนาคารเกียรตินาคินภัทร (KKP) เลขที่ 2061291340<br><strong>ชื่อบัญชี:</strong> มานพ ฤาชุตกุล<br><strong>สถานะ:</strong> รับเงินมัดจำและเริ่มจัดทำระบบทันที';
         receiverRole.textContent = 'ผู้รับเงินมัดจำ / ผู้มีอำนาจ (SalesDesk AI)';
         footerNote.innerHTML = 'ได้รับเงินมัดจำเรียบร้อยแล้ว ทีมงานจะส่งมอบดราฟต์แรกให้ตรวจสอบภายใน 48 ชม. ครับ ';
         netTotalLabel.textContent = 'ยอดเงินมัดจำสุทธิ:';
@@ -1050,7 +1375,6 @@
         badgeEl.textContent = 'ชำระเงินเรียบร้อยแล้ว';
         clientLabel.textContent = 'ได้รับเงินจาก (CUSTOMER)';
         payLabel.textContent = 'รายละเอียดการชำระเงิน (PAYMENT METHOD)';
-        payBody.innerHTML = '<strong>ช่องทางชำระ:</strong> ' + document.getElementById('inputPaymentMethod').value + '<br><strong>เข้าบัญชี:</strong> ธนาคารเกียรตินาคินภัทร (KKP) เลขที่ 2061291340<br><strong>ชื่อบัญชี:</strong> มานพ ฤาชุตกุล<br><strong>สถานะ:</strong> ยอดเงินเข้าบัญชีสมบูรณ์เรียบร้อย';
         receiverRole.textContent = 'ผู้รับเงิน / ผู้มีอำนาจลงนาม (SalesDesk AI)';
         footerNote.innerHTML = 'เอกสารฉบับนี้ออกโดยระบบคอมพิวเตอร์อัตโนมัติ SalesDesk AI Platform<br>ขอบพระคุณที่ไว้วางใจเลือกใช้บริการจัดทำเว็บไซต์และเซลเพจกับเราครับ ';
         netTotalLabel.textContent = 'ยอดเงินสุทธิ (Net Total):';
@@ -1066,151 +1390,93 @@
 
     function toggleEditDrawer() {
       const drawer = document.getElementById('editDrawer');
-      drawer.style.display = drawer.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function numberToThaiBaht(num) {
-      num = Math.round(parseFloat(num) || 0);
-      if (num === 0) return 'ศูนย์บาทถ้วน';
-      const thaiNumbers = ['', 'หนึ่ง', 'สอง', 'สาม', 'สี่', 'ห้า', 'หก', 'เจ็ด', 'แปด', 'เก้า'];
-      const thaiUnits = ['', 'สิบ', 'ร้อย', 'พัน', 'หมื่น', 'แสน', 'ล้าน'];
-      
-      let strNum = String(num);
-      let len = strNum.length;
-      let text = '';
-      for (let i = 0; i < len; i++) {
-        let d = parseInt(strNum[i]);
-        let pos = len - i - 1;
-        if (d !== 0) {
-          if (pos === 1 && d === 1) {
-            text += 'สิบ';
-          } else if (pos === 1 && d === 2) {
-            text += 'ยี่สิบ';
-          } else if (pos === 0 && d === 1 && len > 1) {
-            text += 'เอ็ด';
-          } else {
-            text += thaiNumbers[d] + thaiUnits[pos];
-          }
-        }
+      if (drawer.style.display === 'none') {
+        drawer.style.display = 'block';
+      } else {
+        drawer.style.display = 'none';
       }
-      return text + 'บาทถ้วน';
     }
 
-    let invoiceItems = [
-      {
-        id: 1,
-        title: 'บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)',
-        sub: '• จัดทำหน้าเว็บเพจบริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด\n• โครงสร้างมาตรฐาน โหลดไว รองรับมือถือ 100% พร้อมระบบแสดงแคตาล็อกสินค้า\n• ฟรีบริการโฮสติ้งความเร็วสูง และส่งมอบงานแก้ไขจนกว่าจะพึงพอใจ',
-        qty: 1,
-        qtyUnit: 'งาน',
-        price: 3900
-      }
-    ];
-
-    function escapeHtml(text) {
-      if (!text) return '';
-      return String(text)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    function escapeAttr(text) {
-      if (!text) return '';
-      return String(text).replace(/"/g, '&quot;');
-    }
-
+    // Dynamic Multi-Item Drawer Management
     function renderItemsDrawer() {
-      const container = document.getElementById('itemsContainer');
-      const badge = document.getElementById('dispItemCountBadge');
-      if (badge) badge.textContent = `${invoiceItems.length} รายการ`;
-
+      const container = document.getElementById('itemsListContainer');
       if (!container) return;
-      container.innerHTML = invoiceItems.map((item, idx) => {
-        const itemSubtotal = (parseFloat(item.qty) || 0) * (parseFloat(item.price) || 0);
-        const fmtSubtotal = itemSubtotal.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        const canDelete = invoiceItems.length > 1;
 
-        return `
-          <div class="item-card" data-idx="${idx}">
-            <div class="item-card-header">
-              <span class="item-card-badge">รายการที่ ${idx + 1}</span>
-              ${canDelete ? `<button type="button" class="btn-remove-item" onclick="removeItem(${idx})">🗑️ ลบรายการ</button>` : ''}
+      container.innerHTML = invoiceItems.map((item, index) => `
+        <div class="item-card" data-id="${item.id}">
+          <div class="item-card-header">
+            <span>รายการที่ ${index + 1}</span>
+            ${invoiceItems.length > 1 ? `<button type="button" class="btn-remove-item" onclick="removeItem(${item.id})">🗑️ ลบรายการ</button>` : ''}
+          </div>
+          <div class="item-card-grid">
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label>ชื่อรายการสินค้า/บริการ</label>
+              <input type="text" value="${escapeHtml(item.title)}" oninput="updateItemField(${item.id}, 'title', this.value)">
             </div>
-            <div class="form-group" style="margin: 0;">
-              <label style="font-size: 11px;">ชื่อรายการสินค้า / บริการ</label>
-              <input type="text" value="${escapeAttr(item.title)}" oninput="updateItemField(${idx}, 'title', this.value)" placeholder="เช่น บริการจัดทำเว็บไซต์">
+            <div class="form-group">
+              <label>ราคาต่อหน่วย (บาท)</label>
+              <input type="number" value="${item.price}" oninput="updateItemField(${item.id}, 'price', this.value)">
             </div>
-            <div class="item-card-grid">
-              <div class="form-group" style="margin: 0;">
-                <label style="font-size: 11px;">ราคาต่อหน่วย (บาท)</label>
-                <input type="number" value="${item.price}" oninput="updateItemField(${idx}, 'price', parseFloat(this.value) || 0)">
-              </div>
-              <div class="form-group" style="margin: 0;">
-                <label style="font-size: 11px;">จำนวน</label>
-                <input type="number" value="${item.qty}" min="1" step="1" oninput="updateItemField(${idx}, 'qty', parseFloat(this.value) || 0)">
-              </div>
-              <div class="form-group" style="margin: 0;">
-                <label style="font-size: 11px;">หน่วยนับ</label>
-                <input type="text" value="${escapeAttr(item.qtyUnit || 'งาน')}" oninput="updateItemField(${idx}, 'qtyUnit', this.value)" placeholder="งาน / เดือน / ชิ้น">
-              </div>
-              <div class="form-group" style="margin: 0;">
-                <label style="font-size: 11px;">รวม (บาท)</label>
-                <input type="text" value="฿${fmtSubtotal}" disabled style="background: #1e293b; color: #38bdf8; font-weight: 700; border-color: #334155;">
-              </div>
+            <div class="form-group">
+              <label>จำนวน</label>
+              <input type="number" min="1" step="1" value="${item.qty}" oninput="updateItemField(${item.id}, 'qty', this.value)">
             </div>
-            <div class="form-group" style="margin: 0;">
-              <label style="font-size: 11px;">รายละเอียดประกอบรายการ (หัวข้อย่อย)</label>
-              <textarea rows="2" oninput="updateItemField(${idx}, 'sub', this.value)" placeholder="• รายละเอียดรายการ...">${escapeHtml(item.sub)}</textarea>
+            <div class="form-group">
+              <label>หน่วยนับ</label>
+              <input type="text" value="${escapeHtml(item.qtyUnit || 'งาน')}" placeholder="เช่น งาน, ชิ้น, เดือน" oninput="updateItemField(${item.id}, 'qtyUnit', this.value)">
+            </div>
+            <div class="form-group">
+              <label>รวมเป็นเงิน (บาท)</label>
+              <input type="text" readonly value="${((parseFloat(item.qty) || 0) * (parseFloat(item.price) || 0)).toLocaleString('th-TH', { minimumFractionDigits: 2 })}" style="background: #1e293b; color: #38bdf8; font-weight: 700;">
+            </div>
+            <div class="form-group" style="grid-column: 1 / -1;">
+              <label>รายละเอียดประกอบรายการ (หัวข้อย่อย/ฟีเจอร์)</label>
+              <textarea rows="2" oninput="updateItemField(${item.id}, 'sub', this.value)">${escapeHtml(item.sub || '')}</textarea>
             </div>
           </div>
-        `;
-      }).join('');
+        </div>
+      `).join('');
     }
 
-    function addNewItem(title = 'บริการเพิ่มเติม', price = 990, sub = '• รายละเอียดบริการเพิ่มเติม') {
+    function addNewItem(defaultTitle = 'บริการเสริมพิเศษ (Add-on Feature)', defaultPrice = 1000, defaultSub = '• รายละเอียดบริการเสริมตามที่ตกลง') {
+      const newId = Date.now();
       invoiceItems.push({
-        id: Date.now(),
-        title: title,
-        sub: sub,
+        id: newId,
+        title: defaultTitle,
+        price: defaultPrice,
         qty: 1,
         qtyUnit: 'งาน',
-        price: price
+        sub: defaultSub
       });
       renderItemsDrawer();
       updateReceiptData();
     }
 
-    function removeItem(idx) {
+    function removeItem(id) {
       if (invoiceItems.length <= 1) return;
-      invoiceItems.splice(idx, 1);
+      invoiceItems = invoiceItems.filter(item => item.id !== id);
       renderItemsDrawer();
       updateReceiptData();
     }
 
-    function updateItemField(idx, field, val) {
-      if (invoiceItems[idx]) {
-        invoiceItems[idx][field] = val;
-        if (field === 'price' || field === 'qty') {
-          const card = document.querySelector(`.item-card[data-idx="${idx}"]`);
-          if (card) {
-            const subtotal = (parseFloat(invoiceItems[idx].qty) || 0) * (parseFloat(invoiceItems[idx].price) || 0);
-            const subInputs = card.querySelectorAll('.item-card-grid input');
-            if (subInputs && subInputs[3]) {
-              subInputs[3].value = `฿${subtotal.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-            }
-          }
-        }
-        updateReceiptData();
+    function updateItemField(id, field, value) {
+      const item = invoiceItems.find(it => it.id === id);
+      if (!item) return;
+      if (field === 'price' || field === 'qty') {
+        item[field] = parseFloat(value) || 0;
+      } else {
+        item[field] = value;
       }
+      updateReceiptData();
     }
 
     function calcDepositPercent(percent) {
-      const total = parseFloat(document.getElementById('inputTotalAmount').value) || 0;
-      const deposit = Math.round((total * percent) / 100);
-      document.getElementById('inputDepositAmount').value = deposit;
+      let total = 0;
+      invoiceItems.forEach(item => {
+        total += ((parseFloat(item.qty) || 0) * (parseFloat(item.price) || 0));
+      });
+      const depositVal = Math.round(total * (percent / 100));
+      document.getElementById('inputDepositAmount').value = depositVal;
       updateReceiptData();
     }
 
@@ -1317,6 +1583,19 @@
       const signTitleEl = document.getElementById('dispCustomerSignTitle');
       if (signTitleEl) signTitleEl.textContent = 'ผู้สั่งซื้อ / ผู้มีอำนาจลงนาม';
       document.getElementById('dispCustomerSignRole').textContent = customerName;
+
+      // Dynamic Payment Bank Account on Document Print Area
+      const bank = BANK_PRESETS[currentBankKey] || BANK_PRESETS.KKP;
+      const payBody = document.getElementById('dispPaymentCardBody');
+      if (payBody) {
+        if (currentDocType === 'QUOTATION') {
+          payBody.innerHTML = `<strong>การชำระเงิน:</strong> ชำระมัดจำเพื่อเริ่มงาน หรือชำระเต็มจำนวน<br><strong>ธนาคาร:</strong> ${escapeHtml(bank.name)}<br><strong>เลขที่บัญชี:</strong> <span style="font-family: monospace; font-size: 13.5px; font-weight: 700; color: #1e3a8a; letter-spacing: 0.5px;">${escapeHtml(bank.accountNo)}</span> (${escapeHtml(bank.accountName)})<br><strong>กำหนดส่งมอบงาน:</strong> 24–48 ชม. หลังได้รับข้อมูล`;
+        } else if (currentDocType === 'DEPOSIT') {
+          payBody.innerHTML = `<strong>ช่องทางชำระ:</strong> ${escapeHtml(paymentMethod)}<br><strong>เข้าบัญชี:</strong> ${escapeHtml(bank.name)}<br><strong>เลขที่บัญชี:</strong> <span style="font-family: monospace; font-size: 13.5px; font-weight: 700; color: #047857; letter-spacing: 0.5px;">${escapeHtml(bank.accountNo)}</span> (${escapeHtml(bank.accountName)})<br><strong>สถานะ:</strong> รับเงินมัดจำและเริ่มจัดทำระบบทันที`;
+        } else {
+          payBody.innerHTML = `<strong>ช่องทางชำระ:</strong> ${escapeHtml(paymentMethod)}<br><strong>เข้าบัญชี:</strong> ${escapeHtml(bank.name)}<br><strong>เลขที่บัญชี:</strong> <span style="font-family: monospace; font-size: 13.5px; font-weight: 700; color: #1e3a8a; letter-spacing: 0.5px;">${escapeHtml(bank.accountNo)}</span> (${escapeHtml(bank.accountName)})<br><strong>สถานะ:</strong> ยอดเงินเข้าบัญชีสมบูรณ์เรียบร้อย`;
+        }
+      }
     }
 
     function setThorQuotation() {
@@ -1326,7 +1605,7 @@
       document.getElementById('inputContactPerson').value = 'คุณ Thor (tjbedding.salepagess)';
       document.getElementById('inputPhone').value = '086-461-4614';
       document.getElementById('inputAddress').value = '';
-      
+
       invoiceItems = [
         {
           id: 1,
@@ -1339,7 +1618,7 @@
       ];
       renderItemsDrawer();
 
-      document.getElementById('inputPaymentMethod').value = 'โอนผ่านบัญชีธนาคาร เกียรตินาคินภัทร (KKP) เลขที่ 2061291340';
+      selectBankPreset('KKP');
       document.getElementById('inputRefNo').value = 'ภายใน 16 พ.ย. 2569';
       document.getElementById('inputValidityDays').value = 'ยืนยันราคาพิเศษ 3 วัน';
       calcDepositPercent(100);
@@ -1360,7 +1639,257 @@
       calcDepositPercent(50);
     }
 
-    // Export direct Single-Page A4 PDF with Safe Short LINE Filename
+    // ==========================================
+    // DOCUMENT HISTORY SYSTEM (LOCALSTORAGE)
+    // ==========================================
+    const HISTORY_STORAGE_KEY = 'salesdesk_receipts_history';
+
+    function getHistoryData() {
+      try {
+        const raw = localStorage.getItem(HISTORY_STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        console.error('History load error:', e);
+        return [];
+      }
+    }
+
+    function saveHistoryData(list) {
+      try {
+        localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(list));
+        updateHistoryBadge();
+      } catch (e) {
+        console.error('History save error:', e);
+      }
+    }
+
+    function updateHistoryBadge() {
+      const list = getHistoryData();
+      const badge = document.getElementById('historyCountBadge');
+      if (badge) badge.textContent = list.length;
+      const modalCount = document.getElementById('historyModalCount');
+      if (modalCount) modalCount.textContent = `${list.length} รายการ`;
+    }
+
+    function saveCurrentDocumentToHistory(silent = false) {
+      const receiptNo = document.getElementById('inputReceiptNo').value.trim() || 'DOC-UNNAMED';
+      const date = document.getElementById('inputDate').value.trim();
+      const customerName = document.getElementById('inputCustomerName').value.trim();
+      const contactPerson = document.getElementById('inputContactPerson').value.trim();
+      const phone = document.getElementById('inputPhone').value.trim();
+      const address = document.getElementById('inputAddress').value.trim();
+      const paymentMethod = document.getElementById('inputPaymentMethod').value.trim();
+      const refNo = document.getElementById('inputRefNo').value.trim();
+      const validityDays = document.getElementById('inputValidityDays')?.value || '';
+      const depositAmount = parseFloat(document.getElementById('inputDepositAmount').value) || 0;
+
+      let totalAmount = 0;
+      invoiceItems.forEach(item => {
+        const qty = parseFloat(item.qty) || 0;
+        const price = parseFloat(item.price) || 0;
+        totalAmount += (qty * price);
+      });
+
+      const docRecord = {
+        id: 'doc_' + Date.now(),
+        updatedAt: new Date().toISOString(),
+        docType: currentDocType,
+        receiptNo: receiptNo,
+        date: date,
+        customerName: customerName,
+        contactPerson: contactPerson,
+        phone: phone,
+        address: address,
+        bankKey: currentBankKey,
+        paymentMethod: paymentMethod,
+        refNo: refNo,
+        validityDays: validityDays,
+        depositAmount: depositAmount,
+        totalAmount: totalAmount,
+        items: JSON.parse(JSON.stringify(invoiceItems))
+      };
+
+      let list = getHistoryData();
+      const existingIdx = list.findIndex(item => item.receiptNo === receiptNo);
+      if (existingIdx >= 0) {
+        docRecord.id = list[existingIdx].id;
+        list[existingIdx] = docRecord;
+      } else {
+        list.unshift(docRecord);
+      }
+
+      if (list.length > 100) list = list.slice(0, 100);
+
+      saveHistoryData(list);
+      if (!silent) {
+        showToast(`💾 บันทึกเอกสาร [${receiptNo}] ลงในประวัติเรียบร้อยแล้ว`);
+      }
+    }
+
+    function renderHistoryList(filterQuery = '') {
+      const list = getHistoryData();
+      const container = document.getElementById('historyListContainer');
+      if (!container) return;
+
+      const q = filterQuery.toLowerCase().trim();
+      const filtered = list.filter(item => {
+        if (!q) return true;
+        return (
+          (item.receiptNo || '').toLowerCase().includes(q) ||
+          (item.customerName || '').toLowerCase().includes(q) ||
+          (item.contactPerson || '').toLowerCase().includes(q) ||
+          (item.phone || '').toLowerCase().includes(q)
+        );
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 40px 20px; color: #64748b;">
+            <div style="font-size: 36px; margin-bottom: 8px;">📂</div>
+            <div style="font-size: 15px; font-weight: 600; color: #94a3b8;">${q ? 'ไม่พบเอกสารที่ตรงกับคำค้นหา' : 'ยังไม่มีประวัติเอกสารที่บันทึกไว้'}</div>
+            <div style="font-size: 12px; margin-top: 4px;">เมื่อกดปุ่ม "💾 บันทึกเอกสารนี้" หรือดาวน์โหลด PDF ระบบจะจัดเก็บประวัติให้อัตโนมัติครับ</div>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(item => {
+        let badgeClass = 'quotation';
+        let badgeText = 'ใบเสนอราคา';
+        if (item.docType === 'DEPOSIT') {
+          badgeClass = 'deposit';
+          badgeText = 'ใบรับมัดจำ';
+        } else if (item.docType === 'RECEIPT') {
+          badgeClass = 'receipt';
+          badgeText = 'ใบเสร็จรับเงิน';
+        }
+
+        const fmtTotal = (item.totalAmount || 0).toLocaleString('th-TH', { minimumFractionDigits: 2 });
+        const bankName = item.bankKey === 'SCB' ? 'ไทยพาณิชย์ (SCB)' : 'เกียรตินาคินภัทร (KKP)';
+
+        return `
+          <div class="history-card">
+            <div class="history-card-info">
+              <div class="history-card-top">
+                <span class="history-badge ${badgeClass}">${badgeText}</span>
+                <strong style="color: #f8fafc; font-size: 13px;">${escapeHtml(item.receiptNo || '')}</strong>
+                <span style="color: #64748b; font-size: 11px;">(${escapeHtml(item.date || '')})</span>
+              </div>
+              <div style="font-size: 12px; color: #cbd5e1; font-weight: 600;">
+                ${escapeHtml(item.customerName || 'ไม่ระบุชื่อ')}
+                ${item.contactPerson ? `<span style="color: #94a3b8; font-weight: 400;"> • ${escapeHtml(item.contactPerson)}</span>` : ''}
+              </div>
+              <div style="font-size: 11px; color: #64748b; margin-top: 2px;">
+                ธนาคาร: <span style="color: #38bdf8;">${bankName}</span> | จำนวน ${(item.items || []).length} รายการ | ยอดสุทธิ: <strong style="color: #34d399;">฿${fmtTotal}</strong>
+              </div>
+            </div>
+            <div class="history-card-actions">
+              <button class="btn-load-history" onclick="loadDocumentFromHistory('${item.id}')">📂 โหลด</button>
+              <button class="btn-del-history" onclick="deleteDocumentFromHistory('${item.id}')">🗑️ ลบ</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterHistoryList() {
+      const q = document.getElementById('historySearchInput')?.value || '';
+      renderHistoryList(q);
+    }
+
+    function loadDocumentFromHistory(id) {
+      const list = getHistoryData();
+      const doc = list.find(item => item.id === id);
+      if (!doc) {
+        showToast('❌ ไม่พบข้อมูลเอกสารนี้ในประวัติ');
+        return;
+      }
+
+      // Restore document type
+      switchDocumentType(doc.docType || 'QUOTATION');
+
+      // Restore fields
+      if (doc.receiptNo) document.getElementById('inputReceiptNo').value = doc.receiptNo;
+      if (doc.date) document.getElementById('inputDate').value = doc.date;
+      if (doc.customerName) document.getElementById('inputCustomerName').value = doc.customerName;
+      if (doc.contactPerson) document.getElementById('inputContactPerson').value = doc.contactPerson;
+      if (doc.phone) document.getElementById('inputPhone').value = doc.phone;
+      if (doc.address !== undefined) document.getElementById('inputAddress').value = doc.address;
+      if (doc.refNo) document.getElementById('inputRefNo').value = doc.refNo;
+      if (doc.validityDays && document.getElementById('inputValidityDays')) {
+        document.getElementById('inputValidityDays').value = doc.validityDays;
+      }
+      if (doc.depositAmount !== undefined && document.getElementById('inputDepositAmount')) {
+        document.getElementById('inputDepositAmount').value = doc.depositAmount;
+      }
+
+      // Restore bank
+      if (doc.bankKey) {
+        selectBankPreset(doc.bankKey);
+      }
+
+      // Restore invoice items
+      if (Array.isArray(doc.items) && doc.items.length > 0) {
+        invoiceItems = JSON.parse(JSON.stringify(doc.items));
+      }
+
+      renderItemsDrawer();
+      updateReceiptData();
+      toggleHistoryModal();
+      showToast(`📂 โหลดข้อมูลเอกสาร [${doc.receiptNo}] เรียบร้อยแล้ว`);
+    }
+
+    function deleteDocumentFromHistory(id) {
+      let list = getHistoryData();
+      const target = list.find(item => item.id === id);
+      const name = target ? target.receiptNo : 'เอกสาร';
+      list = list.filter(item => item.id !== id);
+      saveHistoryData(list);
+      renderHistoryList(document.getElementById('historySearchInput')?.value || '');
+      showToast(`🗑️ ลบ [${name}] ออกจากประวัติเรียบร้อยแล้ว`);
+    }
+
+    function clearAllHistory() {
+      const list = getHistoryData();
+      if (list.length === 0) {
+        showToast('ℹ️ ไม่มีประวัติเอกสารให้ลบ');
+        return;
+      }
+      if (confirm('คุณต้องการล้างประวัติเอกสารทั้งหมดหรือไม่? (การกระทำนี้ไม่สามารถกู้คืนได้)')) {
+        localStorage.removeItem(HISTORY_STORAGE_KEY);
+        updateHistoryBadge();
+        renderHistoryList();
+        showToast('🧹 ล้างประวัติเอกสารทั้งหมดเรียบร้อยแล้ว');
+      }
+    }
+
+    function toggleHistoryModal() {
+      const modal = document.getElementById('historyModal');
+      if (!modal) return;
+      if (modal.style.display === 'none' || !modal.style.display) {
+        modal.style.display = 'flex';
+        renderHistoryList();
+        const searchInp = document.getElementById('historySearchInput');
+        if (searchInp) {
+          searchInp.value = '';
+          searchInp.focus();
+        }
+      } else {
+        modal.style.display = 'none';
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('receiptToast');
+      if (!toast) return;
+      toast.innerHTML = msg;
+      toast.style.display = 'flex';
+      if (window._toastTimeout) clearTimeout(window._toastTimeout);
+      window._toastTimeout = setTimeout(() => {
+        toast.style.display = 'none';
+      }, 2800);
+    }
+
     function exportReceiptPDF() {
       const element = document.getElementById('invoice-print-area');
       const receiptNo = document.getElementById('dispReceiptNo').textContent.trim() || 'DOC';
@@ -1379,6 +1908,9 @@
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak:    { mode: ['avoid-all'] }
       };
+
+      // Auto-save to history
+      saveCurrentDocumentToHistory(true);
 
       const btn = event?.target;
       if (btn) {
@@ -1407,8 +1939,10 @@
     // Initialize on load
     renderItemsDrawer();
     updateReceiptData();
+    updateHistoryBadge();
   
     window.addEventListener('DOMContentLoaded', () => {
+      updateHistoryBadge();
       const params = new URLSearchParams(window.location.search);
       const typeParam = params.get('type') || params.get('doc');
       if (typeParam) {

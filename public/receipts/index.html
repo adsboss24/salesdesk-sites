@@ -217,6 +217,62 @@
       color: #ffffff;
     }
 
+    /* Special Discount Box in Drawer */
+    .discount-helper-box {
+      background: #0f172a;
+      border: 1px dashed #f59e0b;
+      border-radius: 8px;
+      padding: 12px 14px;
+      grid-column: span 2;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .discount-presets {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .discount-preset-btn {
+      background: #1e293b;
+      color: #fcd34d;
+      border: 1px solid #d97706;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .discount-preset-btn:hover {
+      background: #d97706;
+      color: #ffffff;
+    }
+    .quick-price-bar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+    .btn-micro-chip {
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.1s;
+    }
+    .btn-micro-chip:hover {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #38bdf8;
+    }
+
     /* Multi-Item Management in Drawer */
     .items-manager-header {
       grid-column: span 2;
@@ -293,10 +349,10 @@
     }
     .item-card-grid {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1.2fr;
+      grid-template-columns: 1.8fr 0.9fr 0.9fr 1fr 1.2fr;
       gap: 10px;
     }
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
       .item-card-grid {
         grid-template-columns: 1fr 1fr;
       }
@@ -752,6 +808,15 @@
       border: 1px solid #fecaca;
       margin: 1px 0;
     }
+    .summary-row.highlight-discount {
+      background: #fff7ed;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #c2410c;
+      font-weight: 600;
+      border: 1px solid #fed7aa;
+      margin: 1px 0;
+    }
     .summary-row.total {
       border-top: 1.5px solid #e2e8f0;
       margin-top: 3px;
@@ -976,18 +1041,47 @@
         <input type="text" id="inputAddress" value="" placeholder="ระบุที่อยู่ หรือเลขประจำตัวผู้เสียภาษี (ถ้ามี)" oninput="updateReceiptData()">
       </div>
       <div class="form-group full-width">
-        <label style="display: flex; justify-content: space-between; align-items: center;">
-          <span>เลือกแพ็กเกจราคาด่วน (คลิกเพื่อเปลี่ยนรายการอัตโนมัติ)</span>
-          <span style="font-size: 11px; color: #94a3b8; font-weight: 400;">คลิกเพื่ออัปเดตราคาและรายละเอียดทันที</span>
-        </label>
-        <div class="quick-pkg-btns">
-          <button type="button" class="btn-chip" onclick="setQuickPackage('Starter Salepage (รายเดือน)', 490, '• จัดทำหน้าเว็บเซลเพจมาตรฐานความเร็วสูง\n• ค่าบริการระบบรายเดือน ฿490/ด.')">⚡ Starter รายเดือน (฿490)</button>
-          <button type="button" class="btn-chip" onclick="setQuickPackage('Starter Salepage (ซื้อขาด)', 2990, '• จัดทำหน้าเว็บเซลเพจโครงสร้างมาตรฐาน โหลดไว รองรับมือถือ 100%\n• จ่ายครั้งเดียวจบ ฟรีโฮสติ้งตลอดชีพ')">🎯 Starter ซื้อขาด (฿2,990)</button>
-          <button type="button" class="btn-chip" style="background: #0284c7; color: #ffffff; font-weight: 700;" onclick="setQuickPackage('บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)', 3900, '• ออกแบบและจัดทำหน้าเว็บความเร็วสูงระดับพรีเมียม รองรับมือถือ 100%\n• เชื่อมต่อระบบรับออเดอร์เข้า LINE OA อัตโนมัติ\n• ฟรีบริการติดตั้ง Hosting และ Domain ตลอดอายุสัญญา')">⭐ เว็บไซต์พรีเมียม (฿3,900)</button>
-          <button type="button" class="btn-chip" onclick="setQuickPackage('Professional Business (ซื้อขาด)', 4990, '• จัดทำเว็บไซต์ระดับโปรแบบหลายหน้า (Multi-page) ออกแบบ Cinematic พรีเมียม\n• เชื่อมต่อ Meta Pixel / LINE Tag / TikTok Pixel ครบวงจร')">💎 Pro Business (฿4,990)</button>
-          <button type="button" class="btn-chip" onclick="setQuickPackage('Enterprise Full-Scale Solution', 9900, '• ระบบเว็บไซต์ธุรกิจเต็มรูปแบบ + เซ็ตอัป Landing Page & Funnel ปิดการขาย\n• ระบบแคตาล็อกสินค้า/บริการ พร้อมระบบจัดการข้อมูลหลังบ้าน')">🚀 Enterprise (฿9,900)</button>
-          <button type="button" class="btn-chip" onclick="setQuickPackage('เซ็ตอัป LINE OA & ออกแบบ Rich Menu 6 ช่อง', 1500, '• บริการเซ็ตอัประบบ LINE Official Account เชิงธุรกิจตามมาตรฐาน\n• ออกแบบกราฟิก Rich Menu พรีเมียม 6 ช่อง คุมโทนแบรนด์\n• ตั้งค่าข้อความทักทายและระบบตอบกลับอัตโนมัติ')">💬 LINE OA + Rich Menu (฿1,500)</button>
-          <button type="button" class="btn-chip" onclick="setQuickPackage('AI น้องเซลส์ปิดการขายอัตโนมัติ 24 ชม.', 2500, '• ติดตั้งระบบ AI Chatbot ผู้ช่วยตอบคำถามและปิดการขาย 24 ชม.\n• เทรนข้อมูลสินค้าและโปรโมชันเฉพาะแบรนด์ของคุณ')">🤖 AI ปิดการขาย (฿2,500)</button>
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 6px; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <label style="font-weight: 700; color: #f8fafc; font-size: 13.5px; margin-bottom: 2px;">⚡ เลือกแพ็กเกจและบริการด่วน (คลิกเพื่อใส่ข้อมูล — ปรับเปลี่ยนราคาได้อิสระ)</label>
+            <div style="font-size: 11.5px; color: #94a3b8;">สามารถตั้งราคาได้เองตามสถานการณ์ตลาด หรือเลือกคลิกเพื่อเพิ่มบริการต่อท้ายได้ทันที</div>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center; background: #0f172a; padding: 4px 10px; border-radius: 6px; border: 1px solid #334155;">
+            <span style="font-size: 11px; color: #94a3b8; font-weight: 600;">เมื่อคลิก:</span>
+            <label style="font-size: 11.5px; color: #cbd5e1; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 600;">
+              <input type="radio" name="quickPkgMode" id="radioModeReplace" value="replace" checked onchange="toggleQuickPkgMode('replace')"> แทนที่รายการ 1
+            </label>
+            <label style="font-size: 11.5px; color: #34d399; cursor: pointer; display: flex; align-items: center; gap: 4px; font-weight: 700;">
+              <input type="radio" name="quickPkgMode" id="radioModeAppend" value="append" onchange="toggleQuickPkgMode('append')"> ➕ เพิ่มต่อท้าย
+            </label>
+          </div>
+        </div>
+
+        <!-- 1. หมวดแพ็กเกจหลัก -->
+        <div style="margin-bottom: 8px;">
+          <div style="font-size: 11px; font-weight: 700; color: #38bdf8; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">🖥️ หมวดแพ็กเกจหลัก (Main Solution)</div>
+          <div class="quick-pkg-btns">
+            <button type="button" class="btn-chip" onclick="handleQuickPackageClick('starter_monthly')">⚡ Starter Salepage (รายเดือน)</button>
+            <button type="button" class="btn-chip" onclick="handleQuickPackageClick('starter_lifetime')">🎯 Starter Salepage (ซื้อขาด)</button>
+            <button type="button" class="btn-chip" style="background: #0284c7; color: #ffffff; font-weight: 700;" onclick="handleQuickPackageClick('premium_site')">⭐ เว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)</button>
+            <button type="button" class="btn-chip" onclick="handleQuickPackageClick('pro_business')">💎 Professional Business (Multi-page)</button>
+            <button type="button" class="btn-chip" onclick="handleQuickPackageClick('enterprise_solution')">🚀 Enterprise Full-Scale Solution</button>
+          </div>
+        </div>
+
+        <!-- 2. หมวดบริการเสริม & ส่วนต่อขยาย -->
+        <div>
+          <div style="font-size: 11px; font-weight: 700; color: #a78bfa; text-transform: uppercase; margin-bottom: 4px; letter-spacing: 0.5px;">🚀 หมวดบริการเสริม & การตลาดดิจิทัล (Add-on Modules)</div>
+          <div class="quick-pkg-btns">
+            <button type="button" class="btn-chip" style="border-color: #818cf8; color: #c7d2fe;" onclick="handleQuickPackageClick('seo_articles_3')">📝 บทความ SEO ติดปีก Google (3 บทความ)</button>
+            <button type="button" class="btn-chip" style="border-color: #10b981; color: #6ee7b7;" onclick="handleQuickPackageClick('webhook_line_alert')">⚡ ระบบ Webhook Form Alert เข้า LINE ทันที</button>
+            <button type="button" class="btn-chip" onclick="handleQuickPackageClick('line_oa_richmenu')">💬 เซ็ตอัป LINE OA & Rich Menu 6 ช่อง</button>
+            <button type="button" class="btn-chip" onclick="handleQuickPackageClick('ai_sales_bot')">🤖 AI น้องเซลส์ปิดการขายอัตโนมัติ 24 ชม.</button>
+            <button type="button" class="btn-chip" onclick="handleQuickPackageClick('pixel_capi_tracking')">📊 ติดตั้ง Tracking Pixel & CAPI (Meta/TikTok/GA4)</button>
+            <button type="button" class="btn-chip" onclick="handleQuickPackageClick('speed_boost_90')">🚀 Speed Boost ปรับเว็บโหลดไว Mobile 90+</button>
+            <button type="button" class="btn-chip" onclick="handleQuickPackageClick('monthly_maintenance')">🛡️ ดูแลระบบความปลอดภัย & Backup รายเดือน</button>
+            <button type="button" class="btn-chip" onclick="handleQuickPackageClick('graphic_banner_set')">🎨 ชุดภาพกราฟิกแบนเนอร์และภาพสินค้าพรีเมียม (5 ชิ้น)</button>
+          </div>
         </div>
       </div>
       <!-- Multi-Item Manager Section -->
@@ -1003,11 +1097,48 @@
         <!-- Rendered dynamically by renderItemsDrawer() -->
       </div>
 
+      <!-- Special Discount Helper Box -->
+      <div class="discount-helper-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
+          <label style="color: #f59e0b; font-weight: 700; font-size: 13.5px;">🏷️ ส่วนลดพิเศษท้ายบิล (Overall Special Discount):</label>
+          <span style="font-size: 11px; color: #94a3b8;">สามารถเลือก % ส่วนลดด่วน หรือกรอกจำนวนเงินบาท</span>
+        </div>
+        <div class="discount-presets">
+          <button type="button" class="discount-preset-btn" onclick="setOverallDiscount(0, 'percent')">ไม่มีส่วนลด (0%)</button>
+          <button type="button" class="discount-preset-btn" onclick="setOverallDiscount(5, 'percent')">ลด 5%</button>
+          <button type="button" class="discount-preset-btn" onclick="setOverallDiscount(10, 'percent')">ลด 10%</button>
+          <button type="button" class="discount-preset-btn" onclick="setOverallDiscount(15, 'percent')">ลด 15%</button>
+          <button type="button" class="discount-preset-btn" onclick="setOverallDiscount(20, 'percent')">ลด 20%</button>
+          <button type="button" class="discount-preset-btn" onclick="setOverallDiscount(30, 'percent')">ลด 30%</button>
+        </div>
+        <div style="display: grid; grid-template-columns: 140px 1fr 1fr; gap: 10px; margin-top: 4px;">
+          <div class="form-group">
+            <label>ประเภทส่วนลด</label>
+            <select id="inputOverallDiscountType" onchange="changeDiscountType()" style="width: 100%; padding: 7px 10px; background: #0f172a; border: 1px solid #475569; border-radius: 6px; color: #f8fafc; font-size: 13px;">
+              <option value="percent">คิดเป็น %</option>
+              <option value="amount">คิดเป็น บาท</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label id="lblOverallDiscountVal">ระบุส่วนลด (%):</label>
+            <input type="number" id="inputOverallDiscountValue" min="0" value="0" placeholder="0" oninput="updateReceiptData()">
+          </div>
+          <div class="form-group">
+            <label style="color: #f87171;">คำนวณเป็นยอดเงินลด (บาท):</label>
+            <input type="text" id="dispCalcDiscountAmount" readonly value="0.00 บาท" style="background: #1e293b; color: #f87171; font-weight: 700;">
+          </div>
+        </div>
+      </div>
+
       <!-- Total Amount Banner -->
       <div class="total-calc-banner">
-        <span>ราคาทั้งหมดตามใบเสนอราคา (คำนวณอัตโนมัติ):</span>
+        <div style="display: flex; flex-direction: column;">
+          <span style="font-size: 12px; color: #94a3b8; font-weight: 400;" id="dispDrawerSubtotalText">ยอดรวมก่อนลด: ฿3,900.00 บาท</span>
+          <span style="font-size: 14px; font-weight: 700; color: #ffffff;">ราคาสุทธิตามใบเสนอราคา:</span>
+        </div>
         <span class="value" id="dispDrawerTotalAmount">฿3,900.00 บาท</span>
         <input type="hidden" id="inputTotalAmount" value="3900">
+      </div>
       </div>
 
       <!-- Deposit Calculator Helper -->
@@ -1166,12 +1297,20 @@
       <strong id="dispBahtLabel">จำนวนเงินมัดจำ (ตัวอักษร):</strong> <span id="dispBahtText">สองพันบาทถ้วน</span>
     </div>
 
-    <!-- Summary (With Deposit Deduction) -->
+    <!-- Summary (With Deposit Deduction and Special Discount) -->
     <div class="summary-section">
       <div class="summary-table">
+        <div class="summary-row" id="rowSubtotal">
+          <span>รวมมูลค่าสินค้า/บริการ (Subtotal):</span>
+          <span style="font-weight: 600; color: #1e293b;" id="dispSummarySubtotal">3,900.00 บาท</span>
+        </div>
+        <div class="summary-row highlight-discount" id="rowOverallDiscount" style="display: none;">
+          <span id="dispSummaryDiscountLabel">หัก: ส่วนลดพิเศษ (Special Discount):</span>
+          <span id="dispSummaryDiscount">-0.00 บาท</span>
+        </div>
         <div class="summary-row" id="rowTotalProject">
-          <span>ราคาทั้งหมดตามใบเสนอราคา:</span>
-          <span style="font-weight: 600; color: #1e293b;" id="dispSummaryTotalProject">3,900.00 บาท</span>
+          <span>ราคาสุทธิตามใบเสนอราคา:</span>
+          <span style="font-weight: 700; color: #0284c7;" id="dispSummaryTotalProject">3,900.00 บาท</span>
         </div>
         <div class="summary-row highlight-deposit" id="rowDeductDeposit">
           <span>หัก: ชำระเงินมัดจำแล้ว (Deposit):</span>
@@ -1233,6 +1372,90 @@
 
   <script>
     let currentDocType = 'QUOTATION';
+    let quickPkgMode = 'replace'; // 'replace' or 'append'
+    let overallDiscountType = 'percent'; // 'percent' or 'amount'
+    let overallDiscountValue = 0;
+
+    const QUICK_PACKAGES_DICT = {
+      starter_monthly: {
+        title: 'Starter Salepage (แพ็กเกจรายเดือน)',
+        suggestedPrice: 490,
+        qtyUnit: 'เดือน',
+        sub: '• จัดทำหน้าเว็บเซลเพจมาตรฐานความเร็วสูง โหลดไว รองรับมือถือ 100%\n• เชื่อมต่อระบบปุ่มสั่งซื้อและปุ่มแชตเข้า LINE OA\n• ค่าบริการดูแลระบบรายเดือน ฿490/ด.'
+      },
+      starter_lifetime: {
+        title: 'Starter Salepage (แพ็กเกจซื้อขาด)',
+        suggestedPrice: 2990,
+        qtyUnit: 'งาน',
+        sub: '• ออกแบบและจัดทำเซลเพจหน้าเดียวมาตรฐาน พร้อมใช้งานทันที\n• เชื่อมต่อปุ่ม Call-to-Action และลิงก์สั่งซื้อ\n• จ่ายครั้งเดียวจบ ฟรีบริการติดตั้ง Hosting ตลอดอายุสัญญา'
+      },
+      premium_site: {
+        title: 'บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)',
+        suggestedPrice: 3900,
+        qtyUnit: 'งาน',
+        sub: '• ออกแบบและจัดทำหน้าเว็บความเร็วสูงระดับพรีเมียม รองรับมือถือ 100%\n• เชื่อมต่อระบบรับออเดอร์เข้า LINE OA อัตโนมัติ\n• ฟรีบริการติดตั้ง Hosting และ Domain ตลอดอายุสัญญา'
+      },
+      pro_business: {
+        title: 'Professional Business (เว็บไซต์ธุรกิจแบบหลายหน้า Multi-page)',
+        suggestedPrice: 4990,
+        qtyUnit: 'งาน',
+        sub: '• จัดทำเว็บไซต์ระดับโปรแบบหลายหน้า (Multi-page) ออกแบบ Cinematic พรีเมียม\n• เชื่อมต่อ Meta Pixel / LINE Tag / TikTok Pixel ครบวงจร\n• ระบบแบบฟอร์มเก็บข้อมูลลูกค้าลีดคุณภาพสูง'
+      },
+      enterprise_solution: {
+        title: 'Enterprise Full-Scale Solution (ระบบเว็บไซต์ธุรกิจเต็มรูปแบบ)',
+        suggestedPrice: 9900,
+        qtyUnit: 'งาน',
+        sub: '• ระบบเว็บไซต์ธุรกิจเต็มรูปแบบ + เซ็ตอัป Landing Page & Funnel ปิดการขาย\n• ระบบแคตาล็อกสินค้า/บริการ พร้อมระบบจัดการข้อมูลหลังบ้าน\n• รองรับปริมาณทราฟฟิกระดับสูงและเชื่อมต่อระบบวิเคราะห์สถิติขั้นสูง'
+      },
+      seo_articles_3: {
+        title: 'บทความ SEO คุณภาพสูงติดปีก Google Search (ชุด 3 บทความ)',
+        suggestedPrice: 1500,
+        qtyUnit: 'ชุด',
+        sub: '• วิเคราะห์และคัดสรร Keyword ทำเงิน ตรงกลุ่มเป้าหมายธุรกิจ\n• เขียนบทความความยาว 1,000+ คำ/บทความ พร้อมวางโครงสร้าง H1, H2, H3 ตามมาตรฐาน SEO\n• ปรับแต่ง On-Page SEO (Meta Title, Meta Description, Alt Image Tag)\n• ช่วยดันคะแนน SEO บนหน้าแรก Google อย่างยั่งยืน'
+      },
+      webhook_line_alert: {
+        title: 'ระบบ Webhook Form Alert แจ้งเตือนออเดอร์/ลีดเข้า LINE ทันที',
+        suggestedPrice: 1200,
+        qtyUnit: 'ระบบ',
+        sub: '• เชื่อมต่อแบบฟอร์มบนเว็บไซต์ตรงเข้า LINE Notify / LINE OA Messaging API\n• แจ้งเตือนข้อความทันทีเมื่อมีลูกค้ากรอกข้อมูลหรือกดสั่งซื้อ (Real-time Alert)\n• แสดงชื่อ เบอร์โทร รายละเอียดสินค้า และงบประมาณ ครบถ้วนในแชต\n• ลดเวลาตอบกลับลูกค้า เพิ่มโอกาสปิดการขายได้เร็วกว่าคู่แข่ง'
+      },
+      line_oa_richmenu: {
+        title: 'บริการเซ็ตอัป LINE OA & ออกแบบ Rich Menu พรีเมียม 6 ช่อง',
+        suggestedPrice: 1500,
+        qtyUnit: 'งาน',
+        sub: '• บริการเซ็ตอัประบบ LINE Official Account เชิงธุรกิจตามมาตรฐาน\n• ออกแบบกราฟิก Rich Menu พรีเมียม 6 ช่อง คุมโทนแบรนด์\n• ตั้งค่าข้อความทักทายและระบบตอบกลับอัตโนมัติ'
+      },
+      ai_sales_bot: {
+        title: 'AI น้องเซลส์ปิดการขายอัตโนมัติ 24 ชม. (SalesDesk AI)',
+        suggestedPrice: 2500,
+        qtyUnit: 'ระบบ',
+        sub: '• ติดตั้งระบบ AI Chatbot ผู้ช่วยตอบคำถามและปิดการขาย 24 ชม.\n• เทรนข้อมูลสินค้า โปรโมชัน และสคริปต์ปิดการขายเฉพาะแบรนด์ของคุณ\n• ทำงานร่วมกับแอดมิน ช่วยรับมือลูกค้าช่วงกลางคืนไม่มีสะดุด'
+      },
+      pixel_capi_tracking: {
+        title: 'บริการติดตั้ง Tracking Pixel & Conversions API (Meta / TikTok / GA4)',
+        suggestedPrice: 1500,
+        qtyUnit: 'บริการ',
+        sub: '• ติดตั้ง Meta Pixel + Conversions API (CAPI) ป้องกันปัญหา iOS Privacy\n• ติดตั้ง TikTok Pixel และ Google Analytics 4 (GA4) ตรวจจับ Purchase/Lead\n• ตั้งค่า Custom Events สำหรับติดตามยอดขายและคำนวณ ROAS แม่นยำ'
+      },
+      speed_boost_90: {
+        title: 'บริการปรับแต่งความเร็วเว็บไซต์ Speed Boost (Mobile Score 90+)',
+        suggestedPrice: 1500,
+        qtyUnit: 'บริการ',
+        sub: '• บีบอัดรูปภาพ WebP/AVIF และทำ Lazy Loading\n• ปรับแต่ง Core Web Vitals (LCP, FID, CLS) ให้โหลดเสร็จภายใน 1.5 วินาที\n• ลดอัตรา Bounce Rate และเพิ่ม Quality Score สำหรับยิงโฆษณา'
+      },
+      monthly_maintenance: {
+        title: 'บริการดูแลระบบความปลอดภัย ตรวจเช็ก และสำรองข้อมูลรายเดือน (Maintenance)',
+        suggestedPrice: 1000,
+        qtyUnit: 'เดือน',
+        sub: '• สำรองข้อมูลเว็บไซต์อัตโนมัติรายสัปดาห์ (Cloud Backup)\n• อัปเดตแพตช์ความปลอดภัยและตรวจเช็กสถานะการทำงานตลอด 24 ชม.\n• บริการให้คำปรึกษาและปรับปรุงเนื้อหา/แบนเนอร์รายเดือน'
+      },
+      graphic_banner_set: {
+        title: 'ชุดออกแบบกราฟิกแบนเนอร์และภาพสินค้าพรีเมียม (Set 5 ชิ้น)',
+        suggestedPrice: 2000,
+        qtyUnit: 'ชุด',
+        sub: '• ออกแบบแบนเนอร์เปิดตัวหัวเว็บ (Hero Banner) สไตล์ Cinematic\n• ออกแบบ Infographic จุดเด่นสินค้า/บริการ 3 ชิ้น\n• ออกแบบกราฟิกรีวิว/โปรโมชันเร่งการตัดสินใจ 1 ชิ้น'
+      }
+    };
 
     // HTML Escaping Helper
     function escapeHtml(str) {
@@ -1493,10 +1716,21 @@
       const countBadge = document.getElementById('dispItemCountBadge');
       if (countBadge) countBadge.textContent = `${invoiceItems.length} รายการ`;
 
-      container.innerHTML = invoiceItems.map((item, index) => `
+      container.innerHTML = invoiceItems.map((item, index) => {
+        const qty = parseFloat(item.qty) || 0;
+        const price = parseFloat(item.price) || 0;
+        const discPct = Math.min(100, Math.max(0, parseFloat(item.discountPercent) || 0));
+        const itemGross = qty * price;
+        const itemDiscount = itemGross * (discPct / 100);
+        const itemNet = Math.max(0, itemGross - itemDiscount);
+
+        return `
         <div class="item-card" data-id="${item.id}">
           <div class="item-card-header">
-            <span>รายการที่ ${index + 1}</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="item-card-badge">รายการที่ ${index + 1}</span>
+              ${discPct > 0 ? `<span style="font-size: 11px; background: #991b1b; color: #fecaca; padding: 1px 6px; border-radius: 4px; font-weight: 700;">ลด ${discPct}%</span>` : ''}
+            </div>
             ${invoiceItems.length > 1 ? `<button type="button" class="btn-remove-item" onclick="removeItem(${item.id})">🗑️ ลบรายการ</button>` : ''}
           </div>
           <div class="item-card-grid">
@@ -1506,7 +1740,16 @@
             </div>
             <div class="form-group">
               <label>ราคาต่อหน่วย (บาท)</label>
-              <input type="number" value="${item.price}" oninput="updateItemField(${item.id}, 'price', this.value)">
+              <input type="number" data-field="price" value="${item.price}" oninput="updateItemField(${item.id}, 'price', this.value)">
+              <div class="quick-price-bar">
+                <span style="font-size: 10px; color: #94a3b8;">ราคาด่วน:</span>
+                <button type="button" class="btn-micro-chip" onclick="updateItemField(${item.id}, 'price', 990)">990</button>
+                <button type="button" class="btn-micro-chip" onclick="updateItemField(${item.id}, 'price', 1500)">1.5k</button>
+                <button type="button" class="btn-micro-chip" onclick="updateItemField(${item.id}, 'price', 2900)">2.9k</button>
+                <button type="button" class="btn-micro-chip" onclick="updateItemField(${item.id}, 'price', 3900)">3.9k</button>
+                <button type="button" class="btn-micro-chip" onclick="updateItemField(${item.id}, 'price', 4990)">4.9k</button>
+                <button type="button" class="btn-micro-chip" onclick="updateItemField(${item.id}, 'price', 9900)">9.9k</button>
+              </div>
             </div>
             <div class="form-group">
               <label>จำนวน</label>
@@ -1514,11 +1757,15 @@
             </div>
             <div class="form-group">
               <label>หน่วยนับ</label>
-              <input type="text" value="${escapeHtml(item.qtyUnit || 'งาน')}" placeholder="เช่น งาน, ชิ้น, เดือน" oninput="updateItemField(${item.id}, 'qtyUnit', this.value)">
+              <input type="text" value="${escapeHtml(item.qtyUnit || 'งาน')}" placeholder="เช่น งาน, ชุด, เดือน" oninput="updateItemField(${item.id}, 'qtyUnit', this.value)">
             </div>
             <div class="form-group">
-              <label>รวมเป็นเงิน (บาท)</label>
-              <input type="text" readonly value="${((parseFloat(item.qty) || 0) * (parseFloat(item.price) || 0)).toLocaleString('th-TH', { minimumFractionDigits: 2 })}" style="background: #1e293b; color: #38bdf8; font-weight: 700;">
+              <label style="color: #f59e0b;">ส่วนลด (%):</label>
+              <input type="number" min="0" max="100" step="1" value="${item.discountPercent || 0}" placeholder="0" oninput="updateItemField(${item.id}, 'discountPercent', this.value)" style="border-color: #d97706;">
+            </div>
+            <div class="form-group">
+              <label>รวมเป็นเงินสุทธิ (บาท)</label>
+              <input type="text" readonly value="${itemNet.toLocaleString('th-TH', { minimumFractionDigits: 2 })}" style="background: #1e293b; color: #38bdf8; font-weight: 700;">
             </div>
             <div class="form-group" style="grid-column: 1 / -1;">
               <label>รายละเอียดประกอบรายการ (หัวข้อย่อย/ฟีเจอร์)</label>
@@ -1526,7 +1773,8 @@
             </div>
           </div>
         </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function addNewItem(defaultTitle = 'บริการเสริมพิเศษ (Add-on Feature)', defaultPrice = 1000, defaultSub = '• รายละเอียดบริการเสริมตามที่ตกลง') {
@@ -1537,10 +1785,12 @@
         price: defaultPrice,
         qty: 1,
         qtyUnit: 'งาน',
-        sub: defaultSub
+        sub: defaultSub,
+        discountPercent: 0
       });
       renderItemsDrawer();
       updateReceiptData();
+      showToast('➕ เพิ่มรายการใหม่เรียบร้อยแล้ว');
     }
 
     function removeItem(id) {
@@ -1548,27 +1798,131 @@
       invoiceItems = invoiceItems.filter(item => item.id !== id);
       renderItemsDrawer();
       updateReceiptData();
+      showToast('🗑️ ลบรายการเรียบร้อยแล้ว');
     }
 
     function updateItemField(id, field, value) {
       const item = invoiceItems.find(it => it.id === id);
       if (!item) return;
-      if (field === 'price' || field === 'qty') {
+      if (field === 'price' || field === 'qty' || field === 'discountPercent') {
         item[field] = parseFloat(value) || 0;
       } else {
         item[field] = value;
       }
+      renderItemsDrawer();
       updateReceiptData();
     }
 
-    function calcDepositPercent(percent) {
-      let total = 0;
+    function calculateProjectTotal() {
+      let grossSubtotal = 0;
       invoiceItems.forEach(item => {
-        total += ((parseFloat(item.qty) || 0) * (parseFloat(item.price) || 0));
+        const qty = parseFloat(item.qty) || 0;
+        const price = parseFloat(item.price) || 0;
+        const discPct = Math.min(100, Math.max(0, parseFloat(item.discountPercent) || 0));
+        const itemGross = qty * price;
+        const itemNet = itemGross * (1 - (discPct / 100));
+        grossSubtotal += itemNet;
       });
-      const depositVal = Math.round(total * (percent / 100));
+
+      let overallDiscountAmount = 0;
+      const discValInput = parseFloat(document.getElementById('inputOverallDiscountValue')?.value) || 0;
+      const discTypeSelect = document.getElementById('inputOverallDiscountType')?.value || overallDiscountType;
+
+      if (discTypeSelect === 'percent') {
+        const pct = Math.min(100, Math.max(0, discValInput));
+        overallDiscountAmount = Math.round(grossSubtotal * (pct / 100) * 100) / 100;
+      } else {
+        overallDiscountAmount = Math.min(grossSubtotal, Math.max(0, discValInput));
+      }
+
+      const netTotal = Math.max(0, grossSubtotal - overallDiscountAmount);
+      return { grossSubtotal, overallDiscountAmount, netTotal, discType: discTypeSelect, discVal: discValInput };
+    }
+
+    function calcDepositPercent(percent) {
+      const totalInfo = calculateProjectTotal();
+      const depositVal = Math.round(totalInfo.netTotal * (percent / 100));
       document.getElementById('inputDepositAmount').value = depositVal;
       updateReceiptData();
+      showToast(`💰 คำนวณยอดมัดจำ ${percent}% เรียบร้อยแล้ว`);
+    }
+
+    function setOverallDiscount(val, type = 'percent') {
+      overallDiscountType = type;
+      overallDiscountValue = parseFloat(val) || 0;
+      const typeSelect = document.getElementById('inputOverallDiscountType');
+      if (typeSelect) typeSelect.value = type;
+      const valInput = document.getElementById('inputOverallDiscountValue');
+      if (valInput) valInput.value = overallDiscountValue;
+      changeDiscountType();
+      updateReceiptData();
+      if (overallDiscountValue > 0) {
+        showToast(`🏷️ ปรับใช้ส่วนลดพิเศษ ${overallDiscountValue}${type === 'percent' ? '%' : ' บาท'} ท้ายบิลแล้ว`);
+      } else {
+        showToast('🏷️ ล้างส่วนลดพิเศษ (0%)');
+      }
+    }
+
+    function changeDiscountType() {
+      const typeSelect = document.getElementById('inputOverallDiscountType');
+      const lbl = document.getElementById('lblOverallDiscountVal');
+      if (typeSelect && lbl) {
+        overallDiscountType = typeSelect.value;
+        lbl.textContent = overallDiscountType === 'percent' ? 'ระบุส่วนลด (%):' : 'ระบุส่วนลด (บาท):';
+      }
+      updateReceiptData();
+    }
+
+    function toggleQuickPkgMode(mode) {
+      quickPkgMode = mode;
+      const modeText = mode === 'replace' ? 'แทนที่รายการที่ 1' : '➕ เพิ่มต่อท้ายเป็นรายการใหม่';
+      showToast(`⚙️ ปรับโหมดคลิกแพ็กเกจ: ${modeText}`);
+    }
+
+    function handleQuickPackageClick(pkgKey) {
+      const pkg = QUICK_PACKAGES_DICT[pkgKey];
+      if (!pkg) return;
+
+      let targetItem;
+      if (quickPkgMode === 'replace' && invoiceItems.length > 0) {
+        invoiceItems[0].title = pkg.title;
+        invoiceItems[0].price = pkg.suggestedPrice;
+        invoiceItems[0].qty = 1;
+        invoiceItems[0].qtyUnit = pkg.qtyUnit || 'งาน';
+        invoiceItems[0].sub = pkg.sub;
+        targetItem = invoiceItems[0];
+      } else {
+        const newId = Date.now();
+        const newItem = {
+          id: newId,
+          title: pkg.title,
+          price: pkg.suggestedPrice,
+          qty: 1,
+          qtyUnit: pkg.qtyUnit || 'งาน',
+          sub: pkg.sub,
+          discountPercent: 0
+        };
+        invoiceItems.push(newItem);
+        targetItem = newItem;
+      }
+
+      renderItemsDrawer();
+      updateReceiptData();
+      calcDepositPercent(50);
+      showToast(`⚡ เลือก "${pkg.title}" สำเร็จ! สามารถปรับราคาได้ทันที`);
+
+      // Focus on the price field
+      setTimeout(() => {
+        const priceInput = document.querySelector(`.item-card[data-id="${targetItem.id}"] input[data-field="price"]`);
+        if (priceInput) {
+          priceInput.focus();
+          priceInput.select();
+        }
+      }, 100);
+    }
+
+    function setQuickPackage(title, price, sub) {
+      handleQuickPackageClick('premium_site');
     }
 
     function updateReceiptData() {
@@ -1581,24 +1935,30 @@
       const paymentMethod = document.getElementById('inputPaymentMethod').value;
       const refNo = document.getElementById('inputRefNo').value;
 
-      // Calculate total amount from all invoiceItems
-      let totalAmount = 0;
-      invoiceItems.forEach(item => {
-        const qty = parseFloat(item.qty) || 0;
-        const price = parseFloat(item.price) || 0;
-        totalAmount += (qty * price);
-      });
+      const { grossSubtotal, overallDiscountAmount, netTotal, discType, discVal } = calculateProjectTotal();
 
-      // Update hidden input and banner in drawer
+      // Update drawer displays
       const inputTotalEl = document.getElementById('inputTotalAmount');
-      if (inputTotalEl) inputTotalEl.value = totalAmount;
+      if (inputTotalEl) inputTotalEl.value = netTotal;
       const dispDrawerTotalEl = document.getElementById('dispDrawerTotalAmount');
       if (dispDrawerTotalEl) {
-        dispDrawerTotalEl.textContent = `฿${totalAmount.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} บาท`;
+        dispDrawerTotalEl.textContent = `฿${netTotal.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} บาท`;
+      }
+      const dispDrawerSubtotalEl = document.getElementById('dispDrawerSubtotalText');
+      if (dispDrawerSubtotalEl) {
+        if (overallDiscountAmount > 0) {
+          dispDrawerSubtotalEl.textContent = `ยอดรวมก่อนลด: ฿${grossSubtotal.toLocaleString('th-TH', { minimumFractionDigits: 2 })} บาท (ส่วนลด: -฿${overallDiscountAmount.toLocaleString('th-TH', { minimumFractionDigits: 2 })})`;
+        } else {
+          dispDrawerSubtotalEl.textContent = `ยอดรวมสินค้า/บริการ: ฿${grossSubtotal.toLocaleString('th-TH', { minimumFractionDigits: 2 })} บาท`;
+        }
+      }
+      const dispCalcDiscountEl = document.getElementById('dispCalcDiscountAmount');
+      if (dispCalcDiscountEl) {
+        dispCalcDiscountEl.value = `-${overallDiscountAmount.toLocaleString('th-TH', { minimumFractionDigits: 2 })} บาท`;
       }
 
       const depositAmount = parseFloat(document.getElementById('inputDepositAmount').value) || 0;
-      const remainingAmount = Math.max(0, totalAmount - depositAmount);
+      const remainingAmount = Math.max(0, netTotal - depositAmount);
       const remainingInput = document.getElementById('inputRemainingAmount');
       if (remainingInput) {
         remainingInput.value = remainingAmount.toLocaleString('th-TH', { minimumFractionDigits: 2 }) + ' บาท';
@@ -1624,9 +1984,13 @@
         tableBody.innerHTML = invoiceItems.map((item, idx) => {
           const qty = parseFloat(item.qty) || 0;
           const price = parseFloat(item.price) || 0;
-          const subtotal = qty * price;
+          const discPct = Math.min(100, Math.max(0, parseFloat(item.discountPercent) || 0));
+          const lineGross = qty * price;
+          const lineDisc = lineGross * (discPct / 100);
+          const lineNet = Math.max(0, lineGross - lineDisc);
+
           const fmtPrice = price.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-          const fmtSubtotal = subtotal.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          const fmtNet = lineNet.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
           const unitStr = item.qtyUnit ? `${qty} ${item.qtyUnit}` : `${qty}`;
           const formattedSub = escapeHtml(item.sub || '').replace(/\n/g, '<br>');
 
@@ -1639,15 +2003,38 @@
               </td>
               <td class="text-center">${unitStr}</td>
               <td class="text-right">${fmtPrice}</td>
-              <td class="text-right" style="font-weight: 600;">${fmtSubtotal}</td>
+              <td class="text-right" style="font-weight: 600;">
+                <div>${fmtNet}</div>
+                ${discPct > 0 ? `<div style="font-size: 10.5px; color: #dc2626; font-weight: 600;">(ลด ${discPct}%)</div>` : ''}
+              </td>
             </tr>
           `;
         }).join('');
       }
 
-      const fmtTotal = totalAmount.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const fmtSubtotal = grossSubtotal.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const fmtDiscount = overallDiscountAmount.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const fmtTotal = netTotal.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       const fmtDeposit = depositAmount.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       const fmtRemaining = remainingAmount.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      const dispSummarySubtotal = document.getElementById('dispSummarySubtotal');
+      if (dispSummarySubtotal) dispSummarySubtotal.textContent = fmtSubtotal + ' บาท';
+
+      const rowOverallDiscount = document.getElementById('rowOverallDiscount');
+      const dispSummaryDiscountLabel = document.getElementById('dispSummaryDiscountLabel');
+      const dispSummaryDiscount = document.getElementById('dispSummaryDiscount');
+
+      if (rowOverallDiscount) {
+        if (overallDiscountAmount > 0) {
+          rowOverallDiscount.style.display = 'flex';
+          const rateBadge = discType === 'percent' ? ` (-${discVal}%)` : '';
+          if (dispSummaryDiscountLabel) dispSummaryDiscountLabel.innerHTML = `หัก: ส่วนลดพิเศษ${rateBadge}:`;
+          if (dispSummaryDiscount) dispSummaryDiscount.textContent = `-${fmtDiscount} บาท`;
+        } else {
+          rowOverallDiscount.style.display = 'none';
+        }
+      }
 
       document.getElementById('dispSummaryTotalProject').textContent = fmtTotal + ' บาท';
       document.getElementById('dispSummaryDeposit').textContent = '-' + fmtDeposit + ' บาท';
@@ -1658,7 +2045,7 @@
         document.getElementById('dispBahtText').textContent = numberToThaiBaht(depositAmount);
       } else {
         document.getElementById('dispNetTotal').textContent = fmtTotal + ' บาท';
-        document.getElementById('dispBahtText').textContent = numberToThaiBaht(totalAmount);
+        document.getElementById('dispBahtText').textContent = numberToThaiBaht(netTotal);
       }
 
       document.getElementById('dispRefNo').textContent = refNo;
@@ -1704,6 +2091,8 @@
         document.getElementById('inputValidityDays').value = 'ยืนยันราคาพิเศษ 3 วัน';
       }
 
+      setOverallDiscount(0, 'percent');
+
       invoiceItems = [
         {
           id: 1,
@@ -1711,7 +2100,8 @@
           sub: '• ออกแบบและจัดทำหน้าเว็บความเร็วสูงระดับพรีเมียม รองรับมือถือ 100%\n• เชื่อมต่อระบบรับออเดอร์เข้า LINE OA อัตโนมัติ\n• ฟรีบริการติดตั้ง Hosting และ Domain ตลอดอายุสัญญา',
           qty: 1,
           qtyUnit: 'งาน',
-          price: 3900
+          price: 3900,
+          discountPercent: 0
         }
       ];
       renderItemsDrawer();
@@ -1721,29 +2111,6 @@
       calcDepositPercent(50);
       updateReceiptData();
       showToast('🔄 ล้างข้อมูลเป็นค่าเริ่มต้นมาตรฐานเรียบร้อยแล้ว');
-    }
-
-    function setQuickPackage(title, price, sub) {
-      if (!invoiceItems || invoiceItems.length === 0) {
-        invoiceItems = [{
-          id: Date.now(),
-          title: title,
-          price: price,
-          qty: 1,
-          qtyUnit: 'งาน',
-          sub: sub
-        }];
-      } else {
-        invoiceItems[0].title = title;
-        invoiceItems[0].price = price;
-        invoiceItems[0].sub = sub;
-        invoiceItems[0].qty = 1;
-        invoiceItems[0].qtyUnit = 'งาน';
-      }
-      renderItemsDrawer();
-      updateReceiptData();
-      calcDepositPercent(50);
-      showToast(`⚡ เลือกแพ็กเกจ "${title}" เรียบร้อยแล้ว`);
     }
 
     // ==========================================
@@ -1790,12 +2157,7 @@
       const validityDays = document.getElementById('inputValidityDays')?.value || '';
       const depositAmount = parseFloat(document.getElementById('inputDepositAmount').value) || 0;
 
-      let totalAmount = 0;
-      invoiceItems.forEach(item => {
-        const qty = parseFloat(item.qty) || 0;
-        const price = parseFloat(item.price) || 0;
-        totalAmount += (qty * price);
-      });
+      const totalInfo = calculateProjectTotal();
 
       const docRecord = {
         id: 'doc_' + Date.now(),
@@ -1812,7 +2174,9 @@
         refNo: refNo,
         validityDays: validityDays,
         depositAmount: depositAmount,
-        totalAmount: totalAmount,
+        totalAmount: totalInfo.netTotal,
+        overallDiscountType: totalInfo.discType,
+        overallDiscountValue: totalInfo.discVal,
         items: JSON.parse(JSON.stringify(invoiceItems))
       };
 
@@ -1933,6 +2297,13 @@
       // Restore bank
       if (doc.bankKey) {
         selectBankPreset(doc.bankKey);
+      }
+
+      // Restore discounts
+      if (doc.overallDiscountValue !== undefined) {
+        setOverallDiscount(doc.overallDiscountValue, doc.overallDiscountType || 'percent');
+      } else {
+        setOverallDiscount(0, 'percent');
       }
 
       // Restore invoice items

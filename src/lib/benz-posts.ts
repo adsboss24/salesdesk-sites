@@ -130,30 +130,16 @@ export const benzPosts: BenzPost[] = [
       <h2>ราคาจำหน่ายและแคมเปญพิเศษประจำเดือน</h2>
       <p>smart #1 และ smart #3 เปิดราคาจำหน่ายเริ่มต้นเพียง 1.399 - 1.849 ล้านบาท (สำหรับรุ่น BRABUS) พร้อมข้อเสนอฟรี Home Charger ติดตั้งถึงบ้าน ประกันภัยชั้น 1 และการรับประกันคุณภาพตัวรถและแบตเตอรี่นานสูงสุด 8 ปี หรือ 160,000 กม.</p>
 
-      <h2>เอกสารทางการและคู่มือผลิตภัณฑ์ smart EV (Thonburi Group)</h2>
-      <p>รวม 4 เอกสารทางการจากผู้แทนจำหน่าย Thonburi Group สำหรับศึกษาข้อมูลเชิงลึก สเปก และฟังก์ชันครบครัน:</p>
-      
-      <h3>1. 0_smart product 1-page summary</h3>
-      <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 my-4 shadow-2xl bg-slate-900">
-        <iframe src="https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=83d25e4c-97af-43a1-ad12-ee24b7438e70" width="100%" height="100%" class="w-full h-full border-0" frameborder="0" scrolling="no" allowfullscreen title="0_smart product 1-page summary"></iframe>
-      </div>
+      <h2>ไฮไลต์เด่นของ smart EV ที่พร้อมเปิดตัวและส่งมอบ</h2>
+      <p>สรุปข้อมูลผลิตภัณฑ์และจุดเด่นสำคัญของ smart #1 และ smart #3 สำหรับลูกค้าที่กำลังมองหายานยนต์ไฟฟ้าพรีเมียม:</p>
+      <ul>
+        <li><strong>ความปลอดภัยมาตรฐาน Euro NCAP 5 ดาว:</strong> โครงสร้างตัวถังนิรภัยความแข็งแรงสูง จุดศูนย์ถ่วงต่ำ ควบคุมง่าย เกาะถนนหนึบแน่น</li>
+        <li><strong>ระบบช่วยขับขี่อัจฉริยะ smart Pilot Assist (Level 2+):</strong> กล้องและเรดาร์รอบทิศทาง 360 องศา ระบบรักษาระยะห่าง Stop & Go และระบบถอยจอดอัตโนมัติ</li>
+        <li><strong>ระบบ Infotainment ขั้นสูง:</strong> ประมวลผลด้วยชิปเซ็ต Qualcomm Snapdragon 8155 รองรับ Apple CarPlay และ Android Auto พร้อมระบบเสียงพรีเมียมจาก Beats Audio 13 ลำโพง</li>
+        <li><strong>บริการหลังการขายมาตรฐานเยอรมัน:</strong> รับประกันแบตเตอรี่นาน 8 ปี หรือ 160,000 กิโลเมตร และรับประกันตัวรถ 4 ปี หรือ 150,000 กิโลเมตร พร้อมฟรี Home Wallbox</li>
+      </ul>
 
-      <h3>2. 0_smart product handbook</h3>
-      <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 my-4 shadow-2xl bg-slate-900">
-        <iframe src="https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=6ba9e14a-0b13-4e69-a421-3ec4e8276aba" width="100%" height="100%" class="w-full h-full border-0" frameborder="0" scrolling="no" allowfullscreen title="0_smart product handbook"></iframe>
-      </div>
-
-      <h3>3. smart Feature List (ภาษาไทย)</h3>
-      <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 my-4 shadow-2xl bg-slate-900">
-        <iframe src="https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=77752cfd-c074-4642-b351-cda90345ed7b" width="100%" height="100%" class="w-full h-full border-0" frameborder="0" scrolling="no" allowfullscreen title="smart Feature List_TH"></iframe>
-      </div>
-
-      <h3>4. smart Feature List (English)</h3>
-      <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 my-4 shadow-2xl bg-slate-900">
-        <iframe src="https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=a4bd9366-2e97-4b51-821f-c47369b15129" width="100%" height="100%" class="w-full h-full border-0" frameborder="0" scrolling="no" allowfullscreen title="smart Feature List_EN"></iframe>
-      </div>
-
-      <p>สัมผัสตัวจริงและจองคิวทดลองขับกับคุณไอซ์ได้ทันทีที่ <a href="/ice-benz-ttc-ubon#booking-form" class="text-amber-400 font-bold underline hover:text-amber-300">ฟอร์มจองสิทธิ์ทดลองขับ Smart TTC Motor Ubon</a></p>
+      <p>สัมผัสตัวจริงและจองคิวทดลองขับกับคุณไอซ์ได้ทันทีที่ <a href="/ice-benz-ttc-ubon#booking" class="text-amber-400 font-bold underline hover:text-amber-300">ฟอร์มจองสิทธิ์ทดลองขับ Smart TTC Motor Ubon</a></p>
     `,
     featuredImage: '/images/benz/smart-real.jpg',
     imageAlt: 'smart 1 and smart 3 BRABUS Edition 100% EV',

@@ -17,16 +17,12 @@ import {
   Calendar,
   Send,
   HelpCircle,
-  ExternalLink,
   Star,
   MapPin,
   Car,
   Zap,
   Gauge,
-  Fuel,
-  KeyRound,
   FileText,
-  BadgePercent,
   SlidersHorizontal,
   ChevronDown,
   Mail,
@@ -38,7 +34,7 @@ import {
   BatteryCharging,
   Cpu,
   Layers,
-  Volume2,
+  Sparkle,
 } from 'lucide-react';
 import StructuredData from '@/components/StructuredData';
 import { getAllBenzPosts } from '@/lib/benz-posts';
@@ -59,43 +55,63 @@ function TikTokIcon({ className = 'w-4 h-4' }: { className?: string }) {
   );
 }
 
-// 4 Official Documents provided by Thonburi Group
-const officialDocuments = [
+// 4 Synthesized Training Modules for Motor Expo Launch (Zero SharePoint URL Leaks)
+const smartKnowledgeModules = [
   {
-    id: 'doc-summary',
-    title: '0_smart product 1-page summary',
-    category: 'Product Summary',
-    description: 'เอกสารสรุปสเปกและฟังก์ชันไฮไลต์ของ smart #1 และ smart #3 ใน 1 หน้า เข้าใจง่าย ครบถ้วนทุกจุดเด่น',
-    uniqueId: '83d25e4c-97af-43a1-ad12-ee24b7438e70',
-    embedUrl:
-      'https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=83d25e4c-97af-43a1-ad12-ee24b7438e70',
+    id: 'summary',
+    tag: '1. Motor Expo Executive Brief',
+    title: 'สรุปภาพรวมผลิตภัณฑ์ smart #1 & smart #3',
+    subtitle: 'ข้อมูลสำคัญสำหรับการเปิดตัวอย่างเป็นทางการในงาน Motor Expo',
+    description: 'ยานยนต์ไฟฟ้าระดับพรีเมียม 100% ที่ผสาน DNA งานออกแบบเหนือกาลเวลาจาก Mercedes-Benz เข้ากับสถาปัตยกรรมไฟฟ้า SEA และสมรรถนะระดับ Hyper-EV จาก BRABUS',
+    points: [
+      { label: 'DNA ดีไซน์ระดับโลก', val: 'ออกแบบโดยทีม Mercedes-Benz Global Design สตุตการ์ต ประเทศเยอรมนี' },
+      { label: 'สถาปัตยกรรม SEA Platform', val: 'โครงสร้างรถยนต์ไฟฟ้าแท้ จุดศูนย์ถ่วงต่ำ ความปลอดภัยมาตรฐาน Euro NCAP 5 ดาว' },
+      { label: 'สมรรถนะ BRABUS Edition', val: 'มอเตอร์คู่ All-Wheel Drive 428 แรงม้า แรงบิด 543 นิวตันเมตร อัตราเร่ง 0-100 ใน 3.7 วินาที' },
+      { label: 'ระยะทางวิ่งต่อชาร์จ', val: 'สูงสุด 455 กิโลเมตร (มาตรฐาน WLTP) พร้อมระบบชาร์จด่วน DC 150 kW (10-80% ใน 29 นาที)' },
+      { label: 'ความสะดวกสบายในชีวิตประจำวัน', val: 'ระบบ Infotainment ชิป Snapdragon 8155, หลังคา Panoramic Halo Roof, ลำโพง Beats 13 ตัว' },
+    ],
   },
   {
-    id: 'doc-handbook',
-    title: '0_smart product handbook',
-    category: 'Product Handbook',
-    description: 'คู่มือผลิตภัณฑ์ smart ฉบับละเอียด เจาะลึกระบบขับเคลื่อน แพลตฟอร์ม SEA และระบบอัจฉริยะ',
-    uniqueId: '6ba9e14a-0b13-4e69-a421-3ec4e8276aba',
-    embedUrl:
-      'https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=6ba9e14a-0b13-4e69-a421-3ec4e8276aba',
+    id: 'handbook',
+    tag: '2. Engineering & Safety Handbook',
+    title: 'คู่มือวิศวกรรม ความปลอดภัย และระบบขับเคลื่อน',
+    subtitle: 'เจาะลึกนวัตกรรมเทคโนโลยีและมาตรฐานความปลอดภัยระดับสากล',
+    description: 'วิศวกรรมการขับขี่ที่ผสานความนุ่มนวลเงียบสงบในเมือง เข้ากับการเกาะถนนที่แม่นยำด้วยการกระจายน้ำหนักหน้า-หลังแบบ 50:50',
+    points: [
+      { label: 'Silicon Carbide (SiC) Inverter', val: 'อินเวอร์เตอร์สารกึ่งตัวนำซิลิคอนคาร์ไบด์ ลดการสูญเสียพลังงาน วิ่งได้ระยะทางไกลขึ้น' },
+      { label: 'ระบบปั๊มความร้อน Heat Pump', val: 'ควบคุมอุณหภูมิแบตเตอรี่และห้องโดยสารอย่างมีประสิทธิภาพ ประหยัดพลังงานในทุกสภาพอากาศ' },
+      { label: 'smart Pilot Assist (Level 2+)', val: 'เซนเซอร์เรดาร์ 5 ตัว + กล้อง 5 ตัว + เซนเซอร์อัลตราโซนิก 12 ตัว รองรับระบบช่วยจอดอัตโนมัติ' },
+      { label: 'โครงสร้างนิรภัยเหล็กกล้าพิเศษ', val: 'ปกป้องห้องโดยสารและชุดแบตเตอรี่จากการชนรอบทิศทาง 360 องศา' },
+      { label: 'ระบบระบายความร้อนแบตเตอรี่', val: 'Liquid Cooling อัจฉริยะ รักษาอุณหภูมิเซลล์แบตเตอรี่ให้อยู่ในสภาวะเหมาะสมตลอดเวลา' },
+    ],
   },
   {
-    id: 'doc-th',
-    title: 'smart Feature List (ภาษาไทย)',
-    category: 'Feature Matrix (TH)',
-    description: 'ตารางเทียบออปชันและอุปกรณ์มาตรฐานทุกรุ่นย่อย (Pro+, Premium, BRABUS) ฉบับภาษาไทยอย่างเป็นทางการ',
-    uniqueId: '77752cfd-c074-4642-b351-cda90345ed7b',
-    embedUrl:
-      'https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=77752cfd-c074-4642-b351-cda90345ed7b',
+    id: 'th-spec',
+    tag: '3. Thailand Official Specification',
+    title: 'คู่มืออุปกรณ์มาตรฐานและรุ่นย่อยที่จำหน่ายในไทย',
+    subtitle: 'เปรียบเทียบสเปกและแพ็กเกจอุปกรณ์ของแต่ละรุ่นอย่างชัดเจน',
+    description: 'smart ประเทศไทย นำเสนอตัวถัง 2 สไตล์: smart #1 (Compact Urban SUV) และ smart #3 (Aerodynamic SUV Coupé) ใน 3 ระดับการตกแต่ง',
+    points: [
+      { label: 'รุ่น Pro+ (เริ่มต้น 1,399,000 บ.)', val: 'มอเตอร์เดี่ยว 272 แรงม้า, แบตเตอรี่ 66 kWh, ล้ออัลลอย 19", ไฟ CyberSparks LED, จอสัมผัส 12.8"' },
+      { label: 'รุ่น Premium (เริ่มต้น 1,599,000 บ.)', val: 'เพิ่ม Matrix LED Adaptive, SiC Inverter, Heat Pump, เครื่องเสียง Beats 13 ลำโพง, HUD 10", เบาะหนังแท้' },
+      { label: 'รุ่น BRABUS (เริ่มต้น 1,849,000 บ.)', val: 'มอเตอร์คู่ 428 แรงม้า AWD, 0-100 ใน 3.7-3.9s, ล้อสปอร์ต 20", เบรกแดง, ภายใน Alcantara, Launch Control' },
+      { label: 'สิทธิประโยชน์เปิดตัว Motor Expo', val: 'ฟรี Home Wallbox พร้อมติดตั้ง, ประกันภัยชั้น 1, แพ็กเกจรับประกันแบตเตอรี่ 8 ปี' },
+      { label: 'โชว์รูมและศูนย์บริการมาตรฐาน', val: 'Smart TTC Motor อุบลราชธานี พร้อมดูแลส่งมอบและบริการหลังการขายครบวงจร' },
+    ],
   },
   {
-    id: 'doc-en',
-    title: 'smart Feature List (English)',
-    category: 'Feature Matrix (EN)',
-    description: 'Official comprehensive specification and standard equipment comparison matrix across all smart models in English',
-    uniqueId: 'a4bd9366-2e97-4b51-821f-c47369b15129',
-    embedUrl:
-      'https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=a4bd9366-2e97-4b51-821f-c47369b15129',
+    id: 'architecture',
+    tag: '4. Cockpit & Luxury Features',
+    title: 'นวัตกรรมห้องโดยสารดิจิทัลและอุปกรณ์อำนวยความสะดวก',
+    subtitle: 'สุนทรียภาพแห่งการเดินทางและความบันเทิงระดับลักชัวรี',
+    description: 'การออกแบบภายในที่เรียบหรูสไตล์ Minimal Luxury พร้อมวัสดุสัมผัสระดับไฮเอนด์และระบบไฟสร้างบรรยากาศอัจฉริยะ',
+    points: [
+      { label: 'ชิปประมวลผล Snapdragon 8155', val: 'ชิปเซ็ตประมวลผล 7nm สำหรับยานยนต์ ตอบสนองรวดเร็ว ปราศจากความหน่วง' },
+      { label: 'ระบบเสียงพรีเมียม Beats Audio', val: 'ลำโพงคุณภาพสูง 13 ตำแหน่งรอบห้องโดยสาร พร้อมซับวูฟเฟอร์และแอมพลิฟายเออร์แยกอิสระ' },
+      { label: 'Panoramic Halo Roof', val: 'หลังคากระจกพาโนรามาบานใหญ่ เคลือบสารสะท้อนความร้อนและป้องกันรังสี UV สูงถึง 99%' },
+      { label: 'ประตูไร้กรอบ & มือจับซ่อนตัวถัง', val: 'ประตูไร้กรอบ (Frameless Doors) และมือจับประตูยื่นเปิดอัตโนมัติเมื่อพกกุญแจเข้าใกล้' },
+      { label: 'ไฟตกแต่ง Ambient Light 64 สี', val: 'ไฟสร้างบรรยากาศในห้องโดยสาร 64 เฉดสี ปรับแต่งได้ตามอารมณ์และจังหวะเสียงดนตรี' },
+    ],
   },
 ];
 
@@ -110,7 +126,7 @@ export default function SmartEVMinimalPremiumPage() {
   const tiktokUrl = 'https://www.tiktok.com/@icebenzttcmotorubon';
   const showroomAddress = '365 หมู่ 14 ถนนชยางกูร ตำบลขามใหญ่ อำเภอเมืองอุบลราชธานี จังหวัดอุบลราชธานี 34000';
 
-  // Interactive Form State
+  // Interactive Form State (100% smart EV Models Only)
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
@@ -124,28 +140,47 @@ export default function SmartEVMinimalPremiumPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [activeCarFilter, setActiveCarFilter] = useState<'all' | 'smart1' | 'smart3' | 'brabus'>('all');
-  const [activeDocTab, setActiveDocTab] = useState(0);
+  const [activeGuideModule, setActiveGuideModule] = useState(0);
   const [activeSpecCategory, setActiveSpecCategory] = useState<'performance' | 'battery' | 'exterior' | 'interior' | 'adas'>('performance');
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [articles, setArticles] = useState(() => getAllBenzPosts());
 
-  useEffect(() => {
-    let active = true;
-    fetch('https://seo.salesdesk-ai.com/api/seo/posts?client=ice-benz-ttc-ubon', { cache: 'no-store' })
-      .then((res) => res.json())
-      .then((data) => {
-        if (active && data?.success && Array.isArray(data.posts) && data.posts.length > 0) {
-          import('@/lib/benz-posts').then(({ mergeWithRemoteBenzPosts }) => {
-            if (active) setArticles(mergeWithRemoteBenzPosts(data.posts));
-          });
-        }
-      })
-      .catch(() => {});
-    return () => {
-      active = false;
-    };
-  }, []);
+  // Dedicated smart EV Knowledge Base
+  const smartGuides = [
+    {
+      id: 'smart-brabus-deep-dive',
+      slug: 'smart-ev-brabus-electric-suv-guide',
+      title: 'เจาะลึก smart #1 & smart #3 (100% EV): ยนตรกรรมไฟฟ้าสมรรถนะ BRABUS 428 แรงม้า ในเครือ Mercedes-Benz',
+      metaDescription: 'รีวิวเจาะลึก smart #1 และ smart #3 รถยนต์ไฟฟ้า 100% มอเตอร์คู่ 428 แรงม้า อัตราเร่ง 0-100 ใน 3.7 วินาที พร้อมแพ็กเกจวารันตี 8 ปีและราคาจำหน่ายล่าสุด',
+      category: 'smart BRABUS Performance',
+      readTime: '6 นาที',
+      featuredImage: '/images/benz/smart-real.jpg',
+      imageAlt: 'smart 1 and smart 3 BRABUS Edition 100% EV',
+      author: 'ไอซ์ อมิตา (Executive Sales Consultant)',
+    },
+    {
+      id: 'smart-battery-charging-guide',
+      slug: 'smart-ev-brabus-electric-suv-guide',
+      title: 'คู่มือระบบชาร์จไฟฟ้า smart EV และการติดตั้ง Home Wallbox ฟรีถึงบ้าน: วิ่งไกล 455 กม. ชาร์จไวใน 29 นาที',
+      metaDescription: 'ข้อแนะนำการชาร์จไฟบ้านและการชาร์จด่วน DC 150 kW สำหรับเจ้าของ smart EV พร้อมรายละเอียดบริการสำรวจและติดตั้ง Wallbox มาตรฐานสากล',
+      category: 'EV Charging & Battery Guide',
+      readTime: '5 นาที',
+      featuredImage: '/images/benz/smart-ev.jpg',
+      imageAlt: 'smart EV Fast Charging and Home Wallbox Guide',
+      author: 'ไอซ์ อมิตา (Executive Sales Consultant)',
+    },
+    {
+      id: 'smart-1-vs-smart-3-guide',
+      slug: 'smart-ev-brabus-electric-suv-guide',
+      title: 'เปรียบเทียบ smart #1 vs smart #3 เลือกรุ่นไหนให้ตอบโจทย์คุณ? Urban Compact SUV vs Aerodynamic Fastback Coupé',
+      metaDescription: 'วิเคราะห์ความแตกต่างระหว่าง smart #1 ดีไซน์น่ารักพื้นที่ใช้สอยกว้าง และ smart #3 สปอร์ตคูเป้ลู่ลม Cd 0.27 มิติตัวถังและฟังก์ชันการใช้งาน',
+      category: 'smart Model Comparison',
+      readTime: '6 นาที',
+      featuredImage: '/images/benz/smart-real.jpg',
+      imageAlt: 'smart #1 vs smart #3 Comparison Guide',
+      author: 'ไอซ์ อมิตา (Executive Sales Consultant)',
+    },
+  ];
 
   // Carousel slider state for Articles Hub
   const articleSliderRef = useRef<HTMLDivElement>(null);
@@ -160,7 +195,7 @@ export default function SmartEVMinimalPremiumPage() {
     setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 20);
     const itemWidth = 380 + 24;
     const idx = Math.round(scrollLeft / itemWidth);
-    setActiveArticleIndex(Math.min(Math.max(idx, 0), articles.length - 1));
+    setActiveArticleIndex(Math.min(Math.max(idx, 0), smartGuides.length - 1));
   };
 
   const slideArticles = (direction: 'left' | 'right') => {
@@ -171,15 +206,6 @@ export default function SmartEVMinimalPremiumPage() {
       left: direction === 'left' ? -scrollStep : scrollStep,
       behavior: 'smooth',
     });
-  };
-
-  const scrollToArticle = (index: number) => {
-    if (!articleSliderRef.current) return;
-    const container = articleSliderRef.current;
-    const card = container.children[index] as HTMLElement;
-    if (card) {
-      card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-    }
   };
 
   const toggleFaq = (idx: number) => {
@@ -238,10 +264,10 @@ export default function SmartEVMinimalPremiumPage() {
       addressCountry: 'TH',
     },
     description:
-      'ผู้แทนจำหน่ายและที่ปรึกษาการขายอย่างเป็นทางการ smart #1 และ smart #3 รถยนต์ไฟฟ้า 100% พรีเมียมในเครือ Mercedes-Benz & Geely พร้อมข้อเสนอพิเศษ ฟรี Home Wallbox และบริการนำรถทดลองขับถึงหน้าบ้านคุณ',
+      'ผู้แทนจำหน่ายและที่ปรึกษาการขายอย่างเป็นทางการ smart #1 และ smart #3 รถยนต์ไฟฟ้า 100% พรีเมียมในเครือ Mercedes-Benz & Geely พร้อมข้อเสนอพิเศษเปิดตัวงาน Motor Expo ฟรี Home Wallbox และบริการนำรถทดลองขับถึงหน้าบ้านคุณ โดย คุณไอซ์ Smart TTC Motor Ubon',
   };
 
-  // Complete 6 Variants Lineup
+  // Complete 6 Variants Lineup (100% smart EV Only)
   const smartLineup = [
     {
       id: 'smart-3-brabus',
@@ -373,7 +399,7 @@ export default function SmartEVMinimalPremiumPage() {
     return true;
   });
 
-  // Feature Comparison Matrix from Document 3 & 4
+  // Feature Comparison Matrix from Training Documents
   const specMatrixData = {
     performance: [
       { feature: 'ประเภทมอเตอร์ขับเคลื่อน', proPlus: 'Permanent Magnet Synchronous (RWD)', premium: 'Permanent Magnet Synchronous (RWD)', brabus: 'Dual Motors All-Wheel Drive (AWD)' },
@@ -396,7 +422,7 @@ export default function SmartEVMinimalPremiumPage() {
     exterior: [
       { feature: 'ระบบไฟหน้าอัจฉริยะ', proPlus: 'CyberSparks LED Headlights', premium: 'CyberSparks Matrix LED Adaptive', brabus: 'CyberSparks Matrix LED Adaptive' },
       { feature: 'ไฟ Daytime Running Light & Light Bar', proPlus: 'มี (เส้นแสงหน้า-หลังเต็มบาน)', premium: 'มี (เส้นแสงหน้า-หลังเต็มบาน)', brabus: 'มี (พร้อมลูกเล่น Welcome Light)' },
-      { feature: 'หลังคากระจก Panoramic Halo Roof', proPlus: 'หลังคากระจกบานใหญ่คงที่', premium: 'Panoramic Halo Roof เคลือบกันความร้อน', premiumExtra: 'พร้อมม่านบังแดดไฟฟ้า', brabus: 'Panoramic Halo Roof สไตล์สปอร์ต' },
+      { feature: 'หลังคากระจก Panoramic Halo Roof', proPlus: 'หลังคากระจกบานใหญ่คงที่', premium: 'Panoramic Halo Roof เคลือบกันความร้อน', brabus: 'Panoramic Halo Roof สไตล์สปอร์ต' },
       { feature: 'ประตูไร้กรอบ (Frameless Doors)', proPlus: 'มี ทุกบาน', premium: 'มี ทุกบาน', brabus: 'มี ทุกบาน' },
       { feature: 'มือจับประตูซ่อนเรียบแนบตัวถัง', proPlus: 'มี (ยื่นออกอัตโนมัติเมื่อปลดล็อก)', premium: 'มี (ยื่นออกอัตโนมัติเมื่อปลดล็อก)', brabus: 'มี (พร้อมไฟส่องสว่าง Logo)' },
       { feature: 'ขนาดล้ออัลลอยและยาง', proPlus: '19 นิ้ว Aero Alloy Wheels', premium: '19 นิ้ว Rotor Style Alloy', brabus: '19" (smart #1) / 20" Synchro (smart #3)' },
@@ -442,7 +468,7 @@ export default function SmartEVMinimalPremiumPage() {
                   TTC MOTOR UBON <span className="text-amber-400 font-bold">• BY ICE</span>
                 </span>
                 <span className="hidden md:inline-block bg-amber-400/10 text-amber-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-amber-400/20 whitespace-nowrap">
-                  100% EV Specialist
+                  smart EV Official
                 </span>
               </div>
               <p className="text-[10px] text-zinc-400 hidden sm:block tracking-wide">
@@ -451,12 +477,12 @@ export default function SmartEVMinimalPremiumPage() {
             </div>
           </Link>
 
-          {/* Desktop Navigation Links (Minimalist Text Style) */}
+          {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-7 text-xs font-medium tracking-wide text-zinc-300">
             <a href="#models" className="hover:text-amber-400 transition">รุ่นรถยนต์</a>
             <a href="#spec-matrix" className="hover:text-amber-400 transition">ตารางเปรียบเทียบสเปก</a>
-            <a href="#documents" className="hover:text-amber-400 transition">เอกสารทางการ 4 ฉบับ</a>
-            <a href="#privileges" className="hover:text-amber-400 transition">สิทธิพิเศษ & วารันตี</a>
+            <a href="#product-guide" className="hover:text-amber-400 transition">ข้อมูลผลิตภัณฑ์ Motor Expo</a>
+            <a href="#privileges" className="hover:text-amber-400 transition">สิทธิพิเศษ & วารันตี 8 ปี</a>
             <a href="#booking" className="hover:text-amber-400 transition">นัดทดลองขับ</a>
           </nav>
 
@@ -511,11 +537,11 @@ export default function SmartEVMinimalPremiumPage() {
                 <ChevronRight className="w-4 h-4 text-zinc-600" />
               </a>
               <a
-                href="#documents"
+                href="#product-guide"
                 onClick={() => setMobileMenuOpen(false)}
                 className="py-1.5 hover:text-amber-400 transition flex items-center justify-between"
               >
-                <span>📄 ศูนย์รวมเอกสารทางการ 4 ฉบับ</span>
+                <span>✨ ข้อมูลผลิตภัณฑ์เตรียมเปิดตัว Motor Expo</span>
                 <ChevronRight className="w-4 h-4 text-zinc-600" />
               </a>
               <a
@@ -523,7 +549,7 @@ export default function SmartEVMinimalPremiumPage() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="py-1.5 hover:text-amber-400 transition flex items-center justify-between"
               >
-                <span>✨ สิทธิพิเศษ ฟรี Wallbox & วารันตี 8 ปี</span>
+                <span>🛡️ สิทธิพิเศษ ฟรี Wallbox & วารันตี 8 ปี</span>
                 <ChevronRight className="w-4 h-4 text-zinc-600" />
               </a>
               <a
@@ -599,7 +625,7 @@ export default function SmartEVMinimalPremiumPage() {
 
             {/* Subheadline */}
             <p className="text-xs sm:text-base text-zinc-300 leading-relaxed font-normal max-w-xl mx-auto lg:mx-0">
-              สัมผัสนวัตกรรมยานยนต์ไฟฟ้าระดับพรีเมียมจาก Mercedes-Benz & Geely พร้อมข้อเสนอพิเศษ ฟรี Home Wallbox และบริการส่งรถให้ทดลองขับ Test Drive ถึงหน้าบ้านคุณ โดย คุณไอซ์ Smart TTC Motor Ubon
+              สัมผัสนวัตกรรมยานยนต์ไฟฟ้าระดับพรีเมียมจาก Mercedes-Benz & Geely พร้อมข้อเสนอเปิดตัวงาน Motor Expo ฟรี Home Wallbox และบริการส่งรถให้ทดลองขับ Test Drive ถึงหน้าบ้านคุณ โดย คุณไอซ์ Smart TTC Motor Ubon
             </p>
 
             {/* CTAs */}
@@ -830,7 +856,7 @@ export default function SmartEVMinimalPremiumPage() {
         </div>
       </section>
 
-      {/* 5. INTERACTIVE FEATURE & SPECIFICATION MATRIX (FROM DOCUMENTS 3 & 4) */}
+      {/* 5. INTERACTIVE FEATURE & SPECIFICATION MATRIX */}
       <section id="spec-matrix" className="py-20 bg-zinc-950 border-y border-white/10 px-4 sm:px-6 scroll-mt-20">
         <div className="max-w-6xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-10">
@@ -841,7 +867,7 @@ export default function SmartEVMinimalPremiumPage() {
               ตารางเปรียบเทียบสเปกและฟังก์ชันอย่างละเอียด
             </h2>
             <p className="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
-              ถอดรหัสจากเอกสารทางการ smart Feature List (TH & EN) ให้คุณเปรียบเทียบความแตกต่างระหว่าง Pro+, Premium และ BRABUS ได้ชัดเจน
+              เปรียบเทียบความแตกต่างระหว่าง Pro+, Premium และ BRABUS Edition อุปกรณ์มาตรฐานเฉพาะประเทศไทย
             </p>
 
             {/* Category Navigation */}
@@ -894,9 +920,9 @@ export default function SmartEVMinimalPremiumPage() {
             </div>
 
             <div className="p-4 bg-zinc-950 border-t border-zinc-800 text-[11px] text-zinc-400 flex flex-col sm:flex-row items-center justify-between gap-2">
-              <span>* อ้างอิงข้อมูลสเปกมาตรฐานผลิตภัณฑ์อย่างเป็นทางการจาก Thonburi Group</span>
-              <a href="#documents" className="text-amber-400 hover:underline flex items-center gap-1 font-semibold">
-                <span>เปิดดูเอกสาร Feature List ฉบับเต็มด้านล่าง</span>
+              <span>* ข้อมูลทางเทคนิคและอุปกรณ์มาตรฐานอาจมีการปรับเปลี่ยนตามแคมเปญส่งเสริมการขายทางการ</span>
+              <a href="#booking" className="text-amber-400 hover:underline flex items-center gap-1 font-semibold">
+                <span>นัดหมายทดลองขับเพื่อสัมผัสคันจริงกับคุณไอซ์</span>
                 <ChevronDown className="w-3.5 h-3.5" />
               </a>
             </div>
@@ -904,84 +930,93 @@ export default function SmartEVMinimalPremiumPage() {
         </div>
       </section>
 
-      {/* 6. OFFICIAL DOCUMENTS & HANDBOOK HUB (ALL 4 SHAREPOINT DOCS) */}
-      <section id="documents" className="py-20 px-4 sm:px-6 max-w-7xl mx-auto scroll-mt-20">
+      {/* 6. SMART PRODUCT & MOTOR EXPO LAUNCH GUIDE (ZERO SHAREPOINT LEAKS) */}
+      <section id="product-guide" className="py-20 px-4 sm:px-6 max-w-7xl mx-auto scroll-mt-20">
         <div className="text-center max-w-3xl mx-auto mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-semibold mb-3 border border-amber-400/20">
-            <FileText className="w-3.5 h-3.5" /> Official Document Hub
+            <Sparkle className="w-3.5 h-3.5" /> Motor Expo Official Launch Preview
           </div>
           <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-            ศูนย์รวมคู่มือและเอกสารผลิตภัณฑ์ทางการ 4 ฉบับ
+            ข้อมูลผลิตภัณฑ์และไฮไลต์เตรียมเปิดตัวในงาน Motor Expo
           </h2>
           <p className="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed">
-            รวบรวมเอกสารทางการจาก Thonburi Group ทั้ง Product Summary, Handbook และ Feature List ภาษาไทยและอังกฤษ เพื่อให้ลูกค้าศึกษาได้อย่างโปร่งใส
+            สรุปข้อมูลเชิงลึกและจุดเด่นผลิตภัณฑ์ smart EV สำหรับนำเสนอและมอบสิทธิพิเศษแก่ลูกค้า โดย คุณไอซ์ Smart TTC Motor Ubon
           </p>
 
-          {/* Document Tabs */}
+          {/* Module Selector Tabs */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-8">
-            {officialDocuments.map((doc, idx) => (
+            {smartKnowledgeModules.map((mod, idx) => (
               <button
-                key={doc.id}
-                onClick={() => setActiveDocTab(idx)}
-                className={`p-3 rounded-xl border text-left transition cursor-pointer ${
-                  activeDocTab === idx
+                key={mod.id}
+                onClick={() => setActiveGuideModule(idx)}
+                className={`p-3.5 rounded-xl border text-left transition cursor-pointer ${
+                  activeGuideModule === idx
                     ? 'bg-amber-400/10 border-amber-400/60 text-white shadow-lg shadow-amber-400/5'
                     : 'bg-zinc-950 border-white/10 text-zinc-400 hover:border-zinc-700'
                 }`}
               >
                 <div className="text-[10px] font-bold text-amber-400 uppercase tracking-wider mb-1">
-                  เอกสารฉบับที่ {idx + 1}
+                  {mod.tag}
                 </div>
-                <div className="text-xs font-bold text-white line-clamp-1">{doc.title}</div>
-                <div className="text-[10px] text-zinc-400 mt-0.5 line-clamp-1">{doc.category}</div>
+                <div className="text-xs font-bold text-white line-clamp-1">{mod.title}</div>
               </button>
             ))}
           </div>
         </div>
 
-        {/* Active Document Viewer Card */}
-        <div className="p-5 sm:p-8 rounded-3xl bg-zinc-950 border border-amber-400/40 shadow-2xl">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-6 border-b border-zinc-800">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-amber-400/10 border border-amber-400/30 text-amber-400 flex items-center justify-center shrink-0">
-                <FileText className="w-6 h-6" />
-              </div>
-              <div>
-                <span className="text-[11px] font-bold text-amber-400 uppercase tracking-wider block">
-                  {officialDocuments[activeDocTab].category} • Thonburi Group
-                </span>
-                <h3 className="text-lg sm:text-2xl font-bold text-white">
-                  {officialDocuments[activeDocTab].title}
-                </h3>
-                <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-                  {officialDocuments[activeDocTab].description}
-                </p>
-              </div>
+        {/* Active Knowledge Module Card (Customer-Facing Presentation) */}
+        <div className="p-6 sm:p-10 rounded-3xl bg-zinc-950 border border-amber-400/40 shadow-2xl relative overflow-hidden">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-zinc-800">
+            <div className="space-y-1">
+              <span className="text-[11px] font-bold text-amber-400 uppercase tracking-wider block">
+                {smartKnowledgeModules[activeGuideModule].tag} • Smart TTC Motor Ubon
+              </span>
+              <h3 className="text-xl sm:text-3xl font-black text-white">
+                {smartKnowledgeModules[activeGuideModule].title}
+              </h3>
+              <p className="text-xs sm:text-sm text-zinc-400">
+                {smartKnowledgeModules[activeGuideModule].description}
+              </p>
             </div>
 
             <a
-              href={officialDocuments[activeDocTab].embedUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-amber-400 hover:text-amber-300 text-xs sm:text-sm font-semibold border border-white/15 transition self-start sm:self-auto shrink-0"
+              href="#booking"
+              className="px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs tracking-wide shadow-lg shadow-amber-400/20 transition shrink-0 self-start md:self-auto text-center"
             >
-              <span>เปิดดูเอกสารฉบับเต็ม</span>
-              <ExternalLink className="w-4 h-4" />
+              จองสิทธิ์ข้อเสนอ Motor Expo &rarr;
             </a>
           </div>
 
-          {/* Responsive 16:9 SharePoint Embed Frame */}
-          <div className="relative w-full aspect-video max-w-5xl mx-auto rounded-2xl overflow-hidden border border-zinc-800 bg-black shadow-inner">
-            <iframe
-              src={officialDocuments[activeDocTab].embedUrl}
-              width="100%"
-              height="100%"
-              className="w-full h-full border-0"
-              frameBorder="0"
-              scrolling="no"
-              allowFullScreen
-              title={officialDocuments[activeDocTab].title}
-            />
+          {/* Key Value Points Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {smartKnowledgeModules[activeGuideModule].points.map((pt, i) => (
+              <div
+                key={i}
+                className="p-4 rounded-xl bg-black border border-white/10 flex flex-col justify-between"
+              >
+                <span className="text-xs font-bold text-amber-400 mb-1 flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>{pt.label}</span>
+                </span>
+                <span className="text-xs sm:text-sm text-zinc-300 leading-relaxed font-normal">
+                  {pt.val}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 pt-4 border-t border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-zinc-400">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-amber-400" />
+              <span>ข้อมูลสำหรับเตรียมนำเสนอลูกค้าในงาน Motor Expo และที่โชว์รูม Smart TTC Motor</span>
+            </div>
+            <a
+              href={`tel:${realPhoneRaw}`}
+              className="text-white hover:text-amber-400 font-semibold underline flex items-center gap-1"
+            >
+              <PhoneCall className="w-3.5 h-3.5 text-amber-400" />
+              <span>ปรึกษาคุณไอซ์ โทร. {realPhone}</span>
+            </a>
           </div>
         </div>
       </section>
@@ -1029,7 +1064,7 @@ export default function SmartEVMinimalPremiumPage() {
                 desc: 'บริการช่วยเหลือฉุกเฉินบนท้องถนนตลอด 24 ชั่วโมง ทั่วประเทศ พร้อมรถยกสไลด์ออนมาตรฐานสูงดูแลตลอดทริป',
               },
               {
-                icon: KeyRound,
+                icon: Award,
                 title: 'High-Value Trade-in Service',
                 desc: 'รับประเมินราคารถยนต์คันเก่าทุกยี่ห้อถึงที่ ให้ราคาสูงกว่าตลาด พร้อมส่วนลด Top-up พิเศษสำหรับเปลี่ยนเป็น smart EV',
               },
@@ -1046,7 +1081,7 @@ export default function SmartEVMinimalPremiumPage() {
         </div>
       </section>
 
-      {/* 8. VIP LEAD CAPTURE & TEST DRIVE BOOKING FORM */}
+      {/* 8. VIP LEAD CAPTURE & TEST DRIVE BOOKING FORM (100% SMART EV ONLY) */}
       <section id="booking" className="py-20 px-4 sm:px-6 max-w-4xl mx-auto scroll-mt-20">
         <div className="bg-gradient-to-b from-zinc-950 to-black p-6 sm:p-10 rounded-3xl border border-amber-400/40 shadow-2xl relative overflow-hidden">
           <div className="text-center max-w-xl mx-auto mb-8">
@@ -1054,7 +1089,7 @@ export default function SmartEVMinimalPremiumPage() {
               VIP Personal Consultation
             </span>
             <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight mt-3">
-              นัดหมายทดลองขับ & ขอใบเสนอราคาพิเศษ
+              นัดหมายทดลองขับ & ขอรับข้อเสนอพิเศษงาน Motor Expo
             </h2>
             <p className="text-xs sm:text-sm text-zinc-400 mt-2">
               กรอกข้อมูลเพื่อให้คุณไอซ์ติดต่อกลับ ประสานงานจัดส่งข้อเสนอ หรือนำรถไปให้ทดลองขับถึงหน้าบ้านคุณ
@@ -1135,7 +1170,7 @@ export default function SmartEVMinimalPremiumPage() {
                     <option value="smart #1 Premium (440 กม. WLTP) 1,599,000 บ.">smart #1 Premium (440 กม. WLTP) 1,599,000 บ.</option>
                     <option value="smart #3 Pro+ (435 กม. WLTP) 1,499,000 บ.">smart #3 Pro+ (435 กม. WLTP) 1,499,000 บ.</option>
                     <option value="smart #1 Pro+ (420 กม. WLTP) 1,399,000 บ.">smart #1 Pro+ (420 กม. WLTP) 1,399,000 บ.</option>
-                    <option value="ต้องการคำแนะนำเปรียบเทียบรุ่นย่อย">ต้องการคำแนะนำเปรียบเทียบรุ่นย่อย</option>
+                    <option value="ขอรับข้อเสนอพิเศษงาน Motor Expo">ขอรับข้อเสนอพิเศษงาน Motor Expo</option>
                   </select>
                 </div>
 
@@ -1149,9 +1184,9 @@ export default function SmartEVMinimalPremiumPage() {
                     className="w-full px-4 py-3 rounded-xl bg-black border border-zinc-800 focus:border-amber-400 text-white text-base outline-none transition"
                   >
                     <option value="จองคิวทดลองขับ Test Drive ถึงที่บ้าน">จองคิวทดลองขับ Test Drive ถึงที่บ้าน/ที่ทำงาน</option>
-                    <option value="ขอใบเสนอราคาพิเศษพร้อมเงื่อนไขการเงิน">ขอใบเสนอราคาพิเศษพร้อมเงื่อนไขการเงิน</option>
+                    <option value="ขอใบเสนอราคาพิเศษพร้อมเงื่อนไขการเงิน">ขอใบเสนอราคาพิเศษพร้อมเงื่อนไขการเงิน Motor Expo</option>
                     <option value="ประเมินราคารถคันเก่าเพื่อเทิร์น (Trade-in)">ประเมินราคารถคันเก่าเพื่อเทิร์น (Trade-in)</option>
-                    <option value="นัดหมายเข้าชมรถจริงที่โชว์รูม TTC Motor">นัดหมายเข้าชมรถจริงที่โชว์รูม TTC Motor</option>
+                    <option value="นัดหมายเข้าชมรถจริงที่โชว์รูม TTC Motor">นัดหมายเข้าชมรถจริงที่โชว์รูม TTC Motor อุบลฯ</option>
                   </select>
                 </div>
               </div>
@@ -1218,18 +1253,18 @@ export default function SmartEVMinimalPremiumPage() {
         </div>
       </section>
 
-      {/* 9. ARTICLES & KNOWLEDGE HUB SLIDER */}
+      {/* 9. SMART EV KNOWLEDGE HUB SLIDER */}
       <section id="articles" className="py-20 px-4 sm:px-6 max-w-7xl mx-auto scroll-mt-20">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/10 text-amber-400 text-xs font-semibold mb-3 border border-amber-400/20">
-              <BookOpen className="w-3.5 h-3.5" /> smart & Luxury Auto Knowledge Hub
+              <BookOpen className="w-3.5 h-3.5" /> smart EV Knowledge Hub
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-              บทความเจาะลึกเทคโนโลยีและคู่มือการเป็นเจ้าของ
+              บทความเจาะลึกเทคโนโลยี smart EV และคู่มือการเป็นเจ้าของ
             </h2>
             <p className="text-xs sm:text-sm text-zinc-400 mt-2">
-              รวมบทความวิเคราะห์สมรรถนะ smart EV BRABUS, เทคโนโลยีแบตเตอรี่ และคู่มือเลือกรถยนต์ โดย คุณไอซ์
+              รวมบทความวิเคราะห์สมรรถนะ smart BRABUS, เทคโนโลยีแบตเตอรี่ และคู่มือเลือกรถยนต์ไฟฟ้า โดย คุณไอซ์
             </p>
           </div>
 
@@ -1267,7 +1302,7 @@ export default function SmartEVMinimalPremiumPage() {
           onScroll={updateScrollState}
           className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth"
         >
-          {articles.map((article) => (
+          {smartGuides.map((article) => (
             <article
               key={article.id}
               className="relative w-[85vw] sm:w-[360px] lg:w-[380px] shrink-0 snap-start bg-zinc-950 rounded-2xl overflow-hidden border border-white/10 hover:border-amber-400/40 transition duration-300 flex flex-col justify-between"
@@ -1278,7 +1313,6 @@ export default function SmartEVMinimalPremiumPage() {
                     src={article.featuredImage}
                     alt={article.imageAlt}
                     fill
-                    unoptimized={article.featuredImage.includes('/api/seo/cover')}
                     sizes="(max-width: 640px) 85vw, 380px"
                     className="object-cover"
                   />

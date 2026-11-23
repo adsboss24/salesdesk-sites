@@ -130,13 +130,30 @@ export const benzPosts: BenzPost[] = [
       <h2>ราคาจำหน่ายและแคมเปญพิเศษประจำเดือน</h2>
       <p>smart #1 และ smart #3 เปิดราคาจำหน่ายเริ่มต้นเพียง 1.399 - 1.849 ล้านบาท (สำหรับรุ่น BRABUS) พร้อมข้อเสนอฟรี Home Charger ติดตั้งถึงบ้าน ประกันภัยชั้น 1 และการรับประกันคุณภาพตัวรถและแบตเตอรี่นานสูงสุด 8 ปี หรือ 160,000 กม.</p>
 
-      <h2>เอกสารทางการ: smart Product 1-Page Summary</h2>
-      <p>สรุปข้อมูลผลิตภัณฑ์ จุดเด่น สเปกทางเทคนิค และรายละเอียดสำคัญของ smart EV โดย Thonburi Group:</p>
-      <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 my-6 shadow-2xl bg-slate-900">
+      <h2>เอกสารทางการและคู่มือผลิตภัณฑ์ smart EV (Thonburi Group)</h2>
+      <p>รวม 4 เอกสารทางการจากผู้แทนจำหน่าย Thonburi Group สำหรับศึกษาข้อมูลเชิงลึก สเปก และฟังก์ชันครบครัน:</p>
+      
+      <h3>1. 0_smart product 1-page summary</h3>
+      <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 my-4 shadow-2xl bg-slate-900">
         <iframe src="https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=83d25e4c-97af-43a1-ad12-ee24b7438e70" width="100%" height="100%" class="w-full h-full border-0" frameborder="0" scrolling="no" allowfullscreen title="0_smart product 1-page summary"></iframe>
       </div>
 
-      <p>สัมผัสตัวจริงและจองคิวทดลองขับกับคุณไอซ์ได้ทันทีที่ <a href="/ice-benz-ttc-ubon#booking-form" class="text-amber-400 font-bold underline hover:text-amber-300">ฟอร์มจองสิทธิ์ทดลองขับ ICE LUXURY AUTO</a></p>
+      <h3>2. 0_smart product handbook</h3>
+      <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 my-4 shadow-2xl bg-slate-900">
+        <iframe src="https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=6ba9e14a-0b13-4e69-a421-3ec4e8276aba" width="100%" height="100%" class="w-full h-full border-0" frameborder="0" scrolling="no" allowfullscreen title="0_smart product handbook"></iframe>
+      </div>
+
+      <h3>3. smart Feature List (ภาษาไทย)</h3>
+      <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 my-4 shadow-2xl bg-slate-900">
+        <iframe src="https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=77752cfd-c074-4642-b351-cda90345ed7b" width="100%" height="100%" class="w-full h-full border-0" frameborder="0" scrolling="no" allowfullscreen title="smart Feature List_TH"></iframe>
+      </div>
+
+      <h3>4. smart Feature List (English)</h3>
+      <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-800 my-4 shadow-2xl bg-slate-900">
+        <iframe src="https://computertbg-my.sharepoint.com/personal/athinut_tra_thonburi_com/_layouts/15/embed.aspx?UniqueId=a4bd9366-2e97-4b51-821f-c47369b15129" width="100%" height="100%" class="w-full h-full border-0" frameborder="0" scrolling="no" allowfullscreen title="smart Feature List_EN"></iframe>
+      </div>
+
+      <p>สัมผัสตัวจริงและจองคิวทดลองขับกับคุณไอซ์ได้ทันทีที่ <a href="/ice-benz-ttc-ubon#booking-form" class="text-amber-400 font-bold underline hover:text-amber-300">ฟอร์มจองสิทธิ์ทดลองขับ Smart TTC Motor Ubon</a></p>
     `,
     featuredImage: '/images/benz/smart-real.jpg',
     imageAlt: 'smart 1 and smart 3 BRABUS Edition 100% EV',

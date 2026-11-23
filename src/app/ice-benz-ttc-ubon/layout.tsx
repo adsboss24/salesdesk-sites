@@ -2,21 +2,23 @@ import type { Metadata } from 'next';
 import { constructMetadata } from '@/utils/seo';
 
 export const metadata: Metadata = constructMetadata({
-  title: 'ICE LUXURY AUTO | Certified Mercedes-Benz & AMG Performance Specialist',
+  title: 'smart EV Thailand • smart #1 & smart #3 (100% EV) | Smart TTC Motor Ubon by Ice',
   description:
-    'สัมผัสประสบการณ์ยนตรกรรมระดับพรีเมียม Mercedes-Benz, Mercedes-AMG และ smart EV ป้ายแดง พร้อมข้อเสนอและแคมเปญพิเศษเฉพาะบุคคล บริการนำรถทดลองขับ Test Drive ส่งถึงหน้าบ้านทั่วประเทศ โดย ICE • ที่ปรึกษาการขายมืออาชีพ ติดต่อ Facebook: Icebenzttcmotorubon โทรสายตรง 065-214-2747',
+    'สัมผัสยนตรกรรมไฟฟ้าพรีเมียม 100% smart #1 และ smart #3 ดีไซน์โดย Mercedes-Benz มอเตอร์คู่ 428 แรงม้า อัตราเร่ง 0-100 ใน 3.7 วินาที พร้อมแพ็กเกจวารันตีแบตเตอรี่ 8 ปี ฟรี Home Wallbox และบริการส่งรถทดลองขับ Test Drive ถึงบ้าน โดย คุณไอซ์ Smart TTC Motor Ubon (โทร 065-214-2747)',
   canonicalPath: '/ice-benz-ttc-ubon',
-  ogImage: '/images/benz/hero-benz.jpg',
+  ogImage: '/images/benz/smart-real.jpg',
   keywords: [
-    'ICE LUXURY AUTO',
-    'Mercedes Benz Thailand',
-    'Mercedes-AMG',
-    'smart EV BRABUS',
-    'ที่ปรึกษาการขายเบนซ์ อุบลราชธานี',
-    'ทดลองขับเบนซ์ถึงบ้าน',
-    'แคมเปญเบนซ์ป้ายแดง',
-    'Trade-in รถเก่าแลกเบนซ์',
-    'คุณไอซ์ เบนซ์ อุบล',
+    'smart EV Thailand',
+    'smart #1',
+    'smart #3',
+    'smart BRABUS',
+    'รถยนต์ไฟฟ้า smart เบนซ์',
+    'smart TTC Motor อุบลราชธานี',
+    'ทดลองขับ smart EV ถึงบ้าน',
+    'ราคารถ smart 1',
+    'ราคารถ smart 3',
+    'คุณไอซ์ smart TTC',
+    'Thonburi Group smart',
   ],
 });
 

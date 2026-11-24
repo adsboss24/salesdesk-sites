@@ -1013,10 +1013,10 @@
 
   <!-- 3-in-1 Document Switcher Tabs -->
   <div class="doc-type-tabs">
-    <button class="tab-btn" id="tabQuotation" onclick="switchDocumentType('QUOTATION')">
+    <button class="tab-btn active" id="tabQuotation" onclick="switchDocumentType('QUOTATION')">
       📑 ใบเสนอราคา (Quotation)
     </button>
-    <button class="tab-btn active" id="tabDeposit" onclick="switchDocumentType('DEPOSIT')">
+    <button class="tab-btn" id="tabDeposit" onclick="switchDocumentType('DEPOSIT')">
       📋 ใบรับเงินมัดจำ (Deposit Receipt)
     </button>
     <button class="tab-btn" id="tabReceipt" onclick="switchDocumentType('RECEIPT')">
@@ -1334,17 +1334,17 @@
           <span id="dispSummaryDiscountLabel">หัก: ส่วนลดพิเศษ (Special Discount):</span>
           <span id="dispSummaryDiscount">-0.00 บาท</span>
         </div>
-        <div class="summary-row" id="rowTotalProject">
-          <span>ราคาสุทธิตามใบเสนอราคา:</span>
+        <div class="summary-row" id="rowTotalProject" style="display: none;">
+          <span id="dispSummaryTotalProjectLabel">มูลค่าโครงการรวม (Project Total):</span>
           <span style="font-weight: 700; color: #0284c7;" id="dispSummaryTotalProject">3,900.00 บาท</span>
         </div>
-        <div class="summary-row highlight-deposit" id="rowDeductDeposit">
-          <span>หัก: ชำระเงินมัดจำแล้ว (Deposit):</span>
-          <span id="dispSummaryDeposit">-2,000.00 บาท</span>
+        <div class="summary-row highlight-deposit" id="rowDeductDeposit" style="display: none;">
+          <span id="dispSummaryDepositLabel">ยอดเงินมัดจำที่รับชำระ (Deposit Received):</span>
+          <span id="dispSummaryDeposit" style="color: #059669; font-weight: 700;">+2,000.00 บาท</span>
         </div>
-        <div class="summary-row highlight-balance" id="rowRemainingBalance">
-          <span>คงเหลือชำระวันส่งมอบ (Balance):</span>
-          <span id="dispSummaryRemaining">1,900.00 บาท</span>
+        <div class="summary-row highlight-balance" id="rowRemainingBalance" style="display: none;">
+          <span id="dispSummaryRemainingLabel">คงเหลือชำระวันส่งมอบ (Remaining Balance):</span>
+          <span id="dispSummaryRemaining" style="color: #dc2626; font-weight: 700;">1,900.00 บาท</span>
         </div>
         <div class="summary-row" id="rowVat">
           <span>ภาษีมูลค่าเพิ่ม (VAT 0% / Non-Vat):</span>
@@ -1665,13 +1665,14 @@
       const netTotalLabel = document.getElementById('dispNetTotalLabel');
       const bahtLabel = document.getElementById('dispBahtLabel');
 
+      const rowTotalProject = document.getElementById('rowTotalProject');
       const rowDeduct = document.getElementById('rowDeductDeposit');
       const rowRemaining = document.getElementById('rowRemainingBalance');
 
       if (type === 'QUOTATION') {
         document.getElementById('tabQuotation').classList.add('active');
         titleEl.textContent = 'ใบเสนอราคา';
-        const refLbl = document.getElementById('dispRefLabel'); if (refLbl) refLbl.textContent = 'กำหนดชำระ:';
+        const refLbl = document.getElementById('dispRefLabel'); if (refLbl) refLbl.textContent = 'กำหนดยืนราคา:';
         subEl.textContent = 'QUOTATION (NON-VAT)';
         badgeEl.className = 'badge-status badge-quotation';
         badgeEl.textContent = document.getElementById('inputValidityDays')?.value || 'ยืนยันราคาพิเศษ 3 วัน';
@@ -1681,33 +1682,57 @@
         footerNote.innerHTML = 'เอกสารใบเสนอราคานี้ออกโดยระบบคอมพิวเตอร์ SalesDesk AI Platform<br>หากต้องการสั่งซื้อ สามารถติดต่อกลับทางแชต LINE OA ได้ทันทีครับ ';
         netTotalLabel.textContent = 'ยอดรวมสุทธิทั้งสิ้น:';
         bahtLabel.textContent = 'จำนวนเงินรวมทั้งสิ้น (ตัวอักษร):';
-        rowDeduct.style.display = 'none';
-        rowRemaining.style.display = 'none';
+        if (rowTotalProject) rowTotalProject.style.display = 'none';
+        if (rowDeduct) rowDeduct.style.display = 'none';
+        if (rowRemaining) rowRemaining.style.display = 'none';
         if (document.getElementById('inputReceiptNo').value.startsWith('RE-') || document.getElementById('inputReceiptNo').value.startsWith('DP-')) {
           document.getElementById('inputReceiptNo').value = 'QT-' + document.getElementById('inputReceiptNo').value.slice(3);
         }
       } else if (type === 'DEPOSIT') {
         document.getElementById('tabDeposit').classList.add('active');
         titleEl.textContent = 'ใบรับเงินมัดจำ';
-        const refLbl = document.getElementById('dispRefLabel'); if (refLbl) refLbl.textContent = 'อ้างอิงโอน:';
+        const refLbl = document.getElementById('dispRefLabel'); if (refLbl) refLbl.textContent = 'อ้างอิงธุรกรรม:';
         subEl.textContent = 'DEPOSIT RECEIPT (NON-VAT)';
         badgeEl.className = 'badge-status badge-deposit';
         badgeEl.textContent = 'รับชำระเงินมัดจำแล้ว';
         clientLabel.textContent = 'ได้รับเงินมัดจำจาก (CUSTOMER)';
-        payLabel.textContent = 'รายละเอียดการชำระมัดจำ (DEPOSIT DETAILS)';
+        payLabel.textContent = 'รายละเอียดการรับเงินมัดจำ (DEPOSIT DETAILS)';
         receiverRole.textContent = 'ผู้รับเงินมัดจำ / ผู้มีอำนาจ (SalesDesk AI)';
-        footerNote.innerHTML = 'ได้รับเงินมัดจำเรียบร้อยแล้ว ทีมงานจะส่งมอบดราฟต์แรกให้ตรวจสอบภายใน 48 ชม. ครับ ';
-        netTotalLabel.textContent = 'ยอดเงินมัดจำสุทธิ:';
+        footerNote.innerHTML = 'ได้รับเงินมัดจำเรียบร้อยแล้ว ทีมงานจะเริ่มดำเนินงานทันที และส่งมอบงานให้ตรวจสอบภายใน 24-48 ชม. ครับ ';
+        netTotalLabel.textContent = 'ยอดรับชำระมัดจำสุทธิ:';
         bahtLabel.textContent = 'จำนวนเงินมัดจำ (ตัวอักษร):';
-        rowDeduct.style.display = 'flex';
-        rowRemaining.style.display = 'flex';
+        if (rowTotalProject) {
+          rowTotalProject.style.display = 'flex';
+          const lbl = document.getElementById('dispSummaryTotalProjectLabel');
+          if (lbl) lbl.textContent = 'มูลค่าโครงการรวม (Project Total):';
+        }
+        if (rowDeduct) {
+          rowDeduct.style.display = 'flex';
+          const lbl = document.getElementById('dispSummaryDepositLabel');
+          if (lbl) lbl.textContent = 'ยอดเงินมัดจำที่รับชำระ (Deposit Received):';
+        }
+        if (rowRemaining) {
+          rowRemaining.style.display = 'flex';
+          const lbl = document.getElementById('dispSummaryRemainingLabel');
+          if (lbl) lbl.textContent = 'คงเหลือชำระวันส่งมอบ (Remaining Balance):';
+        }
+
+        // Auto calculate 50% deposit default if deposit is empty, 0, or exceeds netTotal
+        const { netTotal } = calculateProjectTotal();
+        const depInput = document.getElementById('inputDepositAmount');
+        const curDep = parseFloat(depInput?.value) || 0;
+        if (curDep === 0 || curDep >= netTotal) {
+          const auto50 = Math.round(netTotal * 0.5);
+          if (depInput) depInput.value = auto50;
+        }
+
         if (document.getElementById('inputReceiptNo').value.startsWith('QT-') || document.getElementById('inputReceiptNo').value.startsWith('RE-')) {
           document.getElementById('inputReceiptNo').value = 'DP-' + document.getElementById('inputReceiptNo').value.slice(3);
         }
       } else {
         document.getElementById('tabReceipt').classList.add('active');
         titleEl.textContent = 'ใบเสร็จรับเงิน';
-        const refLbl = document.getElementById('dispRefLabel'); if (refLbl) refLbl.textContent = 'อ้างอิงโอน:';
+        const refLbl = document.getElementById('dispRefLabel'); if (refLbl) refLbl.textContent = 'อ้างอิงชำระ:';
         subEl.textContent = 'RECEIPT (NON-VAT)';
         badgeEl.className = 'badge-status badge-paid';
         badgeEl.textContent = 'ชำระเงินเรียบร้อยแล้ว';
@@ -1715,10 +1740,11 @@
         payLabel.textContent = 'รายละเอียดการชำระเงิน (PAYMENT METHOD)';
         receiverRole.textContent = 'ผู้รับเงิน / ผู้มีอำนาจลงนาม (SalesDesk AI)';
         footerNote.innerHTML = 'เอกสารฉบับนี้ออกโดยระบบคอมพิวเตอร์อัตโนมัติ SalesDesk AI Platform<br>ขอบพระคุณที่ไว้วางใจเลือกใช้บริการจัดทำเว็บไซต์และเซลเพจกับเราครับ ';
-        netTotalLabel.textContent = 'ยอดเงินสุทธิ (Net Total):';
-        bahtLabel.textContent = 'จำนวนเงินรวมทั้งสิ้น (ตัวอักษร):';
-        rowDeduct.style.display = 'none';
-        rowRemaining.style.display = 'none';
+        netTotalLabel.textContent = 'ยอดเงินสุทธิที่รับชำระ:';
+        bahtLabel.textContent = 'จำนวนเงินรับชำระทั้งสิ้น (ตัวอักษร):';
+        if (rowTotalProject) rowTotalProject.style.display = 'none';
+        if (rowDeduct) rowDeduct.style.display = 'none';
+        if (rowRemaining) rowRemaining.style.display = 'none';
         if (document.getElementById('inputReceiptNo').value.startsWith('QT-') || document.getElementById('inputReceiptNo').value.startsWith('DP-')) {
           document.getElementById('inputReceiptNo').value = 'RE-' + document.getElementById('inputReceiptNo').value.slice(3);
         }
@@ -2260,14 +2286,33 @@
       }
 
       document.getElementById('dispSummaryTotalProject').textContent = fmtTotal + ' บาท';
-      document.getElementById('dispSummaryDeposit').textContent = '-' + fmtDeposit + ' บาท';
-      document.getElementById('dispSummaryRemaining').textContent = fmtRemaining + ' บาท';
 
+      const dispSummaryDep = document.getElementById('dispSummaryDeposit');
+      if (dispSummaryDep) {
+        dispSummaryDep.textContent = (currentDocType === 'DEPOSIT' ? '+' : '-') + fmtDeposit + ' บาท';
+        dispSummaryDep.style.color = currentDocType === 'DEPOSIT' ? '#059669' : '#dc2626';
+        dispSummaryDep.style.fontWeight = '700';
+      }
+
+      const dispSummaryRem = document.getElementById('dispSummaryRemaining');
+      if (dispSummaryRem) {
+        dispSummaryRem.textContent = fmtRemaining + ' บาท';
+        dispSummaryRem.style.color = '#dc2626';
+        dispSummaryRem.style.fontWeight = '700';
+      }
+
+      const dispNetTotalEl = document.getElementById('dispNetTotal');
       if (currentDocType === 'DEPOSIT') {
-        document.getElementById('dispNetTotal').textContent = fmtDeposit + ' บาท';
+        if (dispNetTotalEl) {
+          dispNetTotalEl.textContent = fmtDeposit + ' บาท';
+          dispNetTotalEl.style.color = '#059669';
+        }
         document.getElementById('dispBahtText').textContent = numberToThaiBaht(depositAmount);
       } else {
-        document.getElementById('dispNetTotal').textContent = fmtTotal + ' บาท';
+        if (dispNetTotalEl) {
+          dispNetTotalEl.textContent = fmtTotal + ' บาท';
+          dispNetTotalEl.style.color = '#0284c7';
+        }
         document.getElementById('dispBahtText').textContent = numberToThaiBaht(netTotal);
       }
 
@@ -2294,7 +2339,7 @@
         if (currentDocType === 'QUOTATION') {
           payBody.innerHTML = `<strong>การชำระเงิน:</strong> ชำระมัดจำเพื่อเริ่มงาน หรือชำระเต็มจำนวน<br><strong>ธนาคาร:</strong> ${escapeHtml(bank.name)}<br><strong>เลขที่บัญชี:</strong> <span style="font-family: monospace; font-size: 13.5px; font-weight: 700; color: #1e3a8a;">${escapeHtml(bank.accountNo)}</span> (${escapeHtml(bank.accountName)})<br><strong>กำหนดส่งมอบงาน:</strong> 24–48 ชม. หลังได้รับข้อมูล`;
         } else if (currentDocType === 'DEPOSIT') {
-          payBody.innerHTML = `<strong>ช่องทางชำระ:</strong> ${escapeHtml(paymentMethod)}<br><strong>เข้าบัญชี:</strong> ${escapeHtml(bank.name)}<br><strong>เลขที่บัญชี:</strong> <span style="font-family: monospace; font-size: 13.5px; font-weight: 700; color: #047857;">${escapeHtml(bank.accountNo)}</span> (${escapeHtml(bank.accountName)})<br><strong>สถานะ:</strong> รับเงินมัดจำและเริ่มจัดทำระบบทันที`;
+          payBody.innerHTML = `<strong>ช่องทางชำระ:</strong> ${escapeHtml(paymentMethod)}<br><strong>เข้าบัญชี:</strong> ${escapeHtml(bank.name)}<br><strong>เลขที่บัญชี:</strong> <span style="font-family: monospace; font-size: 13.5px; font-weight: 700; color: #047857;">${escapeHtml(bank.accountNo)}</span> (${escapeHtml(bank.accountName)})<br><strong>ยอดเงินมัดจำที่รับชำระ:</strong> <span style="font-size: 13px; font-weight: 800; color: #059669;">${fmtDeposit} บาท</span> (คงเหลือชำระวันส่งมอบ: ${fmtRemaining} บาท)<br><strong>สถานะ:</strong> รับชำระเงินมัดจำเรียบร้อย และเริ่มจัดทำระบบทันที`;
         } else {
           payBody.innerHTML = `<strong>ช่องทางชำระ:</strong> ${escapeHtml(paymentMethod)}<br><strong>เข้าบัญชี:</strong> ${escapeHtml(bank.name)}<br><strong>เลขที่บัญชี:</strong> <span style="font-family: monospace; font-size: 13.5px; font-weight: 700; color: #1e3a8a;">${escapeHtml(bank.accountNo)}</span> (${escapeHtml(bank.accountName)})<br><strong>สถานะ:</strong> ยอดเงินเข้าบัญชีสมบูรณ์เรียบร้อย`;
         }
@@ -2674,7 +2719,7 @@
       }
 
       renderItemsDrawer();
-      updateReceiptData();
+      switchDocumentType(currentDocType || 'QUOTATION');
       updateHistoryBadge();
 
       const params = new URLSearchParams(window.location.search);

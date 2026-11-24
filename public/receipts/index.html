@@ -613,6 +613,12 @@
       border-radius: 8px;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
       position: relative;
+      font-family: 'Sarabun', 'Noto Sans Thai', 'Thonburi', sans-serif !important;
+      letter-spacing: normal !important;
+      -webkit-font-smoothing: antialiased;
+    }
+    #invoice-print-area * {
+      letter-spacing: normal;
     }
 
         .header-row {
@@ -744,12 +750,12 @@
       border: 1px solid #f1f5f9;
     }
     .info-label {
-      font-size: 10px;
-      font-weight: 600;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 2px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #475569;
+      text-transform: none !important;
+      letter-spacing: normal !important;
+      margin-bottom: 3px;
     }
     .info-name {
       font-size: 13px;
@@ -1286,7 +1292,7 @@
         </div>
       </div>
       <div class="info-card">
-        <div class="info-label" id="dispPaymentCardLabel">รายละเอียดการชำระมัดจำ (DEPOSIT DETAILS)</div>
+        <div class="info-label" id="dispPaymentCardLabel">เงื่อนไขการชำระเงิน (PAYMENT TERMS)</div>
         <div class="info-detail" style="margin-top: 2px;" id="dispPaymentCardBody">
           <strong>ช่องทางชำระ:</strong> <span id="dispPaymentMethod">โอนผ่านระบบธนาคารไทยพาณิชย์ (SCB)</span><br>
           <strong>เข้าบัญชี:</strong> ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน) KKP<br>
@@ -2265,14 +2271,16 @@
         document.getElementById('dispBahtText').textContent = numberToThaiBaht(netTotal);
       }
 
-      document.getElementById('dispRefNo').textContent = refNo;
-      const refLbl = document.getElementById('dispRefLabel');
-      if (refLbl) {
-        refLbl.textContent = (currentDocType === 'QUOTATION') ? 'กำหนดชำระ:' : 'อ้างอิงโอน:';
-      }
       if (currentDocType === 'QUOTATION') {
         const valBadge = document.getElementById('inputValidityDays')?.value || 'ยืนยันราคาพิเศษ 3 วัน';
         const badgeEl = document.getElementById('dispBadge'); if (badgeEl) badgeEl.textContent = valBadge;
+        document.getElementById('dispRefNo').textContent = valBadge;
+        const refLbl = document.getElementById('dispRefLabel');
+        if (refLbl) refLbl.textContent = 'กำหนดยืนราคา:';
+      } else {
+        document.getElementById('dispRefNo').textContent = refNo;
+        const refLbl = document.getElementById('dispRefLabel');
+        if (refLbl) refLbl.textContent = (currentDocType === 'DEPOSIT') ? 'อ้างอิงธุรกรรม:' : 'อ้างอิงชำระ:';
       }
       document.getElementById('dispCustomerSignName').textContent = contactPerson.trim() || 'ผู้มีอำนาจลงนาม';
       const signTitleEl = document.getElementById('dispCustomerSignTitle');
@@ -2284,11 +2292,11 @@
       const payBody = document.getElementById('dispPaymentCardBody');
       if (payBody) {
         if (currentDocType === 'QUOTATION') {
-          payBody.innerHTML = `<strong>การชำระเงิน:</strong> ชำระมัดจำเพื่อเริ่มงาน หรือชำระเต็มจำนวน<br><strong>ธนาคาร:</strong> ${escapeHtml(bank.name)}<br><strong>เลขที่บัญชี:</strong> <span style="font-family: monospace; font-size: 13.5px; font-weight: 700; color: #1e3a8a; letter-spacing: 0.5px;">${escapeHtml(bank.accountNo)}</span> (${escapeHtml(bank.accountName)})<br><strong>กำหนดส่งมอบงาน:</strong> 24–48 ชม. หลังได้รับข้อมูล`;
+          payBody.innerHTML = `<strong>การชำระเงิน:</strong> ชำระมัดจำเพื่อเริ่มงาน หรือชำระเต็มจำนวน<br><strong>ธนาคาร:</strong> ${escapeHtml(bank.name)}<br><strong>เลขที่บัญชี:</strong> <span style="font-family: monospace; font-size: 13.5px; font-weight: 700; color: #1e3a8a;">${escapeHtml(bank.accountNo)}</span> (${escapeHtml(bank.accountName)})<br><strong>กำหนดส่งมอบงาน:</strong> 24–48 ชม. หลังได้รับข้อมูล`;
         } else if (currentDocType === 'DEPOSIT') {
-          payBody.innerHTML = `<strong>ช่องทางชำระ:</strong> ${escapeHtml(paymentMethod)}<br><strong>เข้าบัญชี:</strong> ${escapeHtml(bank.name)}<br><strong>เลขที่บัญชี:</strong> <span style="font-family: monospace; font-size: 13.5px; font-weight: 700; color: #047857; letter-spacing: 0.5px;">${escapeHtml(bank.accountNo)}</span> (${escapeHtml(bank.accountName)})<br><strong>สถานะ:</strong> รับเงินมัดจำและเริ่มจัดทำระบบทันที`;
+          payBody.innerHTML = `<strong>ช่องทางชำระ:</strong> ${escapeHtml(paymentMethod)}<br><strong>เข้าบัญชี:</strong> ${escapeHtml(bank.name)}<br><strong>เลขที่บัญชี:</strong> <span style="font-family: monospace; font-size: 13.5px; font-weight: 700; color: #047857;">${escapeHtml(bank.accountNo)}</span> (${escapeHtml(bank.accountName)})<br><strong>สถานะ:</strong> รับเงินมัดจำและเริ่มจัดทำระบบทันที`;
         } else {
-          payBody.innerHTML = `<strong>ช่องทางชำระ:</strong> ${escapeHtml(paymentMethod)}<br><strong>เข้าบัญชี:</strong> ${escapeHtml(bank.name)}<br><strong>เลขที่บัญชี:</strong> <span style="font-family: monospace; font-size: 13.5px; font-weight: 700; color: #1e3a8a; letter-spacing: 0.5px;">${escapeHtml(bank.accountNo)}</span> (${escapeHtml(bank.accountName)})<br><strong>สถานะ:</strong> ยอดเงินเข้าบัญชีสมบูรณ์เรียบร้อย`;
+          payBody.innerHTML = `<strong>ช่องทางชำระ:</strong> ${escapeHtml(paymentMethod)}<br><strong>เข้าบัญชี:</strong> ${escapeHtml(bank.name)}<br><strong>เลขที่บัญชี:</strong> <span style="font-family: monospace; font-size: 13.5px; font-weight: 700; color: #1e3a8a;">${escapeHtml(bank.accountNo)}</span> (${escapeHtml(bank.accountName)})<br><strong>สถานะ:</strong> ยอดเงินเข้าบัญชีสมบูรณ์เรียบร้อย`;
         }
       }
     }
@@ -2587,13 +2595,27 @@
       }, 2800);
     }
 
-    function exportReceiptPDF() {
+    async function exportReceiptPDF() {
+      const btn = event?.target || document.querySelector('.btn-download-pdf');
+      if (btn) {
+        btn.innerHTML = '⏳ กำลังบันทึก PDF...';
+        btn.disabled = true;
+      }
+
+      // Auto-save to history
+      saveCurrentDocumentToHistory(true);
+
+      // Ensure Thai Google Fonts (Sarabun) are completely loaded into browser font cache before taking snapshot
+      if (document.fonts && document.fonts.ready) {
+        await document.fonts.ready;
+      }
+
       const element = document.getElementById('invoice-print-area');
       const receiptNo = document.getElementById('dispReceiptNo').textContent.trim() || 'DOC';
       
-      let prefix = 'Receipt';
-      if (currentDocType === 'QUOTATION') prefix = 'Quotation';
+      let prefix = 'Quotation';
       if (currentDocType === 'DEPOSIT') prefix = 'Deposit';
+      if (currentDocType === 'RECEIPT') prefix = 'Receipt';
       const cleanDocNo = receiptNo.replace(/[^a-zA-Z0-9-]/g, '');
       const safeFilename = `${prefix}_${cleanDocNo}.pdf`;
 
@@ -2601,21 +2623,19 @@
         margin:       [3, 5, 3, 5],
         filename:     safeFilename,
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false },
+        html2canvas:  { 
+          scale: 2, 
+          useCORS: true, 
+          logging: false,
+          letterRendering: false,
+          windowWidth: 790
+        },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak:    { mode: ['avoid-all'] }
       };
 
-      // Auto-save to history
-      saveCurrentDocumentToHistory(true);
-
-      const btn = event?.target;
-      if (btn) {
-        btn.innerHTML = '⏳ กำลังบันทึก PDF...';
-        btn.disabled = true;
-      }
-
-      html2pdf().set(opt).from(element).save().then(() => {
+      try {
+        await html2pdf().set(opt).from(element).save();
         if (btn) {
           btn.innerHTML = '✅ ดาวน์โหลดสำเร็จ!';
           setTimeout(() => {
@@ -2623,14 +2643,14 @@
             btn.disabled = false;
           }, 2500);
         }
-      }).catch(err => {
+      } catch (err) {
         console.error('PDF error:', err);
         window.print();
         if (btn) {
           btn.innerHTML = '⬇️ ดาวน์โหลด PDF ส่งใน LINE';
           btn.disabled = false;
         }
-      });
+      }
     }
 
     // Initialize on load

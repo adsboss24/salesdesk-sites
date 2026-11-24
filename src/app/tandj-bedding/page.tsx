@@ -370,7 +370,7 @@ export default function TandJBeddingEcommercePage() {
       size: '100" x 90" (เตียง 6 ฟุต)',
       unit: 'หลัง',
       price: 2590,
-      image: '/images/tandj/catalog/topper-5ft.jpg',
+      image: '/images/tandj/catalog/topper-6ft.jpg',
       badge: 'ฟีลลิ่ง 5 ดาว',
     },
 

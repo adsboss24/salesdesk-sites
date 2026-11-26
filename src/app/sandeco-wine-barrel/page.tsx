@@ -51,7 +51,7 @@ const PHONE_2_RAW = '032744501';
 const ADDRESS_TEXT = '23 หมู่ 2 ต.บ้านสิงห์ อ.โพธาราม จ.ราชบุรี 70120';
 const FACEBOOK_PAGE_URL = 'https://www.facebook.com/people/%E0%B8%96%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A7%E0%B8%99%E0%B9%8C%E0%B9%84%E0%B8%A1%E0%B9%82%E0%B8%AD%E0%B9%8A%E0%B8%84%E0%B8%9D%E0%B8%A3%E0%B8%B1%E0%B9%88%E0%B8%87%E0%B9%80%E0%B8%A8%E0%B8%AA%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%AA%E0%B8%AD%E0%B8%87/61579054171407/';
 const LINE_OA_URL = 'https://line.me/R/ti/p/@fhu6688s?text=สนใจถังไวน์ไม้โอ๊คฝรั่งเศส225L_บจก.ซันเดโก';
-const LINE_ID = '@fhu6688s';
+const LINE_ID = '';
 
 // Types
 export interface CartItem {

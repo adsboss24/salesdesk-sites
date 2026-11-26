@@ -599,9 +599,9 @@ export default function SandecoWineBarrelPage() {
                 </span>
               </h1>
 
-              {/* Subheadline */}
-              <p className="text-sm sm:text-base md:text-lg text-stone-200 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)]">
-                บริษัท ซันเดโก ได้คัดสรรถังไวน์ที่ผ่านการบ่มไวน์ชั้นดีจากประเทศฝรั่งเศส เพื่อส่งต่อให้ผู้ผลิตไวน์ท้องถิ่น, โรงกลั่นสุราคราฟต์ วิสกี้ รัม และการตกแต่งร้านอาหาร รีสอร์ท สไตล์ชาโตว์ยุโรปชั้นสูง พร้อมจัดส่งตรงถึงหน้างานทั่วไทย
+              {/* Minimal Premium Subheadline (Clean, punchy, zero obstruction to Hero image) */}
+              <p className="text-xs sm:text-base md:text-lg text-amber-200/90 font-medium tracking-wide drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)] max-w-xl mx-auto lg:mx-0">
+                คัดเกรดพิเศษจากแหล่งผลิตไวน์บอร์โด พร้อมส่งมอบสู่ผู้ผลิตเครื่องดื่มและงานดีไซน์ทั่วไทย
               </p>
 
               {/* Micro Trust Checkmarks */}
@@ -712,6 +712,52 @@ export default function SandecoWineBarrelPage() {
                     <div className="text-[11px] sm:text-xs text-stone-400 font-light">การใช้งาน</div>
                     <div className="text-xs sm:text-sm font-bold text-stone-100">3 มิติ: บ่มไวน์ • สุรา • ตกแต่ง</div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------- */}
+      {/* 2.5 BRAND INTRO & CURATION MISSION (พันธกิจการคัดสรรโดยซันเดโก)  */}
+      {/* ------------------------------------------------------------- */}
+      <section className="py-12 sm:py-16 bg-stone-950 border-b border-stone-800 relative overflow-hidden">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative rounded-3xl bg-gradient-to-br from-amber-950/40 via-stone-900/90 to-stone-950 border border-amber-600/30 p-6 sm:p-10 shadow-2xl">
+            {/* Atmospheric Glow */}
+            <div className="absolute top-0 right-0 w-72 h-72 bg-amber-600/5 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 sm:gap-8">
+              {/* Badge Icon */}
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-amber-950/80 border border-amber-500/40 flex items-center justify-center shrink-0 shadow-lg shadow-amber-950/50 text-amber-400">
+                <Wine className="w-8 h-8 sm:w-10 sm:h-10" />
+              </div>
+
+              {/* Mission Content */}
+              <div className="space-y-3.5 text-center md:text-left flex-1">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                  <span>พันธกิจและการคัดสรร • บจก. ซันเดโก (ประเทศไทย)</span>
+                </div>
+
+                <p className="text-base sm:text-lg lg:text-xl font-normal text-stone-100 leading-relaxed drop-shadow-sm">
+                  “บริษัท ซันเดโก ได้คัดสรรถังไวน์ที่ผ่านการบ่มไวน์ชั้นดีจากประเทศฝรั่งเศส เพื่อส่งต่อให้ผู้ผลิตไวน์ท้องถิ่น, โรงกลั่นสุราคราฟต์ วิสกี้ รัม และการตกแต่งร้านอาหาร รีสอร์ท สไตล์ชาโตว์ยุโรปชั้นสูง พร้อมจัดส่งตรงถึงหน้างานทั่วไทย”
+                </p>
+
+                <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-2 text-xs text-stone-300 font-medium border-t border-stone-800/80 mt-4">
+                  <span className="flex items-center gap-1.5 text-amber-300">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>นำเข้าตรงจากแคว้น Bordeaux</span>
+                  </span>
+                  <span className="flex items-center gap-1.5 text-amber-300">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>คัดเกรดสภาพสมบูรณ์ทุกใบ</span>
+                  </span>
+                  <span className="flex items-center gap-1.5 text-amber-300">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>สต็อกพร้อมส่ง อ.โพธาราม จ.ราชบุรี</span>
+                  </span>
                 </div>
               </div>
             </div>

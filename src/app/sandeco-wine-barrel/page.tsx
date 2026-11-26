@@ -37,6 +37,7 @@ import {
   PackageCheck,
   Send,
   Info,
+  Menu,
 } from 'lucide-react';
 
 // Brand & Contact Constants
@@ -99,6 +100,7 @@ export default function SandecoWineBarrelPage() {
   // Cart & Ordering State
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [cartTab, setCartTab] = useState<'cart' | 'checkout' | 'quote_success'>('cart');
   const [orderMode, setOrderMode] = useState<'purchase' | 'quotation'>('purchase');
   const [copiedPhone, setCopiedPhone] = useState(false);
@@ -366,67 +368,69 @@ export default function SandecoWineBarrelPage() {
       {/* ------------------------------------------------------------- */}
       {/* 1. ANNOUNCEMENT & STICKY LUXURY NAV HEADER                     */}
       {/* ------------------------------------------------------------- */}
-      <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-amber-950 text-amber-200/90 text-xs py-2 px-4 border-b border-amber-900/40 text-center tracking-wide font-medium">
-        <span className="inline-flex items-center gap-1.5">
-          <Wine className="w-3.5 h-3.5 text-amber-400" />
-          <span>ล็อตพิเศษนำเข้าจากแคว้น Bordeaux ประเทศฝรั่งเศส • ขนาดมาตรฐาน 225L ไม้โอ๊คหนา 27mm พร้อมส่งทันที</span>
-        </span>
+      <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-amber-950 text-amber-200/90 text-xs py-2 sm:py-2.5 px-4 border-b border-amber-900/40 text-center tracking-wide font-medium relative z-50">
+        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 overflow-hidden text-ellipsis">
+          <Wine className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+          <span className="whitespace-nowrap truncate text-[11px] sm:text-xs">
+            ล็อตพิเศษนำเข้าจากแคว้น Bordeaux ประเทศฝรั่งเศส • ขนาดมาตรฐาน 225L ไม้โอ๊คหนา 27mm พร้อมส่งทันที
+          </span>
+        </div>
       </div>
 
-      <header className="sticky top-0 z-40 bg-stone-950/90 backdrop-blur-md border-b border-stone-800/80 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      <header className="sticky top-0 z-40 bg-stone-950/95 backdrop-blur-md border-b border-stone-800/80 transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3 sm:gap-6">
           {/* Brand Identity */}
-          <Link href="#top" className="flex items-center gap-3 shrink-0 group">
-            <div className="w-11 h-11 rounded-full bg-gradient-to-br from-amber-600 via-amber-800 to-stone-900 border border-amber-500/40 flex items-center justify-center shadow-lg shadow-amber-950/50 group-hover:scale-105 transition-transform">
-              <Wine className="w-6 h-6 text-amber-200" />
+          <Link href="#top" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-br from-amber-600 via-amber-800 to-stone-900 border border-amber-500/40 flex items-center justify-center shadow-lg shadow-amber-950/50 group-hover:scale-105 transition-transform shrink-0">
+              <Wine className="w-5 h-5 sm:w-6 sm:h-6 text-amber-200" />
             </div>
-            <div>
-              <div className="text-sm font-bold tracking-wider text-amber-300 uppercase">
+            <div className="shrink-0">
+              <div className="text-xs sm:text-sm font-black tracking-wider text-amber-300 uppercase whitespace-nowrap">
                 SANDECO THAILAND
               </div>
-              <div className="text-xs text-stone-400 font-light flex items-center gap-1">
+              <div className="text-[11px] text-stone-400 font-light flex items-center gap-1 whitespace-nowrap">
                 <span>บจก. ซันเดโก</span>
                 <span className="text-amber-500/70">•</span>
-                <span className="text-stone-300">ถังไวน์ไม้โอ๊คฝรั่งเศส 225L</span>
+                <span className="text-stone-300">ถังไวน์บอร์โด 225L</span>
               </div>
             </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6 text-sm font-medium text-stone-300">
-            <a href="#applications" className="hover:text-amber-400 transition-colors whitespace-nowrap">
+          {/* Desktop Navigation Links (Visible on xl: 1280px+ to ensure zero overlap) */}
+          <nav className="hidden xl:flex items-center gap-5 2xl:gap-7 text-xs 2xl:text-sm font-medium text-stone-300 shrink-0">
+            <a href="#applications" className="hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
               การใช้งาน 3 มิติ
             </a>
-            <a href="#specifications" className="hover:text-amber-400 transition-colors whitespace-nowrap">
-              สเปก & สัดส่วนถัง
+            <a href="#specifications" className="hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
+              สเปกถัง 225L
             </a>
-            <a href="#french-oak-advantage" className="hover:text-amber-400 transition-colors whitespace-nowrap">
-              ทำไมต้องโอ๊คฝรั่งเศส
+            <a href="#french-oak-advantage" className="hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
+              ไม้โอ๊คฝรั่งเศส
             </a>
-            <a href="#catalog" className="hover:text-amber-400 transition-colors whitespace-nowrap">
+            <a href="#catalog" className="hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
               แคตตาล็อก & ราคา
             </a>
-            <a href="#quote-generator" className="hover:text-amber-400 transition-colors whitespace-nowrap">
+            <a href="#quote-generator" className="hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
               ขอใบเสนอราคา
             </a>
-            <a href="#faq" className="hover:text-amber-400 transition-colors whitespace-nowrap">
+            <a href="#faq" className="hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
               คำถามที่พบบ่อย
             </a>
-            <a href="#contact" className="hover:text-amber-400 transition-colors whitespace-nowrap">
+            <a href="#contact" className="hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
               ติดต่อเรา
             </a>
           </nav>
 
-          {/* Header Action Buttons */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          {/* Header Action Buttons (Enforced shrink-0, whitespace-nowrap, never line-wrapped) */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {/* Phone quick call */}
             <a
               href={`tel:${PHONE_1_RAW}`}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-900 border border-stone-700/80 hover:border-amber-500/60 text-stone-200 text-xs font-medium transition"
+              className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-stone-900 border border-stone-700/80 hover:border-amber-500/60 text-stone-200 text-xs font-semibold whitespace-nowrap shrink-0 transition"
               title="โทรสอบถามทันที"
             >
-              <PhoneCall className="w-3.5 h-3.5 text-amber-400" />
-              <span>{PHONE_1_DISPLAY}</span>
+              <PhoneCall className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span className="whitespace-nowrap font-mono">{PHONE_1_DISPLAY}</span>
             </a>
 
             {/* LINE OA consultation */}
@@ -434,10 +438,10 @@ export default function SandecoWineBarrelPage() {
               href={LINE_OA_URL}
               target="_blank"
               rel="noreferrer"
-              className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#06C755]/15 border border-[#06C755]/40 hover:bg-[#06C755]/25 text-[#06C755] text-xs font-semibold transition"
+              className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-[#06C755]/15 border border-[#06C755]/40 hover:bg-[#06C755]/25 text-[#06C755] text-xs font-bold whitespace-nowrap shrink-0 transition"
             >
-              <LineIcon className="w-4 h-4" />
-              <span>คุยไลน์กับผู้เชี่ยวชาญ</span>
+              <LineIcon className="w-4 h-4 shrink-0" />
+              <span className="whitespace-nowrap">คุยไลน์</span>
             </a>
 
             {/* Shopping Cart Button */}
@@ -446,18 +450,104 @@ export default function SandecoWineBarrelPage() {
                 setIsCartOpen(true);
                 setCartTab('cart');
               }}
-              className="relative p-2.5 rounded-full bg-amber-600 hover:bg-amber-500 text-stone-950 font-semibold shadow-lg shadow-amber-600/20 transition-all hover:scale-105 active:scale-95"
+              className="relative p-2.5 rounded-full bg-amber-600 hover:bg-amber-500 text-stone-950 font-semibold shadow-lg shadow-amber-600/20 transition-all hover:scale-105 active:scale-95 shrink-0"
               aria-label="ตะกร้าสินค้า"
             >
-              <ShoppingCart className="w-5 h-5 text-stone-950" />
+              <ShoppingCart className="w-5 h-5 text-stone-950 shrink-0" />
               {totalItemCount > 0 && (
                 <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[11px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-stone-950 animate-pulse">
                   {totalItemCount}
                 </span>
               )}
             </button>
+
+            {/* Mobile / Tablet Menu Toggle (Visible below xl: 1280px) */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="xl:hidden p-2.5 rounded-xl bg-stone-900 border border-stone-700 text-stone-300 hover:text-white hover:bg-stone-800 transition shrink-0"
+              aria-label="เมนูนำทาง"
+            >
+              {isMobileMenuOpen ? <X className="w-5 h-5 shrink-0" /> : <Menu className="w-5 h-5 shrink-0" />}
+            </button>
           </div>
         </div>
+
+        {/* Responsive Mobile/Tablet Navigation Drawer */}
+        {isMobileMenuOpen && (
+          <div className="xl:hidden bg-stone-950/98 border-b border-stone-800 px-4 py-5 space-y-4 backdrop-blur-xl animate-in slide-in-from-top-2 duration-200">
+            <nav className="flex flex-col space-y-2 text-sm font-semibold text-stone-200">
+              <a
+                href="#applications"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg hover:bg-stone-900 hover:text-amber-400 transition"
+              >
+                การใช้งาน 3 มิติ (บ่มไวน์ • สุราคราฟต์ • ตกแต่ง)
+              </a>
+              <a
+                href="#specifications"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg hover:bg-stone-900 hover:text-amber-400 transition"
+              >
+                สเปก & สัดส่วนถังบอร์โด 225L
+              </a>
+              <a
+                href="#french-oak-advantage"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg hover:bg-stone-900 hover:text-amber-400 transition"
+              >
+                ทำไมต้องไม้โอ๊คฝรั่งเศสแท้
+              </a>
+              <a
+                href="#catalog"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg hover:bg-stone-900 hover:text-amber-400 transition"
+              >
+                แคตตาล็อกสินค้า & ราคาพิเศษ
+              </a>
+              <a
+                href="#quote-generator"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg hover:bg-stone-900 hover:text-amber-400 transition"
+              >
+                ขอใบเสนอราคาด่วนสำหรับองค์กร/ร้านค้า
+              </a>
+              <a
+                href="#faq"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg hover:bg-stone-900 hover:text-amber-400 transition"
+              >
+                คำถามที่พบบ่อย (FAQ)
+              </a>
+              <a
+                href="#contact"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="px-3 py-2 rounded-lg hover:bg-stone-900 hover:text-amber-400 transition"
+              >
+                ติดต่อคลังสินค้า (โพธาราม จ.ราชบุรี)
+              </a>
+            </nav>
+
+            {/* Quick Actions in Mobile Drawer */}
+            <div className="pt-3 border-t border-stone-800 grid grid-cols-2 gap-2">
+              <a
+                href={`tel:${PHONE_1_RAW}`}
+                className="py-2.5 rounded-xl bg-stone-900 border border-stone-700 text-stone-200 text-xs font-bold flex items-center justify-center gap-2"
+              >
+                <PhoneCall className="w-3.5 h-3.5 text-amber-400" />
+                <span className="font-mono">{PHONE_1_DISPLAY}</span>
+              </a>
+              <a
+                href={LINE_OA_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="py-2.5 rounded-xl bg-[#06C755] text-white text-xs font-bold flex items-center justify-center gap-2"
+              >
+                <LineIcon className="w-3.5 h-3.5" />
+                <span>แอดไลน์ปรึกษา</span>
+              </a>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* ------------------------------------------------------------- */}

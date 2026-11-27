@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import {
   Wine,
@@ -38,7 +38,10 @@ import {
   Send,
   Info,
   Menu,
+  AlertCircle,
+  RefreshCw,
 } from 'lucide-react';
+import { pushToDataLayer } from '@/lib/gtm';
 
 // Brand & Contact Constants
 const BRAND_NAME = 'บจก. ซันเดโก (ประเทศไทย)';
@@ -51,7 +54,7 @@ const PHONE_2_RAW = '032744501';
 const ADDRESS_TEXT = '23 หมู่ 2 ต.บ้านสิงห์ อ.โพธาราม จ.ราชบุรี 70120';
 const FACEBOOK_PAGE_URL = 'https://www.facebook.com/people/%E0%B8%96%E0%B8%B1%E0%B8%87%E0%B9%84%E0%B8%A7%E0%B8%99%E0%B9%8C%E0%B9%84%E0%B8%A1%E0%B9%82%E0%B8%AD%E0%B9%8A%E0%B8%84%E0%B8%9D%E0%B8%A3%E0%B8%B1%E0%B9%88%E0%B8%87%E0%B9%80%E0%B8%A8%E0%B8%AA%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%AA%E0%B8%AD%E0%B8%87/61579054171407/';
 const LINE_OA_URL = 'https://line.me/R/ti/p/@fhu6688s?text=สนใจถังไวน์ไม้โอ๊คฝรั่งเศส225L_บจก.ซันเดโก';
-const LINE_ID = '';
+const LINE_ID = ''; // เว้นว่างไว้ตามคำสั่งบอส (ไม่แสดง @fhu6688s ที่การ์ดจนกว่าจะได้รับอนุมัติ)
 
 // Types
 export interface CartItem {
@@ -77,7 +80,15 @@ export interface ProductCatalogItem {
   features: string[];
   image: string;
   badge?: string;
+  gradeBadge?: string;
+  gradeComparison?: string;
   inStock: boolean;
+}
+
+interface ToastNotification {
+  id: number;
+  title: string;
+  message: string;
 }
 
 function LineIcon({ className = 'w-4 h-4' }: { className?: string }) {
@@ -106,6 +117,28 @@ export default function SandecoWineBarrelPage() {
   const [copiedPhone, setCopiedPhone] = useState(false);
   const [copiedAddress, setCopiedAddress] = useState(false);
 
+  // Toast Notification State
+  const [toast, setToast] = useState<ToastNotification | null>(null);
+  const toastTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const showToast = (title: string, message: string) => {
+    if (toastTimeoutRef.current) {
+      clearTimeout(toastTimeoutRef.current);
+    }
+    setToast({ id: Date.now(), title, message });
+    toastTimeoutRef.current = setTimeout(() => {
+      setToast(null);
+    }, 3500);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (toastTimeoutRef.current) {
+        clearTimeout(toastTimeoutRef.current);
+      }
+    };
+  }, []);
+
   // Customer Form State
   const [customerData, setCustomerData] = useState({
     name: '',
@@ -117,16 +150,30 @@ export default function SandecoWineBarrelPage() {
     quantityNote: '1',
     notes: '',
   });
+  const [checkoutPhoneError, setCheckoutPhoneError] = useState('');
+  const [checkoutEmailError, setCheckoutEmailError] = useState('');
+  const [checkoutApiError, setCheckoutApiError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [quoteNumber, setQuoteNumber] = useState('');
+  const [previewDate, setPreviewDate] = useState('28/11/2569');
+  const [previewDocSuffix, setPreviewDocSuffix] = useState('8899');
+
+  useEffect(() => {
+    setPreviewDate(new Date().toLocaleDateString('th-TH'));
+    setPreviewDocSuffix(Date.now().toString().slice(-4));
+  }, []);
 
   // Standalone Quote Simulator State
   const [quoteSimItem, setQuoteSimItem] = useState('barrel-decor');
   const [quoteSimQty, setQuoteSimQty] = useState(2);
   const [quoteSimName, setQuoteSimName] = useState('');
   const [quoteSimPhone, setQuoteSimPhone] = useState('');
+  const [quoteSimEmail, setQuoteSimEmail] = useState('');
   const [quoteSimCompany, setQuoteSimCompany] = useState('');
   const [quoteSimPurpose, setQuoteSimPurpose] = useState('ตกแต่งร้านอาหาร / คาเฟ่ / รีสอร์ท');
+  const [quoteSimPhoneError, setQuoteSimPhoneError] = useState('');
+  const [quoteSimApiError, setQuoteSimApiError] = useState('');
+  const [isSubmittingQuote, setIsSubmittingQuote] = useState(false);
   const [quoteSimSuccess, setQuoteSimSuccess] = useState(false);
 
   // Products Catalog
@@ -149,6 +196,8 @@ export default function SandecoWineBarrelPage() {
         ],
         image: '/images/sandeco/barrel-product-a.jpg',
         badge: 'ยอดนิยมอันดับ 1 สำหรับตกแต่ง',
+        gradeBadge: 'เกรดตกแต่ง (Decor Grade)',
+        gradeComparison: 'เน้นลวดลายไม้คลาสสิก ขัดเคลือบผิวสวยงาม (ไม่เหมาะกับการบ่มของเหลว)',
         inStock: true,
       },
       {
@@ -162,12 +211,14 @@ export default function SandecoWineBarrelPage() {
         spec: 'ขนาด 225L • หนา 27mm • ปาก 57cm • พุง 69cm • สูง 95cm • พร้อมฝาและจุกอุดไม้/ซิลิโคน',
         features: [
           'ถังที่ผ่านการบ่มไวน์แดง Bordeaux ชั้นเลิศ เนื้อไม้ยังคงแทนนินและกลิ่นอายผลไม้สุก',
-          'ผ่านการทดสอบแรงดันน้ำและกักเก็บของเหลว ไม่มีการรั่วซึม (Tight seal tested)',
+          'ผ่านการทดสอบแรงดันน้ำและกักเก็บของเหลว ไม่มีการรั่วซึม (Tight seal tested 100%)',
           'เหมาะสำหรับบ่มไวน์ท้องถิ่น, วิสกี้, รัม, เบียร์คราฟต์, เตกิลา',
           'ให้ไมโครออกซิเจน เติมมิติสีอำพันทองประกายแดงและวานิลลาลุ่มลึก',
         ],
         image: '/images/sandeco/barrel-craft-spirits.jpg',
         badge: 'เกรดช่างบ่มสุรามืออาชีพ',
+        gradeBadge: 'เกรดหมักบ่ม (Watertight 100%)',
+        gradeComparison: 'ผ่านการทดสอบกักเก็บของเหลวแน่นสนิท ปลอดสารเคมี กลิ่นหอมไวน์บอร์โดแท้',
         inStock: true,
       },
       {
@@ -187,6 +238,8 @@ export default function SandecoWineBarrelPage() {
         ],
         image: '/images/sandeco/barrel-decor-table.jpg',
         badge: 'Signature Cafe & Bar Decor',
+        gradeBadge: 'ชุดโต๊ะบาร์สำเร็จรูป',
+        gradeComparison: 'ประกอบพร้อมท็อปโต๊ะและแท่นเสริมความมั่นคง เหมาะกับคาเฟ่และร้านอาหาร',
         inStock: true,
       },
       {
@@ -206,6 +259,8 @@ export default function SandecoWineBarrelPage() {
         ],
         image: '/images/sandeco/barrel-product-a.jpg',
         badge: 'แนะนำซื้อคู่กับถัง',
+        gradeBadge: 'ฐานรองไม้โอ๊คแท้',
+        gradeComparison: 'ออกแบบให้โค้งรับสัดส่วน 225L โดยเฉพาะ แข็งแกร่ง รองรับน้ำหนักได้เต็มที่',
         inStock: true,
       },
     ],
@@ -216,8 +271,20 @@ export default function SandecoWineBarrelPage() {
   const totalItemCount = useMemo(() => cart.reduce((sum, item) => sum + item.quantity, 0), [cart]);
   const grandTotal = useMemo(() => cart.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0), [cart]);
 
-  // Add to cart helper
-  const addToCart = (product: ProductCatalogItem, quantity = 1) => {
+  // Validation Helper: Thai Phone (9-10 digits, e.g., 0812345678, 086-026-6668, 032744501)
+  const validateThaiPhone = (phone: string): boolean => {
+    const cleaned = phone.replace(/[^0-9]/g, '');
+    return /^(0[689]\d{8}|0[2-57]\d{7,8})$/.test(cleaned);
+  };
+
+  // Validation Helper: Email (optional, but if filled must be valid)
+  const validateEmail = (email: string): boolean => {
+    if (!email) return true;
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  // Add to cart helper with Toast Notification
+  const addToCart = (product: ProductCatalogItem, quantity = 1, openDrawer = false) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
       if (existing) {
@@ -239,8 +306,16 @@ export default function SandecoWineBarrelPage() {
         },
       ];
     });
-    setIsCartOpen(true);
-    setCartTab('cart');
+
+    showToast(
+      'เพิ่มสินค้าลงในตะกร้าแล้ว',
+      `เพิ่ม "${product.name.length > 28 ? product.name.slice(0, 28) + '...' : product.name}" (${quantity} ${product.unit})`
+    );
+
+    if (openDrawer) {
+      setIsCartOpen(true);
+      setCartTab('cart');
+    }
   };
 
   const updateQuantity = (id: string, delta: number) => {
@@ -261,13 +336,28 @@ export default function SandecoWineBarrelPage() {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
 
-  // Submit Order / Quotation
+  // Submit Order / Quotation (Hardened with strict res.ok and error state)
   const handleSubmitCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!customerData.name || !customerData.phone) {
-      alert('กรุณากรอกชื่อและเบอร์โทรศัพท์สำหรับติดต่อกลับ');
+    setCheckoutPhoneError('');
+    setCheckoutEmailError('');
+    setCheckoutApiError('');
+
+    if (!customerData.name.trim()) {
+      alert('กรุณากรอกชื่อและนามสกุลสำหรับติดต่อกลับ');
       return;
     }
+
+    if (!validateThaiPhone(customerData.phone)) {
+      setCheckoutPhoneError('กรุณากรอกเบอร์โทรศัพท์ที่ถูกต้อง (9-10 หลัก เช่น 086-026-6668)');
+      return;
+    }
+
+    if (customerData.email && !validateEmail(customerData.email)) {
+      setCheckoutEmailError('กรุณากรอกรูปแบบอีเมลที่ถูกต้อง (เช่น yourname@domain.com)');
+      return;
+    }
+
     if (cart.length === 0) {
       alert('กรุณาเลือกสินค้าอย่างน้อย 1 รายการลงในตะกร้า');
       return;
@@ -278,15 +368,15 @@ export default function SandecoWineBarrelPage() {
     setQuoteNumber(generatedQuoteId);
 
     try {
-      // Send to orders API
       const payload = {
         orderType: orderMode,
         quotationNumber: generatedQuoteId,
         customerInfo: {
-          name: customerData.name,
-          phone: customerData.phone,
-          businessName: customerData.company,
-          address: customerData.address,
+          name: customerData.name.trim(),
+          phone: customerData.phone.trim(),
+          businessName: customerData.company.trim(),
+          email: customerData.email.trim() || undefined,
+          address: customerData.address.trim(),
           notes: `วัตถุประสงค์: ${customerData.purpose} | หมายเหตุ: ${customerData.notes || '-'}`,
         },
         items: cart.map((c) => ({
@@ -305,47 +395,100 @@ export default function SandecoWineBarrelPage() {
         submittedAt: new Date().toISOString(),
       };
 
-      await fetch('/api/orders', {
+      const res = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
-      }).catch((err) => console.log('Order notification sent:', err));
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.message || errorData.error || `HTTP error ${res.status}`);
+      }
+
+      // Track confirmed success in GTM dataLayer
+      pushToDataLayer({
+        event: orderMode === 'purchase' ? 'purchase' : 'generate_lead',
+        lead_type: orderMode,
+        button_name: orderMode === 'purchase' ? 'confirm_order' : 'request_quotation',
+        page_location: window.location.href,
+        value: grandTotal,
+        currency: 'THB',
+        quotation_id: generatedQuoteId,
+      });
 
       setCartTab('quote_success');
-    } catch (error) {
-      console.error(error);
-      setCartTab('quote_success');
+    } catch (error: any) {
+      console.error('Submit order failed:', error);
+      setCheckoutApiError(
+        'ระบบไม่สามารถส่งข้อมูลได้ในขณะนี้ กรุณากดลองใหม่อีกครั้ง หรือโทรติดต่อฝ่ายขาย 086-026-6668 โดยตรง'
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Standalone Quote Simulator Submit
-  const handleSimulateQuote = (e: React.FormEvent) => {
+  // Standalone Quote Simulator Submit (Hardened with strict res.ok and error state)
+  const handleSimulateQuote = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!quoteSimName || !quoteSimPhone) {
-      alert('กรุณากรอกชื่อและเบอร์โทรติดต่อ');
+    setQuoteSimPhoneError('');
+    setQuoteSimApiError('');
+
+    if (!quoteSimName.trim()) {
+      alert('กรุณากรอกชื่อผู้ติดต่อ');
       return;
     }
-    setQuoteSimSuccess(true);
 
-    // Send lead to /api/leads
+    if (!validateThaiPhone(quoteSimPhone)) {
+      setQuoteSimPhoneError('กรุณากรอกเบอร์โทรศัพท์ที่ถูกต้อง (9-10 หลัก เช่น 086-026-6668)');
+      return;
+    }
+
+    setIsSubmittingQuote(true);
+
     const leadPayload = {
-      fullName: quoteSimName,
-      phone: quoteSimPhone,
+      fullName: quoteSimName.trim(),
+      phone: quoteSimPhone.trim(),
+      email: quoteSimEmail.trim() || undefined,
       modelInterest: `${quoteSimItem} (จำนวน ${quoteSimQty} ใบ)`,
       serviceType: `ขอใบเสนอราคาถังไวน์ไม้โอ๊ค Bordeaux - ${quoteSimPurpose}`,
-      location: quoteSimCompany || 'บุคคลทั่วไป / ร้านค้า',
+      location: quoteSimCompany.trim() || 'บุคคลทั่วไป / ร้านค้า',
       notes: `วัตถุประสงค์: ${quoteSimPurpose} | จำนวน: ${quoteSimQty} ใบ`,
       pageSource: 'Sandeco Quote Simulator Form',
       submittedAt: new Date().toISOString(),
     };
 
-    fetch('/api/leads', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(leadPayload),
-    }).catch((err) => console.log('Lead notification sent:', err));
+    try {
+      const res = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadPayload),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.message || errorData.error || `HTTP error ${res.status}`);
+      }
+
+      // Track confirmed success in GTM dataLayer
+      pushToDataLayer({
+        event: 'generate_lead',
+        lead_type: 'quote_simulator',
+        button_name: 'calculate_quote_submit',
+        page_location: window.location.href,
+        value: (products.find((p) => p.id === quoteSimItem)?.price || 0) * quoteSimQty,
+        currency: 'THB',
+      });
+
+      setQuoteSimSuccess(true);
+    } catch (error: any) {
+      console.error('Submit quote lead failed:', error);
+      setQuoteSimApiError(
+        'ระบบไม่สามารถส่งคำขอได้ในขณะนี้ กรุณากดลองใหม่อีกครั้ง หรือติดต่อผ่าน LINE / โทร 086-026-6668'
+      );
+    } finally {
+      setIsSubmittingQuote(false);
+    }
   };
 
   // Copy helper
@@ -365,6 +508,47 @@ export default function SandecoWineBarrelPage() {
 
   return (
     <div className="min-h-screen bg-stone-950 text-stone-100 font-sans antialiased selection:bg-amber-600 selection:text-white overflow-x-hidden">
+      {/* ------------------------------------------------------------- */}
+      {/* 0. TOAST NOTIFICATION FLOATING PILL                           */}
+      {/* ------------------------------------------------------------- */}
+      {toast && (
+        <div
+          role="status"
+          aria-live="polite"
+          className="fixed top-24 right-4 sm:right-6 z-50 max-w-sm w-full bg-stone-900/95 border border-amber-500/60 shadow-2xl shadow-black/80 rounded-2xl p-4 backdrop-blur-xl animate-in slide-in-from-top-4 duration-300 flex items-start gap-3"
+        >
+          <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
+            <CheckCircle2 className="w-5 h-5" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="text-xs font-bold text-white flex items-center justify-between">
+              <span>{toast.title}</span>
+              <button
+                onClick={() => setToast(null)}
+                className="text-stone-400 hover:text-white p-0.5 rounded transition"
+                aria-label="ปิดการแจ้งเตือน"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            </div>
+            <p className="text-xs text-stone-300 mt-0.5 truncate">{toast.message}</p>
+            <div className="mt-2.5 flex items-center gap-2">
+              <button
+                onClick={() => {
+                  setIsCartOpen(true);
+                  setCartTab('cart');
+                  setToast(null);
+                }}
+                className="px-3 py-1 rounded-lg bg-amber-600 hover:bg-amber-500 text-stone-950 text-[11px] font-bold transition flex items-center gap-1"
+              >
+                <ShoppingCart className="w-3 h-3" />
+                <span>เปิดดูตะกร้า ({totalItemCount})</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ------------------------------------------------------------- */}
       {/* 1. ANNOUNCEMENT & STICKY LUXURY NAV HEADER                     */}
       {/* ------------------------------------------------------------- */}
@@ -396,25 +580,19 @@ export default function SandecoWineBarrelPage() {
             </div>
           </Link>
 
-          {/* Desktop Navigation Links (Visible on xl: 1280px+ to ensure zero overlap) */}
-          <nav className="hidden xl:flex items-center gap-5 2xl:gap-7 text-xs 2xl:text-sm font-medium text-stone-300 shrink-0">
+          {/* Consolidated Desktop Navigation Links (4-5 anchors to prevent 1024-1280px overflow) */}
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 text-xs 2xl:text-sm font-medium text-stone-300 shrink-0">
             <a href="#applications" className="hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
-              การใช้งาน 3 มิติ
-            </a>
-            <a href="#specifications" className="hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
-              สเปกถัง 225L
+              การใช้งาน & สเปก
             </a>
             <a href="#french-oak-advantage" className="hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
-              ไม้โอ๊คฝรั่งเศส
+              ไม้โอ๊คบอร์โด
             </a>
             <a href="#catalog" className="hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
-              แคตตาล็อก & ราคา
+              แคตตาล็อกสินค้า
             </a>
             <a href="#quote-generator" className="hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
               ขอใบเสนอราคา
-            </a>
-            <a href="#faq" className="hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
-              คำถามที่พบบ่อย
             </a>
             <a href="#contact" className="hover:text-amber-400 transition-colors whitespace-nowrap shrink-0">
               ติดต่อเรา
@@ -444,27 +622,27 @@ export default function SandecoWineBarrelPage() {
               <span className="whitespace-nowrap">คุยไลน์</span>
             </a>
 
-            {/* Shopping Cart Button */}
+            {/* Persistent Shopping Cart Button with Dynamic Badge */}
             <button
               onClick={() => {
                 setIsCartOpen(true);
                 setCartTab('cart');
               }}
-              className="relative p-2.5 rounded-full bg-amber-600 hover:bg-amber-500 text-stone-950 font-semibold shadow-lg shadow-amber-600/20 transition-all hover:scale-105 active:scale-95 shrink-0"
-              aria-label="ตะกร้าสินค้า"
+              className="relative p-2.5 rounded-full bg-amber-600 hover:bg-amber-500 text-stone-950 font-semibold shadow-lg shadow-amber-600/20 transition-all hover:scale-105 active:scale-95 shrink-0 flex items-center justify-center"
+              aria-label={`ตะกร้าสินค้า (${totalItemCount} รายการ)`}
             >
               <ShoppingCart className="w-5 h-5 text-stone-950 shrink-0" />
               {totalItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[11px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-stone-950 animate-pulse">
+                <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[11px] font-black min-w-[20px] h-5 px-1 rounded-full flex items-center justify-center border-2 border-stone-950 animate-pulse">
                   {totalItemCount}
                 </span>
               )}
             </button>
 
-            {/* Mobile / Tablet Menu Toggle (Visible below xl: 1280px) */}
+            {/* Mobile / Tablet Menu Toggle (Visible below lg: 1024px) */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="xl:hidden p-2.5 rounded-xl bg-stone-900 border border-stone-700 text-stone-300 hover:text-white hover:bg-stone-800 transition shrink-0"
+              className="lg:hidden p-2.5 rounded-xl bg-stone-900 border border-stone-700 text-stone-300 hover:text-white hover:bg-stone-800 transition shrink-0"
               aria-label="เมนูนำทาง"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5 shrink-0" /> : <Menu className="w-5 h-5 shrink-0" />}
@@ -474,21 +652,14 @@ export default function SandecoWineBarrelPage() {
 
         {/* Responsive Mobile/Tablet Navigation Drawer */}
         {isMobileMenuOpen && (
-          <div className="xl:hidden bg-stone-950/98 border-b border-stone-800 px-4 py-5 space-y-4 backdrop-blur-xl animate-in slide-in-from-top-2 duration-200">
+          <div className="lg:hidden bg-stone-950/98 border-b border-stone-800 px-4 py-5 space-y-4 backdrop-blur-xl animate-in slide-in-from-top-2 duration-200">
             <nav className="flex flex-col space-y-2 text-sm font-semibold text-stone-200">
               <a
                 href="#applications"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="px-3 py-2 rounded-lg hover:bg-stone-900 hover:text-amber-400 transition"
               >
-                การใช้งาน 3 มิติ (บ่มไวน์ • สุราคราฟต์ • ตกแต่ง)
-              </a>
-              <a
-                href="#specifications"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="px-3 py-2 rounded-lg hover:bg-stone-900 hover:text-amber-400 transition"
-              >
-                สเปก & สัดส่วนถังบอร์โด 225L
+                การใช้งาน & สเปก (บ่มไวน์ • สุราคราฟต์ • ตกแต่ง)
               </a>
               <a
                 href="#french-oak-advantage"
@@ -566,10 +737,7 @@ export default function SandecoWineBarrelPage() {
           <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-stone-950 via-stone-950/90 via-45% to-transparent" />
 
           {/* Mobile Multi-Layer Scrim */}
-          {/* Layer 1 (Top Scrim): 0-35% dark behind top headline */}
           <div className="lg:hidden absolute inset-0 bg-gradient-to-b from-stone-950/95 via-stone-950/60 via-35% to-transparent" />
-
-          {/* Layer 2 (Bottom Scrim): Soft dark gradient behind bottom action buttons */}
           <div className="lg:hidden absolute bottom-0 inset-x-0 h-80 bg-gradient-to-t from-stone-950 via-stone-950/90 via-50% to-transparent" />
 
           {/* Desktop Bottom Edge Fade */}
@@ -589,7 +757,7 @@ export default function SandecoWineBarrelPage() {
               </div>
 
               {/* Master Thai Headline (Zero-Overlapping Standard) */}
-              <h1 className="text-3xl sm:text-5xl lg:text-[3.25rem] font-black text-white tracking-tight leading-normal sm:leading-[1.25] lg:leading-[1.22] drop-shadow-[0_2px_16px_rgba(0,0,0,0.95)]">
+              <h1 className="text-3xl sm:text-5xl lg:text-[3.25rem] font-black text-white tracking-tight leading-tight sm:leading-[1.25] drop-shadow-[0_2px_16px_rgba(0,0,0,0.95)]">
                 <span className="block">ถังไวน์ไม้โอ๊คฝรั่งเศสมือสอง</span>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-200 block mt-1.5 sm:mt-2.5 pb-1 drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)]">
                   Bordeaux 225 Litres
@@ -599,7 +767,7 @@ export default function SandecoWineBarrelPage() {
                 </span>
               </h1>
 
-              {/* Minimal Premium Subheadline (Clean, punchy, zero obstruction to Hero image) */}
+              {/* Minimal Premium Subheadline */}
               <p className="text-xs sm:text-base md:text-lg text-amber-200/90 font-medium tracking-wide drop-shadow-[0_1px_8px_rgba(0,0,0,0.9)] max-w-xl mx-auto lg:mx-0">
                 คัดเกรดพิเศษจากแหล่งผลิตไวน์บอร์โด พร้อมส่งมอบสู่ผู้ผลิตเครื่องดื่มและงานดีไซน์ทั่วไทย
               </p>
@@ -620,18 +788,18 @@ export default function SandecoWineBarrelPage() {
                 </div>
               </div>
 
-              {/* Desktop-only CTAs */}
-              <div className="hidden lg:flex flex-row items-center justify-start gap-3.5 pt-3">
+              {/* Responsive Single-Source CTA Group (Eliminates DOM Duplication) */}
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3.5 pt-3 w-full sm:w-auto">
                 <a
                   href="#catalog"
-                  className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-stone-950 font-bold text-sm tracking-wide shadow-xl shadow-amber-900/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2"
+                  className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-stone-950 font-bold text-sm tracking-wide shadow-xl shadow-amber-900/40 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                 >
                   <ShoppingCart className="w-4 h-4" />
                   <span>เลือกชมสินค้า & สั่งซื้อออนไลน์</span>
                 </a>
                 <a
                   href="#quote-generator"
-                  className="px-6 py-3.5 rounded-xl bg-stone-900/90 hover:bg-stone-800 border border-stone-700/80 hover:border-amber-400 text-stone-100 font-semibold text-sm backdrop-blur-md transition-all flex items-center gap-2"
+                  className="px-6 py-3.5 rounded-xl bg-stone-900/90 hover:bg-stone-800 border border-stone-700/80 hover:border-amber-400 text-stone-100 font-semibold text-sm backdrop-blur-md transition-all flex items-center justify-center gap-2"
                 >
                   <FileText className="w-4 h-4 text-amber-400" />
                   <span>ขอใบเสนอราคาด่วน</span>
@@ -639,33 +807,12 @@ export default function SandecoWineBarrelPage() {
               </div>
             </div>
 
-            {/* Right Column (Mobile keeps it visually open, Desktop lets image shine) */}
+            {/* Right Column (Kept visually unobstructed for Hero photography) */}
             <div className="lg:col-span-5 hidden lg:block" />
           </div>
 
-          {/* Bottom Block: Mobile CTAs & 4 Glassmorphic Feature Badges */}
+          {/* Bottom Block: 4 Glassmorphic Feature Badges (Anchored at Bottom Edge) */}
           <div className="mt-8 lg:mt-12">
-            {/* Mobile-only CTAs (Positioned at bottom, keeping center photo 100% open) */}
-            <div className="lg:hidden space-y-2 mb-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <a
-                  href="#catalog"
-                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-stone-950 font-bold text-sm tracking-wide text-center shadow-lg shadow-amber-950/60 flex items-center justify-center gap-2"
-                >
-                  <ShoppingCart className="w-4 h-4" />
-                  <span>สั่งซื้อออนไลน์ / ดูราคา</span>
-                </a>
-                <a
-                  href="#quote-generator"
-                  className="w-full py-3.5 rounded-xl bg-stone-900/90 border border-amber-500/40 text-stone-100 font-semibold text-sm text-center flex items-center justify-center gap-2"
-                >
-                  <FileText className="w-4 h-4 text-amber-400" />
-                  <span>ขอใบเสนอราคาด่วน</span>
-                </a>
-              </div>
-            </div>
-
-            {/* 4 Glassmorphic Feature Badges (Anchored at Bottom Edge) */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 pt-4 border-t border-white/10">
               <div className="bg-stone-900/80 backdrop-blur-md border border-stone-800 p-3 sm:p-4 rounded-xl hover:border-amber-500/40 transition">
                 <div className="flex items-center gap-2 sm:gap-3">
@@ -725,20 +872,17 @@ export default function SandecoWineBarrelPage() {
       <section className="py-12 sm:py-16 bg-stone-950 border-b border-stone-800 relative overflow-hidden">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-3xl bg-gradient-to-br from-amber-950/40 via-stone-900/90 to-stone-950 border border-amber-600/30 p-6 sm:p-10 shadow-2xl">
-            {/* Atmospheric Glow */}
             <div className="absolute top-0 right-0 w-72 h-72 bg-amber-600/5 rounded-full blur-3xl pointer-events-none" />
 
             <div className="relative z-10 flex flex-col md:flex-row items-center gap-6 sm:gap-8">
-              {/* Badge Icon */}
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-amber-950/80 border border-amber-500/40 flex items-center justify-center shrink-0 shadow-lg shadow-amber-950/50 text-amber-400">
                 <Wine className="w-8 h-8 sm:w-10 sm:h-10" />
               </div>
 
-              {/* Mission Content */}
               <div className="space-y-3.5 text-center md:text-left flex-1">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold">
                   <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                  <span>พันธกิจและการคัดสรร • บจก. ซันเดโก (ประเทศไทย)</span>
+                  <span>พันธกิจและการคัดสรร • {BRAND_NAME}</span>
                 </div>
 
                 <p className="text-base sm:text-lg lg:text-xl font-normal text-stone-100 leading-relaxed drop-shadow-sm">
@@ -815,7 +959,7 @@ export default function SandecoWineBarrelPage() {
               </div>
               <div className="pt-6 border-t border-stone-800/80 mt-6">
                 <button
-                  onClick={() => addToCart(products[1])}
+                  onClick={() => addToCart(products[1], 1, true)}
                   className="w-full py-2.5 rounded-lg bg-stone-900 hover:bg-amber-600 hover:text-stone-950 border border-stone-700 text-stone-200 text-xs font-bold transition flex items-center justify-center gap-1.5"
                 >
                   <Plus className="w-3.5 h-3.5" />
@@ -856,7 +1000,7 @@ export default function SandecoWineBarrelPage() {
               </div>
               <div className="pt-6 border-t border-stone-800/80 mt-6">
                 <button
-                  onClick={() => addToCart(products[1])}
+                  onClick={() => addToCart(products[1], 1, true)}
                   className="w-full py-2.5 rounded-lg bg-stone-900 hover:bg-amber-600 hover:text-stone-950 border border-stone-700 text-stone-200 text-xs font-bold transition flex items-center justify-center gap-1.5"
                 >
                   <Plus className="w-3.5 h-3.5" />
@@ -897,7 +1041,7 @@ export default function SandecoWineBarrelPage() {
               </div>
               <div className="pt-6 border-t border-stone-800/80 mt-6">
                 <button
-                  onClick={() => addToCart(products[0])}
+                  onClick={() => addToCart(products[0], 1, true)}
                   className="w-full py-2.5 rounded-lg bg-stone-900 hover:bg-amber-600 hover:text-stone-950 border border-stone-700 text-stone-200 text-xs font-bold transition flex items-center justify-center gap-1.5"
                 >
                   <Plus className="w-3.5 h-3.5" />
@@ -915,22 +1059,102 @@ export default function SandecoWineBarrelPage() {
       <section id="specifications" className="py-20 bg-stone-950 border-b border-stone-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Visual Blueprint Display */}
+            {/* Visual Cooperage Blueprint Drawing (Distinct Visual Representation) */}
             <div className="lg:col-span-5 relative">
-              <div className="relative rounded-3xl overflow-hidden border border-stone-800 bg-stone-900 p-6 shadow-2xl">
-                <img
-                  src="/images/sandeco/barrel-product-a.jpg"
-                  alt="สเปกถังไวน์ไม้โอ๊คฝรั่งเศส Bordeaux 225L"
-                  className="w-full h-auto object-cover rounded-2xl shadow-lg"
-                />
-                <div className="absolute top-10 left-10 bg-stone-950/90 border border-amber-500/40 px-3 py-1.5 rounded-lg backdrop-blur-md text-xs font-bold text-amber-300">
-                  Bordeaux Barrique Standard
+              <div className="relative rounded-3xl overflow-hidden border border-amber-600/30 bg-gradient-to-b from-stone-900 via-stone-950 to-stone-900 p-6 shadow-2xl">
+                {/* Blueprint Header */}
+                <div className="flex items-center justify-between border-b border-stone-800 pb-3 mb-6">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse" />
+                    <span className="text-[11px] font-mono tracking-widest uppercase text-amber-300">
+                      TECHNICAL COOPERAGE BLUEPRINT
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-mono text-stone-500">STD: BARRIQUE 225L</span>
                 </div>
 
-                {/* Floating Spec Overlays */}
-                <div className="absolute bottom-10 right-10 bg-stone-950/90 border border-stone-700 px-3.5 py-2 rounded-xl backdrop-blur-md text-right">
-                  <div className="text-[10px] text-stone-400 uppercase tracking-wider">ความจุแท้จริง</div>
-                  <div className="text-lg font-black text-amber-400">225 Litres</div>
+                {/* SVG Blueprint Diagram with Exact Dimensions */}
+                <div className="relative flex items-center justify-center py-4">
+                  <svg viewBox="0 0 340 400" className="w-full max-w-[280px] sm:max-w-[320px] h-auto drop-shadow-2xl">
+                    <defs>
+                      <linearGradient id="barrelWoodGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#291e17" />
+                        <stop offset="25%" stopColor="#452f1e" />
+                        <stop offset="50%" stopColor="#63452b" />
+                        <stop offset="75%" stopColor="#452f1e" />
+                        <stop offset="100%" stopColor="#291e17" />
+                      </linearGradient>
+                      <linearGradient id="steelHoopGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#525252" />
+                        <stop offset="50%" stopColor="#a3a3a3" />
+                        <stop offset="100%" stopColor="#404040" />
+                      </linearGradient>
+                    </defs>
+
+                    {/* Barrel Body Contour */}
+                    <path
+                      d="M 100 45 Q 60 200 100 355 L 240 355 Q 280 200 240 45 Z"
+                      fill="url(#barrelWoodGrad)"
+                      stroke="#d97706"
+                      strokeWidth="2"
+                    />
+
+                    {/* Staves vertical curvature lines */}
+                    <path d="M 125 45 Q 98 200 125 355" stroke="#78350f" strokeWidth="1" strokeDasharray="3 3" fill="none" opacity="0.6" />
+                    <path d="M 150 45 Q 135 200 150 355" stroke="#78350f" strokeWidth="1" strokeDasharray="3 3" fill="none" opacity="0.6" />
+                    <path d="M 170 45 Q 170 200 170 355" stroke="#b45309" strokeWidth="1" fill="none" opacity="0.5" />
+                    <path d="M 190 45 Q 205 200 190 355" stroke="#78350f" strokeWidth="1" strokeDasharray="3 3" fill="none" opacity="0.6" />
+                    <path d="M 215 45 Q 242 200 215 355" stroke="#78350f" strokeWidth="1" strokeDasharray="3 3" fill="none" opacity="0.6" />
+
+                    {/* Top & Bottom Chime Heads */}
+                    <ellipse cx="170" cy="45" rx="70" ry="12" fill="#362217" stroke="#f59e0b" strokeWidth="1.5" />
+                    <ellipse cx="170" cy="355" rx="70" ry="12" fill="#24150f" stroke="#d97706" strokeWidth="1.5" />
+
+                    {/* Bunghole (Château bung at center) */}
+                    <circle cx="170" cy="200" r="7" fill="#1c1917" stroke="#f59e0b" strokeWidth="1.5" />
+                    <circle cx="170" cy="200" r="3" fill="#b45309" />
+
+                    {/* 6 Galvanized Steel Hoops */}
+                    <ellipse cx="170" cy="65" rx="73" ry="11" fill="none" stroke="url(#steelHoopGrad)" strokeWidth="6" />
+                    <ellipse cx="170" cy="115" rx="83" ry="12" fill="none" stroke="url(#steelHoopGrad)" strokeWidth="5.5" />
+                    <ellipse cx="170" cy="165" rx="88" ry="13" fill="none" stroke="url(#steelHoopGrad)" strokeWidth="5" />
+                    <ellipse cx="170" cy="235" rx="88" ry="13" fill="none" stroke="url(#steelHoopGrad)" strokeWidth="5" />
+                    <ellipse cx="170" cy="285" rx="83" ry="12" fill="none" stroke="url(#steelHoopGrad)" strokeWidth="5.5" />
+                    <ellipse cx="170" cy="335" rx="73" ry="11" fill="none" stroke="url(#steelHoopGrad)" strokeWidth="6" />
+
+                    {/* Top Dimension line: 57 cm */}
+                    <line x1="100" y1="25" x2="240" y2="25" stroke="#fbbf24" strokeWidth="1.5" />
+                    <line x1="100" y1="20" x2="100" y2="30" stroke="#fbbf24" strokeWidth="1.5" />
+                    <line x1="240" y1="20" x2="240" y2="30" stroke="#fbbf24" strokeWidth="1.5" />
+                    <text x="170" y="18" fill="#fbbf24" fontSize="11" fontWeight="bold" textAnchor="middle" fontFamily="monospace">
+                      ผิวบน 57 cm
+                    </text>
+
+                    {/* Bilge Center Dimension line: 69 cm */}
+                    <line x1="72" y1="200" x2="268" y2="200" stroke="#38bdf8" strokeWidth="1.5" strokeDasharray="4 2" />
+                    <circle cx="72" cy="200" r="3" fill="#38bdf8" />
+                    <circle cx="268" cy="200" r="3" fill="#38bdf8" />
+                    <text x="75" y="190" fill="#38bdf8" fontSize="10" fontWeight="bold" textAnchor="start" fontFamily="monospace">
+                      พุงถัง 69 cm
+                    </text>
+
+                    {/* Height Dimension line on Right: 95 cm */}
+                    <line x1="295" y1="45" x2="295" y2="355" stroke="#34d399" strokeWidth="1.5" />
+                    <line x1="290" y1="45" x2="300" y2="45" stroke="#34d399" strokeWidth="1.5" />
+                    <line x1="290" y1="355" x2="300" y2="355" stroke="#34d399" strokeWidth="1.5" />
+                    <text x="305" y="205" fill="#34d399" fontSize="11" fontWeight="bold" textAnchor="start" fontFamily="monospace">
+                      สูง 95 cm
+                    </text>
+                  </svg>
+                </div>
+
+                {/* Blueprint Sub-badge */}
+                <div className="mt-4 pt-3 border-t border-stone-800 flex items-center justify-between text-[11px] font-mono text-stone-400">
+                  <span className="flex items-center gap-1.5 text-amber-300">
+                    <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                    <span>ความหนาไม้โอ๊ค 27 mm</span>
+                  </span>
+                  <span className="text-stone-300">ความจุสุทธิ 225 ลิตร</span>
                 </div>
               </div>
             </div>
@@ -945,7 +1169,7 @@ export default function SandecoWineBarrelPage() {
                   เจาะลึกสเปกและสัดส่วน <span className="text-amber-400">มาตรฐานบอร์โด</span>
                 </h2>
                 <p className="text-stone-300 text-sm sm:text-base mt-2 leading-relaxed">
-                  ถังไวน์ทุกใบที่ บจก. ซันเดโก นำเข้ามา เป็นถัง Barrique มาตรฐานจากแหล่งผลิตไวน์บอร์โด ประเทศฝรั่งเศส ที่ขึ้นชื่อเรื่องงานช่างฝีมือประกอบถัง (Cooperage) ที่ประณีตที่สุดในโลก
+                  ถังไวน์ทุกใบที่ {BRAND_NAME} นำเข้ามา เป็นถัง Barrique มาตรฐานจากแหล่งผลิตไวน์บอร์โด ประเทศฝรั่งเศส ที่ขึ้นชื่อเรื่องงานช่างฝีมือประกอบถัง (Cooperage) ที่ประณีตที่สุดในโลก
                 </p>
               </div>
 
@@ -1018,7 +1242,7 @@ export default function SandecoWineBarrelPage() {
                 </div>
               </div>
 
-              {/* Callout box */}
+              {/* Quality Guarantee Callout Box */}
               <div className="p-4 rounded-xl bg-amber-950/40 border border-amber-600/30 text-xs sm:text-sm text-stone-300 flex items-center gap-3">
                 <Info className="w-5 h-5 text-amber-400 shrink-0" />
                 <span>
@@ -1143,7 +1367,7 @@ export default function SandecoWineBarrelPage() {
       {/* ------------------------------------------------------------- */}
       <section id="catalog" className="py-20 bg-stone-950 border-b border-stone-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
             <div>
               <span className="text-amber-400 text-xs uppercase tracking-widest font-bold">
                 Online Catalog & Direct Order
@@ -1152,7 +1376,14 @@ export default function SandecoWineBarrelPage() {
                 รายการสินค้า & สั่งซื้อออนไลน์ <span className="text-amber-400">ส่งตรงถึงที่</span>
               </h2>
               <p className="text-stone-300 text-sm sm:text-base mt-2">
-                กดเลือกสินค้าลงตะกร้าเพื่อคำนวณราคา หรือกด [ขอใบเสนอราคา] ได้ทันที รองรับทั้งบุคคลและองค์กร
+                กดเลือกสินค้าลงตะกร้าเพื่อคำนวณราคา หรือกด{' '}
+                <a
+                  href="#quote-generator"
+                  className="text-amber-400 font-semibold underline hover:text-amber-300 transition"
+                >
+                  ขอใบเสนอราคา
+                </a>{' '}
+                ได้ทันที รองรับทั้งบุคคลและองค์กร
               </p>
             </div>
 
@@ -1169,6 +1400,22 @@ export default function SandecoWineBarrelPage() {
                 <span>เปิดตะกร้าสินค้า ({totalItemCount} รายการ)</span>
               </button>
             </div>
+          </div>
+
+          {/* Pricing & VAT / Shipping Policy Callout */}
+          <div className="mb-10 p-4 rounded-2xl bg-stone-900/90 border border-stone-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-stone-300">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span>
+                <strong>นโยบายราคา:</strong> ราคาสินค้ารวม VAT 7% แล้ว (ออกใบกำกับภาษีได้) • บริการจัดส่งทั่วประเทศ ออกจากคลัง อ.โพธาราม จ.ราชบุรี หรือนัดรับสินค้าฟรี
+              </span>
+            </div>
+            <a
+              href={`tel:${PHONE_1_RAW}`}
+              className="text-amber-400 hover:text-amber-300 font-semibold underline whitespace-nowrap shrink-0"
+            >
+              สอบถามค่าส่งเหมาคัน โทร {PHONE_1_DISPLAY}
+            </a>
           </div>
 
           {/* Product Grid */}
@@ -1205,7 +1452,15 @@ export default function SandecoWineBarrelPage() {
                       {product.spec}
                     </div>
 
-                    <ul className="space-y-1.5 pt-2 text-xs text-stone-300">
+                    {/* Grade Distinction Badge */}
+                    {product.gradeBadge && (
+                      <div className="p-2.5 rounded-lg bg-stone-950/70 border border-amber-600/30 text-[11px] space-y-1">
+                        <div className="font-bold text-amber-300">{product.gradeBadge}</div>
+                        <div className="text-stone-400 leading-relaxed">{product.gradeComparison}</div>
+                      </div>
+                    )}
+
+                    <ul className="space-y-1.5 pt-1 text-xs text-stone-300">
                       {product.features.slice(0, 3).map((feat, idx) => (
                         <li key={idx} className="flex items-start gap-1.5">
                           <Check className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
@@ -1233,18 +1488,18 @@ export default function SandecoWineBarrelPage() {
 
                   <div className="grid grid-cols-2 gap-2">
                     <button
-                      onClick={() => addToCart(product, 1)}
-                      className="w-full py-2.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs font-semibold border border-stone-700 transition flex items-center justify-center gap-1.5"
+                      onClick={() => addToCart(product, 1, false)}
+                      className="w-full py-2.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-200 text-xs font-semibold border border-stone-700 transition flex items-center justify-center gap-1.5 active:scale-95"
                     >
                       <Plus className="w-3.5 h-3.5" />
                       <span>ใส่ตะกร้า</span>
                     </button>
                     <button
                       onClick={() => {
-                        addToCart(product, 1);
+                        addToCart(product, 1, true);
                         setCartTab('checkout');
                       }}
-                      className="w-full py-2.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-stone-950 text-xs font-bold transition flex items-center justify-center gap-1.5"
+                      className="w-full py-2.5 rounded-lg bg-amber-600 hover:bg-amber-500 text-stone-950 text-xs font-bold transition flex items-center justify-center gap-1.5 active:scale-95"
                     >
                       <span>สั่งซื้อทันที</span>
                       <ChevronRight className="w-3.5 h-3.5" />
@@ -1285,39 +1540,59 @@ export default function SandecoWineBarrelPage() {
               <form onSubmit={handleSimulateQuote} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-stone-300 mb-1">
+                    <label htmlFor="quoteSimName" className="block text-xs font-medium text-stone-300 mb-1">
                       ชื่อ-นามสกุล / ผู้ติดต่อ <span className="text-amber-500">*</span>
                     </label>
                     <input
+                      id="quoteSimName"
+                      name="fullName"
+                      autoComplete="name"
                       type="text"
                       required
                       value={quoteSimName}
                       onChange={(e) => setQuoteSimName(e.target.value)}
-                      placeholder="เช่น คุณวิทวัส"
+                      placeholder="เช่น คุณวิทวัส แสนสุข"
                       className="w-full px-3.5 py-2.5 rounded-xl bg-stone-900 border border-stone-700 text-white placeholder-stone-500 text-sm focus:border-amber-500 focus:outline-none"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-stone-300 mb-1">
+                    <label htmlFor="quoteSimPhone" className="block text-xs font-medium text-stone-300 mb-1">
                       เบอร์โทรศัพท์ติดต่อ <span className="text-amber-500">*</span>
                     </label>
                     <input
+                      id="quoteSimPhone"
+                      name="phone"
+                      autoComplete="tel"
                       type="tel"
                       required
                       value={quoteSimPhone}
-                      onChange={(e) => setQuoteSimPhone(e.target.value)}
-                      placeholder="เช่น 081-234-5678"
-                      className="w-full px-3.5 py-2.5 rounded-xl bg-stone-900 border border-stone-700 text-white placeholder-stone-500 text-sm focus:border-amber-500 focus:outline-none"
+                      onChange={(e) => {
+                        setQuoteSimPhone(e.target.value);
+                        setQuoteSimPhoneError('');
+                      }}
+                      placeholder="เช่น 086-026-6668"
+                      className={`w-full px-3.5 py-2.5 rounded-xl bg-stone-900 border text-white placeholder-stone-500 text-sm focus:outline-none ${
+                        quoteSimPhoneError ? 'border-red-500 focus:border-red-500' : 'border-stone-700 focus:border-amber-500'
+                      }`}
                     />
+                    {quoteSimPhoneError && (
+                      <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                        <AlertCircle className="w-3 h-3" />
+                        <span>{quoteSimPhoneError}</span>
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-medium text-stone-300 mb-1">
+                    <label htmlFor="quoteSimCompany" className="block text-xs font-medium text-stone-300 mb-1">
                       ชื่อบริษัท / ร้านค้า / โปรเจกต์
                     </label>
                     <input
+                      id="quoteSimCompany"
+                      name="organization"
+                      autoComplete="organization"
                       type="text"
                       value={quoteSimCompany}
                       onChange={(e) => setQuoteSimCompany(e.target.value)}
@@ -1326,10 +1601,12 @@ export default function SandecoWineBarrelPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-stone-300 mb-1">
+                    <label htmlFor="quoteSimPurpose" className="block text-xs font-medium text-stone-300 mb-1">
                       วัตถุประสงค์การใช้งาน
                     </label>
                     <select
+                      id="quoteSimPurpose"
+                      name="purpose"
                       value={quoteSimPurpose}
                       onChange={(e) => setQuoteSimPurpose(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl bg-stone-900 border border-stone-700 text-white text-sm focus:border-amber-500 focus:outline-none"
@@ -1345,10 +1622,12 @@ export default function SandecoWineBarrelPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                   <div className="sm:col-span-2">
-                    <label className="block text-xs font-medium text-stone-300 mb-1">
+                    <label htmlFor="quoteSimItem" className="block text-xs font-medium text-stone-300 mb-1">
                       เลือกประเภทถังไวน์
                     </label>
                     <select
+                      id="quoteSimItem"
+                      name="productItem"
                       value={quoteSimItem}
                       onChange={(e) => setQuoteSimItem(e.target.value)}
                       className="w-full px-3.5 py-2.5 rounded-xl bg-stone-900 border border-stone-700 text-white text-sm focus:border-amber-500 focus:outline-none"
@@ -1361,7 +1640,7 @@ export default function SandecoWineBarrelPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-stone-300 mb-1">
+                    <label htmlFor="quoteSimQty" className="block text-xs font-medium text-stone-300 mb-1">
                       จำนวนที่ต้องการ
                     </label>
                     <div className="flex items-center">
@@ -1369,21 +1648,25 @@ export default function SandecoWineBarrelPage() {
                         type="button"
                         onClick={() => setQuoteSimQty((prev) => Math.max(1, prev - 1))}
                         className="px-3 py-2.5 bg-stone-800 hover:bg-stone-700 rounded-l-xl text-stone-200 border border-stone-700"
+                        aria-label="ลดจำนวน"
                       >
                         <Minus className="w-4 h-4" />
                       </button>
                       <input
+                        id="quoteSimQty"
+                        name="quantity"
                         type="number"
                         min="1"
                         max="100"
                         value={quoteSimQty}
                         onChange={(e) => setQuoteSimQty(Math.max(1, parseInt(e.target.value) || 1))}
-                        className="w-full text-center py-2.5 bg-stone-900 border-y border-stone-700 text-white text-sm focus:outline-none"
+                        className="w-full text-center py-2.5 bg-stone-900 border-y border-stone-700 text-white text-sm focus:outline-none font-mono"
                       />
                       <button
                         type="button"
                         onClick={() => setQuoteSimQty((prev) => prev + 1)}
                         className="px-3 py-2.5 bg-stone-800 hover:bg-stone-700 rounded-r-xl text-stone-200 border border-stone-700"
+                        aria-label="เพิ่มจำนวน"
                       >
                         <Plus className="w-4 h-4" />
                       </button>
@@ -1391,13 +1674,46 @@ export default function SandecoWineBarrelPage() {
                   </div>
                 </div>
 
+                {quoteSimApiError && (
+                  <div className="p-3 bg-red-950/60 border border-red-500/50 rounded-xl text-red-300 text-xs flex items-start gap-2">
+                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <span>{quoteSimApiError}</span>
+                      <div className="mt-2 flex gap-2">
+                        <button
+                          type="submit"
+                          className="px-3 py-1 bg-red-800 hover:bg-red-700 text-white rounded text-[11px] font-semibold"
+                        >
+                          ลองใหม่อีกครั้ง
+                        </button>
+                        <a
+                          href={`tel:${PHONE_1_RAW}`}
+                          className="px-3 py-1 bg-stone-800 hover:bg-stone-700 text-stone-200 rounded text-[11px] font-semibold"
+                        >
+                          โทร {PHONE_1_DISPLAY}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 <div className="pt-4">
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-stone-950 font-bold text-sm tracking-wide shadow-lg shadow-amber-950/60 transition flex items-center justify-center gap-2"
+                    disabled={isSubmittingQuote}
+                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-stone-950 font-bold text-sm tracking-wide shadow-lg shadow-amber-950/60 transition flex items-center justify-center gap-2 disabled:opacity-60"
                   >
-                    <FileText className="w-4 h-4" />
-                    <span>คำนวณและแสดงใบเสนอราคาทันที</span>
+                    {isSubmittingQuote ? (
+                      <>
+                        <RefreshCw className="w-4 h-4 animate-spin" />
+                        <span>กำลังประมวลผลข้อมูล...</span>
+                      </>
+                    ) : (
+                      <>
+                        <FileText className="w-4 h-4" />
+                        <span>คำนวณและแสดงใบเสนอราคาทันที</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </form>
@@ -1411,16 +1727,16 @@ export default function SandecoWineBarrelPage() {
                     OFFICIAL QUOTATION PREVIEW
                   </div>
                   <div className="text-base font-extrabold text-white mt-0.5">
-                    บจก. ซันเดโก (ประเทศไทย)
+                    {BRAND_NAME}
                   </div>
                   <div className="text-[11px] text-stone-400">เลขประจำตัวผู้เสียภาษี / สำนักงานโพธาราม จ.ราชบุรี</div>
                 </div>
                 <div className="text-right">
                   <div className="text-xs font-mono font-bold text-amber-300">
-                    QT-{new Date().getFullYear()}-{Date.now().toString().slice(-4)}
+                    QT-2026-{previewDocSuffix}
                   </div>
                   <div className="text-[10px] text-stone-400">
-                    วันที่: {new Date().toLocaleDateString('th-TH')}
+                    วันที่: {previewDate}
                   </div>
                 </div>
               </div>
@@ -1466,7 +1782,7 @@ export default function SandecoWineBarrelPage() {
               {/* Total Summary */}
               <div className="border-t border-stone-800 pt-3 space-y-1.5 text-xs">
                 <div className="flex justify-between text-stone-400">
-                  <span>ยอดรวมสินค้า</span>
+                  <span>ยอดรวมสินค้า (รวม VAT 7%)</span>
                   <span className="font-mono">฿{simTotal.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between text-stone-400">
@@ -1502,8 +1818,9 @@ export default function SandecoWineBarrelPage() {
               </div>
 
               {quoteSimSuccess && (
-                <div className="mt-3 p-2.5 bg-emerald-950/60 border border-emerald-500/40 rounded-xl text-emerald-300 text-xs text-center animate-fade-in">
-                  ✓ ส่งข้อมูลให้ฝ่ายขายเรียบร้อยแล้ว เจ้าหน้าที่จะติดต่อกลับภายใน 15 นาที
+                <div className="mt-3 p-2.5 bg-emerald-950/60 border border-emerald-500/40 rounded-xl text-emerald-300 text-xs text-center animate-fade-in flex items-center justify-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>ส่งข้อมูลให้ฝ่ายขายเรียบร้อยแล้ว เจ้าหน้าที่จะติดต่อกลับภายใน 15 นาที</span>
                 </div>
               )}
             </div>
@@ -1685,7 +2002,7 @@ export default function SandecoWineBarrelPage() {
                   Direct Contact & Warehouse
                 </span>
                 <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight mt-1 leading-normal sm:leading-[1.25]">
-                  ติดต่อ บจก. ซันเดโก <span className="text-amber-400">(ประเทศไทย)</span>
+                  ติดต่อ {BRAND_NAME}
                 </h2>
                 <p className="text-stone-300 text-sm sm:text-base mt-2 leading-relaxed">
                   ยินดีต้อนรับผู้ประกอบการและลูกค้าทุกท่านเข้าชมถังไวน์ของจริงที่โกดังคัดแยก จ.ราชบุรี หรือโทรสอบถามทีมงานฝ่ายขายได้ทุกวัน
@@ -1728,13 +2045,16 @@ export default function SandecoWineBarrelPage() {
                   </div>
                 </div>
 
+                {/* LINE OA Card: Respects Boss's Instruction to leave Line ID blank without ugly 'ID: ' text */}
                 <div className="p-4 rounded-2xl bg-stone-900 border border-stone-800 flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-[#06C755]/20 border border-[#06C755]/40 flex items-center justify-center text-[#06C755] shrink-0">
                     <LineIcon className="w-5 h-5" />
                   </div>
                   <div className="flex-1">
                     <div className="text-xs text-stone-400">LINE Official Account</div>
-                    <div className="text-sm font-bold text-white mt-0.5">ID: {LINE_ID}</div>
+                    <div className="text-sm font-bold text-white mt-0.5">
+                      {LINE_ID ? `ID: ${LINE_ID}` : 'ติดต่อเจ้าหน้าที่ฝ่ายบริการลูกค้า'}
+                    </div>
                     <a
                       href={LINE_OA_URL}
                       target="_blank"
@@ -1833,17 +2153,17 @@ export default function SandecoWineBarrelPage() {
             </div>
 
             <div className="flex flex-wrap justify-center gap-6 text-xs text-stone-300">
-              <a href="#applications" className="hover:text-amber-400 transition">การใช้งาน</a>
-              <a href="#specifications" className="hover:text-amber-400 transition">สเปกถัง</a>
-              <a href="#catalog" className="hover:text-amber-400 transition">แคตตาล็อก</a>
+              <a href="#applications" className="hover:text-amber-400 transition">การใช้งาน & สเปก</a>
+              <a href="#french-oak-advantage" className="hover:text-amber-400 transition">ไม้โอ๊คบอร์โด</a>
+              <a href="#catalog" className="hover:text-amber-400 transition">แคตตาล็อกสินค้า</a>
               <a href="#quote-generator" className="hover:text-amber-400 transition">ขอใบเสนอราคา</a>
-              <a href="#faq" className="hover:text-amber-400 transition">คำถามที่พบบ่อย</a>
+              <a href="#contact" className="hover:text-amber-400 transition">ติดต่อเรา</a>
             </div>
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-stone-500 text-xs text-center sm:text-left">
-              © {new Date().getFullYear()} บริษัท ซันเดโก (ประเทศไทย) จำกัด. All rights reserved.
+              © 2026 {BRAND_NAME}. All rights reserved.
             </div>
 
             {/* SalesDesk AI Official Standard Attribution */}
@@ -1889,11 +2209,12 @@ export default function SandecoWineBarrelPage() {
               setCartTab('cart');
             }}
             className="col-span-3 py-2.5 rounded-xl bg-stone-900 border border-stone-700 text-stone-200 flex flex-col items-center justify-center relative active:scale-95 transition"
+            aria-label="เปิดตะกร้าสินค้า"
           >
             <ShoppingCart className="w-4 h-4 text-amber-400" />
             <span className="text-[10px] mt-0.5 font-medium">ตะกร้า</span>
             {totalItemCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-black w-4 h-4 rounded-full flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-red-600 text-white text-[10px] font-black min-w-[18px] h-[18px] px-1 rounded-full flex items-center justify-center">
                 {totalItemCount}
               </span>
             )}
@@ -1925,7 +2246,7 @@ export default function SandecoWineBarrelPage() {
       {/* 13. SLIDE-OVER LUXURY SHOPPING CART & CHECKOUT DRAWER          */}
       {/* ------------------------------------------------------------- */}
       {isCartOpen && (
-        <div className="fixed inset-0 z-50 overflow-hidden">
+        <div className="fixed inset-0 z-50 overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="cartDrawerTitle">
           {/* Backdrop */}
           <div
             className="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
@@ -1938,11 +2259,12 @@ export default function SandecoWineBarrelPage() {
               <div className="p-4 sm:p-5 border-b border-stone-800 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <ShoppingCart className="w-5 h-5 text-amber-400" />
-                  <h3 className="font-bold text-base text-white">ตะกร้าสินค้า & ขอใบเสนอราคา</h3>
+                  <h3 id="cartDrawerTitle" className="font-bold text-base text-white">ตะกร้าสินค้า & ขอใบเสนอราคา</h3>
                 </div>
                 <button
                   onClick={() => setIsCartOpen(false)}
                   className="p-1.5 rounded-lg text-stone-400 hover:text-white hover:bg-stone-900 transition"
+                  aria-label="ปิดตะกร้าสินค้า"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -2020,6 +2342,7 @@ export default function SandecoWineBarrelPage() {
                                 <button
                                   onClick={() => updateQuantity(item.id, -1)}
                                   className="p-1 hover:bg-stone-800 text-stone-400"
+                                  aria-label="ลดจำนวน"
                                 >
                                   <Minus className="w-3.5 h-3.5" />
                                 </button>
@@ -2029,6 +2352,7 @@ export default function SandecoWineBarrelPage() {
                                 <button
                                   onClick={() => updateQuantity(item.id, 1)}
                                   className="p-1 hover:bg-stone-800 text-stone-400"
+                                  aria-label="เพิ่มจำนวน"
                                 >
                                   <Plus className="w-3.5 h-3.5" />
                                 </button>
@@ -2077,10 +2401,13 @@ export default function SandecoWineBarrelPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-stone-300 mb-1">
+                      <label htmlFor="customerName" className="block text-xs font-medium text-stone-300 mb-1">
                         ชื่อ-นามสกุล / ผู้ติดต่อ <span className="text-amber-500">*</span>
                       </label>
                       <input
+                        id="customerName"
+                        name="fullName"
+                        autoComplete="name"
                         type="text"
                         required
                         value={customerData.name}
@@ -2091,24 +2418,68 @@ export default function SandecoWineBarrelPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-stone-300 mb-1">
+                      <label htmlFor="customerPhone" className="block text-xs font-medium text-stone-300 mb-1">
                         เบอร์โทรศัพท์ <span className="text-amber-500">*</span>
                       </label>
                       <input
+                        id="customerPhone"
+                        name="phone"
+                        autoComplete="tel"
                         type="tel"
                         required
                         value={customerData.phone}
-                        onChange={(e) => setCustomerData({ ...customerData, phone: e.target.value })}
-                        placeholder="081-234-5678"
-                        className="w-full px-3 py-2 rounded-xl bg-stone-900 border border-stone-700 text-white text-xs focus:border-amber-500 focus:outline-none"
+                        onChange={(e) => {
+                          setCustomerData({ ...customerData, phone: e.target.value });
+                          setCheckoutPhoneError('');
+                        }}
+                        placeholder="086-026-6668"
+                        className={`w-full px-3 py-2 rounded-xl bg-stone-900 border text-white text-xs focus:outline-none ${
+                          checkoutPhoneError ? 'border-red-500 focus:border-red-500' : 'border-stone-700 focus:border-amber-500'
+                        }`}
                       />
+                      {checkoutPhoneError && (
+                        <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" />
+                          <span>{checkoutPhoneError}</span>
+                        </p>
+                      )}
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-stone-300 mb-1">
+                      <label htmlFor="customerEmail" className="block text-xs font-medium text-stone-300 mb-1">
+                        อีเมล (สำหรับรับใบเสนอราคา/ใบเสร็จ)
+                      </label>
+                      <input
+                        id="customerEmail"
+                        name="email"
+                        autoComplete="email"
+                        type="email"
+                        value={customerData.email}
+                        onChange={(e) => {
+                          setCustomerData({ ...customerData, email: e.target.value });
+                          setCheckoutEmailError('');
+                        }}
+                        placeholder="customer@domain.com"
+                        className={`w-full px-3 py-2 rounded-xl bg-stone-900 border text-white text-xs focus:outline-none ${
+                          checkoutEmailError ? 'border-red-500 focus:border-red-500' : 'border-stone-700 focus:border-amber-500'
+                        }`}
+                      />
+                      {checkoutEmailError && (
+                        <p className="text-[11px] text-red-400 mt-1 flex items-center gap-1">
+                          <AlertCircle className="w-3 h-3" />
+                          <span>{checkoutEmailError}</span>
+                        </p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label htmlFor="customerCompany" className="block text-xs font-medium text-stone-300 mb-1">
                         ชื่อบริษัท / ร้านค้า (ถ้ามี)
                       </label>
                       <input
+                        id="customerCompany"
+                        name="organization"
+                        autoComplete="organization"
                         type="text"
                         value={customerData.company}
                         onChange={(e) => setCustomerData({ ...customerData, company: e.target.value })}
@@ -2118,23 +2489,28 @@ export default function SandecoWineBarrelPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-stone-300 mb-1">
+                      <label htmlFor="customerAddress" className="block text-xs font-medium text-stone-300 mb-1">
                         ที่อยู่จัดส่ง / หน้างาน
                       </label>
                       <textarea
+                        id="customerAddress"
+                        name="streetAddress"
+                        autoComplete="street-address"
                         rows={2}
                         value={customerData.address}
                         onChange={(e) => setCustomerData({ ...customerData, address: e.target.value })}
-                        placeholder="บ้านเลขที่, ถนน, ตำบล, อำเภอ, จังหวัด"
+                        placeholder="บ้านเลขที่, ถนน, ตำบล, อำเภอ, จังหวัด, รหัสไปรษณีย์"
                         className="w-full px-3 py-2 rounded-xl bg-stone-900 border border-stone-700 text-white text-xs focus:border-amber-500 focus:outline-none"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-stone-300 mb-1">
+                      <label htmlFor="customerPurpose" className="block text-xs font-medium text-stone-300 mb-1">
                         วัตถุประสงค์การใช้งาน
                       </label>
                       <select
+                        id="customerPurpose"
+                        name="purpose"
                         value={customerData.purpose}
                         onChange={(e) => setCustomerData({ ...customerData, purpose: e.target.value })}
                         className="w-full px-3 py-2 rounded-xl bg-stone-900 border border-stone-700 text-white text-xs focus:border-amber-500 focus:outline-none"
@@ -2147,14 +2523,16 @@ export default function SandecoWineBarrelPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-stone-300 mb-1">
+                      <label htmlFor="customerNotes" className="block text-xs font-medium text-stone-300 mb-1">
                         หมายเหตุเพิ่มเติม
                       </label>
                       <input
+                        id="customerNotes"
+                        name="notes"
                         type="text"
                         value={customerData.notes}
                         onChange={(e) => setCustomerData({ ...customerData, notes: e.target.value })}
-                        placeholder="เช่น ต้องการให้นำส่งวันเสาร์ หรือขอใบกำกับภาษี"
+                        placeholder="เช่น ต้องการให้ออกใบกำกับภาษี หรือจัดส่งวันเสาร์"
                         className="w-full px-3 py-2 rounded-xl bg-stone-900 border border-stone-700 text-white text-xs focus:border-amber-500 focus:outline-none"
                       />
                     </div>
@@ -2166,28 +2544,56 @@ export default function SandecoWineBarrelPage() {
                         <span>{totalItemCount} รายการ</span>
                       </div>
                       <div className="flex justify-between text-stone-100 font-bold">
-                        <span>ยอดชำระโดยประมาณ</span>
+                        <span>ยอดชำระโดยประมาณ (รวม VAT 7%)</span>
                         <span className="text-amber-400 font-mono text-sm">฿{grandTotal.toLocaleString()}</span>
                       </div>
                     </div>
 
+                    {checkoutApiError && (
+                      <div className="p-3 bg-red-950/60 border border-red-500/50 rounded-xl text-red-300 text-xs flex items-start gap-2">
+                        <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                        <div className="flex-1">
+                          <span>{checkoutApiError}</span>
+                          <div className="mt-2 flex gap-2">
+                            <button
+                              type="submit"
+                              className="px-3 py-1 bg-red-800 hover:bg-red-700 text-white rounded text-[11px] font-semibold"
+                            >
+                              ลองใหม่อีกครั้ง
+                            </button>
+                            <a
+                              href={`tel:${PHONE_1_RAW}`}
+                              className="px-3 py-1 bg-stone-800 hover:bg-stone-700 text-stone-200 rounded text-[11px] font-semibold"
+                            >
+                              โทร {PHONE_1_DISPLAY}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-stone-950 font-bold text-xs tracking-wide shadow-lg disabled:opacity-50 transition"
+                      className="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-600 to-amber-500 text-stone-950 font-bold text-xs tracking-wide shadow-lg disabled:opacity-50 transition flex items-center justify-center gap-2"
                     >
-                      {isSubmitting
-                        ? 'กำลังประมวลผล...'
-                        : orderMode === 'purchase'
-                        ? 'ยืนยันการสั่งซื้อสินค้า'
-                        : 'ยืนยันขอใบเสนอราคาอย่างเป็นทางการ'}
+                      {isSubmitting ? (
+                        <>
+                          <RefreshCw className="w-4 h-4 animate-spin" />
+                          <span>กำลังประมวลผลคำสั่งซื้อ...</span>
+                        </>
+                      ) : orderMode === 'purchase' ? (
+                        'ยืนยันการสั่งซื้อสินค้า'
+                      ) : (
+                        'ยืนยันขอใบเสนอราคาอย่างเป็นทางการ'
+                      )}
                     </button>
                   </form>
                 )}
 
                 {cartTab === 'quote_success' && (
                   <div className="py-8 text-center space-y-5">
-                    <div className="w-16 h-16 rounded-full bg-emerald-950 border border-emerald-500/50 flex items-center justify-center mx-auto text-emerald-400">
+                    <div className="w-16 h-16 rounded-full bg-emerald-950 border border-emerald-500/50 flex items-center justify-center mx-auto text-emerald-400 shadow-xl">
                       <CheckCircle2 className="w-8 h-8" />
                     </div>
                     <div>
@@ -2198,7 +2604,7 @@ export default function SandecoWineBarrelPage() {
                         {orderMode === 'purchase' ? 'บันทึกคำสั่งซื้อเรียบร้อยแล้ว' : 'สร้างใบเสนอราคาสำเร็จ'}
                       </h4>
                       <p className="text-xs text-stone-400 max-w-xs mx-auto mt-2 leading-relaxed">
-                        เจ้าหน้าที่ บจก. ซันเดโก ได้รับข้อมูลเรียบร้อยแล้ว และจะติดต่อกลับเพื่อยืนยันรายการจัดส่งทันที
+                        เจ้าหน้าที่ {BRAND_NAME} ได้รับข้อมูลเรียบร้อยแล้ว และจะติดต่อกลับเพื่อยืนยันรายการจัดส่งทันที
                       </p>
                     </div>
 
@@ -2250,7 +2656,7 @@ export default function SandecoWineBarrelPage() {
                     <span className="text-stone-200 font-mono">฿{grandTotal.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between text-sm font-bold text-white border-t border-stone-800 pt-2">
-                    <span>ยอดสุทธิ</span>
+                    <span>ยอดสุทธิ (รวม VAT 7%)</span>
                     <span className="text-amber-400 font-mono text-lg">฿{grandTotal.toLocaleString()}.-</span>
                   </div>
 

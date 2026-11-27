@@ -116,6 +116,16 @@ export default function SandecoWineBarrelPage() {
   const [orderMode, setOrderMode] = useState<'purchase' | 'quotation'>('purchase');
   const [copiedPhone, setCopiedPhone] = useState(false);
   const [copiedAddress, setCopiedAddress] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 15);
+    };
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Toast Notification State
   const [toast, setToast] = useState<ToastNotification | null>(null);
@@ -507,7 +517,7 @@ export default function SandecoWineBarrelPage() {
   const simTotal = selectedSimProduct.price * quoteSimQty;
 
   return (
-    <div className="min-h-screen bg-stone-950 text-stone-100 font-sans antialiased selection:bg-amber-600 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-stone-950 text-stone-100 font-sans antialiased selection:bg-amber-600 selection:text-white overflow-x-clip">
       {/* ------------------------------------------------------------- */}
       {/* 0. TOAST NOTIFICATION FLOATING PILL                           */}
       {/* ------------------------------------------------------------- */}
@@ -552,7 +562,7 @@ export default function SandecoWineBarrelPage() {
       {/* ------------------------------------------------------------- */}
       {/* 1. ANNOUNCEMENT & STICKY LUXURY NAV HEADER                     */}
       {/* ------------------------------------------------------------- */}
-      <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-amber-950 text-amber-200/90 text-xs py-2 sm:py-2.5 px-4 border-b border-amber-900/40 text-center tracking-wide font-medium relative z-50">
+      <div className="bg-gradient-to-r from-amber-950 via-stone-900 to-amber-950 text-amber-200/90 text-xs py-2 sm:py-2.5 px-4 border-b border-amber-900/40 text-center tracking-wide font-medium relative z-30">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-2 overflow-hidden text-ellipsis">
           <Wine className="w-3.5 h-3.5 text-amber-400 shrink-0" />
           <span className="whitespace-nowrap truncate text-[11px] sm:text-xs">
@@ -561,8 +571,18 @@ export default function SandecoWineBarrelPage() {
         </div>
       </div>
 
-      <header className="sticky top-0 z-40 bg-stone-950/95 backdrop-blur-md border-b border-stone-800/80 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3 sm:gap-6">
+      <header
+        className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+          isScrolled
+            ? 'bg-stone-950/98 backdrop-blur-xl border-b border-amber-500/30 shadow-2xl shadow-black/80'
+            : 'bg-stone-950/90 backdrop-blur-md border-b border-stone-800/80'
+        }`}
+      >
+        <div
+          className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3 sm:gap-6 transition-all duration-300 ${
+            isScrolled ? 'h-16 sm:h-[72px]' : 'h-20'
+          }`}
+        >
           {/* Brand Identity */}
           <Link href="#top" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group">
             <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-gradient-to-br from-amber-600 via-amber-800 to-stone-900 border border-amber-500/40 flex items-center justify-center shadow-lg shadow-amber-950/50 group-hover:scale-105 transition-transform shrink-0">

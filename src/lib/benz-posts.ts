@@ -52,7 +52,7 @@ export const benzPosts: BenzPost[] = [
       <h2>การดูแลรักษาและการเป็นเจ้าของ Mercedes-AMG</h2>
       <p>การครอบครองยนตรกรรมสมรรถนะสูงอย่าง AMG ไม่ได้ยุ่งยากอย่างที่คิด หากได้รับการดูแลจากที่ปรึกษาการขายมืออาชีพและศูนย์บริการที่ได้รับการรับรองอย่างเป็นทางการ โดยมีโปรแกรม <strong>MBSP (Mercedes-Benz Service Plus)</strong> คอยดูแลค่าบำรุงรักษา อะไหล่แท้ และรับประกันคุณภาพสูงสุด 5 ปีเต็ม</p>
 
-      <p>หากท่านกำลังมองหาข้อเสนอสุดพิเศษ ดอกเบี้ยแคมเปญพิเศษ หรือต้องการสัมผัสสมรรถนะจริงด้วยตนเอง สามารถนัดหมายทดลองขับกับคุณไอซ์ได้ที่ <a href="/ice-benz-ttc-ubon#booking-form" class="text-amber-400 font-bold underline hover:text-amber-300">หน้าลงทะเบียนทดลองขับ ICE LUXURY AUTO</a> พร้อมบริการส่งรถไปให้ลองถึงหน้าบ้านท่านทั่วประเทศ</p>
+      <p>หากท่านกำลังมองหาข้อเสนอสุดพิเศษ ดอกเบี้ยแคมเปญพิเศษ หรือต้องการสัมผัสสมรรถนะจริงด้วยตนเอง สามารถนัดหมายทดลองขับกับคุณไอซ์ได้ที่ <a href="/ice-benz-ttc-ubon#booking" class="text-amber-400 font-bold underline hover:text-amber-300">หน้าลงทะเบียนทดลองขับ Smart TTC Motor Ubon • By Ice</a> พร้อมบริการส่งรถไปให้ลองถึงหน้าบ้านท่านทั่วประเทศ</p>
     `,
     featuredImage: '/images/benz/amg-real.jpg',
     imageAlt: 'Mercedes-AMG High Performance One Man One Engine Guide',
@@ -92,7 +92,7 @@ export const benzPosts: BenzPost[] = [
         <li><strong>เลือก The New E-Class หากคุณ:</strong> ต้องการความภูมิฐานสูงสุด นั่งเบาะหลังสบาย เดินทางไกลนุ่มนวลด้วยช่วงล่างถุงลม และหลงใหลในเทคโนโลยี AI Superscreen ในงบ 3.99 - 4.49 ล้านบาท</li>
       </ul>
 
-      <p>ไม่ว่าคุณจะสนใจรุ่นใด คุณไอซ์พร้อมนำรถจริงไปให้ทดลองขับถึงที่ทำงานหรือบ้านคุณ สามารถจองคิวได้ที่ <a href="/ice-benz-ttc-ubon#booking-form" class="text-amber-400 font-bold underline hover:text-amber-300">แบบฟอร์มนัดหมายทดลองขับ ICE LUXURY AUTO</a></p>
+      <p>ไม่ว่าคุณจะสนใจรุ่นใด คุณไอซ์พร้อมนำรถจริงไปให้ทดลองขับถึงที่ทำงานหรือบ้านคุณ สามารถจองคิวได้ที่ <a href="/ice-benz-ttc-ubon#booking" class="text-amber-400 font-bold underline hover:text-amber-300">แบบฟอร์มนัดหมายทดลองขับ Smart TTC Motor Ubon • By Ice</a></p>
     `,
     featuredImage: '/images/benz/e-class-real.jpg',
     imageAlt: 'Mercedes-Benz The New E-Class vs C-Class Comparison',
@@ -172,7 +172,7 @@ export const benzPosts: BenzPost[] = [
       <p>การเลือกรับแพ็กเกจ MBSP ตั้งแต่วันออกรถช่วยประหยัดค่าใช้จ่ายในการบำรุงรักษาได้สูงสุดถึง <strong>30 - 45%</strong> เมื่อเทียบกับการจ่ายตามบิลรายครั้ง อีกทั้งยังล็อกราคาค่าแรงและค่าอะไหล่ไว้ตั้งแต่วันแรก ป้องกันผลกระทบจากภาวะเงินเฟ้อในอนาคต</p>
 
       <h2>แคมเปญพิเศษประจำเดือนเมื่อออกรถกับคุณไอซ์</h2>
-      <p>สำหรับลูกค้าที่จองรถ Mercedes-Benz, Mercedes-AMG หรือ smart EV คุณไอซ์ขอมอบข้อเสนอพิเศษ <strong>ฟรีโปรแกรม MBSP บำรุงรักษานานสูงสุด 5 ปี</strong> พร้อมประกันภัยชั้น 1 และบริการทดลองขับถึงหน้าบ้านท่าน สามารถลงทะเบียนรับสิทธิ์ได้ที่ <a href="/ice-benz-ttc-ubon#booking-form" class="text-amber-400 font-bold underline hover:text-amber-300">หน้าลงทะเบียน ICE LUXURY AUTO</a></p>
+      <p>สำหรับลูกค้าที่จองรถ Mercedes-Benz, Mercedes-AMG หรือ smart EV คุณไอซ์ขอมอบข้อเสนอพิเศษ <strong>ฟรีโปรแกรม MBSP บำรุงรักษานานสูงสุด 5 ปี</strong> พร้อมประกันภัยชั้น 1 และบริการทดลองขับถึงหน้าบ้านท่าน สามารถลงทะเบียนรับสิทธิ์ได้ที่ <a href="/ice-benz-ttc-ubon#booking" class="text-amber-400 font-bold underline hover:text-amber-300">หน้าลงทะเบียน Smart TTC Motor Ubon • By Ice</a></p>
     `,
     featuredImage: '/images/benz/glc-real.jpg',
     imageAlt: 'Mercedes-Benz Service Plus MBSP Maintenance Package',
@@ -203,7 +203,7 @@ export const benzPosts: BenzPost[] = [
       </ol>
 
       <h2>ปรึกษาการวางแผนภาษีและการเงินโดยตรง</h2>
-      <p>คุณไอซ์พร้อมให้คำแนะนำอย่างเจาะลึก ร่วมกับผู้เชี่ยวชาญด้านสินเชื่อ เพื่อให้ท่านได้รับสิทธิประโยชน์สูงสุด สามารถติดต่อหรือส่งข้อมูลเพื่อรับตารางคำนวณค่างวดได้ที่ <a href="/ice-benz-ttc-ubon#booking-form" class="text-amber-400 font-bold underline hover:text-amber-300">แบบฟอร์มคำนวณข้อเสนอทางการเงิน ICE LUXURY AUTO</a></p>
+      <p>คุณไอซ์พร้อมให้คำแนะนำอย่างเจาะลึก ร่วมกับผู้เชี่ยวชาญด้านสินเชื่อ เพื่อให้ท่านได้รับสิทธิประโยชน์สูงสุด สามารถติดต่อหรือส่งข้อมูลเพื่อรับตารางคำนวณค่างวดได้ที่ <a href="/ice-benz-ttc-ubon#booking" class="text-amber-400 font-bold underline hover:text-amber-300">แบบฟอร์มคำนวณข้อเสนอทางการเงิน Smart TTC Motor Ubon • By Ice</a></p>
     `,
     featuredImage: '/images/benz/cle-real.jpg',
     imageAlt: 'Mercedes-Benz Auto Loan and Tax Planning Guide',
@@ -214,6 +214,79 @@ export const benzPosts: BenzPost[] = [
     published: true,
     publishedAt: '2026-11-10T19:15:00.000Z',
     updatedAt: '2026-11-10T19:35:00.000Z',
+  },
+  {
+    id: '6',
+    slug: 'smart-ev-battery-charging-wallbox-guide',
+    title: 'คู่มือระบบชาร์จไฟฟ้า smart EV และการติดตั้ง Home Wallbox ฟรีถึงบ้าน: วิ่งไกล 455 กม. ชาร์จไวใน 29 นาที',
+    metaDescription: 'ข้อแนะนำการชาร์จไฟบ้านและการชาร์จด่วน DC 150 kW สำหรับเจ้าของ smart EV พร้อมรายละเอียดบริการสำรวจและติดตั้ง Wallbox มาตรฐานสากล',
+    content: `
+      <h2>ความสะดวกสบายในการเป็นเจ้าของ smart EV ยุคใหม่</h2>
+      <p>การเปลี่ยนผ่านสู่ยานยนต์ไฟฟ้า 100% กับ <strong>smart #1</strong> และ <strong>smart #3</strong> มอบความสะดวกสบายสูงสุดด้วยระบบชาร์จไฟฟ้าที่รองรับทั้งการชาร์จไฟบ้านกระแสสลับ (AC) และการชาร์จเร็วสถานีสาธารณะกระแสตรง (DC Fast Charging)</p>
+
+      <h2>1. ระบบชาร์จด่วน DC Fast Charging สูงสุด 150 kW</h2>
+      <p>ด้วยสถาปัตยกรรมไฟฟ้าแรงสูงประสิทธิภาพสูง smart EV สามารถรองรับกำลังไฟชาร์จ DC สูงสุดถึง 150 kW ทำให้สามารถเติมพลังงานจาก 10% ถึง 80% ได้ในเวลาเพียง 29-30 นาที เหมาะสำหรับการแวะพักดื่มกาแฟหรือเดินทางข้ามจังหวัดอย่างราบรื่น</p>
+
+      <h2>2. ฟรี Home Wallbox พร้อมทีมช่างสำรวจติดตั้งถึงบ้าน</h2>
+      <p>เมื่อออกรถกับ <strong>Smart TTC Motor Ubon • By Ice</strong> ท่านจะได้รับฟรีเครื่องชาร์จ Home Wallbox มาตรฐานสากล พร้อมทีมวิศวกรผู้เชี่ยวชาญเข้าสำรวจระบบไฟฟ้าภายในบ้าน เดินสายไฟตู้เมน และติดตั้งอย่างถูกต้องตามมาตรฐานความปลอดภัยของการไฟฟ้า</p>
+
+      <h2>3. ความคุ้มค่าและค่าใช้จ่ายต่อกิโลเมตร</h2>
+      <p>การชาร์จไฟบ้านในเวลากลางคืน (ช่วง Off-Peak) ช่วยประหยัดค่าใช้จ่ายได้มากกว่ารถยนต์น้ำมันถึง 3-4 เท่า โดยมีค่าใช้จ่ายเฉลี่ยเพียงประมาณ 0.60 - 0.80 บาทต่อกิโลเมตรเท่านั้น</p>
+
+      <h2>4. รับประกันแบตเตอรี่แรงดันสูง 8 ปี หรือ 160,000 กิโลเมตร</h2>
+      <p>อุ่นใจไร้กังวลด้วยการรับประกันคุณภาพแบตเตอรี่ NCM High-Voltage นานถึง 8 ปี หรือ 160,000 กม. พร้อมศูนย์บริการมาตรฐานเยอรมันคอยดูแลตลอดอายุการใช้งาน</p>
+
+      <p>สนใจรับสิทธิพิเศษ Home Wallbox ฟรีพร้อมติดตั้ง หรือนัดทดลองขับถึงหน้าบ้านคุณ สามารถลงทะเบียนได้ที่ <a href="/ice-benz-ttc-ubon#booking" class="text-amber-400 font-bold underline hover:text-amber-300">แบบฟอร์มนัดหมายทดลองขับ Smart TTC Motor Ubon • By Ice</a></p>
+    `,
+    featuredImage: '/images/benz/smart-ev.jpg',
+    imageAlt: 'smart EV Fast Charging and Home Wallbox Installation Guide',
+    author: 'ไอซ์ อมิตา (Executive Sales Consultant)',
+    authorRole: 'smart EV Certified Specialist',
+    category: 'EV Charging & Battery Guide',
+    readTime: '5 นาที',
+    published: true,
+    publishedAt: '2026-11-20T10:00:00.000Z',
+    updatedAt: '2026-11-20T10:00:00.000Z',
+  },
+  {
+    id: '7',
+    slug: 'smart-1-vs-smart-3-buyers-guide',
+    title: 'เปรียบเทียบ smart #1 vs smart #3 เลือกรุ่นไหนให้ตอบโจทย์คุณ? Urban Compact SUV vs Aerodynamic Fastback Coupé',
+    metaDescription: 'วิเคราะห์ความแตกต่างระหว่าง smart #1 ดีไซน์น่ารักพื้นที่ใช้สอยกว้าง และ smart #3 สปอร์ตคูเป้ลู่ลม Cd 0.27 มิติตัวถังและฟังก์ชันการใช้งาน',
+    content: `
+      <h2>สองสไตล์ความหรูหราแห่งอนาคต: smart #1 vs smart #3</h2>
+      <p>แบรนด์ <strong>smart</strong> ภายใต้เครือ <strong>Mercedes-Benz & Geely</strong> ได้รังสรรค์สองทางเลือกตัวถังเพื่อตอบโจทย์ไลฟ์สไตล์ที่แตกต่างกันอย่างชัดเจน</p>
+
+      <h2>1. ดีไซน์และคาแรกเตอร์ตัวถัง (Design & Silhouette)</h2>
+      <ul>
+        <li><strong>smart #1:</strong> ดีไซน์ตัวถัง Compact Urban SUV สไตล์น่ารัก อบอุ่น ผ่อนคลาย โดดเด่นด้วยหลังคา Floating Roof แบบสองสี เหมาะสำหรับการใช้งานในเมืองและการเดินทางของครอบครัว</li>
+        <li><strong>smart #3:</strong> ดีไซน์สปอร์ต Fastback SUV Coupé เส้นสายลู่ลม ค่าสัมประสิทธิ์แรงเสียดทาน (Cd) ต่ำเพียง 0.27 มอบความโฉบเฉี่ยวสปอร์ตเร้าใจระดับไอคอน</li>
+      </ul>
+
+      <h2>2. มิติตัวถังและพื้นที่ห้องโดยสาร (Dimensions & Space)</h2>
+      <p><strong>smart #1</strong> มีความสูงตัวถังมากกว่า (1,636 มม.) มอบพื้นที่ Headroom ที่โปร่งสบายเป็นพิเศษ พร้อมเบาะนั่งแถวหลังที่สามารถปรับเลื่อนหน้า-หลังได้ 13 ซม. ในขณะที่ <strong>smart #3</strong> มีความยาวตัวถังมากกว่า (4,400 มม.) และฐานล้อยาวถึง 2,785 มม. ช่วยเพิ่มพื้นที่วางขาและเสถียรภาพการทรงตัวในความเร็วสูง</p>
+
+      <h2>3. สมรรถนะและอัตราเร่ง</h2>
+      <ul>
+        <li><strong>smart #3 BRABUS (428 แรงม้า AWD):</strong> อัตราเร่ง 0-100 กม./ชม. ใน <strong>3.7 วินาที</strong> (เร็วที่สุดในคลาส)</li>
+        <li><strong>smart #1 BRABUS (428 แรงม้า AWD):</strong> อัตราเร่ง 0-100 กม./ชม. ใน <strong>3.9 วินาที</strong></li>
+        <li><strong>รุ่นขับเคลื่อนล้อหลัง RWD (272 แรงม้า):</strong> 0-100 ใน 5.8 วินาที (smart #3) และ 6.7 วินาที (smart #1)</li>
+      </ul>
+
+      <h2>4. เลือกรุ่นไหนดี?</h2>
+      <p>เลือก <strong>smart #1</strong> หากคุณเน้นความคล่องตัวในเมือง ความโปร่งสบายของห้องโดยสาร และความสะดวกสบายในการขึ้น-ลง หรือเลือก <strong>smart #3</strong> หากคุณหลงใหลในเส้นสายสปอร์ตคูเป้ อัตราเร่งที่เร้าใจที่สุด และระยะทางวิ่งไกลสูงสุด 455 กม.</p>
+
+      <p>คุณไอซ์ยินดีนำรถคันจริงทั้งสองรุ่นไปให้ท่านและครอบครัวทดลองขับถึงหน้าบ้าน สามารถจองคิวได้ที่ <a href="/ice-benz-ttc-ubon#booking" class="text-amber-400 font-bold underline hover:text-amber-300">แบบฟอร์มนัดหมายทดลองขับ Smart TTC Motor Ubon • By Ice</a></p>
+    `,
+    featuredImage: '/images/benz/smart-real.jpg',
+    imageAlt: 'smart #1 vs smart #3 Comparison Guide by Ice TTC Motor',
+    author: 'ไอซ์ อมิตา (Executive Sales Consultant)',
+    authorRole: 'smart EV Certified Specialist',
+    category: 'smart Model Comparison',
+    readTime: '6 นาที',
+    published: true,
+    publishedAt: '2026-11-22T10:00:00.000Z',
+    updatedAt: '2026-11-22T10:00:00.000Z',
   },
 ];
 

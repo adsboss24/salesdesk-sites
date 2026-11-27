@@ -27,13 +27,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) {
     return {
-      title: 'ไม่พบบทความ | ICE LUXURY AUTO',
+      title: 'ไม่พบบทความ | Smart TTC Motor Ubon • By Ice',
       description: 'บทความที่คุณกำลังค้นหาไม่มีอยู่ในระบบ',
     };
   }
 
   return constructMetadata({
-    title: `${post.title} | ICE LUXURY AUTO`,
+    title: `${post.title} | Smart TTC Motor Ubon • By Ice`,
     description: post.metaDescription,
     canonicalPath: `/ice-benz-ttc-ubon/blog/${post.slug}`,
     ogImage: post.featuredImage,
@@ -42,12 +42,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     modifiedTime: post.updatedAt,
     authors: [post.author],
     keywords: [
-      'Mercedes-Benz Thailand',
-      'Mercedes-AMG',
-      'smart EV',
+      'smart EV Thailand',
+      'smart #1',
+      'smart #3',
+      'smart BRABUS',
       'คุณไอซ์ ที่ปรึกษาการขาย',
-      'รีวิวเบนซ์',
-      'ทดลองขับเบนซ์',
+      'รีวิว smart EV',
+      'ทดลองขับ smart EV',
     ],
   });
 }
@@ -84,7 +85,7 @@ export default async function BenzArticlePage({ params }: Props) {
         },
         publisher: {
           '@type': 'Organization',
-          name: 'ICE LUXURY AUTO',
+          name: 'Smart TTC Motor Ubon • By Ice',
           logo: {
             '@type': 'ImageObject',
             url: `${siteUrl}/images/salesdesk-logo-square.png`,
@@ -98,7 +99,7 @@ export default async function BenzArticlePage({ params }: Props) {
           {
             '@type': 'ListItem',
             position: 1,
-            name: 'หน้าแรก ICE LUXURY AUTO',
+            name: 'หน้าแรก Smart TTC Motor Ubon • By Ice',
             item: `${siteUrl}/ice-benz-ttc-ubon`,
           },
           {
@@ -131,12 +132,13 @@ export default async function BenzArticlePage({ params }: Props) {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
           <Link href="/ice-benz-ttc-ubon" className="flex items-center gap-2.5 text-xs sm:text-sm font-semibold text-slate-300 hover:text-amber-400 transition">
             <ArrowLeft className="w-4 h-4" />
-            <span>กลับสู่หน้าหลัก ICE LUXURY AUTO</span>
+            <span>กลับสู่หน้าหลัก Smart TTC Motor Ubon • By Ice</span>
           </Link>
 
           <div className="flex items-center gap-2">
             <a
               href={`tel:${realPhone.replace(/[^0-9]/g, '')}`}
+              aria-label={`โทรติดต่อคุณไอซ์ ${realPhone}`}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs text-amber-400 font-semibold"
             >
               <PhoneCall className="w-3.5 h-3.5" /> {realPhone}
@@ -145,6 +147,7 @@ export default async function BenzArticlePage({ params }: Props) {
               href={fbMessengerUrl}
               target="_blank"
               rel="noreferrer"
+              aria-label="แชตคุยกับคุณไอซ์ผ่าน Facebook Messenger"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 text-xs text-white font-bold"
             >
               <MessageCircle className="w-3.5 h-3.5" /> แชต Facebook
@@ -250,13 +253,14 @@ export default async function BenzArticlePage({ params }: Props) {
           </p>
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
-              href="/ice-benz-ttc-ubon#booking-form"
+              href="/ice-benz-ttc-ubon#booking"
               className="w-full sm:w-auto px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 hover:from-amber-600 hover:to-yellow-500 text-slate-950 font-bold text-xs sm:text-sm shadow-lg shadow-amber-500/20 transition"
             >
               ลงทะเบียนนัดหมายทดลองขับ &rarr;
             </Link>
             <a
               href={`tel:${realPhone.replace(/[^0-9]/g, '')}`}
+              aria-label={`โทรติดต่อคุณไอซ์ ${realPhone}`}
               className="w-full sm:w-auto px-5 py-3 rounded-xl bg-slate-900 border border-slate-700 text-white font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2"
             >
               <PhoneCall className="w-4 h-4 text-amber-400" /> โทรสายตรง {realPhone}
@@ -265,6 +269,7 @@ export default async function BenzArticlePage({ params }: Props) {
               href={lineUrl}
               target="_blank"
               rel="noreferrer"
+              aria-label="แอด LINE เพื่อปรึกษาคุณไอซ์"
               className="w-full sm:w-auto px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm transition flex items-center justify-center gap-2"
             >
               <MessageCircle className="w-4 h-4" /> แอด LINE คุยกับคุณไอซ์

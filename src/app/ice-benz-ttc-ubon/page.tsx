@@ -115,6 +115,17 @@ const smartKnowledgeModules = [
   },
 ];
 
+// Master Synchronized smart EV Models
+export const SMART_MODELS = [
+  { id: 'smart-3-brabus', modelValue: 'smart #3 BRABUS Edition (1,949,000 บาท)', label: 'smart #3 BRABUS Edition (1,949,000 บาท)' },
+  { id: 'smart-1-brabus', modelValue: 'smart #1 BRABUS Edition (1,849,000 บาท)', label: 'smart #1 BRABUS Edition (1,849,000 บาท)' },
+  { id: 'smart-3-premium', modelValue: 'smart #3 Premium (1,699,000 บาท)', label: 'smart #3 Premium (1,699,000 บาท)' },
+  { id: 'smart-1-premium', modelValue: 'smart #1 Premium (1,599,000 บาท)', label: 'smart #1 Premium (1,599,000 บาท)' },
+  { id: 'smart-3-pro-plus', modelValue: 'smart #3 Pro+ (1,499,000 บาท)', label: 'smart #3 Pro+ (1,499,000 บาท)' },
+  { id: 'smart-1-pro-plus', modelValue: 'smart #1 Pro+ (1,399,000 บาท)', label: 'smart #1 Pro+ (1,399,000 บาท)' },
+  { id: 'smart-motor-expo-special', modelValue: 'ขอรับข้อเสนอพิเศษงาน Motor Expo', label: 'ขอรับข้อเสนอพิเศษงาน Motor Expo' },
+];
+
 export default function SmartEVMinimalPremiumPage() {
   // Official Verified Contact Info
   const realPhone = '065-214-2747';
@@ -130,13 +141,15 @@ export default function SmartEVMinimalPremiumPage() {
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
-    modelInterest: 'smart #3 BRABUS (428 แรงม้า AWD)',
+    modelInterest: 'smart #3 BRABUS Edition (1,949,000 บาท)',
     serviceType: 'จองคิวทดลองขับ Test Drive ถึงที่บ้าน',
-    location: 'อุบลราชธานี หรือจังหวัดใกล้เคียง',
+    location: '',
     preferredDate: '',
     notes: '',
   });
 
+  const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [activeCarFilter, setActiveCarFilter] = useState<'all' | 'smart1' | 'smart3' | 'brabus'>('all');
@@ -145,7 +158,7 @@ export default function SmartEVMinimalPremiumPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Dedicated smart EV Knowledge Base
+  // Dedicated smart EV Knowledge Base (Distinct URLs)
   const smartGuides = [
     {
       id: 'smart-brabus-deep-dive',
@@ -160,7 +173,7 @@ export default function SmartEVMinimalPremiumPage() {
     },
     {
       id: 'smart-battery-charging-guide',
-      slug: 'smart-ev-brabus-electric-suv-guide',
+      slug: 'smart-ev-battery-charging-wallbox-guide',
       title: 'คู่มือระบบชาร์จไฟฟ้า smart EV และการติดตั้ง Home Wallbox ฟรีถึงบ้าน: วิ่งไกล 455 กม. ชาร์จไวใน 29 นาที',
       metaDescription: 'ข้อแนะนำการชาร์จไฟบ้านและการชาร์จด่วน DC 150 kW สำหรับเจ้าของ smart EV พร้อมรายละเอียดบริการสำรวจและติดตั้ง Wallbox มาตรฐานสากล',
       category: 'EV Charging & Battery Guide',
@@ -171,7 +184,7 @@ export default function SmartEVMinimalPremiumPage() {
     },
     {
       id: 'smart-1-vs-smart-3-guide',
-      slug: 'smart-ev-brabus-electric-suv-guide',
+      slug: 'smart-1-vs-smart-3-buyers-guide',
       title: 'เปรียบเทียบ smart #1 vs smart #3 เลือกรุ่นไหนให้ตอบโจทย์คุณ? Urban Compact SUV vs Aerodynamic Fastback Coupé',
       metaDescription: 'วิเคราะห์ความแตกต่างระหว่าง smart #1 ดีไซน์น่ารักพื้นที่ใช้สอยกว้าง และ smart #3 สปอร์ตคูเป้ลู่ลม Cd 0.27 มิติตัวถังและฟังก์ชันการใช้งาน',
       category: 'smart Model Comparison',
@@ -214,30 +227,59 @@ export default function SmartEVMinimalPremiumPage() {
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.fullName || !formData.phone) {
-      alert('กรุณากรอกชื่อ-นามสกุล และเบอร์โทรศัพท์ติดต่อกลับครับ');
-      return;
+    setSubmitError(null);
+    const errors: { [key: string]: string } = {};
+
+    if (!formData.fullName.trim()) {
+      errors.fullName = 'กรุณาระบุชื่อ-นามสกุล';
     }
 
+    const cleanPhone = formData.phone.replace(/[-\s]/g, '');
+    const thaiPhoneRegex = /^0[0-9]{8,9}$/;
+    if (!formData.phone.trim()) {
+      errors.phone = 'กรุณาระบุเบอร์โทรศัพท์ติดต่อกลับ';
+    } else if (!thaiPhoneRegex.test(cleanPhone)) {
+      errors.phone = 'รูปแบบเบอร์โทรไม่ถูกต้อง (ต้องเป็นเบอร์ไทย 9-10 หลัก เช่น 0812345678)';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+    setFormErrors({});
     setIsSubmitting(true);
+
     try {
       const res = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
+          phone: cleanPhone,
           pageSource: 'Smart TTC Motor Ubon - by Ice (smart EV Minimal Premium)',
         }),
       });
 
-      if (res.ok) {
-        setIsSubmitted(true);
-      } else {
-        setIsSubmitted(true);
+      if (!res.ok) {
+        throw new Error(`การส่งข้อมูลไม่สำเร็จ (รหัสสถานะ: ${res.status})`);
       }
-    } catch (err) {
-      console.error('Lead submission error:', err);
+
+      // Track GTM lead conversion
+      if (typeof window !== 'undefined') {
+        const win = window as unknown as { dataLayer?: Array<Record<string, unknown>> };
+        win.dataLayer?.push({
+          event: 'generate_lead',
+          model: formData.modelInterest,
+        });
+      }
+
       setIsSubmitted(true);
+    } catch (err: unknown) {
+      console.error('Lead submission error:', err);
+      setIsSubmitted(false);
+      setSubmitError(
+        'ขออภัยครับ ระบบส่งข้อมูลขัดข้องชั่วคราว กรุณาติดต่อสายตรง หรือแอด LINE เพื่อรับสิทธิ์ทันทีครับ'
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -274,6 +316,7 @@ export default function SmartEVMinimalPremiumPage() {
       modelGroup: 'smart3',
       isBrabus: true,
       name: 'smart #3 BRABUS Edition',
+      modelValue: 'smart #3 BRABUS Edition (1,949,000 บาท)',
       subtitle: 'Aerodynamic Hyper-EV SUV Coupé',
       badge: 'เรือธง 428 แรงม้า AWD',
       price: '1,949,000 บาท',
@@ -294,6 +337,7 @@ export default function SmartEVMinimalPremiumPage() {
       modelGroup: 'smart1',
       isBrabus: true,
       name: 'smart #1 BRABUS Edition',
+      modelValue: 'smart #1 BRABUS Edition (1,849,000 บาท)',
       subtitle: 'Urban Performance Compact SUV',
       badge: 'Compact Rocket 3.9s',
       price: '1,849,000 บาท',
@@ -314,6 +358,7 @@ export default function SmartEVMinimalPremiumPage() {
       modelGroup: 'smart3',
       isBrabus: false,
       name: 'smart #3 Premium',
+      modelValue: 'smart #3 Premium (1,699,000 บาท)',
       subtitle: 'Long-Range Luxury SUV Coupé',
       badge: 'วิ่งไกล 455 กม. WLTP',
       price: '1,699,000 บาท',
@@ -334,6 +379,7 @@ export default function SmartEVMinimalPremiumPage() {
       modelGroup: 'smart1',
       isBrabus: false,
       name: 'smart #1 Premium',
+      modelValue: 'smart #1 Premium (1,599,000 บาท)',
       subtitle: 'Urban Chic Luxury SUV',
       badge: 'รุ่นยอดนิยม Full Option',
       price: '1,599,000 บาท',
@@ -354,6 +400,7 @@ export default function SmartEVMinimalPremiumPage() {
       modelGroup: 'smart3',
       isBrabus: false,
       name: 'smart #3 Pro+',
+      modelValue: 'smart #3 Pro+ (1,499,000 บาท)',
       subtitle: 'Sleek & Aerodynamic Fastback',
       badge: 'ดีไซน์คูเป้ Cd 0.27',
       price: '1,499,000 บาท',
@@ -374,6 +421,7 @@ export default function SmartEVMinimalPremiumPage() {
       modelGroup: 'smart1',
       isBrabus: false,
       name: 'smart #1 Pro+',
+      modelValue: 'smart #1 Pro+ (1,399,000 บาท)',
       subtitle: 'Modern Minimalist Pure EV',
       badge: 'ราคาเริ่มต้นคุ้มค่าที่สุด',
       price: '1,399,000 บาท',
@@ -843,7 +891,7 @@ export default function SmartEVMinimalPremiumPage() {
                   onClick={() =>
                     setFormData((prev) => ({
                       ...prev,
-                      modelInterest: `${car.name} (${car.price})`,
+                      modelInterest: car.modelValue,
                     }))
                   }
                   className="w-full py-3 px-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-bold text-xs text-center block transition shadow-md cursor-pointer"
@@ -1124,6 +1172,28 @@ export default function SmartEVMinimalPremiumPage() {
             </div>
           ) : (
             <form onSubmit={handleFormSubmit} className="space-y-4 sm:space-y-5">
+              {submitError && (
+                <div className="p-4 rounded-xl bg-rose-950/80 border border-rose-500/50 text-rose-200 text-xs sm:text-sm space-y-3">
+                  <p className="font-semibold">{submitError}</p>
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    <a
+                      href={`tel:${realPhoneRaw}`}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-xs font-bold transition"
+                    >
+                      <PhoneCall className="w-3.5 h-3.5" /> โทร 065-214-2747
+                    </a>
+                    <a
+                      href={lineUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" /> แอด LINE คุณไอซ์
+                    </a>
+                  </div>
+                </div>
+              )}
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-medium text-zinc-300 mb-1.5">
@@ -1131,12 +1201,22 @@ export default function SmartEVMinimalPremiumPage() {
                   </label>
                   <input
                     type="text"
-                    required
+                    name="fullName"
                     value={formData.fullName}
-                    onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                    onChange={(e) => {
+                      setFormData({ ...formData, fullName: e.target.value });
+                      if (formErrors.fullName) {
+                        setFormErrors((prev) => ({ ...prev, fullName: '' }));
+                      }
+                    }}
                     placeholder="เช่น คุณธนกร วรเมธ"
-                    className="w-full px-4 py-3 rounded-xl bg-black border border-zinc-800 focus:border-amber-400 text-white text-base outline-none transition"
+                    className={`w-full px-4 py-3 rounded-xl bg-black border text-white text-base outline-none transition ${
+                      formErrors.fullName ? 'border-rose-500 focus:border-rose-400' : 'border-zinc-800 focus:border-amber-400'
+                    }`}
                   />
+                  {formErrors.fullName && (
+                    <p className="text-[11px] text-rose-400 mt-1">{formErrors.fullName}</p>
+                  )}
                 </div>
 
                 <div>
@@ -1145,12 +1225,22 @@ export default function SmartEVMinimalPremiumPage() {
                   </label>
                   <input
                     type="tel"
-                    required
+                    name="phone"
                     value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    onChange={(e) => {
+                      setFormData({ ...formData, phone: e.target.value });
+                      if (formErrors.phone) {
+                        setFormErrors((prev) => ({ ...prev, phone: '' }));
+                      }
+                    }}
                     placeholder="เช่น 081-234-5678"
-                    className="w-full px-4 py-3 rounded-xl bg-black border border-zinc-800 focus:border-amber-400 text-white text-base outline-none transition"
+                    className={`w-full px-4 py-3 rounded-xl bg-black border text-white text-base outline-none transition ${
+                      formErrors.phone ? 'border-rose-500 focus:border-rose-400' : 'border-zinc-800 focus:border-amber-400'
+                    }`}
                   />
+                  {formErrors.phone && (
+                    <p className="text-[11px] text-rose-400 mt-1">{formErrors.phone}</p>
+                  )}
                 </div>
               </div>
 
@@ -1160,17 +1250,16 @@ export default function SmartEVMinimalPremiumPage() {
                     รุ่นรถยนต์ smart ที่คุณสนใจ
                   </label>
                   <select
+                    name="modelInterest"
                     value={formData.modelInterest}
                     onChange={(e) => setFormData({ ...formData, modelInterest: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-black border border-zinc-800 focus:border-amber-400 text-white text-base outline-none transition"
                   >
-                    <option value="smart #3 BRABUS (428 แรงม้า AWD) 1,949,000 บ.">smart #3 BRABUS (428 แรงม้า AWD) 1,949,000 บ.</option>
-                    <option value="smart #1 BRABUS (428 แรงม้า AWD) 1,849,000 บ.">smart #1 BRABUS (428 แรงม้า AWD) 1,849,000 บ.</option>
-                    <option value="smart #3 Premium (455 กม. WLTP) 1,699,000 บ.">smart #3 Premium (455 กม. WLTP) 1,699,000 บ.</option>
-                    <option value="smart #1 Premium (440 กม. WLTP) 1,599,000 บ.">smart #1 Premium (440 กม. WLTP) 1,599,000 บ.</option>
-                    <option value="smart #3 Pro+ (435 กม. WLTP) 1,499,000 บ.">smart #3 Pro+ (435 กม. WLTP) 1,499,000 บ.</option>
-                    <option value="smart #1 Pro+ (420 กม. WLTP) 1,399,000 บ.">smart #1 Pro+ (420 กม. WLTP) 1,399,000 บ.</option>
-                    <option value="ขอรับข้อเสนอพิเศษงาน Motor Expo">ขอรับข้อเสนอพิเศษงาน Motor Expo</option>
+                    {SMART_MODELS.map((item) => (
+                      <option key={item.id} value={item.modelValue}>
+                        {item.label}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -1179,6 +1268,7 @@ export default function SmartEVMinimalPremiumPage() {
                     ความต้องการบริการหลัก
                   </label>
                   <select
+                    name="serviceType"
                     value={formData.serviceType}
                     onChange={(e) => setFormData({ ...formData, serviceType: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-black border border-zinc-800 focus:border-amber-400 text-white text-base outline-none transition"
@@ -1198,6 +1288,7 @@ export default function SmartEVMinimalPremiumPage() {
                   </label>
                   <input
                     type="text"
+                    name="location"
                     value={formData.location}
                     onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                     placeholder="เช่น อุบลราชธานี, ศรีสะเกษ, ยโสธร, อำนาจเจริญ"
@@ -1211,6 +1302,8 @@ export default function SmartEVMinimalPremiumPage() {
                   </label>
                   <input
                     type="date"
+                    name="preferredDate"
+                    min={new Date().toISOString().split('T')[0]}
                     value={formData.preferredDate}
                     onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
                     className="w-full px-4 py-3 rounded-xl bg-black border border-zinc-800 focus:border-amber-400 text-white text-base outline-none transition"
@@ -1224,6 +1317,7 @@ export default function SmartEVMinimalPremiumPage() {
                 </label>
                 <textarea
                   rows={2}
+                  name="notes"
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   placeholder="ระบุความต้องการเพิ่มเติม เช่น สนใจสีตัวถัง หรือต้องการตารางผ่อนชำระ..."
@@ -1234,7 +1328,7 @@ export default function SmartEVMinimalPremiumPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-black text-sm tracking-wide shadow-xl shadow-amber-400/20 transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
+                className="w-full py-4 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-black text-sm tracking-wide shadow-xl shadow-amber-400/20 transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>
@@ -1492,6 +1586,7 @@ export default function SmartEVMinimalPremiumPage() {
                   href={fbPageUrl}
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="Facebook Page Smart TTC Motor Ubon"
                   className="w-9 h-9 rounded-xl bg-blue-600/20 border border-blue-500/30 text-blue-400 hover:bg-blue-600 hover:text-white flex items-center justify-center transition"
                   title="Facebook Page"
                 >
@@ -1501,6 +1596,7 @@ export default function SmartEVMinimalPremiumPage() {
                   href={lineUrl}
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="LINE คุณไอซ์ Smart TTC Motor Ubon"
                   className="w-9 h-9 rounded-xl bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-600 hover:text-white flex items-center justify-center transition"
                   title="LINE ส่วนตัว"
                 >
@@ -1510,6 +1606,7 @@ export default function SmartEVMinimalPremiumPage() {
                   href={tiktokUrl}
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="TikTok @icebenzttcmotorubon"
                   className="w-9 h-9 rounded-xl bg-rose-600/20 border border-rose-500/30 text-rose-400 hover:bg-rose-600 hover:text-white flex items-center justify-center transition"
                   title="TikTok"
                 >
@@ -1517,6 +1614,7 @@ export default function SmartEVMinimalPremiumPage() {
                 </a>
                 <a
                   href={`tel:${realPhoneRaw}`}
+                  aria-label={`โทรสายตรง ${realPhone}`}
                   className="w-9 h-9 rounded-xl bg-amber-400/20 border border-amber-400/30 text-amber-400 hover:bg-amber-400 hover:text-black flex items-center justify-center transition"
                   title="โทรสายตรง"
                 >
@@ -1534,9 +1632,10 @@ export default function SmartEVMinimalPremiumPage() {
             <p>
               🚀 Developed by{' '}
               <a
-                href="https://line.me/R/ti/p/@fhu6688s?text=สนใจบริการสร้างเว็บไซต์เซลเพจครับ"
+                href={`https://line.me/R/ti/p/@fhu6688s?text=${encodeURIComponent('สนใจบริการสร้างเว็บไซต์เซลเพจครับ')}`}
                 target="_blank"
                 rel="noreferrer"
+                aria-label="ติดต่อ SalesDesk AI ทาง LINE"
                 className="text-amber-400 hover:underline"
               >
                 SalesDesk AI

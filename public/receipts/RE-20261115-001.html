@@ -8,19 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- html2pdf.js for instant single-page PDF export -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
-    window.addEventListener('DOMContentLoaded', () => {
-      const params = new URLSearchParams(window.location.search);
-      const typeParam = params.get('type') || params.get('doc');
-      if (typeParam) {
-        switchDocumentType(typeParam.toUpperCase());
-      }
-      if (params.get('thor') !== null) {
-        setThorQuotation();
-      }
-    });
-
-  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
     * {
       box-sizing: border-box;
@@ -623,10 +611,10 @@
     <button class="tab-btn" id="tabQuotation" onclick="switchDocumentType('QUOTATION')">
       📑 ใบเสนอราคา (Quotation)
     </button>
-    <button class="tab-btn active" id="tabDeposit" onclick="switchDocumentType('DEPOSIT')">
+    <button class="tab-btn" id="tabDeposit" onclick="switchDocumentType('DEPOSIT')">
       📋 ใบรับเงินมัดจำ (Deposit Receipt)
     </button>
-    <button class="tab-btn" id="tabReceipt" onclick="switchDocumentType('RECEIPT')">
+    <button class="tab-btn active" id="tabReceipt" onclick="switchDocumentType('RECEIPT')">
       🧾 ใบเสร็จรับเงิน (Official Receipt)
     </button>
   </div>
@@ -640,7 +628,7 @@
     <div class="form-grid">
       <div class="form-group">
         <label>เลขที่เอกสาร</label>
-        <input type="text" id="inputReceiptNo" value="DP-20261115-001" oninput="updateReceiptData()">
+        <input type="text" id="inputReceiptNo" value="RE-20261115-001" oninput="updateReceiptData()">
       </div>
       <div class="form-group">
         <label>วันที่ออกเอกสาร</label>
@@ -707,28 +695,28 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px;">
           <div class="form-group">
             <label style="color: #34d399;">ยอดเงินมัดจำที่รับแล้ว (บาท):</label>
-            <input type="number" id="inputDepositAmount" value="2000" style="border-color: #34d399;" oninput="updateReceiptData()">
+            <input type="number" id="inputDepositAmount" value="3900" style="border-color: #34d399;" oninput="updateReceiptData()">
           </div>
           <div class="form-group">
             <label style="color: #f87171;">ยอดเงินคงเหลือชำระวันส่งมอบ (บาท):</label>
-            <input type="text" id="inputRemainingAmount" value="1900.00" readonly style="background: #1e293b; color: #f87171; font-weight: 700;">
+            <input type="text" id="inputRemainingAmount" value="0.00 บาท" readonly style="background: #1e293b; color: #f87171; font-weight: 700;">
           </div>
         </div>
       </div>
 
       <div class="form-group full-width">
         <label>รายละเอียดประกอบรายการ</label>
-        <textarea id="inputItemSub" rows="2" oninput="updateReceiptData()">• จัดทำหน้าเว็บเพจบริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด
-• โครงสร้างมาตรฐาน โหลดไว รองรับมือถือ 100% พร้อมระบบแสดงแคตาล็อกสินค้า
-• ฟรีบริการโฮสติ้งความเร็วสูง และส่งมอบงานแก้ไขจนกว่าจะพึงพอใจ</textarea>
+        <textarea id="inputItemSub" rows="2" oninput="updateReceiptData()">• จัดทำหน้าเว็บเพจบริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด (https://sites.salesdesk-ai.com/tandj-bedding)
+• โครงสร้างมาตรฐาน โหลดไว รองรับมือถือ 100% พร้อมระบบแสดงแคตาล็อกสินค้า & ส่งคำสั่งซื้อเข้า LINE OA อัตโนมัติ
+• ฟรีบริการโฮสติ้งความเร็วสูง และส่งมอบงานสมบูรณ์เรียบร้อย</textarea>
       </div>
       <div class="form-group">
         <label id="lblPaymentMethod">ช่องทางชำระเงิน</label>
-        <input type="text" id="inputPaymentMethod" value="โอนผ่านระบบธนาคารไทยพาณิชย์ (SCB)" oninput="updateReceiptData()">
+        <input type="text" id="inputPaymentMethod" value="โอนผ่านระบบธนาคารไทยพาณิชย์ (SCB) เข้า ธ.เกียรตินาคินภัทร (KKP) เลขที่ 2061291340" oninput="updateReceiptData()">
       </div>
       <div class="form-group">
         <label id="lblRefNo">รหัสอ้างอิงรายการโอน / วันหมดอายุ</label>
-        <input type="text" id="inputRefNo" value="261115112056" oninput="updateReceiptData()">
+        <input type="text" id="inputRefNo" value="SCB 261115112056" oninput="updateReceiptData()">
       </div>
     </div>
   </div>
@@ -757,34 +745,34 @@
         </div>
       </div>
       <div class="doc-meta">
-        <div class="doc-title" id="dispDocTitle">ใบรับเงินมัดจำ</div>
-        <div class="doc-subtitle" id="dispDocSubtitle">DEPOSIT RECEIPT (NON-VAT)</div>
-        <span class="badge-status badge-deposit" id="dispBadge">รับชำระเงินมัดจำแล้ว</span>
-        <div class="doc-meta-line"><strong>เลขที่เอกสาร:</strong> <span id="dispReceiptNo">DP-20261115-001</span></div>
+        <div class="doc-title" id="dispDocTitle">ใบเสร็จรับเงิน</div>
+        <div class="doc-subtitle" id="dispDocSubtitle">RECEIPT (NON-VAT)</div>
+        <span class="badge-status badge-paid" id="dispBadge">ชำระเงินเรียบร้อยแล้ว</span>
+        <div class="doc-meta-line"><strong>เลขที่เอกสาร:</strong> <span id="dispReceiptNo">RE-20261115-001</span></div>
         <div class="doc-meta-line"><strong>วันที่:</strong> <span id="dispDate">15 พฤศจิกายน 2569</span></div>
-        <div class="doc-meta-line" id="dispRefRow"><strong id="dispRefLabel">อ้างอิงโอน:</strong> <span id="dispRefNo">261115112056</span></div>
+        <div class="doc-meta-line" id="dispRefRow"><strong id="dispRefLabel">อ้างอิงโอน:</strong> <span id="dispRefNo">SCB 261115112056</span></div>
       </div>
     </div>
 
     <!-- Client & Payment Info -->
     <div class="info-grid">
       <div class="info-card">
-        <div class="info-label" id="dispClientCardLabel">ได้รับเงินมัดจำจาก (CUSTOMER)</div>
+        <div class="info-label" id="dispClientCardLabel">ได้รับเงินจาก (CUSTOMER)</div>
         <div class="info-name" id="dispCustomerName">บริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด</div>
         <div class="info-detail">
-          <strong>ผู้ติดต่อ:</strong> <span id="dispContactPerson">คุณ Thor</span><br>
+          <strong>ผู้ติดต่อ:</strong> <span id="dispContactPerson">คุณ Thor (tjbedding.salepagess)</span><br>
           <strong>โทรศัพท์:</strong> <span id="dispPhone">086-461-4614</span><br>
           <span id="dispAddressRow" style="display: none;"><strong>ที่อยู่:</strong> <span id="dispAddress">-</span><br></span>
           <strong>หมายเหตุ:</strong> ค่าจ้างทำเพจบริษัท
         </div>
       </div>
       <div class="info-card">
-        <div class="info-label" id="dispPaymentCardLabel">รายละเอียดการชำระมัดจำ (DEPOSIT DETAILS)</div>
+        <div class="info-label" id="dispPaymentCardLabel">รายละเอียดการชำระเงิน (PAYMENT METHOD)</div>
         <div class="info-detail" style="margin-top: 2px;" id="dispPaymentCardBody">
-          <strong>ช่องทางชำระ:</strong> <span id="dispPaymentMethod">โอนผ่านระบบธนาคารไทยพาณิชย์ (SCB)</span><br>
-          <strong>เข้าบัญชี:</strong> ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน) KKP<br>
-          <strong>เลขที่บัญชี:</strong> 2061291340 (มานพ ฤาชุตกุล)<br>
-          <strong>สถานะ:</strong> รับเงินมัดจำและเริ่มจัดทำระบบทันที
+          <strong>ช่องทางชำระ:</strong> <span id="dispPaymentMethod">โอนผ่านระบบธนาคารไทยพาณิชย์ (SCB) (บจก. ซัคเซส ลอนดรี้ฯ)</span><br>
+          <strong>เข้าบัญชี:</strong> ธนาคารเกียรตินาคินภัทร จำกัด (มหาชน) KKP เลขที่ 2061291340<br>
+          <strong>ชื่อบัญชี:</strong> นาย มานพ ฤาชุตกุล<br>
+          <strong>สถานะ:</strong> ได้รับชำระเงินครบถ้วนสมบูรณ์เรียบร้อย (3,900.00 บาท)
         </div>
       </div>
     </div>
@@ -805,9 +793,9 @@
           <td class="text-center" style="color: #64748b;">1</td>
           <td>
             <div class="item-desc" id="dispItemTitle">บริการจัดทำเว็บไซต์และเซลเพจพรีเมียม (SalesDesk Sites)</div>
-            <div class="item-sub" id="dispItemSub">• จัดทำหน้าเว็บเพจบริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด
-• โครงสร้างมาตรฐาน โหลดไว รองรับมือถือ 100% พร้อมระบบแสดงแคตาล็อกสินค้า
-• ฟรีบริการโฮสติ้งความเร็วสูง และส่งมอบงานแก้ไขจนกว่าจะพึงพอใจ</div>
+            <div class="item-sub" id="dispItemSub">• จัดทำหน้าเว็บเพจบริษัท ซัคเซส ลอนดรี้ แอนด์ โฮเทล ซัพพลายส์ จำกัด (https://sites.salesdesk-ai.com/tandj-bedding)
+• โครงสร้างมาตรฐาน โหลดไว รองรับมือถือ 100% พร้อมระบบแสดงแคตาล็อกสินค้า & ส่งคำสั่งซื้อเข้า LINE OA อัตโนมัติ
+• ฟรีบริการโฮสติ้งความเร็วสูง และส่งมอบงานสมบูรณ์เรียบร้อย</div>
           </td>
           <td class="text-center">1 งาน</td>
           <td class="text-right" id="dispTotalContractPrice">3,900.00</td>
@@ -818,7 +806,7 @@
 
     <!-- Baht Text -->
     <div class="baht-text-card">
-      <strong id="dispBahtLabel">จำนวนเงินมัดจำ (ตัวอักษร):</strong> <span id="dispBahtText">สองพันบาทถ้วน</span>
+      <strong id="dispBahtLabel">จำนวนเงินรวมทั้งสิ้น (ตัวอักษร):</strong> <span id="dispBahtText">สามพันเก้าร้อยบาทถ้วน</span>
     </div>
 
     <!-- Summary (With Deposit Deduction) -->
@@ -828,21 +816,21 @@
           <span>ราคาทั้งหมดตามใบเสนอราคา:</span>
           <span style="font-weight: 600; color: #1e293b;" id="dispSummaryTotalProject">3,900.00 บาท</span>
         </div>
-        <div class="summary-row highlight-deposit" id="rowDeductDeposit">
+        <div class="summary-row highlight-deposit" id="rowDeductDeposit" style="display: none;">
           <span>หัก: ชำระเงินมัดจำแล้ว (Deposit):</span>
-          <span id="dispSummaryDeposit">-2,000.00 บาท</span>
+          <span id="dispSummaryDeposit">-3,900.00 บาท</span>
         </div>
-        <div class="summary-row highlight-balance" id="rowRemainingBalance">
+        <div class="summary-row highlight-balance" id="rowRemainingBalance" style="display: none;">
           <span>คงเหลือชำระวันส่งมอบ (Balance):</span>
-          <span id="dispSummaryRemaining">1,900.00 บาท</span>
+          <span id="dispSummaryRemaining">0.00 บาท</span>
         </div>
         <div class="summary-row" id="rowVat">
           <span>ภาษีมูลค่าเพิ่ม (VAT 0% / Non-Vat):</span>
           <span>0.00 บาท</span>
         </div>
         <div class="summary-row total">
-          <span id="dispNetTotalLabel">ยอดเงินมัดจำสุทธิ:</span>
-          <span id="dispNetTotal">2,000.00 บาท</span>
+          <span id="dispNetTotalLabel">ยอดเงินสุทธิ (Net Total):</span>
+          <span id="dispNetTotal">3,900.00 บาท</span>
         </div>
       </div>
     </div>
@@ -870,7 +858,7 @@
         </div>
         <div class="sig-line"></div>
         <div class="sig-name">มานพ ฤาชุตกุล</div>
-        <div class="sig-role" id="dispReceiverRole">ผู้ออกใบเสนอราคา (SalesDesk AI)</div>
+        <div class="sig-role" id="dispReceiverRole">ผู้รับเงิน / ผู้มีอำนาจลงนาม (SalesDesk AI)</div>
       </div>
 
       <div class="qr-box">
@@ -887,7 +875,7 @@
   </div>
 
   <script>
-    let currentDocType = 'DEPOSIT';
+    let currentDocType = 'RECEIPT';
 
     function switchDocumentType(type) {
       currentDocType = type;
@@ -956,7 +944,7 @@
         badgeEl.textContent = 'ชำระเงินเรียบร้อยแล้ว';
         clientLabel.textContent = 'ได้รับเงินจาก (CUSTOMER)';
         payLabel.textContent = 'รายละเอียดการชำระเงิน (PAYMENT METHOD)';
-        payBody.innerHTML = '<strong>ช่องทางชำระ:</strong> ' + document.getElementById('inputPaymentMethod').value + '<br><strong>เข้าบัญชี:</strong> ธนาคารเกียรตินาคินภัทร (KKP) เลขที่ 2061291340<br><strong>ชื่อบัญชี:</strong> มานพ ฤาชุตกุล<br><strong>สถานะ:</strong> ยอดเงินเข้าบัญชีสมบูรณ์เรียบร้อย';
+        payBody.innerHTML = '<strong>ช่องทางชำระ:</strong> ' + document.getElementById('inputPaymentMethod').value + '<br><strong>เข้าบัญชี:</strong> ธนาคารเกียรตินาคินภัทร (KKP) เลขที่ 2061291340<br><strong>ชื่อบัญชี:</strong> นาย มานพ ฤาชุตกุล<br><strong>สถานะ:</strong> ได้รับชำระเงินครบถ้วนสมบูรณ์เรียบร้อย (3,900.00 บาท)';
         receiverRole.textContent = 'ผู้รับเงิน / ผู้มีอำนาจลงนาม (SalesDesk AI)';
         footerNote.innerHTML = 'เอกสารฉบับนี้ออกโดยระบบคอมพิวเตอร์อัตโนมัติ SalesDesk AI Platform<br>ขอบพระคุณที่ไว้วางใจเลือกใช้บริการจัดทำเว็บไซต์และเซลเพจกับเราครับ ';
         netTotalLabel.textContent = 'ยอดเงินสุทธิ (Net Total):';
@@ -1153,6 +1141,8 @@
       const typeParam = params.get('type') || params.get('doc');
       if (typeParam) {
         switchDocumentType(typeParam.toUpperCase());
+      } else {
+        switchDocumentType('RECEIPT');
       }
       if (params.get('thor') !== null) {
         setThorQuotation();
